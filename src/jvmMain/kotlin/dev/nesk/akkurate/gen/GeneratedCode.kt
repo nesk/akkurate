@@ -19,48 +19,29 @@ import dev.nesk.akkurate.api.Validatable
 import java.time.Instant
 import kotlin.reflect.KClass
 
-inline fun Validator(klass: KClass<Long>, block: ValidatableLong.() -> Unit) {}
-interface ValidatableLong : Validatable<Long>
-
-inline fun Validator(klass: KClass<Int>, block: ValidatableInt.() -> Unit) {}
-interface ValidatableInt : Validatable<Int>
-
-inline fun Validator(klass: KClass<String>, block: ValidatableString.() -> Unit) {}
-interface ValidatableString : Validatable<String>
-
+// String
 fun Validatable<String>.minLength(length: Int): Constraint<String> = TODO()
 fun Validatable<String>.maxLength(length: Int): Constraint<String> = TODO()
-inline fun <T> Validator(klass: KClass<Collection<T>>, block: ValidatableCollection<T>.() -> Unit) {}
-interface ValidatableCollection<out T> : Validatable<Collection<T>>, Iterable<T>
 
+// Iterables
+operator fun <T> Validatable<Iterable<T>>.iterator(): Iterator<T> = TODO()
 fun <T> Validatable<Collection<T>>.minSize(length: Int): Constraint<Collection<T>> = TODO()
 fun <T> Validatable<Collection<T>>.maxSize(length: Int): Constraint<Collection<T>> = TODO()
-inline fun <T> Validator(klass: KClass<Set<T>>, block: ValidatableSet<T>.() -> Unit) {}
-interface ValidatableSet<out T> : ValidatableCollection<T>
 
-inline fun Validator(klass: KClass<Instant>, block: ValidatableInstant.() -> Unit) {}
-interface ValidatableInstant : Validatable<Instant> {
-    val firstName: ValidatableString
-    val seconds: ValidatableLong
-    val nanos: ValidatableInt
-}
-
+// Instant
+val Validatable<Instant>.seconds: Validatable<Long> get() = TODO()
+val Validatable<Instant>.nanos: Validatable<Int> get() = TODO()
 fun Validatable<Instant>.before(other: Instant): Constraint<Instant> = TODO()
-inline fun Validator(klass: KClass<Company>, block: ValidatableCompany.() -> Unit) {}
-interface ValidatableCompany : Validatable<Company> {
-    val name: ValidatableString
-    val plan: ValidatablePlan
-    val users: ValidatableSet<ValidatableUser>
-}
 
-inline fun Validator(klass: KClass<Plan>, block: ValidatablePlan.() -> Unit) {}
-interface ValidatablePlan : Validatable<Plan> {
-    val maximumUserCount: Int
-}
+// Company
+val Validatable<Company>.name: Validatable<String> get() = TODO()
+val Validatable<Company>.plan: Validatable<Plan> get() = TODO()
+val Validatable<Company>.users: Validatable<Set<Validatable<User>>> get() = TODO()
 
-inline fun Validator(klass: KClass<User>, block: ValidatableUser.() -> Unit) {}
-interface ValidatableUser : Validatable<User> {
-    val firstName: ValidatableString
-    val lastName: ValidatableString
-    val birthDay: ValidatableInstant
-}
+// Plan
+val Validatable<Plan>.maximumUserCount: Validatable<Int> get() = TODO()
+
+// User
+val Validatable<User>.firstName: Validatable<String> get() = TODO()
+val Validatable<User>.lastName: Validatable<String> get() = TODO()
+val Validatable<User>.birthDay: Validatable<Instant> get() = TODO()

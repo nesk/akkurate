@@ -15,16 +15,18 @@ enum class Plan(val maximumUserCount: Int) {
 @Validate
 data class User(val firstName: String, val lastName: String, val birthDay: Instant)
 
-val validateCompany = dev.nesk.akkurate.gen.Validator(Company::class) {
+val validateCompany = Validator<Company> {
     name {
         minLength(3) explain { "${it.trim()} is too short" }
         maxLength(50) explain { "${it.trim()} is too long" }
     }
 
-    for (user: ValidatableUser in users) with(user) {
-        firstName and lastName {
-            minLength(3)
-            maxLength(50)
+    for (user in users) user {
+        allOf {
+            firstName and lastName {
+                minLength(3)
+                maxLength(50)
+            }
         } explain "Names must be between 3 and 50 chars."
 
         birthDay.before(Instant.now())
