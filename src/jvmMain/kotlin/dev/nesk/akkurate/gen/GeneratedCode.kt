@@ -23,10 +23,10 @@ import kotlin.reflect.KClass
 fun Validatable<String>.minLength(length: Int): Constraint<String> = TODO()
 fun Validatable<String>.maxLength(length: Int): Constraint<String> = TODO()
 
-// Iterables
-operator fun <T> Validatable<Iterable<T>>.iterator(): Iterator<T> = TODO()
-fun <T> Validatable<Collection<T>>.minSize(length: Int): Constraint<Collection<T>> = TODO()
-fun <T> Validatable<Collection<T>>.maxSize(length: Int): Constraint<Collection<T>> = TODO()
+// Iterables (see: https://kotlinlang.slack.com/archives/C0B8MA7FA/p1683643554178309)
+operator fun <T> Validatable<out Iterable<T>>.iterator(): Iterator<T> = TODO()
+fun <T> Validatable<out Collection<T>>.minSize(length: Int): Constraint<Collection<T>> = TODO()
+fun <T> Validatable<out Collection<T>>.maxSize(length: Int): Constraint<Collection<T>> = TODO()
 
 // Instant
 val Validatable<Instant>.seconds: Validatable<Long> get() = TODO()
