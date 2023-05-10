@@ -17,31 +17,30 @@ import dev.nesk.akkurate.User
 import dev.nesk.akkurate.api.Constraint
 import dev.nesk.akkurate.api.Validatable
 import java.time.Instant
-import kotlin.reflect.KClass
 
 // String
 fun Validatable<String>.minLength(length: Int): Constraint<String> = TODO()
 fun Validatable<String>.maxLength(length: Int): Constraint<String> = TODO()
 
 // Iterables (see: https://kotlinlang.slack.com/archives/C0B8MA7FA/p1683643554178309)
-operator fun <T> Validatable<out Iterable<T>>.iterator(): Iterator<T> = TODO()
+operator fun <T> Validatable<out Iterable<T>>.iterator(): Iterator<Validatable<T>> = TODO()
 fun <T> Validatable<out Collection<T>>.minSize(length: Int): Constraint<Collection<T>> = TODO()
 fun <T> Validatable<out Collection<T>>.maxSize(length: Int): Constraint<Collection<T>> = TODO()
 
 // Instant
-val Validatable<Instant>.seconds: Validatable<Long> get() = TODO()
-val Validatable<Instant>.nanos: Validatable<Int> get() = TODO()
+val Validatable<Instant>.epochSeconds: Validatable<Long> get() = getValidatableValue(Instant::getEpochSecond)
+val Validatable<Instant>.nanos: Validatable<Int> get() = getValidatableValue(Instant::getNano)
 fun Validatable<Instant>.before(other: Instant): Constraint<Instant> = TODO()
 
 // Company
-val Validatable<Company>.name: Validatable<String> get() = TODO()
-val Validatable<Company>.plan: Validatable<Plan> get() = TODO()
-val Validatable<Company>.users: Validatable<Set<Validatable<User>>> get() = TODO()
+val Validatable<Company>.name: Validatable<String> get() = getValidatableValue(Company::name)
+val Validatable<Company>.plan: Validatable<Plan> get() = getValidatableValue(Company::plan)
+val Validatable<Company>.users: Validatable<Set<User>> get() = getValidatableValue(Company::users)
 
 // Plan
-val Validatable<Plan>.maximumUserCount: Validatable<Int> get() = TODO()
+val Validatable<Plan>.maximumUserCount: Validatable<Int> get() = getValidatableValue(Plan::maximumUserCount)
 
 // User
-val Validatable<User>.firstName: Validatable<String> get() = TODO()
-val Validatable<User>.lastName: Validatable<String> get() = TODO()
-val Validatable<User>.birthDay: Validatable<Instant> get() = TODO()
+val Validatable<User>.firstName: Validatable<String> get() = getValidatableValue(User::firstName)
+val Validatable<User>.lastName: Validatable<String> get() = getValidatableValue(User::lastName)
+val Validatable<User>.birthDay: Validatable<Instant> get() = getValidatableValue(User::birthDay)
