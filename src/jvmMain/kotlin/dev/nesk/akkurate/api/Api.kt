@@ -21,7 +21,9 @@ operator fun <T> Validatable<T>.invoke(block: Validatable<T>.() -> Unit) {
 }
 
 interface Constraint<T> {
-    infix fun explain(messageBuilder: (T) -> String): Constraint<T>
-    infix fun withPath(path: String): Constraint<T>
+    infix fun explain(messageBuilder: (value: T) -> String): Constraint<T>
+    infix fun withPath(pathBuilder: (oldPath: List<String>) -> List<String>): Constraint<T>
 }
 infix fun <T> Constraint<T>.explain(message: String): Constraint<T> = explain { message }
+infix fun <T> Constraint<T>.withPath(path: List<String>): Constraint<T> = withPath { path }
+infix fun <T> Constraint<T>.withPath(fragment: String): Constraint<T> = withPath(listOf(fragment))
