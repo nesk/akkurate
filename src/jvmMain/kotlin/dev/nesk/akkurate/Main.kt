@@ -9,7 +9,9 @@ data class Company(val name: String, val plan: Plan, val users: Set<User>)
 
 @Validate
 enum class Plan(val maximumUserCount: Int) {
-    FREE(1), BASIC(5), PREMIUM(15)
+    FREE(1),
+    BASIC(5),
+    PREMIUM(15),
 }
 
 @Validate

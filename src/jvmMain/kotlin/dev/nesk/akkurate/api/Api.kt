@@ -16,9 +16,7 @@ interface Validatable<T> {
     fun <V> getValidatableValue(property: KProperty1<T, V>): Validatable<V>
     fun <V> getValidatableValue(property: KFunction1<T, V>): Validatable<V>
 }
-operator fun <T> Validatable<T>.invoke(block: Validatable<T>.() -> Unit) {
-    this.block()
-}
+operator fun <T> Validatable<T>.invoke(block: Validatable<T>.() -> Unit) = this.block()
 
 interface Constraint<T> {
     infix fun explain(messageBuilder: (value: T) -> String): Constraint<T>
