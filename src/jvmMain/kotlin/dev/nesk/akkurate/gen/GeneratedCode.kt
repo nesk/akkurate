@@ -19,6 +19,8 @@ import dev.nesk.akkurate.api.Validatable
 import java.time.Instant
 
 // String
+fun Validatable<String>.empty(): Constraint<String> = TODO()
+fun Validatable<String>.notEmpty(): Constraint<String> = TODO()
 fun Validatable<String>.minLength(length: Int): Constraint<String> = TODO()
 fun Validatable<String>.maxLength(length: Int): Constraint<String> = TODO()
 
@@ -35,6 +37,7 @@ fun Validatable<Instant>.before(other: Instant): Constraint<Instant> = TODO()
 
 // Company
 val Validatable<Company>.name: Validatable<String> get() = getValidatableValue(Company::name)
+val Validatable<Company>.optionalShortName: Validatable<String> get() = getValidatableValue(Company::optionalShortName)
 val Validatable<Company>.plan: Validatable<Plan> get() = getValidatableValue(Company::plan)
 val Validatable<Company>.users: Validatable<Set<User>> get() = getValidatableValue(Company::users)
 

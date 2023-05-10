@@ -19,9 +19,12 @@ interface Validatable<T> {
 operator fun <T> Validatable<T>.invoke(block: Validatable<T>.() -> Unit) = this.block()
 
 interface Constraint<T> {
+    fun matches(): Boolean // TODO: find a better name to describe the fact it will never be used as a constraint, you only check the value
     infix fun explain(messageBuilder: (value: T) -> String): Constraint<T>
     infix fun withPath(pathBuilder: (oldPath: List<String>) -> List<String>): Constraint<T>
 }
+infix fun <T> Constraint<T>.ifMatches(block: () -> Unit) = if (matches()) block() else Unit
 infix fun <T> Constraint<T>.explain(message: String): Constraint<T> = explain { message }
+infix fun <T> Constraint<T>.withPath(pathBuilder: (oldPath: List<String>) -> String) = withPath { listOf(pathBuilder(it)) }
 infix fun <T> Constraint<T>.withPath(path: List<String>): Constraint<T> = withPath { path }
 infix fun <T> Constraint<T>.withPath(fragment: String): Constraint<T> = withPath(listOf(fragment))

@@ -5,7 +5,7 @@ import dev.nesk.akkurate.gen.*
 import java.time.Instant
 
 @Validate
-data class Company(val name: String, val plan: Plan, val users: Set<User>)
+data class Company(val name: String, val optionalShortName: String, val plan: Plan, val users: Set<User>)
 
 @Validate
 enum class Plan(val maximumUserCount: Int) {
@@ -23,6 +23,10 @@ val validateCompany = Validator<Company> {
         maxLength(50) explain { "${it.trim()} is too long" }
     }
 
+    optionalShortName.notEmpty().ifMatches {
+        optionalShortName.minLength(2)
+        optionalShortName.maxLength(10)
+    }
 
     for (user in users) user {
         allOf {
@@ -42,11 +46,12 @@ val validateCompany = Validator<Company> {
 
 fun main() {
     val johann = User("Johann", "Pardanaud", Instant.now())
-    val company = Company("NESK", Plan.BASIC, setOf(johann))
+    val company = Company("NESK", "NK", Plan.BASIC, setOf(johann))
     validateCompany(company)
 }
 
 /**
  * - support suspendable validation
  * - atomic, oneOf, allOf
+ * - composable validation
  */
