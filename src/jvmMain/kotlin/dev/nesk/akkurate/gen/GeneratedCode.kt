@@ -24,6 +24,7 @@ fun Validatable<String>.maxLength(length: Int): Constraint<String> = TODO()
 
 // Iterables (see: https://kotlinlang.slack.com/archives/C0B8MA7FA/p1683643554178309)
 operator fun <T> Validatable<out Iterable<T>>.iterator(): Iterator<Validatable<T>> = TODO()
+fun <T> Validatable<out Iterable<T>>.each(block: Validatable<T>.() -> Unit): Unit = TODO()
 fun <T> Validatable<out Collection<T>>.minSize(length: Int): Constraint<Collection<T>> = TODO()
 fun <T> Validatable<out Collection<T>>.maxSize(length: Int): Constraint<Collection<T>> = TODO()
 
