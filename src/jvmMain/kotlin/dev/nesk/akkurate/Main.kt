@@ -21,6 +21,7 @@ val validateCompany = Validator<Company> {
         maxLength(50) explain { "${it.trim()} is too long" }
     }
 
+    // maybe add something to abstract the loop? For example a `fun Validatable<out Iterable<T>>.forAll(block: T.() -> Unit)` used like `forAll(users) { ... }`
     for (user in users) user {
         allOf {
             firstName and lastName {
