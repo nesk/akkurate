@@ -35,6 +35,12 @@ val validateCompany = Validator<Company> {
     users.maxSize(plan.value.maximumUserCount) explain "Your plan is limited to {value} seats." withPath "company.seats"
 }
 
+fun main() {
+    val johann = User("Johann", "Pardanaud", Instant.now())
+    val company = Company("NESK", Plan.BASIC, setOf(johann))
+    validateCompany(company)
+}
+
 /**
  * - support suspendable validation
  * - atomic, oneOf, allOf

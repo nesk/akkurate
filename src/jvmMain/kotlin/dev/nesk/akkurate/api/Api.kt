@@ -2,7 +2,7 @@ package dev.nesk.akkurate.api
 
 annotation class Validate
 
-inline fun <T> Validator(block: Validatable<T>.() -> Unit) {}
+inline fun <T> Validator(block: Validatable<T>.() -> Unit): (T) -> Unit = TODO()
 
 interface Validatable<out T> {
     val path: List<String>
