@@ -18,22 +18,13 @@ import dev.nesk.akkurate.api.Constraint
 import dev.nesk.akkurate.api.Validatable
 import java.time.Instant
 
-// String
-fun Validatable<String>.empty(): Constraint<String> = TODO()
-fun Validatable<String>.notEmpty(): Constraint<String> = TODO()
-fun Validatable<String>.minLength(length: Int): Constraint<String> = TODO()
-fun Validatable<String>.maxLength(length: Int): Constraint<String> = TODO()
-
 // Iterables (see: https://kotlinlang.slack.com/archives/C0B8MA7FA/p1683643554178309)
 operator fun <T> Validatable<out Iterable<T>>.iterator(): Iterator<Validatable<T>> = TODO()
 fun <T> Validatable<out Iterable<T>>.each(block: Validatable<T>.() -> Unit): Unit = TODO()
-fun <T> Validatable<out Collection<T>>.minSize(length: Int): Constraint<Collection<T>> = TODO()
-fun <T> Validatable<out Collection<T>>.maxSize(length: Int): Constraint<Collection<T>> = TODO()
 
 // Instant
 val Validatable<Instant>.epochSeconds: Validatable<Long> get() = getValidatableValue(Instant::getEpochSecond)
 val Validatable<Instant>.nanos: Validatable<Int> get() = getValidatableValue(Instant::getNano)
-fun Validatable<Instant>.before(other: Instant): Constraint<Instant> = TODO()
 
 // Company
 val Validatable<Company>.name: Validatable<String> get() = getValidatableValue(Company::name)
