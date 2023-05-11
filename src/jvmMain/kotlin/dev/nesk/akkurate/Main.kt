@@ -19,8 +19,8 @@ data class User(val firstName: String, val lastName: String, val birthDay: Insta
 
 val validateCompany = Validator<Company> {
     name {
-        minLength(3) explain { "${it.trim()} is too short" }
-        maxLength(50) explain { "${it.trim()} is too long" }
+        minLength(3) explain "{value} is too short"
+        maxLength(50) explain "{value} is too long"
     }
 
     optionalShortName.notEmpty().ifMatches {
@@ -41,7 +41,8 @@ val validateCompany = Validator<Company> {
         birthDay.before(Instant.now())
     }
 
-    users.maxSize(plan.value.maximumUserCount) explain "Your plan is limited to {value} seats." withPath "company.seats"
+    val maxSeats = plan.value.maximumUserCount
+    users.maxSize(maxSeats) explain { "Your plan is limited to $maxSeats seats." } withPath "company.seats"
 }
 
 fun main() {
