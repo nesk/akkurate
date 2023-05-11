@@ -24,7 +24,7 @@ interface Constraint<T> {
     infix fun withPath(pathBuilder: (oldPath: List<String>) -> List<String>): Constraint<T>
 }
 infix fun <T> Constraint<T>.ifMatches(block: () -> Unit) = if (matches()) block() else Unit
-infix fun <T> Constraint<T>.explain(message: String): Constraint<T> = explain { message }
+infix fun <T> Constraint<T>.explain(message: String): Constraint<T> = explain { message.replace("{value", it.toString()) }
 infix fun <T> Constraint<T>.withPath(pathBuilder: (oldPath: List<String>) -> String) = withPath { listOf(pathBuilder(it)) }
 infix fun <T> Constraint<T>.withPath(path: List<String>): Constraint<T> = withPath { path }
 infix fun <T> Constraint<T>.withPath(fragment: String): Constraint<T> = withPath(listOf(fragment))
