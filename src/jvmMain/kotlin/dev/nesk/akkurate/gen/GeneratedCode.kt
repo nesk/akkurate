@@ -20,7 +20,7 @@ import java.time.Instant
 
 // Iterables (see: https://kotlinlang.slack.com/archives/C0B8MA7FA/p1683643554178309)
 operator fun <T> Validatable<out Iterable<T>>.iterator(): Iterator<Validatable<T>> = TODO()
-fun <T> Validatable<out Iterable<T>>.each(block: Validatable<T>.() -> Unit): Unit = TODO()
+inline fun <T> Validatable<out Iterable<T>>.each(block: Validatable<T>.() -> Unit): Unit = TODO()
 
 // Instant
 val Validatable<Instant>.epochSeconds: Validatable<Long> get() = getValidatableValue(Instant::getEpochSecond)

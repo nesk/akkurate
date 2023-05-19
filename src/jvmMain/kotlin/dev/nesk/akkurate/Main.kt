@@ -17,7 +17,9 @@ enum class Plan(val maximumUserCount: Int) {
 @Validate
 data class User(val firstName: String, val lastName: String, val birthDay: Instant)
 
-val validateCompany = Validator<Company> {
+suspend fun computeSomeData() {}
+
+val validateCompany = Validator.suspendable<Company> {
     name {
         minLength(3) explain "{value} is too short"
         maxLength(50) explain "{value} is too long"
@@ -38,6 +40,7 @@ val validateCompany = Validator<Company> {
     }
 
     users.each {
+        computeSomeData()
         birthDay.before(Instant.now())
     }
 
@@ -45,14 +48,13 @@ val validateCompany = Validator<Company> {
     users.maxSize(maxSeats) explain { "Your plan is limited to $maxSeats seats." } withPath "company.seats"
 }
 
-fun main() {
+suspend fun main() {
     val johann = User("Johann", "Pardanaud", Instant.now())
     val company = Company("NESK", "NK", Plan.BASIC, setOf(johann))
     validateCompany(company)
 }
 
 /**
- * - support suspendable validation
  * - atomic, oneOf, allOf
  * - composable validation
  */
