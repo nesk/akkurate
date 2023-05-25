@@ -37,5 +37,6 @@ val Validatable<Plan>.maximumUserCount: Validatable<Int> get() = getValidatableV
 
 // User
 val Validatable<User>.firstName: Validatable<String> get() = getValidatableValue(User::firstName)
+val Validatable<User>.middleName: Validatable<String> get() = getValidatableValue(User::middleName)
 val Validatable<User>.lastName: Validatable<String> get() = getValidatableValue(User::lastName)
 val Validatable<User>.birthDay: Validatable<Instant> get() = getValidatableValue(User::birthDay)

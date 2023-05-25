@@ -15,7 +15,7 @@ enum class Plan(val maximumUserCount: Int) {
 }
 
 @Validate
-data class User(val firstName: String, val lastName: String, val birthDay: Instant)
+data class User(val firstName: String, val middleName: String, val lastName: String, val birthDay: Instant)
 
 suspend fun computeSomeData() {}
 
@@ -31,12 +31,13 @@ val validateCompany = Validator.suspendable<Company> {
     }
 
     for (user in users) user {
-        allOf {
-            firstName and lastName {
+//        allOf {
+            (firstName and middleName and lastName) {
                 minLength(3)
                 maxLength(50)
+                computeSomeData()
             }
-        } explain "Names must be between 3 and 50 chars."
+//        } explain "Names must be between 3 and 50 chars."
     }
 
     users.each {
@@ -49,7 +50,7 @@ val validateCompany = Validator.suspendable<Company> {
 }
 
 suspend fun main() {
-    val johann = User("Johann", "Pardanaud", Instant.now())
+    val johann = User("Johann", "Jesse", "Pardanaud", Instant.now())
     val company = Company("NESK", "NK", Plan.BASIC, setOf(johann))
     validateCompany(company)
 }
