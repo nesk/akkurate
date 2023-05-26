@@ -22,6 +22,8 @@ interface Validatable<T> {
     fun <V> getValidatableValue(property: KFunction1<T, V>): Validatable<V>
 }
 inline operator fun <T> Validatable<T>.invoke(block: Validatable<T>.() -> Unit) = this.block()
+inline fun <T> Validatable<T>.onlyIf(conditions: Validatable<T>.() -> Unit, block: Validatable<T>.() -> Unit): Unit = TODO()
+inline fun <T> Validatable<T>.matches(block: Validatable<T>.() -> Unit): Boolean = TODO()
 
 /*
     This way of managing compound validation doesn't allow to write `foo and bar {}` without parentheses around the compound: `(foo and bar) {}`
@@ -51,12 +53,9 @@ infix fun <T1, T2: Any?> Validatable<T1>.and(other: Validatable<T2>): CompoundVa
 
 interface Constraint<T> {
     val value: T
-    fun matches(): Boolean // TODO: find a better name to describe the fact it will never be used as a constraint, you only check the value
     var message: String
     var path: List<String>
 }
-
-inline infix fun <T> Constraint<T>.ifMatches(block: () -> Unit) = if (matches()) block() else Unit
 
 inline infix fun <T> Constraint<T>.explain(messageBuilder: (value: T) -> String) = apply { message = messageBuilder(value) }
 infix fun <T> Constraint<T>.explain(message: String): Constraint<T> = explain { message.replace("{value", it.toString()) }

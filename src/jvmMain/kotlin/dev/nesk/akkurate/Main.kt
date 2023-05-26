@@ -25,7 +25,12 @@ val validateCompany = Validator.suspendable<Company> {
         maxLength(50) explain "{value} is too long"
     }
 
-    optionalShortName.notEmpty().ifMatches {
+    optionalShortName.onlyIf({ notEmpty() }) {
+        minLength(2)
+        maxLength(10)
+    }
+
+    if (optionalShortName.matches { notEmpty() }) {
         optionalShortName.minLength(2)
         optionalShortName.maxLength(10)
     }
