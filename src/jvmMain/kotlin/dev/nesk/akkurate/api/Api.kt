@@ -14,7 +14,7 @@ class Validator {
 
 interface Validatable<T> {
     val path: List<String>
-    val value: T
+    val value: T // TODO: maybe an `unwrap()` method would be easier for the user to understand?
 
     // those were imagined for caching all the Validatable decorators but since they are bound to a class/property couple
     // and not to specific instances, I'm not sure they really bring anything worth
