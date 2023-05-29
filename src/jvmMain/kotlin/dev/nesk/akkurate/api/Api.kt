@@ -5,10 +5,76 @@ import kotlin.reflect.KFunction1
 
 annotation class Validate
 
-class Validator {
+interface Validator {
     companion object {
-        inline operator fun <T> invoke(block: Validatable<T>.() -> Unit): (T) -> Unit = TODO()
-        fun <T> suspendable(block: suspend Validatable<T>.() -> Unit): suspend (T) -> Unit = TODO()
+        operator fun <T> invoke(block: Validatable<T>.() -> Unit) = Common(block)
+        fun <T> suspendable(block: suspend Validatable<T>.() -> Unit) = Suspendable(block)
+    }
+
+    class Common<T>(private val block: Validatable<T>.() -> Unit) {
+        operator fun invoke(value: T): ValidationResult<T> = TODO()
+    }
+
+    class Suspendable<T>(private val block: suspend Validatable<T>.() -> Unit) {
+        suspend operator fun invoke(value: T): ValidationResult<T> = TODO()
+    }
+}
+
+sealed interface ValidationResult<out T> {
+    /** @throws ValidationException */
+    fun orThrow()
+
+    object Success: ValidationResult<Nothing> {
+        override fun orThrow() = Unit
+    }
+
+    class Failure<T> internal constructor(val errors: ValidationErrors.FlatList, val value: T): ValidationResult<T> {
+        operator fun component1() = errors
+        operator fun component2() = value
+
+        override fun orThrow(): Nothing = throw ValidationException(errors)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (javaClass != other?.javaClass) return false
+
+            other as Failure<*>
+
+            if (errors != other.errors) return false
+            return value == other.value
+        }
+
+        override fun hashCode(): Int {
+            var result = errors.hashCode()
+            result = 31 * result + (value?.hashCode() ?: 0)
+            return result
+        }
+
+        override fun toString() = "Failure(errors=$errors, value=$value)"
+    }
+}
+
+class ValidationException internal constructor(val errors: ValidationErrors.FlatList): RuntimeException()
+
+sealed interface ValidationErrors {
+    @JvmInline
+    value class FlatList(private val errors: Set<Field.Error>): ValidationErrors, Set<Field.Error> by errors {
+        fun groupByPath(): GroupedByPath = TODO()
+    }
+
+    @JvmInline
+    value class GroupedByPath(private val errors: Map<List<String>, Field.Errors>): ValidationErrors, Map<List<String>, Field.Errors> by errors
+}
+
+interface Field {
+    val path: List<String>
+
+    interface Error: Field {
+        val errorMessage: String
+    }
+
+    interface Errors: Field {
+        val errorMessages: Set<String>
     }
 }
 

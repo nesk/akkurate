@@ -19,7 +19,7 @@ data class User(val firstName: String, val middleName: String, val lastName: Str
 
 suspend fun computeSomeData() {}
 
-val validateCompany = Validator.suspendable<Company> {
+val validate = Validator.suspendable<Company> {
     name {
         minLength(3) explain "{value} is too short"
         maxLength(50) explain "{value} is too long"
@@ -57,7 +57,26 @@ val validateCompany = Validator.suspendable<Company> {
 suspend fun main() {
     val johann = User("Johann", "Jesse", "Pardanaud", Instant.now())
     val company = Company("NESK", "NK", Plan.BASIC, setOf(johann))
-    validateCompany(company)
+
+    when (val result = validate(company)) {
+        ValidationResult.Success -> println("Success!")
+        is ValidationResult.Failure -> {
+            val (errors, company) = result
+            println("Failure with company ${company.name}…")
+            for (fieldErrors in errors.groupByPath().values) {
+                println("Field \"${fieldErrors.path}\":")
+                for (message in fieldErrors.errorMessages) {
+                    println("- $message")
+                }
+            }
+        }
+    }
+
+    try {
+        validate(company).orThrow()
+    } catch (e: ValidationException) {
+        println(e.errors.groupByPath())
+    }
 }
 
 /**
