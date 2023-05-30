@@ -14,7 +14,6 @@ package dev.nesk.akkurate.gen
 import dev.nesk.akkurate.Company
 import dev.nesk.akkurate.Plan
 import dev.nesk.akkurate.User
-import dev.nesk.akkurate.api.Constraint
 import dev.nesk.akkurate.api.Validatable
 import java.time.Instant
 
