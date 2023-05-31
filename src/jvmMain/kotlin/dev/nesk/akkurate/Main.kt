@@ -21,12 +21,24 @@ enum class Plan(val maximumUserCount: Int) {
 @Validate
 data class User(val firstName: String, val middleName: String, val lastName: String, val birthDay: Instant)
 
+data class CompanyValidationContext(val repository: CompanyRepository)
+class CompanyRepository {
+    suspend fun hasCompanyWithName(name: String): Boolean = TODO()
+}
+
 suspend fun computeSomeData() {}
 
-val validate = Validator.suspendable<Company> {
+val validate = Validator.suspendable<CompanyValidationContext, Company> { (repository) ->
+    // TODO: This is a perfect example for conditional constraints. Imagine you allow company names with at least 1 char, time
+    //  passes and you have some one-char company names in your database, but now you want to raise the minimum char count
+    //  to 3, without changing the older companies. Ìf you just write `minLength(3); inexistant(name)` and the user provides
+    //  a 2 chars name which already exists, he will get two validation errors; one about the minimum length and one about
+    //  the already existing name. We only want the use to get the error about the minimum length, so we could write
+    //  `if (minLength(3)) { inexistant(name) }`, that way we check the database only when the name is already long enough.
     name {
         minLength(3) explain "{value} is too short"
         maxLength(50) explain "{value} is too long"
+        constrain { repository.hasCompanyWithName(it) } explain "A company already exists with name {value}"
     }
 
     optionalShortName.onlyIf({ notEmpty() }) {
@@ -62,7 +74,9 @@ suspend fun main() {
     val johann = User("Johann", "Jesse", "Pardanaud", Instant.now())
     val company = Company("NESK", "NK", Plan.BASIC, setOf(johann))
 
-    when (val result = validate(company)) {
+    val validateWithContext = validate(CompanyValidationContext(CompanyRepository()))
+
+    when (val result = validateWithContext(company)) {
         ValidationResult.Success -> println("Success!")
         is ValidationResult.Failure -> {
             val (errors, company) = result
@@ -77,7 +91,7 @@ suspend fun main() {
     }
 
     try {
-        validate(company).orThrow()
+        validateWithContext(company).orThrow()
     } catch (e: ValidationException) {
         println(e.errors.groupByPath())
     }
@@ -86,5 +100,5 @@ suspend fun main() {
 /**
  * - atomic, oneOf, allOf
  * - composable validation
- * - context
+ * - traversal with nullable values
  */
