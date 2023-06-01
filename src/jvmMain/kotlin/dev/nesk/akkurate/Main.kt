@@ -28,7 +28,11 @@ class CompanyRepository {
 
 suspend fun computeSomeData() {}
 
-val validate = Validator.suspendable<CompanyValidationContext, Company> { (repository) ->
+val config = Validator.Configuration {
+    rootPath += "company"
+}
+
+val validateCompany = Validator.suspendable<CompanyValidationContext, Company>(config) { (repository) ->
     // TODO: This is a perfect example for conditional constraints. Imagine you allow company names with at least 1 char, time
     //  passes and you have some one-char company names in your database, but now you want to raise the minimum char count
     //  to 3, without changing the older companies. Ìf you just write `minLength(3); inexistant(name)` and the user provides
@@ -74,7 +78,7 @@ suspend fun main() {
     val johann = User("Johann", "Jesse", "Pardanaud", Instant.now())
     val company = Company("NESK", "NK", Plan.BASIC, setOf(johann))
 
-    val validateWithContext = validate(CompanyValidationContext(CompanyRepository()))
+    val validateWithContext = validateCompany(CompanyValidationContext(CompanyRepository()))
 
     when (val result = validateWithContext(company)) {
         ValidationResult.Success -> println("Success!")

@@ -3,20 +3,36 @@ package dev.nesk.akkurate.api
 interface Validator {
     companion object {
         operator fun <ContextType, ValueType> invoke(
+            configuration: Configuration = Configuration(),
             block: Validatable<ValueType>.(context: ContextType) -> Unit
         ): Runner.WithContext<ContextType, ValueType> = ValidatorRunner(block)
 
         operator fun <ValueType> invoke(
+            configuration: Configuration = Configuration(),
             block: Validatable<ValueType>.() -> Unit
         ): Runner<ValueType> = ValidatorRunner.WithoutContext(block)
 
         fun <ContextType, ValueType> suspendable(
+            configuration: Configuration = Configuration(),
             block: suspend Validatable<ValueType>.(context: ContextType) -> Unit
         ): SuspendableRunner.WithContext<ContextType, ValueType> = SuspendableValidatorRunner(block)
 
         fun <ValueType> suspendable(
+            configuration: Configuration = Configuration(),
             block: suspend Validatable<ValueType>.() -> Unit
         ): SuspendableRunner<ValueType> = SuspendableValidatorRunner.WithoutContext(block)
+    }
+
+    interface Configuration {
+        companion object {
+            operator fun invoke(block: Builder.() -> Unit = {}): Configuration = TODO()
+        }
+
+        val rootPath: List<String>
+
+        interface Builder: Configuration {
+            override var rootPath: MutableList<String>
+        }
     }
 
     interface Runner<ValueType> {
