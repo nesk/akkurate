@@ -26,8 +26,6 @@ class CompanyRepository {
     suspend fun hasCompanyWithName(name: String): Boolean = TODO()
 }
 
-suspend fun computeSomeData() {}
-
 val config = Validator.Configuration {
     rootPath += "company"
 }
@@ -55,23 +53,19 @@ val validateCompany = Validator.suspendable<CompanyValidationContext, Company>(c
         optionalShortName.maxLength(10)
     }
 
-    for (user in users) user {
-//        allOf {
-            (firstName and middleName and lastName) {
-                minLength(3)
-                maxLength(50)
-                computeSomeData()
-            }
-//        } explain "Names must be between 3 and 50 chars."
-    }
-
-    users.each {
-        computeSomeData()
-        birthDay.before(Instant.now())
-    }
+    users.each { validateWith(validateUser) }
 
     val maxSeats = plan.value.maximumUserCount
     users.maxSize(maxSeats) explain { "Your plan is limited to $maxSeats seats." } withPath "company.seats"
+}
+
+val validateUser = Validator<User> {
+    (firstName and middleName and lastName) {
+        minLength(3)
+        maxLength(50)
+    }
+
+    birthDay.before(Instant.now())
 }
 
 suspend fun main() {
@@ -103,6 +97,5 @@ suspend fun main() {
 
 /**
  * - atomic, oneOf, allOf
- * - composable validation
  * - traversal with nullable values
  */

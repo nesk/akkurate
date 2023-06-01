@@ -14,6 +14,8 @@ interface Validatable<T> {
 }
 
 inline operator fun <T> Validatable<T>.invoke(block: Validatable<T>.() -> Unit) = this.block()
+fun <T> Validatable<T>.validateWith(validator: Validator.Runner<T>): Unit = TODO()
+suspend fun <T> Validatable<T>.validateWith(validator: Validator.SuspendableRunner<T>): Unit = TODO()
 inline fun <T> Validatable<T>.onlyIf(conditions: Validatable<T>.() -> Unit, block: Validatable<T>.() -> Unit): Unit = TODO()
 inline fun <T> Validatable<T>.matches(block: Validatable<T>.() -> Unit): Boolean = TODO()
 
