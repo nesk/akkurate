@@ -2,6 +2,8 @@ package dev.nesk.akkurate.api.constraints
 
 interface Constraint {
     val satisfied: Boolean
+    operator fun component1(): Boolean = satisfied
+
     var message: String?
     var path: List<String>?
 }
