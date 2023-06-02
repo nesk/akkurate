@@ -9,7 +9,7 @@ import dev.nesk.akkurate.gen.*
 import java.time.Instant
 
 @Validate
-data class Company(val name: String, val optionalShortName: String, val plan: Plan, val users: Set<User>)
+data class Company(val name: String, val plan: Plan, val users: Set<User>)
 
 @Validate
 enum class Plan(val maximumUserCount: Int) {
@@ -42,18 +42,8 @@ val validateCompany = Validator.suspendable<CompanyValidationContext, Company>(c
         maxLength(50) explain "$value is too long"
 
         if (hasMinLen) {
-        constrain { repository.hasCompanyWithName(it) } explain "A company already exists with name $value"
-    }
-    }
-
-    optionalShortName.onlyIf({ notEmpty() }) {
-        minLength(2)
-        maxLength(10)
-    }
-
-    if (optionalShortName.matches { notEmpty() }) {
-        optionalShortName.minLength(2)
-        optionalShortName.maxLength(10)
+            constrain { repository.hasCompanyWithName(it) } explain "A company already exists with name $value"
+        }
     }
 
     users.each { validateWith(validateUser) }
@@ -73,7 +63,7 @@ val validateUser = Validator<User> {
 
 suspend fun main() {
     val johann = User("Johann", "Jesse", "Pardanaud", Instant.now())
-    val company = Company("NESK", "NK", Plan.BASIC, setOf(johann))
+    val company = Company("NESK", Plan.BASIC, setOf(johann))
 
     val validateWithContext = validateCompany(CompanyValidationContext(CompanyRepository()))
 
@@ -101,4 +91,5 @@ suspend fun main() {
 /**
  * - atomic, oneOf, allOf
  * - traversal with nullable values
+ * - conditional validation: `constraint.mute()` & `validatable.satisfies { constraint }`
  */

@@ -18,8 +18,6 @@ inline operator fun <T> Validatable<T>.invoke(block: Validatable<T>.() -> Unit) 
 inline fun <T> Validatable<T>.constrain(block: (value: T) -> Boolean): Constraint = TODO()
 fun <T> Validatable<T>.validateWith(validator: Validator.Runner<T>): Unit = TODO()
 suspend fun <T> Validatable<T>.validateWith(validator: Validator.SuspendableRunner<T>): Unit = TODO()
-inline fun <T> Validatable<T>.onlyIf(conditions: Validatable<T>.() -> Unit, block: Validatable<T>.() -> Unit): Unit = TODO()
-inline fun <T> Validatable<T>.matches(block: Validatable<T>.() -> Unit): Boolean = TODO()
 
 /*
     This way of managing compound validation doesn't allow to write `foo and bar {}` without parentheses around the compound: `(foo and bar) {}`

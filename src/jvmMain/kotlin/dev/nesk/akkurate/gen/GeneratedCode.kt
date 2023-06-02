@@ -27,7 +27,6 @@ val Validatable<Instant>.nanos: Validatable<Int> get() = getValidatableValue(Ins
 
 // Company
 val Validatable<Company>.name: Validatable<String> get() = getValidatableValue(Company::name)
-val Validatable<Company>.optionalShortName: Validatable<String> get() = getValidatableValue(Company::optionalShortName)
 val Validatable<Company>.plan: Validatable<Plan> get() = getValidatableValue(Company::plan)
 val Validatable<Company>.users: Validatable<Set<User>> get() = getValidatableValue(Company::users)
 
