@@ -38,9 +38,9 @@ val validateCompany = Validator.suspendable<CompanyValidationContext, Company>(c
     //  the already existing name. We only want the use to get the error about the minimum length, so we could write
     //  `if (minLength(3)) { inexistant(name) }`, that way we check the database only when the name is already long enough.
     name {
-        minLength(3) explain "{value} is too short"
-        maxLength(50) explain "{value} is too long"
-        constrain { repository.hasCompanyWithName(it) } explain "A company already exists with name {value}"
+        minLength(3) explain "$value is too short"
+        maxLength(50) explain "$value is too long"
+        constrain { repository.hasCompanyWithName(it) } explain "A company already exists with name $value"
     }
 
     optionalShortName.onlyIf({ notEmpty() }) {
@@ -56,7 +56,7 @@ val validateCompany = Validator.suspendable<CompanyValidationContext, Company>(c
     users.each { validateWith(validateUser) }
 
     val maxSeats = plan.value.maximumUserCount
-    users.maxSize(maxSeats) explain { "Your plan is limited to $maxSeats seats." } withPath "company.seats"
+    users.maxSize(maxSeats) explain "Your plan is limited to $maxSeats seats." withPath "company.seats"
 }
 
 val validateUser = Validator<User> {

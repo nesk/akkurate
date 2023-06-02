@@ -1,5 +1,6 @@
 package dev.nesk.akkurate.api
 
+import dev.nesk.akkurate.api.constraints.Constraint
 import kotlin.reflect.KProperty1
 import kotlin.reflect.KFunction1
 
@@ -14,6 +15,7 @@ interface Validatable<T> {
 }
 
 inline operator fun <T> Validatable<T>.invoke(block: Validatable<T>.() -> Unit) = this.block()
+inline fun <T> Validatable<T>.constrain(block: (value: T) -> Boolean): Constraint = TODO()
 fun <T> Validatable<T>.validateWith(validator: Validator.Runner<T>): Unit = TODO()
 suspend fun <T> Validatable<T>.validateWith(validator: Validator.SuspendableRunner<T>): Unit = TODO()
 inline fun <T> Validatable<T>.onlyIf(conditions: Validatable<T>.() -> Unit, block: Validatable<T>.() -> Unit): Unit = TODO()
