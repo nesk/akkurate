@@ -10,6 +10,8 @@ repositories {
 }
 
 kotlin {
+//    explicitApi() // TODO: enable explicit API
+
     jvm {
         jvmToolchain(11)
         withJava()
