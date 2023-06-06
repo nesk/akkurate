@@ -5,7 +5,7 @@ import kotlin.reflect.KProperty1
 import kotlin.reflect.KFunction1
 
 interface Validatable<T> {
-    val path: List<String>
+    val path: List<String> // TODO: change those for a get(), to avoid property clashing (imagine a model already has a `path` property?)
     val value: T // TODO: maybe an `unwrap()` method would be easier for the user to understand?
 
     // those were imagined for caching all the Validatable decorators but since they are bound to a class/property couple
@@ -39,7 +39,9 @@ interface CompoundValidatable<T> {
 }
 
 inline operator fun <T> CompoundValidatable<T>.invoke(block: Validatable<T>.() -> Unit) = validatables.forEach { it.block() }
-infix fun <T1, T2> CompoundValidatable<T1>.and(other: Validatable<T2>): CompoundValidatable<Any?> = TODO()
-infix fun <T1, T2: Any?> CompoundValidatable<T1>.and(other: CompoundValidatable<T2>): CompoundValidatable<Any?> = TODO()
 infix fun <T> Validatable<T>.and(other: Validatable<T>): CompoundValidatable<T> = TODO()
-infix fun <T1, T2: Any?> Validatable<T1>.and(other: Validatable<T2>): CompoundValidatable<Any?> = TODO()
+
+// TODO: find a solution to improve type combinations
+//infix fun <T1, T2> CompoundValidatable<T1>.and(other: Validatable<T2>): CompoundValidatable<Any?> = TODO()
+//infix fun <T1, T2: Any?> CompoundValidatable<T1>.and(other: CompoundValidatable<T2>): CompoundValidatable<Any?> = TODO()
+//infix fun <T1, T2: Any?> Validatable<T1>.and(other: Validatable<T2>): CompoundValidatable<Any?> = TODO()
