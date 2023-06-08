@@ -11,9 +11,6 @@
 
 package dev.nesk.akkurate.examples.full.gen
 
-import dev.nesk.akkurate.examples.full.Company
-import dev.nesk.akkurate.examples.full.Plan
-import dev.nesk.akkurate.examples.full.User
 import dev.nesk.akkurate.Validatable
 import java.time.Instant
 
@@ -24,17 +21,3 @@ inline fun <T> Validatable<out Iterable<T>>.each(block: Validatable<T>.() -> Uni
 // Instant
 val Validatable<Instant>.epochSeconds: Validatable<Long> get() = getValidatableValue(Instant::getEpochSecond)
 val Validatable<Instant>.nanos: Validatable<Int> get() = getValidatableValue(Instant::getNano)
-
-// Company
-val Validatable<Company>.name: Validatable<String> get() = getValidatableValue(Company::name)
-val Validatable<Company>.plan: Validatable<Plan> get() = getValidatableValue(Company::plan)
-val Validatable<Company>.users: Validatable<Set<User>> get() = getValidatableValue(Company::users)
-
-// Plan
-val Validatable<Plan>.maximumUserCount: Validatable<Int> get() = getValidatableValue(Plan::maximumUserCount)
-
-// User
-val Validatable<User>.firstName: Validatable<String> get() = getValidatableValue(User::firstName)
-val Validatable<User>.middleName: Validatable<String> get() = getValidatableValue(User::middleName)
-val Validatable<User>.lastName: Validatable<String> get() = getValidatableValue(User::lastName)
-val Validatable<User>.birthDay: Validatable<Instant> get() = getValidatableValue(User::birthDay)

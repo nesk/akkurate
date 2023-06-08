@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm")
+    id("com.google.devtools.ksp") version "1.8.21-1.0.11"
     application
 }
 
@@ -11,7 +12,9 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":plugin"))
     implementation(project(":library"))
+    ksp(project(":plugin"))
 }
 
 kotlin {
