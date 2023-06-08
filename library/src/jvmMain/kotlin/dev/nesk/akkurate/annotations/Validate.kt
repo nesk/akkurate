@@ -1,4 +1,4 @@
-package dev.nesk.akkurate.api.annotations
+package dev.nesk.akkurate.annotations
 
 @Target(AnnotationTarget.CLASS)
 public annotation class Validate

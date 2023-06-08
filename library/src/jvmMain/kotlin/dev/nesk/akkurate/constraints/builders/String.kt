@@ -1,8 +1,8 @@
-package dev.nesk.akkurate.api.constraints.builders
+package dev.nesk.akkurate.constraints.builders
 
-import dev.nesk.akkurate.api.Validatable
-import dev.nesk.akkurate.api.constrain
-import dev.nesk.akkurate.api.constraints.Constraint
+import dev.nesk.akkurate.Validatable
+import dev.nesk.akkurate.constrain
+import dev.nesk.akkurate.constraints.Constraint
 
 public fun Validatable<String>.empty(): Constraint = constrain { it.isEmpty() }
 public fun Validatable<String>.notEmpty(): Constraint = constrain { it.isNotEmpty() }

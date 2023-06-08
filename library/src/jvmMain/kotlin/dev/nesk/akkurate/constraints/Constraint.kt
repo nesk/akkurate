@@ -1,4 +1,4 @@
-package dev.nesk.akkurate.api.constraints
+package dev.nesk.akkurate.constraints
 
 public interface Constraint {
     public val satisfied: Boolean

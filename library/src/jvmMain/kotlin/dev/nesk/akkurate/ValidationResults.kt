@@ -1,4 +1,4 @@
-package dev.nesk.akkurate.api
+package dev.nesk.akkurate
 
 public sealed interface ValidationResult<out T> {
     /** @throws ValidationException */

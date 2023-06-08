@@ -14,7 +14,7 @@ package dev.nesk.akkurate.examples.full.gen
 import dev.nesk.akkurate.examples.full.Company
 import dev.nesk.akkurate.examples.full.Plan
 import dev.nesk.akkurate.examples.full.User
-import dev.nesk.akkurate.api.Validatable
+import dev.nesk.akkurate.Validatable
 import java.time.Instant
 
 // Iterables (see: https://kotlinlang.slack.com/archives/C0B8MA7FA/p1683643554178309)

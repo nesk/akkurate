@@ -1,10 +1,15 @@
 package dev.nesk.akkurate.examples.full
 
+import dev.nesk.akkurate.*
 import dev.nesk.akkurate.api.*
-import dev.nesk.akkurate.api.annotations.Validate
+import dev.nesk.akkurate.annotations.Validate
 import dev.nesk.akkurate.api.constraints.builders.*
-import dev.nesk.akkurate.api.constraints.explain
-import dev.nesk.akkurate.api.constraints.withPath
+import dev.nesk.akkurate.constraints.builders.before
+import dev.nesk.akkurate.constraints.builders.maxLength
+import dev.nesk.akkurate.constraints.builders.maxSize
+import dev.nesk.akkurate.constraints.builders.minLength
+import dev.nesk.akkurate.constraints.explain
+import dev.nesk.akkurate.constraints.withPath
 import dev.nesk.akkurate.examples.full.gen.*
 import java.time.Instant
 

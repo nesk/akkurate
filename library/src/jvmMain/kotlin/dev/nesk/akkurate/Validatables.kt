@@ -1,6 +1,6 @@
-package dev.nesk.akkurate.api
+package dev.nesk.akkurate
 
-import dev.nesk.akkurate.api.constraints.Constraint
+import dev.nesk.akkurate.constraints.Constraint
 import kotlin.reflect.KProperty1
 import kotlin.reflect.KFunction1
 

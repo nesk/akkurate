@@ -1,4 +1,4 @@
-package dev.nesk.akkurate.api
+package dev.nesk.akkurate
 
 public interface Validator {
     public companion object {
