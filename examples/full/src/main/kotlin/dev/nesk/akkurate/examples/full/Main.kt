@@ -1,11 +1,11 @@
-package dev.nesk.akkurate
+package dev.nesk.akkurate.examples.full
 
 import dev.nesk.akkurate.api.*
 import dev.nesk.akkurate.api.annotations.Validate
 import dev.nesk.akkurate.api.constraints.builders.*
 import dev.nesk.akkurate.api.constraints.explain
 import dev.nesk.akkurate.api.constraints.withPath
-import dev.nesk.akkurate.gen.*
+import dev.nesk.akkurate.examples.full.gen.*
 import java.time.Instant
 
 @Validate

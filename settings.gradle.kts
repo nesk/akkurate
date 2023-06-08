@@ -1,2 +1,2 @@
 rootProject.name = "akkurate"
-include("library")
+include("library", "examples:full")

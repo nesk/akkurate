@@ -9,11 +9,11 @@
  *        A solution would be to declare the fields as extension properties on the `Validatable<Company>` class. WARNING: too much imports?
  */
 
-package dev.nesk.akkurate.gen
+package dev.nesk.akkurate.examples.full.gen
 
-import dev.nesk.akkurate.Company
-import dev.nesk.akkurate.Plan
-import dev.nesk.akkurate.User
+import dev.nesk.akkurate.examples.full.Company
+import dev.nesk.akkurate.examples.full.Plan
+import dev.nesk.akkurate.examples.full.User
 import dev.nesk.akkurate.api.Validatable
 import java.time.Instant
 
