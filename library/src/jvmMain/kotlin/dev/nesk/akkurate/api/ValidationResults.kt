@@ -1,16 +1,16 @@
 package dev.nesk.akkurate.api
 
-sealed interface ValidationResult<out T> {
+public sealed interface ValidationResult<out T> {
     /** @throws ValidationException */
-    fun orThrow()
+    public fun orThrow()
 
-    object Success: ValidationResult<Nothing> {
-        override fun orThrow() = Unit
+    public object Success: ValidationResult<Nothing> {
+        override fun orThrow(): Unit = Unit
     }
 
-    class Failure<T> internal constructor(val errors: ValidationErrors.FlatList, val value: T): ValidationResult<T> {
-        operator fun component1() = errors
-        operator fun component2() = value
+    public class Failure<T> internal constructor(public val errors: ValidationErrors.FlatList, public val value: T): ValidationResult<T> {
+        public operator fun component1(): ValidationErrors.FlatList = errors
+        public operator fun component2(): T = value
 
         override fun orThrow(): Nothing = throw ValidationException(errors)
 
@@ -30,29 +30,29 @@ sealed interface ValidationResult<out T> {
             return result
         }
 
-        override fun toString() = "Failure(errors=$errors, value=$value)"
+        override fun toString(): String = "Failure(errors=$errors, value=$value)"
     }
 }
 
-class ValidationException internal constructor(val errors: ValidationErrors.FlatList): RuntimeException()
-sealed interface ValidationErrors {
+public class ValidationException internal constructor(public val errors: ValidationErrors.FlatList): RuntimeException()
+public sealed interface ValidationErrors {
     @JvmInline
-    value class FlatList(private val errors: Set<Field.Error>): ValidationErrors, Set<Field.Error> by errors {
-        fun groupByPath(): GroupedByPath = TODO()
+    public value class FlatList(private val errors: Set<Field.Error>): ValidationErrors, Set<Field.Error> by errors {
+        public fun groupByPath(): GroupedByPath = TODO()
     }
 
     @JvmInline
-    value class GroupedByPath(private val errors: Map<List<String>, Field.Errors>): ValidationErrors, Map<List<String>, Field.Errors> by errors
+    public value class GroupedByPath(private val errors: Map<List<String>, Field.Errors>): ValidationErrors, Map<List<String>, Field.Errors> by errors
 }
 
-interface Field {
-    val path: List<String>
+public interface Field {
+    public val path: List<String>
 
-    interface Error: Field {
-        val errorMessage: String
+    public interface Error: Field {
+        public val errorMessage: String
     }
 
-    interface Errors: Field {
-        val errorMessages: Set<String>
+    public interface Errors: Field {
+        public val errorMessages: Set<String>
     }
 }

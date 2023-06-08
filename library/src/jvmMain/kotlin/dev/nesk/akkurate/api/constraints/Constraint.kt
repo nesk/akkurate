@@ -1,13 +1,13 @@
 package dev.nesk.akkurate.api.constraints
 
-interface Constraint {
-    val satisfied: Boolean
-    operator fun component1(): Boolean = satisfied
+public interface Constraint {
+    public val satisfied: Boolean
+    public operator fun component1(): Boolean = satisfied
 
-    var message: String?
-    var path: List<String>?
+    public var message: String?
+    public var path: List<String>?
 }
 
-infix fun Constraint.explain(message: String): Constraint = apply { this.message = message }
-infix fun Constraint.withPath(path: List<String>) = apply { this.path = path }
-infix fun Constraint.withPath(fragment: String) = apply { path = listOf(fragment) }
+public infix fun Constraint.explain(message: String): Constraint = apply { this.message = message }
+public infix fun Constraint.withPath(path: List<String>): Constraint = apply { this.path = path }
+public infix fun Constraint.withPath(fragment: String): Constraint = apply { path = listOf(fragment) }

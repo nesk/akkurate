@@ -4,20 +4,20 @@ import dev.nesk.akkurate.api.constraints.Constraint
 import kotlin.reflect.KProperty1
 import kotlin.reflect.KFunction1
 
-interface Validatable<T> {
-    val path: List<String> // TODO: change those for a get(), to avoid property clashing (imagine a model already has a `path` property?)
-    val value: T // TODO: maybe an `unwrap()` method would be easier for the user to understand?
+public interface Validatable<T> {
+    public val path: List<String> // TODO: change those for a get(), to avoid property clashing (imagine a model already has a `path` property?)
+    public val value: T // TODO: maybe an `unwrap()` method would be easier for the user to understand?
 
     // those were imagined for caching all the Validatable decorators but since they are bound to a class/property couple
     // and not to specific instances, I'm not sure they really bring anything worth
-    fun <V> getValidatableValue(property: KProperty1<T, V>): Validatable<V>
-    fun <V> getValidatableValue(property: KFunction1<T, V>): Validatable<V>
+    public fun <V> getValidatableValue(property: KProperty1<T, V>): Validatable<V>
+    public fun <V> getValidatableValue(property: KFunction1<T, V>): Validatable<V>
 }
 
-inline operator fun <T> Validatable<T>.invoke(block: Validatable<T>.() -> Unit) = this.block()
-inline fun <T> Validatable<T>.constrain(block: (value: T) -> Boolean): Constraint = TODO()
-fun <T> Validatable<T>.validateWith(validator: Validator.Runner<T>): Unit = TODO()
-suspend fun <T> Validatable<T>.validateWith(validator: Validator.SuspendableRunner<T>): Unit = TODO()
+public inline operator fun <T> Validatable<T>.invoke(block: Validatable<T>.() -> Unit): Unit = this.block()
+public inline fun <T> Validatable<T>.constrain(block: (value: T) -> Boolean): Constraint = TODO()
+public fun <T> Validatable<T>.validateWith(validator: Validator.Runner<T>): Unit = TODO()
+public suspend fun <T> Validatable<T>.validateWith(validator: Validator.SuspendableRunner<T>): Unit = TODO()
 
 /*
     This way of managing compound validation doesn't allow to write `foo and bar {}` without parentheses around the compound: `(foo and bar) {}`
@@ -31,15 +31,15 @@ suspend fun <T> Validatable<T>.validateWith(validator: Validator.SuspendableRunn
 
     To ease development, the first release will make parentheses mandatory.
  */
-interface CompoundValidatable<T> {
-    val validatables: Set<Validatable<T>>
+public interface CompoundValidatable<T> {
+    public val validatables: Set<Validatable<T>>
 
-    infix fun and(other: Validatable<T>): CompoundValidatable<T>
-    infix fun and(other: CompoundValidatable<T>): CompoundValidatable<T>
+    public infix fun and(other: Validatable<T>): CompoundValidatable<T>
+    public infix fun and(other: CompoundValidatable<T>): CompoundValidatable<T>
 }
 
-inline operator fun <T> CompoundValidatable<T>.invoke(block: Validatable<T>.() -> Unit) = validatables.forEach { it.block() }
-infix fun <T> Validatable<T>.and(other: Validatable<T>): CompoundValidatable<T> = TODO()
+public inline operator fun <T> CompoundValidatable<T>.invoke(block: Validatable<T>.() -> Unit): Unit = validatables.forEach { it.block() }
+public infix fun <T> Validatable<T>.and(other: Validatable<T>): CompoundValidatable<T> = TODO()
 
 // TODO: find a solution to improve type combinations
 //infix fun <T1, T2> CompoundValidatable<T1>.and(other: Validatable<T2>): CompoundValidatable<Any?> = TODO()

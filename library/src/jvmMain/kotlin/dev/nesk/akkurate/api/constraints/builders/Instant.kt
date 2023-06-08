@@ -4,4 +4,4 @@ import dev.nesk.akkurate.api.Validatable
 import dev.nesk.akkurate.api.constraints.Constraint
 import java.time.Instant
 
-fun Validatable<Instant>.before(other: Instant): Constraint = TODO()
+public fun Validatable<Instant>.before(other: Instant): Constraint = TODO()

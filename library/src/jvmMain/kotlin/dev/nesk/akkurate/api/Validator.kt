@@ -1,57 +1,57 @@
 package dev.nesk.akkurate.api
 
-interface Validator {
-    companion object {
-        operator fun <ContextType, ValueType> invoke(
+public interface Validator {
+    public companion object {
+        public operator fun <ContextType, ValueType> invoke(
             configuration: Configuration = Configuration(),
             block: Validatable<ValueType>.(context: ContextType) -> Unit
         ): Runner.WithContext<ContextType, ValueType> = ValidatorRunner(block)
 
-        operator fun <ValueType> invoke(
+        public operator fun <ValueType> invoke(
             configuration: Configuration = Configuration(),
             block: Validatable<ValueType>.() -> Unit
         ): Runner<ValueType> = ValidatorRunner.WithoutContext(block)
 
-        fun <ContextType, ValueType> suspendable(
+        public fun <ContextType, ValueType> suspendable(
             configuration: Configuration = Configuration(),
             block: suspend Validatable<ValueType>.(context: ContextType) -> Unit
         ): SuspendableRunner.WithContext<ContextType, ValueType> = SuspendableValidatorRunner(block)
 
-        fun <ValueType> suspendable(
+        public fun <ValueType> suspendable(
             configuration: Configuration = Configuration(),
             block: suspend Validatable<ValueType>.() -> Unit
         ): SuspendableRunner<ValueType> = SuspendableValidatorRunner.WithoutContext(block)
     }
 
-    interface Configuration {
-        companion object {
-            operator fun invoke(block: Builder.() -> Unit = {}): Configuration = TODO()
+    public interface Configuration {
+        public companion object {
+            public operator fun invoke(block: Builder.() -> Unit = {}): Configuration = TODO()
         }
 
-        val rootPath: List<String>
+        public val rootPath: List<String>
 
-        interface Builder: Configuration {
+        public interface Builder: Configuration {
             override var rootPath: MutableList<String>
         }
     }
 
-    interface Runner<ValueType> {
-        operator fun invoke(value: ValueType): ValidationResult<ValueType>
+    public interface Runner<ValueType> {
+        public operator fun invoke(value: ValueType): ValidationResult<ValueType>
 
-        interface WithContext<ContextType, ValueType>
+        public interface WithContext<ContextType, ValueType>
         {
-            operator fun invoke(context: ContextType): Runner<ValueType>
-            operator fun invoke(context: ContextType, value: ValueType): ValidationResult<ValueType>
+            public operator fun invoke(context: ContextType): Runner<ValueType>
+            public operator fun invoke(context: ContextType, value: ValueType): ValidationResult<ValueType>
         }
     }
 
-    interface SuspendableRunner<ValueType> {
-        suspend operator fun invoke(value: ValueType): ValidationResult<ValueType>
+    public interface SuspendableRunner<ValueType> {
+        public suspend operator fun invoke(value: ValueType): ValidationResult<ValueType>
 
-        interface WithContext<ContextType, ValueType>
+        public interface WithContext<ContextType, ValueType>
         {
-            operator fun invoke(context: ContextType): SuspendableRunner<ValueType>
-            suspend operator fun invoke(context: ContextType, value: ValueType): ValidationResult<ValueType>
+            public operator fun invoke(context: ContextType): SuspendableRunner<ValueType>
+            public suspend operator fun invoke(context: ContextType, value: ValueType): ValidationResult<ValueType>
         }
     }
 }
