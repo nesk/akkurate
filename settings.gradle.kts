@@ -5,4 +5,4 @@ pluginManagement {
 }
 
 rootProject.name = "akkurate"
-include("library", "examples:full")
+include("library", "plugin", "examples:full")
