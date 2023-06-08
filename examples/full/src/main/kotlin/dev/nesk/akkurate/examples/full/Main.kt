@@ -1,6 +1,7 @@
 package dev.nesk.akkurate.examples.full
 
 import dev.nesk.akkurate.*
+import dev.nesk.akkurate.accessors.each
 import dev.nesk.akkurate.annotations.Validate
 import dev.nesk.akkurate.constraints.builders.before
 import dev.nesk.akkurate.constraints.builders.maxLength
@@ -9,7 +10,6 @@ import dev.nesk.akkurate.constraints.builders.minLength
 import dev.nesk.akkurate.constraints.explain
 import dev.nesk.akkurate.constraints.withPath
 import dev.nesk.akkurate.examples.full.akkurate.*
-import dev.nesk.akkurate.examples.full.gen.each
 import java.time.Instant
 
 @Validate

@@ -6,6 +6,7 @@ import dev.nesk.akkurate.Validatable
 import dev.nesk.akkurate.annotations.Validate
 import java.io.OutputStreamWriter
 
+// TODO: always implement equals, hashcode, toString
 class AkkurateProcessor(private val codeGenerator: CodeGenerator, private val logger: KSPLogger): SymbolProcessor {
     private var output: String = ""
 
