@@ -1,21 +1,18 @@
 package dev.nesk.akkurate
 
 import dev.nesk.akkurate.constraints.Constraint
-import kotlin.reflect.KProperty1
-import kotlin.reflect.KFunction1
 
 public interface Validatable<T> {
     public val path: List<String> // TODO: change those for a get(), to avoid property clashing (imagine a model already has a `path` property?)
     public val value: T // TODO: maybe an `unwrap()` method would be easier for the user to understand?
 
-    // those were imagined for caching all the Validatable decorators but since they are bound to a class/property couple
-    // and not to specific instances, I'm not sure they really bring anything worth
-    public fun <V> getValidatableValue(property: KProperty1<T, V>): Validatable<V>
-    public fun <V> getValidatableValue(property: KFunction1<T, V>): Validatable<V>
+    // TODO: Should this be part of the public API?
+    public fun <V> createValidatable(value: V): Validatable<V>
 }
 
 public inline operator fun <T> Validatable<T>.invoke(block: Validatable<T>.() -> Unit): Unit = this.block()
 public inline fun <T> Validatable<T>.constrain(block: (value: T) -> Boolean): Constraint = TODO()
+public inline fun <T> Validatable<out T?>.constrainIfNotNull(block: (value: T) -> Boolean): Constraint = TODO()
 public fun <T> Validatable<T>.validateWith(validator: Validator.Runner<T>): Unit = TODO()
 public suspend fun <T> Validatable<T>.validateWith(validator: Validator.SuspendableRunner<T>): Unit = TODO()
 

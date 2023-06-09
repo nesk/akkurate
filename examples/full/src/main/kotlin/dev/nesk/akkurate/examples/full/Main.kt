@@ -3,17 +3,17 @@ package dev.nesk.akkurate.examples.full
 import dev.nesk.akkurate.*
 import dev.nesk.akkurate.accessors.each
 import dev.nesk.akkurate.annotations.Validate
-import dev.nesk.akkurate.constraints.builders.before
-import dev.nesk.akkurate.constraints.builders.maxLength
-import dev.nesk.akkurate.constraints.builders.maxSize
-import dev.nesk.akkurate.constraints.builders.minLength
+import dev.nesk.akkurate.constraints.builders.*
 import dev.nesk.akkurate.constraints.explain
 import dev.nesk.akkurate.constraints.withPath
-import dev.nesk.akkurate.examples.full.akkurate.*
+import dev.nesk.akkurate.examples.full.validation.accessors.*
 import java.time.Instant
 
 @Validate
-data class Company(val name: String, val plan: Plan, val users: Set<User>)
+data class Holding(val name: String)
+
+@Validate
+data class Company(val name: String, val plan: Plan, val users: Set<User>, val holding: Holding? = null)
 
 @Validate
 enum class Plan(val maximumUserCount: Int) {
@@ -35,6 +35,11 @@ val config = Validator.Configuration {
 }
 
 val validateCompany = Validator.suspendable<CompanyValidationContext, Company>(config) { (repository) ->
+    holding.name {
+        minLength(3)
+        maxLength(50)
+    }
+
     // TODO: This is a perfect example for conditional constraints. Imagine you allow company names with at least 1 char, time
     //  passes and you have some one-char company names in your database, but now you want to raise the minimum char count
     //  to 3, without changing the older companies. If you just write `minLength(3); inexistant(name)` and the user provides
@@ -94,6 +99,5 @@ suspend fun main() {
 
 /**
  * - atomic, oneOf, allOf
- * - traversal with nullable values
  * - conditional validation: `constraint.mute()` & `validatable.satisfies { constraint }`
  */
