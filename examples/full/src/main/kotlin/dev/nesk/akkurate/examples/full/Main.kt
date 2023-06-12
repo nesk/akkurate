@@ -36,6 +36,7 @@ val config = Validator.Configuration {
 
 val validateCompany = Validator.suspendable<CompanyValidationContext, Company>(config) { (repository) ->
     holding.name {
+        notNull()
         minLength(3)
         maxLength(50)
     }
