@@ -44,10 +44,13 @@ class ValidateAnnotationProcessor(private val codeGenerator: CodeGenerator, priv
         val validatables = resolver.getSymbolsWithAnnotation(Validate::class.qualifiedName!!)
             .filterIsInstance<KSClassDeclaration>()
             .filter { it.typeParameters.isEmpty() } // Support for generic validatables might come later.
+        logger.info("Found ${validatables.count()} classes annotated with @Validate.")
 
         // Create two accessors for each property of a validatable, the second one enables an easy traversal within a nullable structure.
         for (validatable in validatables) {
+            logger.logging("Processing class '${validatable.qualifiedName!!.asString()}' with properties:")
             for (property in validatable.getAllProperties()) {
+                logger.logging("  ${property.simpleName.asString()}")
                 accessors += property.toValidatablePropertySpec()
                 accessors += property.toValidatablePropertySpec(withNullableReceiver = true)
             }
@@ -57,7 +60,11 @@ class ValidateAnnotationProcessor(private val codeGenerator: CodeGenerator, priv
         accessors
             .groupBy { it.originalPackageName }
             .forEach { (packageName, accessors) ->
-                val fileBuilder = FileSpec.builder("${packageName}.validation.accessors", "ValidationAccessors")
+                val fileName = "ValidationAccessors"
+                val newPackageName = "$packageName.validation.accessors"
+                logger.info("Writing accessors with namespace '$newPackageName' to file '$fileName.kt'.")
+
+                val fileBuilder = FileSpec.builder(newPackageName, fileName)
                 accessors.forEach(fileBuilder::addProperty)
 
                 // TODO: change the ALL_FILES
@@ -65,8 +72,9 @@ class ValidateAnnotationProcessor(private val codeGenerator: CodeGenerator, priv
                     OutputStreamWriter(output).use { fileBuilder.build().writeTo(it) }
                 }
             }
-        accessors.clear()
 
+        logger.info("A total of ${validatables.count()} classes and ${accessors.size} properties were processed.")
+        accessors.clear()
         return emptyList()
     }
 
