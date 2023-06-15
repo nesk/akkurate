@@ -8,6 +8,7 @@ public sealed interface ValidationResult<out T> {
         override fun orThrow(): Unit = Unit
     }
 
+    // This could be a data class in the future if Kotlin adds a feature to remove the `copy()` method when a constructor is internal or private.
     public class Failure<T> internal constructor(public val errors: ValidationErrors.FlatList, public val value: T): ValidationResult<T> {
         public operator fun component1(): ValidationErrors.FlatList = errors
         public operator fun component2(): T = value
