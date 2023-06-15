@@ -1,0 +1,23 @@
+package dev.nesk.validation.accessors
+
+import dev.nesk.User
+import dev.nesk.UserName
+import dev.nesk.akkurate.Validatable
+import kotlin.String
+import kotlin.jvm.JvmName
+
+public val Validatable<User>.name: Validatable<UserName?>
+  @JvmName(name = "validatableUserName")
+  get() = createValidatable(`value`.name)
+
+public val Validatable<User?>.name: Validatable<UserName?>
+  @JvmName(name = "validatableNullableUserName")
+  get() = createValidatable(`value`?.name)
+
+public val Validatable<UserName>.text: Validatable<String>
+  @JvmName(name = "validatableUserNameText")
+  get() = createValidatable(`value`.text)
+
+public val Validatable<UserName?>.text: Validatable<String?>
+  @JvmName(name = "validatableNullableUserNameText")
+  get() = createValidatable(`value`?.text)

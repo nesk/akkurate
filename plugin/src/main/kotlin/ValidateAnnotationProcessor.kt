@@ -11,15 +11,6 @@ import dev.nesk.akkurate.annotations.Validate
 import java.io.OutputStreamWriter
 
 // TODO: always implement equals, hashcode, toString
-/*
-    tests:
-        - no annotations
-        - one annotation
-        - multiple annotations
-        - nullable annotations
-        - cyclic annotations
-        - multiple packages (should produce multiple files)
- */
 class ValidateAnnotationProcessor(private val codeGenerator: CodeGenerator, private val logger: KSPLogger) : SymbolProcessor {
     /**
      * All the generated accessors for each property of the validatables.

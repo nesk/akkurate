@@ -2,6 +2,16 @@ plugins {
     kotlin("jvm")
 }
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.karumi.kotlinsnapshot:plugin:2.3.0")
+    }
+}
+apply(plugin = "com.karumi.kotlin-snapshot")
+
 group = "me.johann"
 version = "1.0-SNAPSHOT"
 
@@ -15,6 +25,7 @@ dependencies {
     implementation(project(":library"))
 
     testImplementation(kotlin("test"))
+    testImplementation("com.github.tschuchortdev:kotlin-compile-testing-ksp:1.5.0")
 }
 
 kotlin {
