@@ -1,3 +1,5 @@
+package dev.nesk.akkurate.ksp
+
 import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration

@@ -1,3 +1,5 @@
+package dev.nesk.akkurate.ksp
+
 import com.google.devtools.ksp.symbol.*
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.MemberName

@@ -1,3 +1,5 @@
+package dev.nesk.akkurate.ksp
+
 import com.karumi.kotlinsnapshot.matchWithSnapshot
 import com.tschuchort.compiletesting.KotlinCompilation
 import com.tschuchort.compiletesting.SourceFile
