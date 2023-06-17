@@ -7,8 +7,8 @@ import kotlin.jvm.JvmName
 
 public val Validatable<User>.company: Validatable<Company>
   @JvmName(name = "validatableUserCompany")
-  get() = createValidatable(`value`.company)
+  get() = createValidatable(unwrap().company)
 
 public val Validatable<User?>.company: Validatable<Company?>
   @JvmName(name = "validatableNullableUserCompany")
-  get() = createValidatable(`value`?.company)
+  get() = createValidatable(unwrap()?.company)

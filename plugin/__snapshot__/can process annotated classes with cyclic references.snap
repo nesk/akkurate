@@ -5,18 +5,18 @@ import dev.nesk.User
 import dev.nesk.akkurate.Validatable
 import kotlin.jvm.JvmName
 
-public val Validatable<Company>.admin: Validatable<User?>
+public val Validatable<Company>.admin: Validatable<User>
   @JvmName(name = "validatableCompanyAdmin")
-  get() = createValidatable(`value`.admin)
+  get() = createValidatable(unwrap().admin)
 
 public val Validatable<Company?>.admin: Validatable<User?>
   @JvmName(name = "validatableNullableCompanyAdmin")
-  get() = createValidatable(`value`?.admin)
+  get() = createValidatable(unwrap()?.admin)
 
-public val Validatable<User>.company: Validatable<Company?>
+public val Validatable<User>.company: Validatable<Company>
   @JvmName(name = "validatableUserCompany")
-  get() = createValidatable(`value`.company)
+  get() = createValidatable(unwrap().company)
 
 public val Validatable<User?>.company: Validatable<Company?>
   @JvmName(name = "validatableNullableUserCompany")
-  get() = createValidatable(`value`?.company)
+  get() = createValidatable(unwrap()?.company)

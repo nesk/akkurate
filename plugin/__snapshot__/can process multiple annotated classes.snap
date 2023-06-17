@@ -6,18 +6,18 @@ import dev.nesk.akkurate.Validatable
 import kotlin.String
 import kotlin.jvm.JvmName
 
-public val Validatable<User>.name: Validatable<UserName?>
+public val Validatable<User>.name: Validatable<UserName>
   @JvmName(name = "validatableUserName")
-  get() = createValidatable(`value`.name)
+  get() = createValidatable(unwrap().name)
 
 public val Validatable<User?>.name: Validatable<UserName?>
   @JvmName(name = "validatableNullableUserName")
-  get() = createValidatable(`value`?.name)
+  get() = createValidatable(unwrap()?.name)
 
 public val Validatable<UserName>.text: Validatable<String>
   @JvmName(name = "validatableUserNameText")
-  get() = createValidatable(`value`.text)
+  get() = createValidatable(unwrap().text)
 
 public val Validatable<UserName?>.text: Validatable<String?>
   @JvmName(name = "validatableNullableUserNameText")
-  get() = createValidatable(`value`?.text)
+  get() = createValidatable(unwrap()?.text)

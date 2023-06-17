@@ -41,7 +41,8 @@ class ValidateAnnotationProcessorTest {
         // Assert
         assertCompilationIsSuccessful(result)
         assertCountOfFilesGeneratedByTheProcessor(1, compiler)
-        Path("${compiler.kotlinFilesDir}/dev/nesk/ValidationAccessors.kt").readText().matchWithSnapshot()
+        Path("${compiler.kotlinFilesDir}/dev/nesk/ValidationAccessors.kt").readText()
+            .matchWithSnapshot("can process a single annotated class")
     }
 
     @Test
@@ -62,7 +63,8 @@ class ValidateAnnotationProcessorTest {
         // Assert
         assertCompilationIsSuccessful(result)
         assertCountOfFilesGeneratedByTheProcessor(1, compiler)
-        Path("${compiler.kotlinFilesDir}/dev/nesk/ValidationAccessors.kt").readText().matchWithSnapshot()
+        Path("${compiler.kotlinFilesDir}/dev/nesk/ValidationAccessors.kt").readText()
+            .matchWithSnapshot("can process multiple annotated classes")
     }
 
     @Test
@@ -83,7 +85,8 @@ class ValidateAnnotationProcessorTest {
         // Assert
         assertCompilationIsSuccessful(result)
         assertCountOfFilesGeneratedByTheProcessor(1, compiler)
-        Path("${compiler.kotlinFilesDir}/dev/nesk/ValidationAccessors.kt").readText().matchWithSnapshot()
+        Path("${compiler.kotlinFilesDir}/dev/nesk/ValidationAccessors.kt").readText()
+            .matchWithSnapshot("can process annotated classes referenced as nullables")
     }
 
     @Test
@@ -104,7 +107,8 @@ class ValidateAnnotationProcessorTest {
         // Assert
         assertCompilationIsSuccessful(result)
         assertCountOfFilesGeneratedByTheProcessor(1, compiler)
-        Path("${compiler.kotlinFilesDir}/dev/nesk/ValidationAccessors.kt").readText().matchWithSnapshot()
+        Path("${compiler.kotlinFilesDir}/dev/nesk/ValidationAccessors.kt").readText()
+            .matchWithSnapshot("can process annotated classes with cyclic references")
     }
 
     @Test
@@ -125,7 +129,8 @@ class ValidateAnnotationProcessorTest {
         // Assert
         assertCompilationIsSuccessful(result)
         assertCountOfFilesGeneratedByTheProcessor(1, compiler)
-        Path("${compiler.kotlinFilesDir}/dev/nesk/ValidationAccessors.kt").readText().matchWithSnapshot()
+        Path("${compiler.kotlinFilesDir}/dev/nesk/ValidationAccessors.kt").readText()
+            .matchWithSnapshot("can process annotated classes with cyclic nullable references")
     }
 
     @Test
