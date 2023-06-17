@@ -1,6 +1,6 @@
 package dev.nesk.user.validation.accessors
 
-import dev.nesk.akkurate.Validatable
+import dev.nesk.akkurate.validatables.Validatable
 import dev.nesk.company.Company
 import dev.nesk.user.User
 import kotlin.jvm.JvmName

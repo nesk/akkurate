@@ -2,7 +2,7 @@ package dev.nesk.validation.accessors
 
 import dev.nesk.Company
 import dev.nesk.User
-import dev.nesk.akkurate.Validatable
+import dev.nesk.akkurate.validatables.Validatable
 import kotlin.jvm.JvmName
 
 public val Validatable<Company>.admin: Validatable<User>

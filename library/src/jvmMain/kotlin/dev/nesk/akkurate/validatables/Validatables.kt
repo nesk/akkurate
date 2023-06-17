@@ -1,5 +1,6 @@
-package dev.nesk.akkurate
+package dev.nesk.akkurate.validatables
 
+import dev.nesk.akkurate.Validator
 import dev.nesk.akkurate.constraints.Constraint
 
 public interface Validatable<T> {

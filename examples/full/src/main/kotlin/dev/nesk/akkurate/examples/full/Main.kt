@@ -1,12 +1,18 @@
 package dev.nesk.akkurate.examples.full
 
-import dev.nesk.akkurate.*
+import dev.nesk.akkurate.ValidationException
+import dev.nesk.akkurate.ValidationResult
+import dev.nesk.akkurate.Validator
 import dev.nesk.akkurate.accessors.each
 import dev.nesk.akkurate.annotations.Validate
 import dev.nesk.akkurate.constraints.builders.*
 import dev.nesk.akkurate.constraints.explain
 import dev.nesk.akkurate.constraints.withPath
 import dev.nesk.akkurate.examples.full.validation.accessors.*
+import dev.nesk.akkurate.validatables.and
+import dev.nesk.akkurate.validatables.constrain
+import dev.nesk.akkurate.validatables.invoke
+import dev.nesk.akkurate.validatables.validateWith
 import java.time.Instant
 
 @Validate

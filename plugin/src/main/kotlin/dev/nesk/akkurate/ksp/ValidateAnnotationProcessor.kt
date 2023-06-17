@@ -8,8 +8,8 @@ import com.google.devtools.ksp.symbol.KSPropertyDeclaration
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
-import dev.nesk.akkurate.Validatable
 import dev.nesk.akkurate.annotations.Validate
+import dev.nesk.akkurate.validatables.Validatable
 import java.io.OutputStreamWriter
 
 // TODO: always implement equals, hashcode, toString

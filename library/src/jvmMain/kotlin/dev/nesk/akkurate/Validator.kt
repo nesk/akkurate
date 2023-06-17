@@ -1,5 +1,7 @@
 package dev.nesk.akkurate
 
+import dev.nesk.akkurate.validatables.Validatable
+
 public interface Validator {
     public companion object {
         public operator fun <ContextType, ValueType> invoke(
