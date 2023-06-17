@@ -3,8 +3,8 @@ package dev.nesk.akkurate
 import dev.nesk.akkurate.constraints.Constraint
 
 public interface Validatable<T> {
-    public val path: List<String> // TODO: change those for a get(), to avoid property clashing (imagine a model already has a `path` property?)
-    public val value: T // TODO: maybe an `unwrap()` method would be easier for the user to understand?
+    public fun path(): List<String>
+    public fun unwrap(): T
 
     // TODO: Should this be part of the public API?
     public fun <V> createValidatable(value: V): Validatable<V>

@@ -107,7 +107,7 @@ class ValidateAnnotationProcessor(private val codeGenerator: CodeGenerator, priv
         val nullability = if (withNullableReceiver) "?" else ""
         val nullabilityText = if (withNullableReceiver) "Nullable" else ""
         val createValidatableFunction = Validatable::class.asClassName().member("createValidatable")
-        val valueProperty = Validatable::class.asClassName().member("value")
+        val unwrapFunction = Validatable::class.asClassName().member("unwrap")
 
         return PropertySpec.builder(simpleName.asString(), type.toTypeName().toValidatableType(forceNullable = withNullableReceiver))
             .receiver(receiver.toTypeName().toValidatableType(forceNullable = withNullableReceiver))
@@ -118,7 +118,7 @@ class ValidateAnnotationProcessor(private val codeGenerator: CodeGenerator, priv
                             .addMember("name = %S", "validatable$nullabilityText${receiver.capitalizedName}${this.capitalizedName}")
                             .build()
                     )
-                    .addStatement("return %N(%N$nullability.%N)", createValidatableFunction, valueProperty, this.toMemberName())
+                    .addStatement("return %N(%N()$nullability.%N)", createValidatableFunction, unwrapFunction, this.toMemberName())
                     .build()
             )
             .build()
