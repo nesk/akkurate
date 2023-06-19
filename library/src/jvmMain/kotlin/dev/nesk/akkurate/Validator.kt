@@ -56,6 +56,9 @@ public interface Validator {
     }
 }
 
+public fun <T> Validatable<T>.validateWith(validator: Validator.Runner<T>): Unit = TODO()
+public suspend fun <T> Validatable<T>.validateWith(validator: Validator.SuspendableRunner<T>): Unit = TODO()
+
 private class ValidatorRunner<ContextType, ValueType>(private val block: Validatable<ValueType>.(context: ContextType) -> Unit) :
     Validator.Runner.WithContext<ContextType, ValueType> {
     override operator fun invoke(context: ContextType) = Contextualized(context, block)

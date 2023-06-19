@@ -1,8 +1,8 @@
 package dev.nesk.akkurate.constraints.builders
 
 import dev.nesk.akkurate.constraints.Constraint
+import dev.nesk.akkurate.constraints.constrainIfNotNull
 import dev.nesk.akkurate.validatables.Validatable
-import dev.nesk.akkurate.validatables.constrainIfNotNull
 
 // TODO: Need a prefix like "assert" for better natural reading?
 
