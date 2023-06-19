@@ -8,6 +8,7 @@ public interface Constraint {
     public var path: List<String>?
 }
 
+// TODO: Create functions with blocks to generate message and path only when the constraint is not satisfied? Could be useful for slow operations.
 public infix fun Constraint.explain(message: String): Constraint = apply { this.message = message }
 public infix fun Constraint.withPath(path: List<String>): Constraint = apply { this.path = path }
 public infix fun Constraint.withPath(fragment: String): Constraint = apply { path = listOf(fragment) }
