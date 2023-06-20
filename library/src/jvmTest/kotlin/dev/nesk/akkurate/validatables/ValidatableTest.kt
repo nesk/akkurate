@@ -1,5 +1,6 @@
 package dev.nesk.akkurate.validatables
 
+import dev.nesk.akkurate.constraints.Constraint
 import kotlin.reflect.KProperty1
 import kotlin.test.*
 
@@ -39,6 +40,29 @@ class ValidatableTest {
     fun `the validatable can be unwrapped with its original value`() {
         val foo = object {}
         assertSame(foo, Validatable(foo).unwrap())
+    }
+
+    @Test
+    fun `calling 'registerConstraint' with a satisfied constraint leaves the constraints collection empty`() {
+        // Arrange
+        val constraint = Constraint(true, emptyList())
+        val validatable = Validatable("foo")
+        // Act
+        validatable.registerConstraint(constraint)
+        // Assert
+        assertTrue(validatable.constraints.isEmpty(), "The constraints collection is empty")
+    }
+
+    @Test
+    fun `calling 'registerConstraint' with an unsatisfied constraint adds it to the constraints collection`() {
+        // Arrange
+        val constraint = Constraint(false, emptyList())
+        val validatable = Validatable("foo")
+        // Act
+        validatable.registerConstraint(constraint)
+        // Assert
+        assertEquals(1, validatable.constraints.size, "The constraints collection contains only one item")
+        assertEquals(constraint, validatable.constraints.first(), "The constraints collection item is equal to the registered constraint")
     }
 
     @Test
