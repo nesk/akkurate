@@ -3,21 +3,23 @@ package dev.nesk.validation.accessors
 import dev.nesk.User
 import dev.nesk.UserName
 import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.validatables.validatableOf
 import kotlin.String
 import kotlin.jvm.JvmName
+import kotlin.reflect.KProperty1
 
 public val Validatable<User>.name: Validatable<UserName>
   @JvmName(name = "validatableUserName")
-  get() = createValidatable(unwrap().name)
+  get() = validatableOf(User::name)
 
 public val Validatable<User?>.name: Validatable<UserName?>
   @JvmName(name = "validatableNullableUserName")
-  get() = createValidatable(unwrap()?.name)
+  get() = validatableOf(User::name as KProperty1)
 
 public val Validatable<UserName>.text: Validatable<String>
   @JvmName(name = "validatableUserNameText")
-  get() = createValidatable(unwrap().text)
+  get() = validatableOf(UserName::text)
 
 public val Validatable<UserName?>.text: Validatable<String?>
   @JvmName(name = "validatableNullableUserNameText")
-  get() = createValidatable(unwrap()?.text)
+  get() = validatableOf(UserName::text as KProperty1)

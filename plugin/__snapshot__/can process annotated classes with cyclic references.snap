@@ -3,20 +3,22 @@ package dev.nesk.validation.accessors
 import dev.nesk.Company
 import dev.nesk.User
 import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.validatables.validatableOf
 import kotlin.jvm.JvmName
+import kotlin.reflect.KProperty1
 
 public val Validatable<Company>.admin: Validatable<User>
   @JvmName(name = "validatableCompanyAdmin")
-  get() = createValidatable(unwrap().admin)
+  get() = validatableOf(Company::admin)
 
 public val Validatable<Company?>.admin: Validatable<User?>
   @JvmName(name = "validatableNullableCompanyAdmin")
-  get() = createValidatable(unwrap()?.admin)
+  get() = validatableOf(Company::admin as KProperty1)
 
 public val Validatable<User>.company: Validatable<Company>
   @JvmName(name = "validatableUserCompany")
-  get() = createValidatable(unwrap().company)
+  get() = validatableOf(User::company)
 
 public val Validatable<User?>.company: Validatable<Company?>
   @JvmName(name = "validatableNullableUserCompany")
-  get() = createValidatable(unwrap()?.company)
+  get() = validatableOf(User::company as KProperty1)

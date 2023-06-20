@@ -6,11 +6,11 @@ import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSDeclaration
 import com.google.devtools.ksp.symbol.KSPropertyDeclaration
 import com.squareup.kotlinpoet.*
-import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import dev.nesk.akkurate.annotations.Validate
 import dev.nesk.akkurate.validatables.Validatable
 import java.io.OutputStreamWriter
+import kotlin.reflect.KProperty1
 
 // TODO: always implement equals, hashcode, toString
 class ValidateAnnotationProcessor(private val codeGenerator: CodeGenerator, private val logger: KSPLogger) : SymbolProcessor {
@@ -104,22 +104,27 @@ class ValidateAnnotationProcessor(private val codeGenerator: CodeGenerator, priv
      */
     private fun KSPropertyDeclaration.toValidatablePropertySpec(withNullableReceiver: Boolean = false): PropertySpec {
         val receiver = parentDeclaration!!
-        val nullability = if (withNullableReceiver) "?" else ""
         val nullabilityText = if (withNullableReceiver) "Nullable" else ""
-        val createValidatableFunction = Validatable::class.asClassName().member("createValidatable")
-        val unwrapFunction = Validatable::class.asClassName().member("unwrap")
+        val validatableOfFunction = MemberName("dev.nesk.akkurate.validatables", "validatableOf")
+        val kProperty1Class = KProperty1::class.asClassName()
 
         return PropertySpec.builder(simpleName.asString(), type.toTypeName().toValidatableType(forceNullable = withNullableReceiver))
             .receiver(receiver.toTypeName().toValidatableType(forceNullable = withNullableReceiver))
             .getter(
-                FunSpec.getterBuilder()
-                    .addAnnotation(
+                FunSpec.getterBuilder().apply {
+                    addAnnotation(
                         AnnotationSpec.builder(JvmName::class)
-                            .addMember("name = %S", "validatable$nullabilityText${receiver.capitalizedName}${this.capitalizedName}")
+                            .addMember("name = %S", "validatable$nullabilityText${receiver.capitalizedName}${capitalizedName}")
                             .build()
                     )
-                    .addStatement("return %N(%N()$nullability.%N)", createValidatableFunction, unwrapFunction, this.toMemberName())
-                    .build()
+
+                    if (withNullableReceiver) {
+                        // FIXME: The cast is a workaround for https://youtrack.jetbrains.com/issue/KT-59493, it can be removed with KT v1.9.20
+                        addStatement("return %M(%T::%N as %T)", validatableOfFunction, receiver.toTypeName(), toMemberName(), kProperty1Class)
+                    } else {
+                        addStatement("return %M(%T::%N)", validatableOfFunction, receiver.toTypeName(), toMemberName())
+                    }
+                }.build()
             )
             .build()
     }
