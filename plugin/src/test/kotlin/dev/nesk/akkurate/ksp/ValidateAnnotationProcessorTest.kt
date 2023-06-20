@@ -41,7 +41,7 @@ class ValidateAnnotationProcessorTest {
         // Assert
         assertCompilationIsSuccessful(result)
         assertCountOfFilesGeneratedByTheProcessor(1, compiler)
-        Path("${compiler.kotlinFilesDir}/dev/nesk/ValidationAccessors.kt").readText()
+        Path("${compiler.kotlinFilesDir}/dev/nesk/validation/accessors/ValidationAccessors.kt").readText()
             .matchWithSnapshot("can process a single annotated class")
     }
 
@@ -63,7 +63,7 @@ class ValidateAnnotationProcessorTest {
         // Assert
         assertCompilationIsSuccessful(result)
         assertCountOfFilesGeneratedByTheProcessor(1, compiler)
-        Path("${compiler.kotlinFilesDir}/dev/nesk/ValidationAccessors.kt").readText()
+        Path("${compiler.kotlinFilesDir}/dev/nesk/validation/accessors/ValidationAccessors.kt").readText()
             .matchWithSnapshot("can process multiple annotated classes")
     }
 
@@ -85,7 +85,7 @@ class ValidateAnnotationProcessorTest {
         // Assert
         assertCompilationIsSuccessful(result)
         assertCountOfFilesGeneratedByTheProcessor(1, compiler)
-        Path("${compiler.kotlinFilesDir}/dev/nesk/ValidationAccessors.kt").readText()
+        Path("${compiler.kotlinFilesDir}/dev/nesk/validation/accessors/ValidationAccessors.kt").readText()
             .matchWithSnapshot("can process annotated classes referenced as nullables")
     }
 
@@ -107,7 +107,7 @@ class ValidateAnnotationProcessorTest {
         // Assert
         assertCompilationIsSuccessful(result)
         assertCountOfFilesGeneratedByTheProcessor(1, compiler)
-        Path("${compiler.kotlinFilesDir}/dev/nesk/ValidationAccessors.kt").readText()
+        Path("${compiler.kotlinFilesDir}/dev/nesk/validation/accessors/ValidationAccessors.kt").readText()
             .matchWithSnapshot("can process annotated classes with cyclic references")
     }
 
@@ -129,7 +129,7 @@ class ValidateAnnotationProcessorTest {
         // Assert
         assertCompilationIsSuccessful(result)
         assertCountOfFilesGeneratedByTheProcessor(1, compiler)
-        Path("${compiler.kotlinFilesDir}/dev/nesk/ValidationAccessors.kt").readText()
+        Path("${compiler.kotlinFilesDir}/dev/nesk/validation/accessors/ValidationAccessors.kt").readText()
             .matchWithSnapshot("can process annotated classes with cyclic nullable references")
     }
 
@@ -159,9 +159,9 @@ class ValidateAnnotationProcessorTest {
         // Assert
         assertCompilationIsSuccessful(result)
         assertCountOfFilesGeneratedByTheProcessor(2, compiler)
-        Path("${compiler.kotlinFilesDir}/dev/nesk/company/ValidationAccessors.kt").readText()
+        Path("${compiler.kotlinFilesDir}/dev/nesk/company/validation/accessors/ValidationAccessors.kt").readText()
             .matchWithSnapshot("can process annotated classes across multiple packages (company)")
-        Path("${compiler.kotlinFilesDir}/dev/nesk/user/ValidationAccessors.kt").readText()
+        Path("${compiler.kotlinFilesDir}/dev/nesk/user/validation/accessors/ValidationAccessors.kt").readText()
             .matchWithSnapshot("can process annotated classes across multiple packages (user)")
     }
 

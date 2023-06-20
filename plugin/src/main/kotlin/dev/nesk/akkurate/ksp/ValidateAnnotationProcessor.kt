@@ -61,7 +61,7 @@ class ValidateAnnotationProcessor(private val codeGenerator: CodeGenerator, priv
                 accessors.forEach(fileBuilder::addProperty)
 
                 // TODO: change the ALL_FILES
-                codeGenerator.createNewFile(Dependencies.ALL_FILES, packageName, fileBuilder.name, "kt").use { output ->
+                codeGenerator.createNewFile(Dependencies.ALL_FILES, newPackageName, fileBuilder.name, "kt").use { output ->
                     OutputStreamWriter(output).use { fileBuilder.build().writeTo(it) }
                 }
             }
