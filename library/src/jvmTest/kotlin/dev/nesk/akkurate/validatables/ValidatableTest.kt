@@ -5,6 +5,8 @@ import kotlin.reflect.KProperty1
 import kotlin.test.*
 
 class ValidatableTest {
+    private fun <T> Validatable(wrappedValue: T, parent: Validatable<*>) = Validatable(wrappedValue, null, parent)
+
     @Test
     fun `the default path is empty`() {
         assertEquals(emptyList(), Validatable("foo").path())
@@ -63,6 +65,26 @@ class ValidatableTest {
         // Assert
         assertEquals(1, validatable.constraints.size, "The constraints collection contains only one item")
         assertEquals(constraint, validatable.constraints.first(), "The constraints collection item is equal to the registered constraint")
+    }
+
+    @Test
+    fun `registered constraints are always stored in the root validatable`() {
+        // Arrange
+        val level0 = Validatable("foo")
+        val level1 = Validatable("foo", level0)
+        val level2 = Validatable("foo", level1)
+        val constraint0 = Constraint(false, listOf("level0"))
+        val constraint1 = Constraint(false, listOf("level0", "level1"))
+        val constraint2 = Constraint(false, listOf("level0", "level1", "level2"))
+        // Act
+        level0.registerConstraint(constraint0)
+        level1.registerConstraint(constraint1)
+        level2.registerConstraint(constraint2)
+        // Assert
+        assertEquals(3, level0.constraints.size, "The root validatable contains 3 constraints")
+        assertContains(level0.constraints, constraint0, "The root validatable contains its own constraint")
+        assertContains(level0.constraints, constraint1, "The root validatable contains the constraint from its direct children")
+        assertContains(level0.constraints, constraint2, "The root validatable contains the constraint from its indirect children")
     }
 
     @Test
