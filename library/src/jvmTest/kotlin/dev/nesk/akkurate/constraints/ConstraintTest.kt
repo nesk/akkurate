@@ -1,0 +1,150 @@
+package dev.nesk.akkurate.constraints
+
+import dev.nesk.akkurate.validatables.Validatable
+import kotlin.test.*
+
+class ConstraintTest {
+    private fun Constraint(satisfied: Boolean) = Constraint(satisfied, emptyList())
+
+    @Test
+    fun `the default message is null`() {
+        assertNull(Constraint(false).message)
+    }
+
+    @Test
+    fun `the first destructuring component returns the value of the 'satisfied' property`() {
+        val satisfied = listOf(true, false).random()
+        assertEquals(satisfied, Constraint(satisfied).component1())
+    }
+
+    @Test
+    fun `calling 'explain' with a string updates the message`() {
+        val constraint = Constraint(false) explain "foobar"
+        assertEquals("foobar", constraint.message)
+    }
+
+    @Test
+    fun `calling 'explain' with a lambda updates the message if the constraint is not satisfied`() {
+        val constraint = Constraint(false) explain { "foo" }
+        assertEquals("foo", constraint.message)
+    }
+
+    @Test
+    fun `calling 'explain' with a lambda does not update the message if the constraint is satisfied`() {
+        val constraint = Constraint(true) explain { "foo" }
+        assertNull(constraint.message)
+    }
+
+    @Test
+    fun `calling 'withPath' with a string list updates the whole path`() {
+        val constraint = Constraint(false) withPath listOf("foo", "bar")
+        assertEquals(listOf("foo", "bar"), constraint.path)
+    }
+
+    @Test
+    fun `calling 'withPath' with a lambda updates the path if the constraint is not satisfied`() {
+        val constraint = Constraint(false, listOf("foo")) withPath { it + "bar" }
+        assertEquals(listOf("foo", "bar"), constraint.path)
+    }
+
+    @Test
+    fun `calling 'withPath' with a lambda does not update the path if the constraint is satisfied`() {
+        val constraint = Constraint(true, listOf("foo")) withPath { it + "bar" }
+        assertEquals(listOf("foo"), constraint.path)
+    }
+
+    @Test
+    fun `calling 'constrain' with a falsy lambda creates and registers an unsatisfied constraint with the validatable path`() {
+        // Arrange
+        val validatable = Validatable("foo", "foo")
+        // Act
+        val constraint = validatable.constrain { false }
+        // Assert
+        assertFalse(constraint.satisfied, "The constraint is unsatisfied")
+        assertEquals(validatable.path(), constraint.path, "The constraint path is the same as the validatable")
+        assertEquals(1, validatable.constraints.size)
+        assertEquals(constraint, validatable.constraints.first())
+    }
+
+    @Test
+    fun `calling 'constrainIfNotNull' acts as 'constrain' when the wrapped value is not null`() {
+        // Arrange
+        val validatable = Validatable("foo" as String?)
+        // Act
+        val constraint = validatable.constrainIfNotNull { false }
+        // Assert
+        assertFalse(constraint.satisfied, "The constraint is unsatisfied")
+        assertEquals(validatable.path(), constraint.path, "The constraint path is the same as the validatable")
+    }
+
+    @Test
+    fun `calling 'constrainIfNotNull' returns a satisfied constraint when the wrapped value is null`() {
+        // Arrange
+        val validatable = Validatable(null as String?)
+        // Act
+        val constraint = validatable.constrainIfNotNull { false }
+        // Assert
+        assertTrue(constraint.satisfied, "The constraint is satisfied")
+        assertEquals(validatable.path(), constraint.path, "The constraint path is the same as the validatable")
+    }
+
+    //region Tests for `equals()` and `hashCode()`
+
+    @Test
+    fun `'equals' returns true when all the values are the same`() {
+        val constraint1 = Constraint(false, listOf("bar")) explain "foo"
+        val constraint2 = Constraint(false, listOf("bar")) explain "foo"
+        assertEquals(constraint1, constraint2)
+    }
+
+    @Test
+    fun `'equals' returns false when at least one of the values differ (variant 'satisfied')`() {
+        val original = Constraint(false, listOf("bar")) explain "foo"
+        val other = Constraint(true, listOf("bar")) explain "foo"
+        assertNotEquals(original, other)
+    }
+
+    @Test
+    fun `'equals' returns false when at least one of the values differ (variant 'message')`() {
+        val original = Constraint(false, listOf("bar")) explain "foo"
+        val other = Constraint(false, listOf("bar")) explain ""
+        assertNotEquals(original, other)
+    }
+
+    @Test
+    fun `'equals' returns false when at least one of the values differ (variant 'path')`() {
+        val original = Constraint(false, listOf("bar")) explain "foo"
+        val other = Constraint(false, listOf()) explain "foo"
+        assertNotEquals(original, other)
+    }
+
+    @Test
+    fun `'hashCode' returns the same value when all the values are the same`() {
+        val constraint1 = Constraint(false, listOf("bar")) explain "foo"
+        val constraint2 = Constraint(false, listOf("bar")) explain "foo"
+        assertEquals(constraint1.hashCode(), constraint2.hashCode())
+    }
+
+    @Test
+    fun `'hashCode' returns a different value when at least one of the values differ (variant 'satisfied')`() {
+        val original = Constraint(false, listOf("bar")) explain "foo"
+        val other = Constraint(true, listOf("bar")) explain "foo"
+        assertNotEquals(original.hashCode(), other.hashCode())
+    }
+
+    @Test
+    fun `'hashCode' returns a different value when at least one of the values differ (variant 'message')`() {
+        val original = Constraint(false, listOf("bar")) explain "foo"
+        val other = Constraint(false, listOf("bar")) explain ""
+        assertNotEquals(original.hashCode(), other.hashCode())
+    }
+
+    @Test
+    fun `'hashCode' returns a different value when at least one of the values differ (variant 'path')`() {
+        val original = Constraint(false, listOf("bar")) explain "foo"
+        val other = Constraint(false, listOf()) explain "foo"
+        assertNotEquals(original.hashCode(), other.hashCode())
+    }
+
+    //endregion
+}

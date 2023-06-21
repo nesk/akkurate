@@ -65,7 +65,7 @@ val validateCompany = Validator.suspendable<CompanyValidationContext, Company>(c
     users.each { validateWith(validateUser) }
 
     val maxSeats = plan.unwrap().maximumUserCount
-    users.maxSize(maxSeats) explain "Your plan is limited to $maxSeats seats." withPath "company.seats"
+    users.maxSize(maxSeats) explain "Your plan is limited to $maxSeats seats." withPath listOf("company", "seats")
 }
 
 val validateUser = Validator<User> {
