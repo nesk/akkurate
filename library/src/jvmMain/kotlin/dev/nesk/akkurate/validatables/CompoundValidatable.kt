@@ -12,15 +12,15 @@ package dev.nesk.akkurate.validatables
 
     To ease development, the first release will make parentheses mandatory.
  */
-public interface CompoundValidatable<T> {
-    public val validatables: Set<Validatable<T>>
+public class CompoundValidatable<T>(public val validatables: Set<Validatable<T>>) {
 
-    public infix fun and(other: Validatable<T>): CompoundValidatable<T>
-    public infix fun and(other: CompoundValidatable<T>): CompoundValidatable<T>
+    public infix fun and(other: Validatable<T>): CompoundValidatable<T> = CompoundValidatable(validatables + setOf(other))
+    public infix fun and(other: CompoundValidatable<T>): CompoundValidatable<T> = CompoundValidatable(validatables + other.validatables)
 }
 
 public inline operator fun <T> CompoundValidatable<T>.invoke(block: Validatable<T>.() -> Unit): Unit = validatables.forEach { it.block() }
-public infix fun <T> Validatable<T>.and(other: Validatable<T>): CompoundValidatable<T> = TODO()
+public infix fun <T> Validatable<T>.and(other: Validatable<T>): CompoundValidatable<T> = CompoundValidatable(setOf(this, other))
+public infix fun <T> Validatable<T>.and(other: CompoundValidatable<T>): CompoundValidatable<T> = CompoundValidatable(setOf(this) + other.validatables)
 
 // TODO: find a solution to improve type combinations
 //infix fun <T1, T2> CompoundValidatable<T1>.and(other: Validatable<T2>): CompoundValidatable<Any?> = TODO()
