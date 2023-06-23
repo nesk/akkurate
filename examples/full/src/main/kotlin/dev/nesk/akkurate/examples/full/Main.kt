@@ -1,6 +1,5 @@
 package dev.nesk.akkurate.examples.full
 
-import dev.nesk.akkurate.ValidationException
 import dev.nesk.akkurate.ValidationResult
 import dev.nesk.akkurate.Validator
 import dev.nesk.akkurate.accessors.each
@@ -88,9 +87,9 @@ suspend fun main() {
         is ValidationResult.Failure -> {
             val (errors, company) = result
             println("Failure with company ${company.name}…")
-            for (fieldErrors in errors.groupByPath().values) {
-                println("Field \"${fieldErrors.path}\":")
-                for (message in fieldErrors.errorMessages) {
+            for ((path, messages) in errors.byPath) {
+                println("Field \"$path\":")
+                for (message in messages) {
                     println("- $message")
                 }
             }
@@ -99,8 +98,8 @@ suspend fun main() {
 
     try {
         validateWithContext(company).orThrow()
-    } catch (e: ValidationException) {
-        println(e.errors.groupByPath())
+    } catch (e: ValidationResult.Exception) {
+        println(e.errors.byPath)
     }
 }
 
