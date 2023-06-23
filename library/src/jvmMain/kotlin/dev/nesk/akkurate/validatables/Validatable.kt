@@ -1,19 +1,20 @@
 package dev.nesk.akkurate.validatables
 
+import dev.nesk.akkurate.Path
 import dev.nesk.akkurate.constraints.Constraint
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KProperty
 import kotlin.reflect.KProperty1
 
 public class Validatable<T> internal constructor(private val wrappedValue: T, pathSegment: String? = null, parent: Validatable<*>? = null) {
-    private val path: List<String> = buildList {
+    private val path: Path = buildList {
         addAll(parent?.path ?: emptyList())
         if (!pathSegment.isNullOrEmpty()) {
             add(pathSegment)
         }
     }
 
-    public fun path(): List<String> = path
+    public fun path(): Path = path
 
     public fun unwrap(): T = wrappedValue
 

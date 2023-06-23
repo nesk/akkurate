@@ -30,10 +30,10 @@ public interface Validator {
             public operator fun invoke(block: Builder.() -> Unit = {}): Configuration = TODO()
         }
 
-        public val rootPath: List<String>
+        public val rootPath: Path
 
         public interface Builder : Configuration {
-            override var rootPath: MutableList<String>
+            override var rootPath: MutablePath
         }
     }
 

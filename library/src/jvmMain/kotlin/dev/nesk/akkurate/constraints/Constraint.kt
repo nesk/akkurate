@@ -1,10 +1,11 @@
 package dev.nesk.akkurate.constraints
 
+import dev.nesk.akkurate.Path
 import dev.nesk.akkurate.validatables.Validatable
 
 // This could be a data class in the future if Kotlin adds a feature to remove the `copy()` method when a constructor is internal or private.
 // https://youtrack.jetbrains.com/issue/KT-11914
-public class Constraint(public val satisfied: Boolean, public var path: List<String>) {
+public class Constraint(public val satisfied: Boolean, public var path: Path) {
     public var message: String? = null
 
     public operator fun component1(): Boolean = satisfied
@@ -33,8 +34,8 @@ public infix fun Constraint.explain(block: () -> String): Constraint = apply {
     if (!satisfied) message = block()
 }
 
-public infix fun Constraint.withPath(path: List<String>): Constraint = apply { this.path = path }
-public infix fun Constraint.withPath(block: (previousPath: List<String>) -> List<String>): Constraint = apply {
+public infix fun Constraint.withPath(path: Path): Constraint = apply { this.path = path }
+public infix fun Constraint.withPath(block: (previousPath: Path) -> Path): Constraint = apply {
     if (!satisfied) path = block(path)
 }
 
