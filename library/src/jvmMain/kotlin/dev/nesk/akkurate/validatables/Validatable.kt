@@ -6,7 +6,7 @@ import kotlin.reflect.KFunction1
 import kotlin.reflect.KProperty
 import kotlin.reflect.KProperty1
 
-public class Validatable<T> internal constructor(private val wrappedValue: T, pathSegment: String? = null, parent: Validatable<*>? = null) {
+public class Validatable<T> internal constructor(private val wrappedValue: T, pathSegment: String? = null, internal val parent: Validatable<*>? = null) {
     private val path: Path = buildList {
         addAll(parent?.path ?: emptyList())
         if (!pathSegment.isNullOrEmpty()) {
