@@ -12,7 +12,6 @@ import dev.nesk.akkurate.validatables.Validatable
 import java.io.OutputStreamWriter
 import kotlin.reflect.KProperty1
 
-// TODO: always implement equals, hashcode, toString
 class ValidateAnnotationProcessor(private val codeGenerator: CodeGenerator, private val logger: KSPLogger) : SymbolProcessor {
     /**
      * All the generated accessors for each property of the validatables.

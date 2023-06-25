@@ -6,6 +6,7 @@ import kotlin.reflect.KFunction1
 import kotlin.reflect.KProperty
 import kotlin.reflect.KProperty1
 
+// TODO: what about `Validatable<out T>`?
 public class Validatable<T> internal constructor(private val wrappedValue: T, pathSegment: String? = null, internal val parent: Validatable<*>? = null) {
     private val path: Path = buildList {
         addAll(parent?.path ?: emptyList())
@@ -23,6 +24,37 @@ public class Validatable<T> internal constructor(private val wrappedValue: T, pa
     public fun registerConstraint(constraint: Constraint) {
         if (!constraint.satisfied) constraints.add(constraint)
     }
+
+    /**
+     * Indicates whether some other object is "equal to" this validatable.
+     *
+     * Validatables are only compared against the value returned by [unwrap].
+     * This allows easy comparisons between two validatables:
+     *
+     * ```
+     * Validator<UserRegistration> {
+     *     constrain { password == passwordConfirmation }
+     * }
+     * ```
+     */
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Validatable<*>
+
+        return wrappedValue == other.wrappedValue
+    }
+
+    /**
+     * Returns a hash code value for the object.
+     *
+     * The hashcode is only produced from the value returned by [unwrap],
+     * according to [equals] implementation.
+     */
+    override fun hashCode(): Int = wrappedValue?.hashCode() ?: 0
+
+    override fun toString(): String = "Validatable(unwrap=$wrappedValue, parent=$parent, path=$path)"
 
     /**
      * Allows a [Validatable] to use the constraints collection of its parent or,

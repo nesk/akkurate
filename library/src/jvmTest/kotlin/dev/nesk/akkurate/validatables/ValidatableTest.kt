@@ -47,7 +47,7 @@ class ValidatableTest {
     @Test
     fun `calling 'registerConstraint' with a satisfied constraint leaves the constraints collection empty`() {
         // Arrange
-        val constraint = Constraint(true, emptyList())
+        val constraint = Constraint(true, Validatable(null))
         val validatable = Validatable("foo")
         // Act
         validatable.registerConstraint(constraint)
@@ -58,7 +58,7 @@ class ValidatableTest {
     @Test
     fun `calling 'registerConstraint' with an unsatisfied constraint adds it to the constraints collection`() {
         // Arrange
-        val constraint = Constraint(false, emptyList())
+        val constraint = Constraint(false, Validatable(null))
         val validatable = Validatable("foo")
         // Act
         validatable.registerConstraint(constraint)
@@ -71,11 +71,11 @@ class ValidatableTest {
     fun `registered constraints are always stored in the root validatable`() {
         // Arrange
         val level0 = Validatable("foo")
-        val level1 = Validatable("foo", level0)
-        val level2 = Validatable("foo", level1)
-        val constraint0 = Constraint(false, listOf("level0"))
-        val constraint1 = Constraint(false, listOf("level0", "level1"))
-        val constraint2 = Constraint(false, listOf("level0", "level1", "level2"))
+        val level1 = Validatable("bar", "bar", level0)
+        val level2 = Validatable("baz", "baz", level1)
+        val constraint0 = Constraint(false, level0)
+        val constraint1 = Constraint(false, level1)
+        val constraint2 = Constraint(false, level2)
         // Act
         level0.registerConstraint(constraint0)
         level1.registerConstraint(constraint1)
@@ -165,4 +165,36 @@ class ValidatableTest {
         assertNull(child.unwrap(), "The child validatable wraps the value of the property")
         assertEquals(listOf("string", "count"), child.path(), "The child validatable extends the parent path with the property name")
     }
+
+    //region Tests for `equals()` and `hashCode()`
+
+    @Test
+    fun `'equals' returns true when the wrapped values are the same`() {
+        val validatable1 = Validatable("foo", "bar")
+        val validatable2 = Validatable("foo", "baz", validatable1)
+        assertTrue(validatable1.equals(validatable2))
+    }
+
+    @Test
+    fun `'equals' returns false when the wrapped values are different`() {
+        val validatable1 = Validatable("foo")
+        val validatable2 = Validatable("bar")
+        assertFalse(validatable1.equals(validatable2))
+    }
+
+    @Test
+    fun `'hashCode' returns the same hash when the wrapped values are the same`() {
+        val validatable1 = Validatable("foo", "bar")
+        val validatable2 = Validatable("foo", "baz", validatable1)
+        assertEquals(validatable1.hashCode(), validatable2.hashCode())
+    }
+
+    @Test
+    fun `'hashCode' returns different hashes when the wrapped values differ`() {
+        val validatable1 = Validatable("foo")
+        val validatable2 = Validatable("bar")
+        assertNotEquals(validatable1.hashCode(), validatable2.hashCode())
+    }
+
+    //endregion
 }
