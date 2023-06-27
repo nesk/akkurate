@@ -1,15 +1,30 @@
 package dev.nesk.akkurate.constraints
 
 import dev.nesk.akkurate.Path
+import dev.nesk.akkurate.PathBuilder
 import dev.nesk.akkurate.validatables.Validatable
 
 // This could be a data class in the future if Kotlin adds a feature to remove the `copy()` method when a constructor is internal or private.
 // https://youtrack.jetbrains.com/issue/KT-11914
-public class Constraint(public val satisfied: Boolean, public var path: Path) {
+// TODO: what about `Constraint<out T>`?
+public class Constraint(public val satisfied: Boolean, public var validatable: Validatable<*>) {
+    internal var customPath: Path? = null
+
+    public val path: Path get() = customPath ?: validatable.path()
+
     public var message: String? = null
 
     public operator fun component1(): Boolean = satisfied
 
+    /**
+     * Indicates whether some other object is "equal to" this constraint.
+     *
+     * Constraints are compared against the following properties:
+     *
+     * * [satisfied]
+     * * [path]
+     * * [message]
+     */
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -21,26 +36,43 @@ public class Constraint(public val satisfied: Boolean, public var path: Path) {
         return message == other.message
     }
 
+    /**
+     * Returns a hash code value for the object.
+     *
+     * The hashcode is produced from the following properties:
+     *
+     * * [satisfied]
+     * * [path]
+     * * [message]
+     *
+     * Those criteria were chosen specifically to ensure, in a set, only a single occurrence
+     * of a message can be used for each path.
+     */
     override fun hashCode(): Int {
         var result = satisfied.hashCode()
         result = 31 * result + path.hashCode()
         result = 31 * result + (message?.hashCode() ?: 0)
         return result
     }
+
+    override fun toString(): String {
+        return "Constraint(satisfied=$satisfied, validatable=$validatable, path=$customPath, message=$message)"
+    }
 }
 
-public infix fun Constraint.explain(message: String): Constraint = apply { this.message = message }
 public infix fun Constraint.explain(block: () -> String): Constraint = apply {
     if (!satisfied) message = block()
 }
 
-public infix fun Constraint.withPath(path: Path): Constraint = apply { this.path = path }
-public infix fun Constraint.withPath(block: (previousPath: Path) -> Path): Constraint = apply {
-    if (!satisfied) path = block(path)
+public infix fun Constraint.withPath(block: PathBuilder.(originalPath: Path) -> Path): Constraint {
+    if (!satisfied) {
+        customPath = PathBuilder(validatable).block(validatable.path())
+    }
+    return this
 }
 
 public inline fun <T> Validatable<T>.constrain(block: (value: T) -> Boolean): Constraint {
-    return Constraint(block(unwrap()), path())
+    return Constraint(block(unwrap()), this)
         .also(::registerConstraint)
 }
 
