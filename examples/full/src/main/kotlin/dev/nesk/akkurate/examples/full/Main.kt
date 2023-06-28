@@ -85,9 +85,9 @@ suspend fun main() {
     when (val result = validateWithContext(company)) {
         ValidationResult.Success -> println("Success!")
         is ValidationResult.Failure -> {
-            val (errors, company) = result
+            val (violations, company) = result
             println("Failure with company ${company.name}…")
-            for ((path, messages) in errors.byPath) {
+            for ((path, messages) in violations.byPath) {
                 println("Field \"$path\":")
                 for (message in messages) {
                     println("- $message")
