@@ -5,6 +5,7 @@ import dev.nesk.akkurate.constraints.ConstraintViolationSet
 public sealed interface ValidationResult<out T> {
     public fun orThrow()
 
+    // TODO: convert to a class to be future-proof when the API will be able to return a new version of the validated data?
     public object Success : ValidationResult<Nothing> {
         override fun orThrow(): Unit = Unit
     }
