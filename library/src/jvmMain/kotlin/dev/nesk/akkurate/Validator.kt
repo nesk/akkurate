@@ -25,18 +25,6 @@ public interface Validator {
         ): SuspendableRunner<ValueType> = SuspendableValidatorRunner.WithoutContext(block)
     }
 
-    public interface Configuration {
-        public companion object {
-            public operator fun invoke(block: Builder.() -> Unit = {}): Configuration = TODO()
-        }
-
-        public val rootPath: Path
-
-        public interface Builder : Configuration {
-            override var rootPath: MutablePath
-        }
-    }
-
     public interface Runner<ValueType> {
         public operator fun invoke(value: ValueType): ValidationResult<ValueType>
 

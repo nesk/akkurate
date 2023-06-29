@@ -1,5 +1,6 @@
 package dev.nesk.akkurate.examples.full
 
+import dev.nesk.akkurate.Configuration
 import dev.nesk.akkurate.ValidationResult
 import dev.nesk.akkurate.Validator
 import dev.nesk.akkurate.accessors.each
@@ -35,9 +36,9 @@ class CompanyRepository {
     suspend fun hasCompanyWithName(name: String): Boolean = TODO()
 }
 
-val config = Validator.Configuration {
-    rootPath += "company"
-}
+val config = Configuration(
+    rootPath = listOf("company")
+)
 
 val validateCompany = Validator.suspendable<CompanyValidationContext, Company>(config) { (repository) ->
     holding.name {
