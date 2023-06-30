@@ -6,19 +6,23 @@ import dev.nesk.akkurate.validatables.Validatable
 
 // This could be a data class in the future if Kotlin adds a feature to remove the `copy()` method when a constructor is internal or private.
 // https://youtrack.jetbrains.com/issue/KT-11914
-// TODO: what about `Constraint<out T>`?
-public class Constraint(public val satisfied: Boolean, public var validatable: Validatable<*>) {
+public class Constraint(public val satisfied: Boolean, public var validatable: Validatable<*>) : ConstraintDescriptor {
     private var customPath: Path? = null
 
-    public var path: Path
+    public override var path: Path
         get() = customPath ?: validatable.path()
         set(value) {
             customPath = value
         }
 
-    public var message: String? = null
+    public override var message: String = ""
 
     public operator fun component1(): Boolean = satisfied
+
+    internal fun toConstraintViolation(defaultMessage: String, rootPath: Path): ConstraintViolation {
+        require(!satisfied) { "Converting to `ConstrainViolation` can only be done when the constraint is not satisfied." }
+        return ConstraintViolation(message.ifEmpty { defaultMessage }, rootPath + path)
+    }
 
     /**
      * Indicates whether some other object is "equal to" this constraint.

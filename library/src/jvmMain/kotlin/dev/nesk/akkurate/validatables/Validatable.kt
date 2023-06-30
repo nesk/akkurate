@@ -2,6 +2,7 @@ package dev.nesk.akkurate.validatables
 
 import dev.nesk.akkurate.Path
 import dev.nesk.akkurate.constraints.Constraint
+import dev.nesk.akkurate.constraints.ConstraintDescriptor
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KProperty
 import kotlin.reflect.KProperty1
@@ -19,7 +20,7 @@ public class Validatable<T> internal constructor(private val wrappedValue: T, pa
 
     public fun unwrap(): T = wrappedValue
 
-    internal val constraints: MutableSet<Constraint> by BubblingConstraints(parent)
+    internal val constraints: MutableSet<ConstraintDescriptor> by BubblingConstraints(parent)
 
     public fun registerConstraint(constraint: Constraint) {
         if (!constraint.satisfied) constraints.add(constraint)
@@ -61,7 +62,7 @@ public class Validatable<T> internal constructor(private val wrappedValue: T, pa
      * if it has no parent, instantiates a new dedicated collection to store them.
      */
     private class BubblingConstraints(val parent: Validatable<*>? = null) {
-        val constraints by lazy { mutableSetOf<Constraint>() }
+        val constraints by lazy { mutableSetOf<ConstraintDescriptor>() }
         operator fun getValue(thisRef: Validatable<*>, property: KProperty<*>) = parent?.constraints ?: constraints
     }
 }

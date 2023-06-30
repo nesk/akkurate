@@ -2,7 +2,7 @@ package dev.nesk.akkurate.constraints
 
 import dev.nesk.akkurate.Path
 
-public class ConstraintViolation internal constructor(public val message: String, public val path: Path) {
+public class ConstraintViolation internal constructor(public override val message: String, public override val path: Path) : ConstraintDescriptor {
     public operator fun component1(): String = message
     public operator fun component2(): Path = path
 
