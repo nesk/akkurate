@@ -3,6 +3,7 @@ package dev.nesk.akkurate.validatables
 import dev.nesk.akkurate.Path
 import dev.nesk.akkurate.constraints.Constraint
 import dev.nesk.akkurate.constraints.ConstraintDescriptor
+import dev.nesk.akkurate.constraints.ConstraintViolation
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KProperty
 import kotlin.reflect.KProperty1
@@ -23,6 +24,10 @@ public class Validatable<out T> internal constructor(private val wrappedValue: T
 
     public fun registerConstraint(constraint: Constraint) {
         if (!constraint.satisfied) constraints.add(constraint)
+    }
+
+    public fun registerConstraint(constraint: ConstraintViolation) {
+        constraints.add(constraint)
     }
 
     /**

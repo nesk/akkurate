@@ -6,6 +6,8 @@ public class ConstraintViolation internal constructor(public override val messag
     public operator fun component1(): String = message
     public operator fun component2(): Path = path
 
+    internal fun copy(path: Path = this.path) = ConstraintViolation(message, path)
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
