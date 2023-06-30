@@ -8,9 +8,13 @@ import dev.nesk.akkurate.validatables.Validatable
 // https://youtrack.jetbrains.com/issue/KT-11914
 // TODO: what about `Constraint<out T>`?
 public class Constraint(public val satisfied: Boolean, public var validatable: Validatable<*>) {
-    internal var customPath: Path? = null
+    private var customPath: Path? = null
 
-    public val path: Path get() = customPath ?: validatable.path()
+    public var path: Path
+        get() = customPath ?: validatable.path()
+        set(value) {
+            customPath = value
+        }
 
     public var message: String? = null
 
@@ -60,13 +64,13 @@ public class Constraint(public val satisfied: Boolean, public var validatable: V
     }
 }
 
-public infix fun Constraint.explain(block: () -> String): Constraint = apply {
+public inline infix fun Constraint.explain(block: () -> String): Constraint = apply {
     if (!satisfied) message = block()
 }
 
-public infix fun Constraint.withPath(block: PathBuilder.(originalPath: Path) -> Path): Constraint {
+public inline infix fun Constraint.withPath(block: PathBuilder.(originalPath: Path) -> Path): Constraint {
     if (!satisfied) {
-        customPath = PathBuilder(validatable).block(validatable.path())
+        path = PathBuilder(validatable).block(validatable.path())
     }
     return this
 }
