@@ -68,6 +68,21 @@ class ValidatableTest {
     }
 
     @Test
+    fun `calling 'registerConstraint' multiples times with unsatisfied constraints adds them to the constraints collection`() {
+        // Arrange
+        val constraint1 = Constraint(false, Validatable(null, "foo"))
+        val constraint2 = Constraint(true, Validatable(null, "bar"))
+        val constraint3 = Constraint(false, Validatable(null, "baz"))
+        val validatable = Validatable("foo")
+        // Act
+        validatable.registerConstraint(constraint1)
+        validatable.registerConstraint(constraint2)
+        validatable.registerConstraint(constraint3)
+        // Assert
+        assertContentEquals(listOf(constraint1, constraint3), validatable.constraints, "The collection contains the unsatisfied constraints in the same order")
+    }
+
+    @Test
     fun `registered constraints are always stored in the root validatable`() {
         // Arrange
         val level0 = Validatable("foo")
@@ -198,3 +213,4 @@ class ValidatableTest {
 
     //endregion
 }
+
