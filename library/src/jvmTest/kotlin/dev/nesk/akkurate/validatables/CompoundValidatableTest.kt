@@ -1,7 +1,7 @@
 package dev.nesk.akkurate.validatables
 
+import dev.nesk.akkurate._test.assertContentEquals
 import kotlin.test.Test
-import kotlin.test.assertContentEquals
 
 class CompoundValidatableTest {
     @Test
