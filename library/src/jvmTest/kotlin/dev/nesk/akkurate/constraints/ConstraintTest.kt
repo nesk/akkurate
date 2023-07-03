@@ -100,7 +100,7 @@ class ConstraintTest {
         assertFalse(constraint.satisfied, "The constraint is unsatisfied")
         assertEquals(validatable.path(), constraint.path, "The constraint path is the same as the validatable")
         assertEquals(1, validatable.constraints.size)
-        assertEquals(constraint, validatable.constraints.first())
+        assertSame(constraint, validatable.constraints.first())
     }
 
     @Test

@@ -63,8 +63,7 @@ class ValidatableTest {
         // Act
         validatable.registerConstraint(constraint)
         // Assert
-        assertEquals(1, validatable.constraints.size, "The constraints collection contains only one item")
-        assertEquals(constraint, validatable.constraints.first(), "The constraints collection item is equal to the registered constraint")
+        assertSame(constraint, validatable.constraints.single(), "The single item is identical to the registered constraint")
     }
 
     @Test
