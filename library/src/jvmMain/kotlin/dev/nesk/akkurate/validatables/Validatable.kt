@@ -59,7 +59,7 @@ public class Validatable<out T> internal constructor(private val wrappedValue: T
      */
     override fun hashCode(): Int = wrappedValue?.hashCode() ?: 0
 
-    override fun toString(): String = "Validatable(unwrap=$wrappedValue, parent=$parent, path=$path)"
+    override fun toString(): String = "Validatable(unwrap=$wrappedValue, path=$path)"
 
     /**
      * Allows a [Validatable] to use the constraints collection of its parent or,
