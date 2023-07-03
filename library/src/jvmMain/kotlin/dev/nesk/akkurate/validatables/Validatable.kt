@@ -20,14 +20,14 @@ public class Validatable<out T> internal constructor(private val wrappedValue: T
 
     public fun unwrap(): T = wrappedValue
 
-    internal val constraints: MutableSet<ConstraintDescriptor> by BubblingConstraints(parent)
+    internal val constraints: LinkedHashSet<ConstraintDescriptor> by BubblingConstraints(parent)
 
     public fun registerConstraint(constraint: Constraint) {
-        if (!constraint.satisfied) constraints.add(constraint)
+        if (!constraint.satisfied) constraints += constraint
     }
 
     public fun registerConstraint(constraint: ConstraintViolation) {
-        constraints.add(constraint)
+        constraints += constraint
     }
 
     /**
@@ -66,7 +66,7 @@ public class Validatable<out T> internal constructor(private val wrappedValue: T
      * if it has no parent, instantiates a new dedicated collection to store them.
      */
     private class BubblingConstraints(val parent: Validatable<*>? = null) {
-        val constraints by lazy { mutableSetOf<ConstraintDescriptor>() }
+        val constraints by lazy { linkedSetOf<ConstraintDescriptor>() }
         operator fun getValue(thisRef: Validatable<*>, property: KProperty<*>) = parent?.constraints ?: constraints
     }
 }
