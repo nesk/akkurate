@@ -84,7 +84,7 @@ public inline fun <T> Validatable<T>.constrain(block: (value: T) -> Boolean): Co
         .also(::registerConstraint)
 }
 
-public inline fun <T> Validatable<out T?>.constrainIfNotNull(block: (value: T) -> Boolean): Constraint {
+public inline fun <T> Validatable<T?>.constrainIfNotNull(block: (value: T) -> Boolean): Constraint {
     val constraint = unwrap()
         ?.let { value -> constrain { block(value) } }
         ?: constrain { true } // We do not want the constraint to fail when the value is null.
