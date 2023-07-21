@@ -100,7 +100,7 @@ suspend fun main() {
     try {
         validateWithContext(company).orThrow()
     } catch (e: ValidationResult.Exception) {
-        println(e.errors.byPath)
+        println(e.violations.byPath)
     }
 }
 

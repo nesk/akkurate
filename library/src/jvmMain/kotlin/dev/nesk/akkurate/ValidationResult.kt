@@ -37,5 +37,5 @@ public sealed interface ValidationResult<out T> {
         override fun toString(): String = "Failure(errors=$violations, value=$value)"
     }
 
-    public class Exception internal constructor(public val errors: ConstraintViolationSet) : RuntimeException()
+    public class Exception internal constructor(public val violations: ConstraintViolationSet) : RuntimeException()
 }
