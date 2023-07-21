@@ -3,6 +3,7 @@ package dev.nesk.akkurate
 import dev.nesk.akkurate.constraints.ConstraintViolation
 import dev.nesk.akkurate.constraints.ConstraintViolationSet
 import org.junit.jupiter.api.assertDoesNotThrow
+import org.junit.jupiter.api.assertThrows
 import kotlin.test.*
 
 class ValidationResultTest {
@@ -11,6 +12,16 @@ class ValidationResultTest {
         assertDoesNotThrow {
             ValidationResult.Success.orThrow()
         }
+    }
+
+    @Test
+    fun `'Failure' always throws and contains the same violations as the result`() {
+        // Arrange
+        val violations = ConstraintViolationSet(emptySet())
+        val failure = ValidationResult.Failure(violations, null)
+        // Act & Assert
+        val exception = assertThrows<ValidationResult.Exception> { failure.orThrow() }
+        assertSame(violations, exception.violations)
     }
 
     @Test
