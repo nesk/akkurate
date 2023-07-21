@@ -2,7 +2,7 @@ package dev.nesk.akkurate
 
 import dev.nesk.akkurate.constraints.ConstraintViolation
 import dev.nesk.akkurate.constraints.constrain
-import dev.nesk.akkurate.constraints.explain
+import dev.nesk.akkurate.constraints.otherwise
 import dev.nesk.akkurate.constraints.withPath
 import dev.nesk.akkurate.validatables.validatableOf
 import kotlinx.coroutines.test.runTest
@@ -33,7 +33,7 @@ class ValidatorTest {
         // Arrange
         val value = Value()
         val validate = Validator<Value> {
-            constrain { false } explain { "Bad value" } withPath { absolute("path", "to", "value") }
+            constrain { false } otherwise { "Bad value" } withPath { absolute("path", "to", "value") }
         }
         val expectedViolations = setOf(ConstraintViolation("Bad value", listOf("path", "to", "value")))
         // Act
@@ -61,7 +61,7 @@ class ValidatorTest {
         // Arrange
         val value = Value()
         val validate = Validator<Context, Value> {
-            constrain { false } explain { "Bad value" } withPath { absolute("path", "to", "value") }
+            constrain { false } otherwise { "Bad value" } withPath { absolute("path", "to", "value") }
         }
         val expectedViolations = setOf(ConstraintViolation("Bad value", listOf("path", "to", "value")))
         // Act
@@ -89,7 +89,7 @@ class ValidatorTest {
         // Arrange
         val value = Value()
         val validate = Validator.suspendable<Value> {
-            constrain { false } explain { "Bad value" } withPath { absolute("path", "to", "value") }
+            constrain { false } otherwise { "Bad value" } withPath { absolute("path", "to", "value") }
         }
         val expectedViolations = setOf(ConstraintViolation("Bad value", listOf("path", "to", "value")))
         // Act
@@ -117,7 +117,7 @@ class ValidatorTest {
         // Arrange
         val value = Value()
         val validate = Validator<Context, Value> {
-            constrain { false } explain { "Bad value" } withPath { absolute("path", "to", "value") }
+            constrain { false } otherwise { "Bad value" } withPath { absolute("path", "to", "value") }
         }
         val expectedViolations = setOf(ConstraintViolation("Bad value", listOf("path", "to", "value")))
         // Act
@@ -154,14 +154,14 @@ class ValidatorTest {
     fun `a composite validation reports all the contraint violations, including the nested ones`() {
         // Arrange
         val validate3 = Validator<Third> {
-            constrain { false } explain { "failure3" }
+            constrain { false } otherwise { "failure3" }
         }
         val validate2 = Validator<Second> {
             validatableOf(Second::third).validateWith(validate3)
-            constrain { false } explain { "failure2" }
+            constrain { false } otherwise { "failure2" }
         }
         val validate1 = Validator<First> {
-            constrain { false } explain { "failure1" }
+            constrain { false } otherwise { "failure1" }
             validatableOf(First::second).validateWith(validate2)
         }
 
@@ -183,14 +183,14 @@ class ValidatorTest {
     fun `a contextual composite validation reports all the contraint violations, including the nested ones`() {
         // Arrange
         val validate3 = Validator<Context, Third> {
-            constrain { false } explain { "failure3" }
+            constrain { false } otherwise { "failure3" }
         }
         val validate2 = Validator<Context, Second> { context ->
             validatableOf(Second::third).validateWith(validate3, context)
-            constrain { false } explain { "failure2" }
+            constrain { false } otherwise { "failure2" }
         }
         val validate1 = Validator<Context, First> { context ->
-            constrain { false } explain { "failure1" }
+            constrain { false } otherwise { "failure1" }
             validatableOf(First::second).validateWith(validate2, context)
         }
 
@@ -212,14 +212,14 @@ class ValidatorTest {
     fun `an async composite validation reports all the contraint violations, including the nested ones`() = runTest {
         // Arrange
         val validate3 = Validator.suspendable<Third> {
-            constrain { false } explain { "failure3" }
+            constrain { false } otherwise { "failure3" }
         }
         val validate2 = Validator.suspendable<Second> {
             validatableOf(Second::third).validateWith(validate3)
-            constrain { false } explain { "failure2" }
+            constrain { false } otherwise { "failure2" }
         }
         val validate1 = Validator.suspendable<First> {
-            constrain { false } explain { "failure1" }
+            constrain { false } otherwise { "failure1" }
             validatableOf(First::second).validateWith(validate2)
         }
 
@@ -241,14 +241,14 @@ class ValidatorTest {
     fun `an async contextual composite validation reports all the contraint violations, including the nested ones`() = runTest {
         // Arrange
         val validate3 = Validator.suspendable<Context, Third> {
-            constrain { false } explain { "failure3" }
+            constrain { false } otherwise { "failure3" }
         }
         val validate2 = Validator.suspendable<Context, Second> { context ->
             validatableOf(Second::third).validateWith(validate3, context)
-            constrain { false } explain { "failure2" }
+            constrain { false } otherwise { "failure2" }
         }
         val validate1 = Validator.suspendable<Context, First> { context ->
-            constrain { false } explain { "failure1" }
+            constrain { false } otherwise { "failure1" }
             validatableOf(First::second).validateWith(validate2, context)
         }
 

@@ -21,7 +21,7 @@ class ConstraintTest {
     @Test
     fun `'ConstraintViolation' conversion reuses the message and the path`() {
         // Arrange
-        val builder = ConstraintBuilder(false) explain { "foo" } withPath { absolute("bar") }
+        val builder = ConstraintBuilder(false) otherwise { "foo" } withPath { absolute("bar") }
         // Act
         val violation = builder.toConstraintViolation("default", listOf())
         // Assert
@@ -57,14 +57,14 @@ class ConstraintTest {
     }
 
     @Test
-    fun `calling 'explain' with a lambda updates the message if the constraint is not satisfied`() {
-        val constraint = ConstraintBuilder(false) explain { "foo" }
+    fun `calling 'otherwise' with a lambda updates the message if the constraint is not satisfied`() {
+        val constraint = ConstraintBuilder(false) otherwise { "foo" }
         assertEquals("foo", constraint.message)
     }
 
     @Test
-    fun `calling 'explain' with a lambda does not update the message if the constraint is satisfied`() {
-        val constraint = ConstraintBuilder(true) explain { "foo" }
+    fun `calling 'otherwise' with a lambda does not update the message if the constraint is satisfied`() {
+        val constraint = ConstraintBuilder(true) otherwise { "foo" }
         assertEquals("", constraint.message)
     }
 
@@ -129,57 +129,57 @@ class ConstraintTest {
 
     @Test
     fun `'equals' returns true when all the values are the same`() {
-        val original = Constraint(false, Validatable("foo", "bar")) explain { "baz" }
-        val other = Constraint(false, Validatable("foo", "bar")) explain { "baz" }
+        val original = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
+        val other = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
         assertTrue(original.equals(other))
     }
 
     @Test
     fun `'equals' returns false when at least one of the values differ (variant 'satisfied')`() {
-        val original = Constraint(false, Validatable("foo", "bar")) explain { "baz" }
-        val other = Constraint(true, Validatable("foo", "bar")) explain { "baz" }
+        val original = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
+        val other = Constraint(true, Validatable("foo", "bar")) otherwise { "baz" }
         assertFalse(original.equals(other))
     }
 
     @Test
     fun `'equals' returns false when at least one of the values differ (variant 'validatable path')`() {
-        val original = Constraint(false, Validatable("foo", "bar")) explain { "baz" }
-        val other = Constraint(false, Validatable("foo", null)) explain { "baz" }
+        val original = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
+        val other = Constraint(false, Validatable("foo", null)) otherwise { "baz" }
         assertFalse(original.equals(other))
     }
 
     @Test
     fun `'equals' returns false when at least one of the values differ (variant 'message')`() {
-        val original = Constraint(false, Validatable("foo", "bar")) explain { "baz" }
-        val other = Constraint(false, Validatable("foo", "bar")) explain { "" }
+        val original = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
+        val other = Constraint(false, Validatable("foo", "bar")) otherwise { "" }
         assertFalse(original.equals(other))
     }
 
     @Test
     fun `'hashCode' returns the same hash when all the values are the same`() {
-        val original = Constraint(false, Validatable("foo", "bar")) explain { "baz" }
-        val other = Constraint(false, Validatable("foo", "bar")) explain { "baz" }
+        val original = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
+        val other = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
         assertEquals(original.hashCode(), other.hashCode())
     }
 
     @Test
     fun `'hashCode' returns different hashes when at least one of the values differ (variant 'satisfied')`() {
-        val original = Constraint(false, Validatable("foo", "bar")) explain { "baz" }
-        val other = Constraint(true, Validatable("foo", "bar")) explain { "baz" }
+        val original = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
+        val other = Constraint(true, Validatable("foo", "bar")) otherwise { "baz" }
         assertNotEquals(original.hashCode(), other.hashCode())
     }
 
     @Test
     fun `'hashCode' returns different hashes when at least one of the values differ (variant 'validatable path')`() {
-        val original = Constraint(false, Validatable("foo", "bar")) explain { "baz" }
-        val other = Constraint(false, Validatable("foo", null)) explain { "baz" }
+        val original = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
+        val other = Constraint(false, Validatable("foo", null)) otherwise { "baz" }
         assertNotEquals(original.hashCode(), other.hashCode())
     }
 
     @Test
     fun `'hashCode' returns different hashes when at least one of the values differ (variant 'message')`() {
-        val original = Constraint(false, Validatable("foo", "bar")) explain { "baz" }
-        val other = Constraint(false, Validatable("foo", "bar")) explain { "" }
+        val original = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
+        val other = Constraint(false, Validatable("foo", "bar")) otherwise { "" }
         assertNotEquals(original.hashCode(), other.hashCode())
     }
 

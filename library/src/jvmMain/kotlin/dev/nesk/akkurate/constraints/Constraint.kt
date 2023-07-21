@@ -68,7 +68,7 @@ public class Constraint(public val satisfied: Boolean, public var validatable: V
     }
 }
 
-public inline infix fun Constraint.explain(block: () -> String): Constraint = apply {
+public inline infix fun Constraint.otherwise(block: () -> String): Constraint = apply {
     if (!satisfied) message = block()
 }
 
