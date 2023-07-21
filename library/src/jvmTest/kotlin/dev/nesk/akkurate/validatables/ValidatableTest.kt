@@ -45,6 +45,12 @@ class ValidatableTest {
     }
 
     @Test
+    fun `the first destructuring component unwraps with the original value`() {
+        val foo = object {}
+        assertSame(foo, Validatable(foo).component1())
+    }
+
+    @Test
     fun `calling 'registerConstraint' with a satisfied constraint leaves the constraints collection empty`() {
         // Arrange
         val constraint = Constraint(true, Validatable(null))

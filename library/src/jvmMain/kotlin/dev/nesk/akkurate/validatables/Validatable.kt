@@ -20,6 +20,8 @@ public class Validatable<out T> internal constructor(private val wrappedValue: T
 
     public fun unwrap(): T = wrappedValue
 
+    public operator fun component1(): T = wrappedValue
+
     internal val constraints: LinkedHashSet<ConstraintDescriptor> by BubblingConstraints(parent)
 
     public fun registerConstraint(constraint: Constraint) {
