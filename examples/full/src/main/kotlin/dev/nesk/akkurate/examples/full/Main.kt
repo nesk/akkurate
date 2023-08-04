@@ -42,9 +42,9 @@ val config = Configuration(
 
 val validateCompany = Validator.suspendable<CompanyValidationContext, Company>(config) { (repository) ->
     holding.name {
-        notNull()
-        minLength(3)
-        maxLength(50)
+        isNotNull()
+        lengthGreaterThanOrEqualTo(3)
+        lengthLowerThanOrEqualTo(50)
     }
 
     // TODO: This is a perfect example for conditional constraints. Imagine you allow company names with at least 1 char, time
@@ -54,8 +54,8 @@ val validateCompany = Validator.suspendable<CompanyValidationContext, Company>(c
     //  the already existing name. We only want the use to get the error about the minimum length, so we could write
     //  `if (minLength(3)) { inexistant(name) }`, that way we check the database only when the name is already long enough.
     name {
-        val (hasMinLen) = minLength(3) otherwise { "${unwrap()} is too short" }
-        maxLength(50) otherwise { "${unwrap()} is too long" }
+        val (hasMinLen) = lengthGreaterThanOrEqualTo(3) otherwise { "${unwrap()} is too short" }
+        lengthLowerThanOrEqualTo(50) otherwise { "${unwrap()} is too long" }
 
         if (hasMinLen) {
             constrain { repository.hasCompanyWithName(it) } otherwise { "A company already exists with name ${unwrap()}" }
@@ -65,13 +65,13 @@ val validateCompany = Validator.suspendable<CompanyValidationContext, Company>(c
     users.each { validateWith(validateUser) }
 
     val maxSeats = plan.unwrap().maximumUserCount
-    users.maxSize(maxSeats) otherwise { "Your plan is limited to $maxSeats seats." } withPath { relative("seats") }
+    users.sizeGreaterThanOrEqualTo(maxSeats) otherwise { "Your plan is limited to $maxSeats seats." } withPath { relative("seats") }
 }
 
 val validateUser = Validator<User> {
     (firstName and middleName and lastName) {
-        minLength(3)
-        maxLength(50)
+        lengthGreaterThanOrEqualTo(3)
+        lengthLowerThanOrEqualTo(50)
     }
 
     birthDay.before(Instant.now())

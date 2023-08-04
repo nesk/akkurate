@@ -16,26 +16,26 @@ import dev.nesk.akkurate.validatables.Validatable
 
 // TODO: add contains/doesNotContain
 
-@JvmName("collectionSizeEqualTo")
-public fun <T> Validatable<Collection<T>?>.sizeEqualTo(size: Int): Constraint =
+@JvmName("mapSizeEqualTo")
+public fun <T> Validatable<Map<*, T>?>.sizeEqualTo(size: Int): Constraint =
     constrainIfNotNull { it.size == size } otherwise { "The number of items must be equal to $size" }
 
-@JvmName("collectionSizeLowerThan")
-public fun <T> Validatable<Collection<T>?>.sizeLowerThan(size: Int): Constraint =
+@JvmName("mapSizeLowerThan")
+public fun <T> Validatable<Map<*, T>?>.sizeLowerThan(size: Int): Constraint =
     constrainIfNotNull { it.size < size } otherwise { "The number of items must be lower than $size" }
 
-@JvmName("collectionSizeLowerThanOrEqualTo")
-public fun <T> Validatable<Collection<T>?>.sizeLowerThanOrEqualTo(size: Int): Constraint =
+@JvmName("mapSizeLowerThanOrEqualTo")
+public fun <T> Validatable<Map<*, T>?>.sizeLowerThanOrEqualTo(size: Int): Constraint =
     constrainIfNotNull { it.size <= size } otherwise { "The number of items must be lower than or equal to $size" }
 
-@JvmName("collectionSizeGreaterThan")
-public fun <T> Validatable<Collection<T>?>.sizeGreaterThan(size: Int): Constraint =
+@JvmName("mapSizeGreaterThan")
+public fun <T> Validatable<Map<*, T>?>.sizeGreaterThan(size: Int): Constraint =
     constrainIfNotNull { it.size > size } otherwise { "The number of items must be greater than $size" }
 
-@JvmName("collectionSizeGreaterThanOrEqualTo")
-public fun <T> Validatable<Collection<T>?>.sizeGreaterThanOrEqualTo(size: Int): Constraint =
+@JvmName("mapSizeGreaterThanOrEqualTo")
+public fun <T> Validatable<Map<*, T>?>.sizeGreaterThanOrEqualTo(size: Int): Constraint =
     constrainIfNotNull { it.size >= size } otherwise { "The number of items must be greater than or equal to $size" }
 
-@JvmName("collectionSizeBetween")
-public fun <T> Validatable<Collection<T>?>.sizeBetween(range: IntRange): Constraint =
+@JvmName("mapSizeBetween")
+public fun <T> Validatable<Map<*, T>?>.sizeBetween(range: IntRange): Constraint =
     constrainIfNotNull { it.size in range } otherwise { "The number of items must be between ${range.first} and ${range.last}" }
