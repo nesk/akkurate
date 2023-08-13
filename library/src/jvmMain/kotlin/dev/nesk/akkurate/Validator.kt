@@ -59,7 +59,7 @@ public fun <ContextType, ValueType> Validatable<ValueType>.validateWith(
 
 public fun <ValueType> Validatable<ValueType>.validateWith(validator: Validator.Runner<ValueType>) {
     val result = validator(unwrap())
-    if (result is ValidationResult.Failure<ValueType>) {
+    if (result is ValidationResult.Failure) {
         result.violations
             .map { it.copy(path = this@validateWith.path() + it.path) }
             .forEach(this::registerConstraint)
@@ -75,7 +75,7 @@ public suspend fun <ContextType, ValueType> Validatable<ValueType>.validateWith(
 
 public suspend fun <ValueType> Validatable<ValueType>.validateWith(validator: Validator.SuspendableRunner<ValueType>) {
     val result = validator(unwrap())
-    if (result is ValidationResult.Failure<ValueType>) {
+    if (result is ValidationResult.Failure) {
         result.violations
             .map { it.copy(path = this@validateWith.path() + it.path) }
             .forEach(this::registerConstraint)
@@ -152,9 +152,9 @@ private class SuspendableValidatorRunner<ContextType, ValueType>(
 
 private fun <T> Validatable<T>.toResult(configuration: Configuration): ValidationResult<T> {
     return if (constraints.isEmpty()) {
-        ValidationResult.Success
+        ValidationResult.Success(unwrap())
     } else {
-        ValidationResult.Failure(constraints.toViolationSet(configuration), unwrap())
+        ValidationResult.Failure(constraints.toViolationSet(configuration))
     }
 }
 

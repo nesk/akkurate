@@ -17,30 +17,30 @@ class ValidatorTest {
     private class First(val second: Second)
 
     @Test
-    fun `a validation with satisfied constraints returns a successful result`() {
+    fun `a validation with satisfied constraints returns a successful result with the corresponding value`() {
         // Arrange
-        val validate = Validator<Nothing?> {
+        val value = Value()
+        val validate = Validator<Value> {
             constrain { true }
         }
         // Act
-        val result = validate(null)
+        val result = validate(value)
         // Assert
-        assertSame(ValidationResult.Success, result, "The result is a success")
+        assertIs<ValidationResult.Success<Value>>(result, "The result is a success")
+        assertSame(result.value, value, "The value of the result is the same as the input")
     }
 
     @Test
     fun `a validation with unsatisfied constraints returns a failed result with the corresponding violations`() {
         // Arrange
-        val value = Value()
-        val validate = Validator<Value> {
+        val validate = Validator<Nothing?> {
             constrain { false } otherwise { "Bad value" } withPath { absolute("path", "to", "value") }
         }
         val expectedViolations = setOf(ConstraintViolation("Bad value", listOf("path", "to", "value")))
         // Act
-        val result = validate(value)
+        val result = validate(null)
         // Assert
-        assertIs<ValidationResult.Failure<Value>>(result, "The result is a failure")
-        assertSame(value, result.value, "The result contains the original value")
+        assertIs<ValidationResult.Failure>(result, "The result is a failure")
         assertEquals(expectedViolations, result.violations, "The result contains the corresponding violations")
     }
 
@@ -53,22 +53,20 @@ class ValidatorTest {
         // Act
         val result = validate(Context(), null)
         // Assert
-        assertSame(ValidationResult.Success, result, "The result is a success")
+        assertIs<ValidationResult.Success<*>>(result)
     }
 
     @Test
     fun `a contextual validation with unsatisfied constraints returns a failed result with the corresponding violations`() {
         // Arrange
-        val value = Value()
-        val validate = Validator<Context, Value> {
+        val validate = Validator<Context, Nothing?> {
             constrain { false } otherwise { "Bad value" } withPath { absolute("path", "to", "value") }
         }
         val expectedViolations = setOf(ConstraintViolation("Bad value", listOf("path", "to", "value")))
         // Act
-        val result = validate(Context(), value)
+        val result = validate(Context(), null)
         // Assert
-        assertIs<ValidationResult.Failure<Value>>(result, "The result is a failure")
-        assertSame(value, result.value, "The result contains the original value")
+        assertIs<ValidationResult.Failure>(result, "The result is a failure")
         assertEquals(expectedViolations, result.violations, "The result contains the corresponding violations")
     }
 
@@ -81,22 +79,20 @@ class ValidatorTest {
         // Act
         val result = validate(null)
         // Assert
-        assertSame(ValidationResult.Success, result, "The result is a success")
+        assertIs<ValidationResult.Success<*>>(result)
     }
 
     @Test
     fun `an async validation with unsatisfied constraints returns a failed result with the corresponding violations`() = runTest {
         // Arrange
-        val value = Value()
-        val validate = Validator.suspendable<Value> {
+        val validate = Validator.suspendable<Nothing?> {
             constrain { false } otherwise { "Bad value" } withPath { absolute("path", "to", "value") }
         }
         val expectedViolations = setOf(ConstraintViolation("Bad value", listOf("path", "to", "value")))
         // Act
-        val result = validate(value)
+        val result = validate(null)
         // Assert
-        assertIs<ValidationResult.Failure<Value>>(result, "The result is a failure")
-        assertSame(value, result.value, "The result contains the original value")
+        assertIs<ValidationResult.Failure>(result, "The result is a failure")
         assertEquals(expectedViolations, result.violations, "The result contains the corresponding violations")
     }
 
@@ -109,22 +105,20 @@ class ValidatorTest {
         // Act
         val result = validate(Context(), null)
         // Assert
-        assertSame(ValidationResult.Success, result, "The result is a success")
+        assertIs<ValidationResult.Success<*>>(result)
     }
 
     @Test
     fun `an async contextual validation with unsatisfied constraints returns a failed result with the corresponding violations`() = runTest {
         // Arrange
-        val value = Value()
-        val validate = Validator<Context, Value> {
+        val validate = Validator<Context, Nothing?> {
             constrain { false } otherwise { "Bad value" } withPath { absolute("path", "to", "value") }
         }
         val expectedViolations = setOf(ConstraintViolation("Bad value", listOf("path", "to", "value")))
         // Act
-        val result = validate(Context(), value)
+        val result = validate(Context(), null)
         // Assert
-        assertIs<ValidationResult.Failure<Value>>(result, "The result is a failure")
-        assertSame(value, result.value, "The result contains the original value")
+        assertIs<ValidationResult.Failure>(result, "The result is a failure")
         assertEquals(expectedViolations, result.violations, "The result contains the corresponding violations")
     }
 
@@ -135,18 +129,18 @@ class ValidatorTest {
             validatableOf(Value::name).constrain { false }
         }
         val result = validate(Value())
-        assertIs<ValidationResult.Failure<Value>>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure>(result, "The result is a failure")
         assertEquals(listOf("foo", "bar", "name"), result.violations.single().path)
     }
 
     @Test
     fun `definining the default message in the configuration will replace empty messages in constraints`() {
         val config = Configuration(defaultViolationMessage = "default")
-        val validate = Validator<Value>(config) {
+        val validate = Validator<Nothing?>(config) {
             constrain { false }
         }
-        val result = validate(Value())
-        assertIs<ValidationResult.Failure<Value>>(result, "The result is a failure")
+        val result = validate(null)
+        assertIs<ValidationResult.Failure>(result, "The result is a failure")
         assertEquals("default", result.violations.single().message)
     }
 
@@ -175,7 +169,7 @@ class ValidatorTest {
         val result = validate1(First(Second(Third())))
 
         // Assert
-        assertIs<ValidationResult.Failure<Value>>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure>(result, "The result is a failure")
         assertContentEquals(expectedViolations, result.violations.toList(), "All the constraints violations are reported")
     }
 
@@ -204,7 +198,7 @@ class ValidatorTest {
         val result = validate1(Context(), First(Second(Third())))
 
         // Assert
-        assertIs<ValidationResult.Failure<Value>>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure>(result, "The result is a failure")
         assertContentEquals(expectedViolations, result.violations.toList(), "All the constraints violations are reported")
     }
 
@@ -233,7 +227,7 @@ class ValidatorTest {
         val result = validate1(First(Second(Third())))
 
         // Assert
-        assertIs<ValidationResult.Failure<Value>>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure>(result, "The result is a failure")
         assertContentEquals(expectedViolations, result.violations.toList(), "All the constraints violations are reported")
     }
 
@@ -262,7 +256,7 @@ class ValidatorTest {
         val result = validate1(Context(), First(Second(Third())))
 
         // Assert
-        assertIs<ValidationResult.Failure<Value>>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure>(result, "The result is a failure")
         assertContentEquals(expectedViolations, result.violations.toList(), "All the constraints violations are reported")
     }
 }

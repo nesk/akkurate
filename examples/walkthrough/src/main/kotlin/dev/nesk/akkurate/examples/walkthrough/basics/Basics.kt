@@ -44,10 +44,10 @@ fun main() {
 }
 
 fun printResult(result: ValidationResult<Book>) = when (result) {
-    ValidationResult.Success -> println("Success!")
+    is ValidationResult.Success -> println("Success: ${result.value}")
     is ValidationResult.Failure -> {
-        for (violation in result.violations) {
-            println("${violation.path.joinToString(".")}: ${violation.message}")
+        for ((message, path) in result.violations) {
+            println("${path.joinToString(".")}: ${message}")
         }
     }
 }
