@@ -32,6 +32,9 @@ public class Validatable<out T> internal constructor(private val wrappedValue: T
         constraints += constraint
     }
 
+    // TODO: Convert to extension function (breaking change) once JetBrains fixes imports: https://youtrack.jetbrains.com/issue/KTIJ-22147
+    public inline operator fun invoke(block: Validatable<T>.() -> Unit): Unit = this.block()
+
     /**
      * Indicates whether some other object is "equal to" this validatable.
      *
@@ -73,7 +76,6 @@ public class Validatable<out T> internal constructor(private val wrappedValue: T
     }
 }
 
-public inline operator fun <T> Validatable<T>.invoke(block: Validatable<T>.() -> Unit): Unit = this.block()
 
 public fun <T : Any, V> Validatable<T>.validatableOf(getter: KProperty1<T, V>): Validatable<V> {
     return Validatable(getter.get(unwrap()), getter.name, this)

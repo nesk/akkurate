@@ -10,7 +10,6 @@ import dev.nesk.akkurate.examples.walkthrough.dsl.validation.accessors.firstName
 import dev.nesk.akkurate.examples.walkthrough.dsl.validation.accessors.identity
 import dev.nesk.akkurate.examples.walkthrough.dsl.validation.accessors.lastName
 import dev.nesk.akkurate.validatables.and
-import dev.nesk.akkurate.validatables.invoke
 
 // The library DSL is here to help you write validation code just like you would
 // write classic code. But you also get various features to avoid repetition.
