@@ -3,9 +3,9 @@ package dev.nesk.akkurate.validatables
 import dev.nesk.akkurate._test.assertContentEquals
 import kotlin.test.Test
 
-class CompoundValidatableTest {
+class ValidatableCompoundTest {
     @Test
-    fun `a compound validatable is created when using the 'and' function between two validatables`() {
+    fun `a validatable compound is created when using the 'and' function between two validatables`() {
         // Arrange
         val foo = Validatable("foo", "foo")
         val bar = Validatable("bar", "bar")
@@ -20,7 +20,7 @@ class CompoundValidatableTest {
     }
 
     @Test
-    fun `a new compound validatable is created when using the 'and' function between a compound and a validatable`() {
+    fun `a new validatable compound is created when using the 'and' function between a compound and a validatable`() {
         // Arrange
         val foo = Validatable("foo", "foo")
         val bar = Validatable("bar", "bar")
@@ -36,7 +36,7 @@ class CompoundValidatableTest {
     }
 
     @Test
-    fun `a new compound validatable is created when using the 'and' function between a validatable and a compound`() {
+    fun `a new validatable compound is created when using the 'and' function between a validatable and a compound`() {
         // Arrange
         val foo = Validatable("foo", "foo")
         val bar = Validatable("bar", "bar")
@@ -52,7 +52,7 @@ class CompoundValidatableTest {
     }
 
     @Test
-    fun `a new compound validatable is created when using the 'and' function between two compounds`() {
+    fun `a new validatable compound is created when using the 'and' function between two compounds`() {
         // Arrange
         val foo = Validatable("foo", "foo")
         val bar = Validatable("bar", "bar")
@@ -69,13 +69,13 @@ class CompoundValidatableTest {
     }
 
     @Test
-    fun `invoking a compound validatable with a lambda executes that lambda for each validatable in the compound order`() {
+    fun `invoking a validatable compound with a lambda executes that lambda for each validatable in the compound order`() {
         // Arrange
         val validatables = setOf(
             Validatable("foo", "foo"),
             Validatable("bar", "bar"),
         )
-        val compound = CompoundValidatable(validatables)
+        val compound = ValidatableCompound(validatables)
         // Act
         val receivedValidatables = buildList {
             compound { add(this) }
