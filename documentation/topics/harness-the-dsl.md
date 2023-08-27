@@ -12,7 +12,7 @@ To access a property, write its name:
 data class Book(val title: String)
 
 Validator<Book> {
-    title.notEmpty()
+    title.isNotEmpty()
 }
 ```
 
@@ -34,7 +34,7 @@ data class Author(val user: User)
 data class User(val emailAddress: String)
 
 Validator<Book> {
-    author.user.emailAddress.notEmpty()
+    author.user.emailAddress.isNotEmpty()
 }
 ```
 
@@ -46,8 +46,8 @@ constrain it. You can avoid repetition by writing the path and invoking it with 
 ```kotlin
 Validator<Book> { // this: Validatable<Book>
     author.user.emailAddress { // this: Validatable<String>
-        notEmpty()
-        containing("@")
+        isNotEmpty()
+        isContaining("@")
     }
 }
 ```
@@ -80,20 +80,20 @@ Now you can either apply the same constraints to each property, or use a validat
 
 ```kotlin
 Validator<User> {
-    firstName.notEmpty()
-    firstName.lengthLowerThanOrEqualTo(50)
-    middleName.notEmpty()
-    middleName.lengthLowerThanOrEqualTo(50)
-    lastName.notEmpty()
-    lastName.lengthLowerThanOrEqualTo(50)
+    firstName.isNotEmpty()
+    firstName.hasLengthLowerThanOrEqualTo(50)
+    middleName.isNotEmpty()
+    middleName.hasLengthLowerThanOrEqualTo(50)
+    lastName.isNotEmpty()
+    lastName.hasLengthLowerThanOrEqualTo(50)
 }
 ```
 
 ```kotlin
 Validator<User> {
     (firstName and middleName and lastName) {
-        notEmpty()
-        lengthLowerThanOrEqualTo(50)
+        isNotEmpty()
+        hasLengthLowerThanOrEqualTo(50)
     }
 }
 ```
@@ -160,7 +160,7 @@ is null, _the constraint will always succeed:_
 Validator<Book> {
     // This constraint will always succeed when
     // the value of the property is `null`.
-    author.user.emailAddress.notEmpty()
+    author.user.emailAddress.isNotEmpty()
 }
 ```
 
@@ -170,7 +170,7 @@ If you want to enforce your users to provide a value for a property, use the `is
 Validator<Book> {
     author.user.emailAddress {
         isNotNull() // Fails if the value is null.
-        notEmpty() // When not null, checks for emptiness.
+        isNotEmpty() // When not null, checks for emptiness.
     }
 }
 ```

@@ -21,7 +21,7 @@ data class Book(val title: String)
 
 Validator<Library> {
     for (book in books) {
-        book.title.notEmpty()
+        book.title.isNotEmpty()
     }
 }
 ```
@@ -31,7 +31,7 @@ Since iterating over a collection to validate its items is a common task, %produ
 ```kotlin
 Validator<Library> {
     books.each { // this: Validatable<Book>
-        title.notEmpty()
+        title.isNotEmpty()
     }
 }
 ```
@@ -53,7 +53,7 @@ only if its positive.
 Validator<Library> {
     val (max) = maximumCapacity
     if (max > 0) {
-        books.sizeLowerThanOrEqualTo(max) otherwise {
+        books.hasSizeLowerThanOrEqualTo(max) otherwise {
             "Too many books"
         }
     }
@@ -91,7 +91,7 @@ data class TwitterRegistration(val handle: String)
 
 Validator<TwitterRegistration> {
     // Retrieve the status of the constraint.
-    val (isValidHandle) = handle.lengthGreaterThanOrEqualTo(5)
+    val (isValidHandle) = handle.hasLengthGreaterThanOrEqualTo(5)
 
     // Run the database check only if the last constraint succeeded.
     if (isValidHandle) {
@@ -118,7 +118,7 @@ data class Book(val author: Person, val reviewers: Set<Person>)
 data class Person(val fullName: String)
 
 val validatePerson = Validator<Person> {
-    fullName.notEmpty()
+    fullName.isNotEmpty()
 }
 
 val validateBook = Validator<Book> {

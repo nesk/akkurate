@@ -27,64 +27,64 @@ class AnyTest {
     }
 
     @Test
-    fun `'equalTo' succeeds when the provided value is equal to the validated one`() {
-        assertTrue(Validatable("foo").equalTo("foo").satisfied)
+    fun `'isEqualTo' succeeds when the provided value is equal to the validated one`() {
+        assertTrue(Validatable("foo").isEqualTo("foo").satisfied)
     }
 
     @Test
-    fun `'equalTo' fails when the provided value is different from the validated one`() {
-        assertFalse(Validatable("foo").equalTo("bar").satisfied)
+    fun `'isEqualTo' fails when the provided value is different from the validated one`() {
+        assertFalse(Validatable("foo").isEqualTo("bar").satisfied)
     }
 
     @Test
-    fun `'equalTo' succeeds when the value of the provided validatable is equal to the validated one`() {
-        assertTrue(Validatable("foo").equalTo(Validatable("foo")).satisfied)
+    fun `'isEqualTo' succeeds when the value of the provided validatable is equal to the validated one`() {
+        assertTrue(Validatable("foo").isEqualTo(Validatable("foo")).satisfied)
     }
 
     @Test
-    fun `'equalTo' fails when the value of the provided validatable is different from the validated one`() {
-        assertFalse(Validatable("foo").equalTo(Validatable("bar")).satisfied)
+    fun `'isEqualTo' fails when the value of the provided validatable is different from the validated one`() {
+        assertFalse(Validatable("foo").isEqualTo(Validatable("bar")).satisfied)
     }
 
     @Test
-    fun `'notEqualTo' succeeds when the provided value is different from the validated one`() {
-        assertTrue(Validatable("foo").notEqualTo("bar").satisfied)
+    fun `'isNotEqualTo' succeeds when the provided value is different from the validated one`() {
+        assertTrue(Validatable("foo").isNotEqualTo("bar").satisfied)
     }
 
     @Test
-    fun `'notEqualTo' succeeds when the provided value is equal to the validated one`() {
-        assertFalse(Validatable("foo").notEqualTo("foo").satisfied)
+    fun `'isNotEqualTo' succeeds when the provided value is equal to the validated one`() {
+        assertFalse(Validatable("foo").isNotEqualTo("foo").satisfied)
     }
 
     @Test
-    fun `'notEqualTo' succeeds when the value of the provided validatable is different from the validated one`() {
-        assertTrue(Validatable("foo").notEqualTo(Validatable("bar")).satisfied)
+    fun `'isNotEqualTo' succeeds when the value of the provided validatable is different from the validated one`() {
+        assertTrue(Validatable("foo").isNotEqualTo(Validatable("bar")).satisfied)
     }
 
     @Test
-    fun `'notEqualTo' succeeds when the value of the provided validatable is equal to the validated one`() {
-        assertFalse(Validatable("foo").notEqualTo(Validatable("foo")).satisfied)
+    fun `'isNotEqualTo' succeeds when the value of the provided validatable is equal to the validated one`() {
+        assertFalse(Validatable("foo").isNotEqualTo(Validatable("foo")).satisfied)
     }
 
     @Test
-    fun `'identicalTo' succeeds when the provided value is the same as the validated one`() {
+    fun `'isIdenticalTo' succeeds when the provided value is the same as the validated one`() {
         val value = object {}
-        assertTrue(Validatable(value).identicalTo(value).satisfied)
+        assertTrue(Validatable(value).isIdenticalTo(value).satisfied)
     }
 
     @Test
-    fun `'identicalTo' fails when the provided value is not the same as the validated one`() {
-        assertFalse(Validatable(object {}).identicalTo(object {}).satisfied)
+    fun `'isIdenticalTo' fails when the provided value is not the same as the validated one`() {
+        assertFalse(Validatable(object {}).isIdenticalTo(object {}).satisfied)
     }
 
     @Test
-    fun `'notIdenticalTo' succeeds when the provided value is not the same as the validated one`() {
-        assertTrue(Validatable(object {}).notIdenticalTo(object {}).satisfied)
+    fun `'isNotIdenticalTo' succeeds when the provided value is not the same as the validated one`() {
+        assertTrue(Validatable(object {}).isNotIdenticalTo(object {}).satisfied)
     }
 
     @Test
-    fun `'notIdenticalTo' fails when the provided value is the same as the validated one`() {
+    fun `'isNotIdenticalTo' fails when the provided value is the same as the validated one`() {
         val value = object {}
-        assertFalse(Validatable(value).notIdenticalTo(value).satisfied)
+        assertFalse(Validatable(value).isNotIdenticalTo(value).satisfied)
     }
 }

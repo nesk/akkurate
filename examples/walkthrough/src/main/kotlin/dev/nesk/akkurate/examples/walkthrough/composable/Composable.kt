@@ -3,8 +3,8 @@ package dev.nesk.akkurate.examples.walkthrough.composable
 import dev.nesk.akkurate.Validator
 import dev.nesk.akkurate.accessors.each
 import dev.nesk.akkurate.annotations.Validate
-import dev.nesk.akkurate.constraints.builders.lengthBetween
-import dev.nesk.akkurate.constraints.builders.notEmpty
+import dev.nesk.akkurate.constraints.builders.hasLengthBetween
+import dev.nesk.akkurate.constraints.builders.isNotEmpty
 import dev.nesk.akkurate.examples.walkthrough.composable.validation.accessors.books
 import dev.nesk.akkurate.examples.walkthrough.composable.validation.accessors.name
 import dev.nesk.akkurate.examples.walkthrough.composable.validation.accessors.title
@@ -20,13 +20,13 @@ data class Book(val title: String)
 data class Library(val name: String, val books: Set<Book>)
 
 val validateBook = Validator<Book> {
-    title.lengthBetween(5..100)
+    title.hasLengthBetween(5..100)
 }
 
 val validateLibrary = Validator<Library> {
 
     // Let's validate the `Library` properties.
-    name.notEmpty()
+    name.isNotEmpty()
 
     // However, we do not have to repeat ourselves to validate the books contained within
     // the library, we can just reuse `validateBook` for each book.

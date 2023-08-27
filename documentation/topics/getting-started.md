@@ -45,10 +45,10 @@ than one year later after the current date:
 
 ```kotlin
 val validateBook = Validator<Book> {
-    title.notEmpty()
+    title.isNotEmpty()
 
     val oneYearLater = LocalDateTime.now().plusYears(1)
-    releaseDate.beforeOrEqualTo(oneYearLater)
+    releaseDate.isBeforeOrEqualTo(oneYearLater)
 }
 ```
 
@@ -104,10 +104,10 @@ import java.time.LocalDateTime
 data class Book(val title: String, val releaseDate: LocalDateTime)
 
 val validateBook = Validator<Book> {
-    title.notEmpty()
+    title.isNotEmpty()
 
     val oneYearLater = LocalDateTime.now().plusYears(1)
-    releaseDate.beforeOrEqualTo(oneYearLater)
+    releaseDate.isBeforeOrEqualTo(oneYearLater)
 }
 
 fun main() {

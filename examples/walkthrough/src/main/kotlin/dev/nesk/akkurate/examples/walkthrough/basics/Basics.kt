@@ -3,8 +3,8 @@ package dev.nesk.akkurate.examples.walkthrough.basics
 import dev.nesk.akkurate.ValidationResult
 import dev.nesk.akkurate.Validator
 import dev.nesk.akkurate.annotations.Validate
-import dev.nesk.akkurate.constraints.builders.lengthGreaterThanOrEqualTo
-import dev.nesk.akkurate.constraints.builders.notEmpty
+import dev.nesk.akkurate.constraints.builders.hasLengthGreaterThanOrEqualTo
+import dev.nesk.akkurate.constraints.builders.isNotEmpty
 import dev.nesk.akkurate.examples.walkthrough.basics.validation.accessors.description
 import dev.nesk.akkurate.examples.walkthrough.basics.validation.accessors.title
 
@@ -22,8 +22,8 @@ val validateBook = Validator<Book> {
     //   — Provide a nice DSL.
 
     // When constraining a property, you access it first, then apply a constraint on it.
-    title.notEmpty() // The title must not be empty
-    description.lengthGreaterThanOrEqualTo(20) // The description must contain at least 20 chars
+    title.isNotEmpty() // The title must not be empty
+    description.hasLengthGreaterThanOrEqualTo(20) // The description must contain at least 20 chars
 
 }
 

@@ -6,228 +6,228 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class CharSequenceTest {
-    //region empty
+    //region isEmpty
     @Test
-    fun `'empty' succeeds when the value is null`() {
-        assertTrue(Validatable<CharSequence?>(null).empty().satisfied)
+    fun `'isEmpty' succeeds when the value is null`() {
+        assertTrue(Validatable<CharSequence?>(null).isEmpty().satisfied)
     }
 
     @Test
-    fun `'empty' succeeds when the value is empty`() {
-        assertTrue(Validatable("").empty().satisfied)
+    fun `'isEmpty' succeeds when the value is empty`() {
+        assertTrue(Validatable("").isEmpty().satisfied)
     }
 
     @Test
-    fun `'empty' fails when the value is not empty`() {
-        assertFalse(Validatable("foo").empty().satisfied)
-    }
-    //endregion
-
-    //region notEmpty
-    @Test
-    fun `'notEmpty' succeeds when the value is null`() {
-        assertTrue(Validatable<CharSequence?>(null).notEmpty().satisfied)
-    }
-
-    @Test
-    fun `'notEmpty' succeeds when the value is not empty`() {
-        assertTrue(Validatable("foo").notEmpty().satisfied)
-    }
-
-    @Test
-    fun `'notEmpty' fails when the value is empty`() {
-        assertFalse(Validatable("").notEmpty().satisfied)
+    fun `'isEmpty' fails when the value is not empty`() {
+        assertFalse(Validatable("foo").isEmpty().satisfied)
     }
     //endregion
 
-    //region lengthLowerThan
+    //region isNotEmpty
     @Test
-    fun `'lengthLowerThan' succeeds when the value is null`() {
-        assertTrue(Validatable<CharSequence?>(null).lengthLowerThan(0).satisfied)
+    fun `'isNotEmpty' succeeds when the value is null`() {
+        assertTrue(Validatable<CharSequence?>(null).isNotEmpty().satisfied)
     }
 
     @Test
-    fun `'lengthLowerThan' succeeds when the length is lower than the provided one`() {
-        assertTrue(Validatable("foo").lengthLowerThan(4).satisfied)
+    fun `'isNotEmpty' succeeds when the value is not empty`() {
+        assertTrue(Validatable("foo").isNotEmpty().satisfied)
     }
 
     @Test
-    fun `'lengthLowerThan' fails when the length is greater than or equal to the provided one`() {
-        assertFalse(Validatable("foo").lengthLowerThan(2).satisfied, "The constraint is not satisfied when the length is greater than the provided one")
-        assertFalse(Validatable("foo").lengthLowerThan(3).satisfied, "The constraint is not satisfied when the length is equal to the provided one")
-    }
-    //endregion
-
-    //region lengthLowerThanOrEqualTo
-    @Test
-    fun `'lengthLowerThanOrEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<CharSequence?>(null).lengthLowerThanOrEqualTo(0).satisfied)
-    }
-
-    @Test
-    fun `'lengthLowerThanOrEqualTo' succeeds when the length is lower than or equal to the provided one`() {
-        assertTrue(Validatable("foo").lengthLowerThanOrEqualTo(4).satisfied, "The constraint is satisfied when the length is lower than the provided one")
-        assertTrue(Validatable("foo").lengthLowerThanOrEqualTo(3).satisfied, "The constraint is satisfied when the length is equal to the provided one")
-    }
-
-    @Test
-    fun `'lengthLowerThanOrEqualTo' fails when the length is greater than the provided one`() {
-        assertFalse(Validatable("foo").lengthLowerThanOrEqualTo(2).satisfied)
+    fun `'isNotEmpty' fails when the value is empty`() {
+        assertFalse(Validatable("").isNotEmpty().satisfied)
     }
     //endregion
 
-    //region lengthGreaterThan
+    //region hasLengthLowerThan
     @Test
-    fun `'lengthGreaterThan' succeeds when the value is null`() {
-        assertTrue(Validatable<CharSequence?>(null).lengthGreaterThan(0).satisfied)
+    fun `'hasLengthLowerThan' succeeds when the value is null`() {
+        assertTrue(Validatable<CharSequence?>(null).hasLengthLowerThan(0).satisfied)
     }
 
     @Test
-    fun `'lengthGreaterThan' succeeds when the length is greater than the provided one`() {
-        assertTrue(Validatable("foo").lengthGreaterThan(2).satisfied)
+    fun `'hasLengthLowerThan' succeeds when the length is lower than the provided one`() {
+        assertTrue(Validatable("foo").hasLengthLowerThan(4).satisfied)
     }
 
     @Test
-    fun `'lengthGreaterThan' fails when the length is lower than or equal to the provided one`() {
-        assertFalse(Validatable("foo").lengthGreaterThan(4).satisfied, "The constraint is not satisfied when the length is lower than the provided one")
-        assertFalse(Validatable("foo").lengthGreaterThan(3).satisfied, "The constraint is not satisfied when the length is equal to the provided one")
-    }
-    //endregion
-
-    //region lengthGreaterThanOrEqualTo
-    @Test
-    fun `'lengthGreaterThanOrEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<CharSequence?>(null).lengthGreaterThanOrEqualTo(0).satisfied)
-    }
-
-    @Test
-    fun `'lengthGreaterThanOrEqualTo' succeeds when the length is greater than or equal to the provided one`() {
-        assertTrue(Validatable("foo").lengthGreaterThanOrEqualTo(2).satisfied, "The constraint is satisfied when the length is greater than the provided one")
-        assertTrue(Validatable("foo").lengthGreaterThanOrEqualTo(3).satisfied, "The constraint is satisfied when the length is equal to the provided one")
-    }
-
-    @Test
-    fun `'lengthGreaterThanOrEqualTo' fails when the length is lower than the provided one`() {
-        assertFalse(Validatable("foo").lengthGreaterThanOrEqualTo(4).satisfied)
+    fun `'hasLengthLowerThan' fails when the length is greater than or equal to the provided one`() {
+        assertFalse(Validatable("foo").hasLengthLowerThan(2).satisfied, "The constraint is not satisfied when the length is greater than the provided one")
+        assertFalse(Validatable("foo").hasLengthLowerThan(3).satisfied, "The constraint is not satisfied when the length is equal to the provided one")
     }
     //endregion
 
-    //region lengthBetween
+    //region hasLengthLowerThanOrEqualTo
     @Test
-    fun `'lengthBetween' succeeds when the value is null`() {
-        assertTrue(Validatable<CharSequence?>(null).lengthBetween(-1..0).satisfied)
+    fun `'hasLengthLowerThanOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<CharSequence?>(null).hasLengthLowerThanOrEqualTo(0).satisfied)
     }
 
     @Test
-    fun `'lengthBetween' succeeds when the length is within the provided range`() {
-        assertTrue(Validatable("foo").lengthBetween(2..4).satisfied)
+    fun `'hasLengthLowerThanOrEqualTo' succeeds when the length is lower than or equal to the provided one`() {
+        assertTrue(Validatable("foo").hasLengthLowerThanOrEqualTo(4).satisfied, "The constraint is satisfied when the length is lower than the provided one")
+        assertTrue(Validatable("foo").hasLengthLowerThanOrEqualTo(3).satisfied, "The constraint is satisfied when the length is equal to the provided one")
     }
 
     @Test
-    fun `'lengthBetween' fails when the length is outside the provided range`() {
-        assertFalse(Validatable("foo").lengthBetween(1..2).satisfied)
-    }
-    //endregion
-
-    //region startingWith
-    @Test
-    fun `'startingWith' succeeds when the value is null`() {
-        assertTrue(Validatable<CharSequence?>(null).startingWith("").satisfied)
-    }
-
-    @Test
-    fun `'startingWith' succeeds when the value starts with the provided char sequence`() {
-        assertTrue(Validatable("foobar").startingWith("foo").satisfied)
-    }
-
-    @Test
-    fun `'startingWith' fails when the value does not start with the provided char sequence`() {
-        assertFalse(Validatable("bar").startingWith("foo").satisfied)
+    fun `'hasLengthLowerThanOrEqualTo' fails when the length is greater than the provided one`() {
+        assertFalse(Validatable("foo").hasLengthLowerThanOrEqualTo(2).satisfied)
     }
     //endregion
 
-    //region notStartingWith
+    //region hasLengthGreaterThan
     @Test
-    fun `'notStartingWith' succeeds when the value is null`() {
-        assertTrue(Validatable<CharSequence?>(null).notStartingWith("").satisfied)
+    fun `'hasLengthGreaterThan' succeeds when the value is null`() {
+        assertTrue(Validatable<CharSequence?>(null).hasLengthGreaterThan(0).satisfied)
     }
 
     @Test
-    fun `'notStartingWith' succeeds when the value does not start with the provided char sequence`() {
-        assertTrue(Validatable("bar").notStartingWith("foo").satisfied)
+    fun `'hasLengthGreaterThan' succeeds when the length is greater than the provided one`() {
+        assertTrue(Validatable("foo").hasLengthGreaterThan(2).satisfied)
     }
 
     @Test
-    fun `'notStartingWith' fails when the value starts with the provided char sequence`() {
-        assertFalse(Validatable("foobar").notStartingWith("foo").satisfied)
-    }
-    //endregion
-
-    //region endingWith
-    @Test
-    fun `'endingWith' succeeds when the value is null`() {
-        assertTrue(Validatable<CharSequence?>(null).endingWith("").satisfied)
-    }
-
-    @Test
-    fun `'endingWith' succeeds when the value ends with the provided char sequence`() {
-        assertTrue(Validatable("foobar").endingWith("bar").satisfied)
-    }
-
-    @Test
-    fun `'endingWith' fails when the value does not end with the provided char sequence`() {
-        assertFalse(Validatable("foo").endingWith("bar").satisfied)
+    fun `'hasLengthGreaterThan' fails when the length is lower than or equal to the provided one`() {
+        assertFalse(Validatable("foo").hasLengthGreaterThan(4).satisfied, "The constraint is not satisfied when the length is lower than the provided one")
+        assertFalse(Validatable("foo").hasLengthGreaterThan(3).satisfied, "The constraint is not satisfied when the length is equal to the provided one")
     }
     //endregion
 
-    //region notEndingWith
+    //region hasLengthGreaterThanOrEqualTo
     @Test
-    fun `'notEndingWith' succeeds when the value is null`() {
-        assertTrue(Validatable<CharSequence?>(null).notEndingWith("").satisfied)
+    fun `'hasLengthGreaterThanOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<CharSequence?>(null).hasLengthGreaterThanOrEqualTo(0).satisfied)
     }
 
     @Test
-    fun `'notEndingWith' succeeds when the value does not end with the provided char sequence`() {
-        assertTrue(Validatable("foo").notEndingWith("bar").satisfied)
+    fun `'hasLengthGreaterThanOrEqualTo' succeeds when the length is greater than or equal to the provided one`() {
+        assertTrue(Validatable("foo").hasLengthGreaterThanOrEqualTo(2).satisfied, "The constraint is satisfied when the length is greater than the provided one")
+        assertTrue(Validatable("foo").hasLengthGreaterThanOrEqualTo(3).satisfied, "The constraint is satisfied when the length is equal to the provided one")
     }
 
     @Test
-    fun `'notEndingWith' fails when the value ends with the provided char sequence`() {
-        assertFalse(Validatable("foobar").notEndingWith("bar").satisfied)
-    }
-    //endregion
-
-    //region containing
-    @Test
-    fun `'containing' succeeds when the value is null`() {
-        assertTrue(Validatable<CharSequence?>(null).containing("").satisfied)
-    }
-
-    @Test
-    fun `'containing' succeeds when the value contains the provided char sequence`() {
-        assertTrue(Validatable("foobarbaz").containing("bar").satisfied)
-    }
-
-    @Test
-    fun `'containing' fails when the value does not contain the provided char sequence`() {
-        assertFalse(Validatable("foobaz").containing("bar").satisfied)
+    fun `'hasLengthGreaterThanOrEqualTo' fails when the length is lower than the provided one`() {
+        assertFalse(Validatable("foo").hasLengthGreaterThanOrEqualTo(4).satisfied)
     }
     //endregion
 
-    //region notContaining
+    //region hasLengthBetween
     @Test
-    fun `'notContaining' succeeds when the value is null`() {
-        assertTrue(Validatable<CharSequence?>(null).notContaining("").satisfied)
+    fun `'hasLengthBetween' succeeds when the value is null`() {
+        assertTrue(Validatable<CharSequence?>(null).hasLengthBetween(-1..0).satisfied)
     }
 
     @Test
-    fun `'notContaining' succeeds when the value does not contain the provided char sequence`() {
-        assertTrue(Validatable("foobaz").notContaining("bar").satisfied)
+    fun `'hasLengthBetween' succeeds when the length is within the provided range`() {
+        assertTrue(Validatable("foo").hasLengthBetween(2..4).satisfied)
     }
 
     @Test
-    fun `'notContaining' fails when the value contains the provided char sequence`() {
-        assertFalse(Validatable("foobarbaz").notContaining("bar").satisfied)
+    fun `'hasLengthBetween' fails when the length is outside the provided range`() {
+        assertFalse(Validatable("foo").hasLengthBetween(1..2).satisfied)
+    }
+    //endregion
+
+    //region isStartingWith
+    @Test
+    fun `'isStartingWith' succeeds when the value is null`() {
+        assertTrue(Validatable<CharSequence?>(null).isStartingWith("").satisfied)
+    }
+
+    @Test
+    fun `'isStartingWith' succeeds when the value starts with the provided char sequence`() {
+        assertTrue(Validatable("foobar").isStartingWith("foo").satisfied)
+    }
+
+    @Test
+    fun `'isStartingWith' fails when the value does not start with the provided char sequence`() {
+        assertFalse(Validatable("bar").isStartingWith("foo").satisfied)
+    }
+    //endregion
+
+    //region isNotStartingWith
+    @Test
+    fun `'isNotStartingWith' succeeds when the value is null`() {
+        assertTrue(Validatable<CharSequence?>(null).isNotStartingWith("").satisfied)
+    }
+
+    @Test
+    fun `'isNotStartingWith' succeeds when the value does not start with the provided char sequence`() {
+        assertTrue(Validatable("bar").isNotStartingWith("foo").satisfied)
+    }
+
+    @Test
+    fun `'isNotStartingWith' fails when the value starts with the provided char sequence`() {
+        assertFalse(Validatable("foobar").isNotStartingWith("foo").satisfied)
+    }
+    //endregion
+
+    //region isEndingWith
+    @Test
+    fun `'isEndingWith' succeeds when the value is null`() {
+        assertTrue(Validatable<CharSequence?>(null).isEndingWith("").satisfied)
+    }
+
+    @Test
+    fun `'isEndingWith' succeeds when the value ends with the provided char sequence`() {
+        assertTrue(Validatable("foobar").isEndingWith("bar").satisfied)
+    }
+
+    @Test
+    fun `'isEndingWith' fails when the value does not end with the provided char sequence`() {
+        assertFalse(Validatable("foo").isEndingWith("bar").satisfied)
+    }
+    //endregion
+
+    //region isNotEndingWith
+    @Test
+    fun `'isNotEndingWith' succeeds when the value is null`() {
+        assertTrue(Validatable<CharSequence?>(null).isNotEndingWith("").satisfied)
+    }
+
+    @Test
+    fun `'isNotEndingWith' succeeds when the value does not end with the provided char sequence`() {
+        assertTrue(Validatable("foo").isNotEndingWith("bar").satisfied)
+    }
+
+    @Test
+    fun `'isNotEndingWith' fails when the value ends with the provided char sequence`() {
+        assertFalse(Validatable("foobar").isNotEndingWith("bar").satisfied)
+    }
+    //endregion
+
+    //region isContaining
+    @Test
+    fun `'isContaining' succeeds when the value is null`() {
+        assertTrue(Validatable<CharSequence?>(null).isContaining("").satisfied)
+    }
+
+    @Test
+    fun `'isContaining' succeeds when the value contains the provided char sequence`() {
+        assertTrue(Validatable("foobarbaz").isContaining("bar").satisfied)
+    }
+
+    @Test
+    fun `'isContaining' fails when the value does not contain the provided char sequence`() {
+        assertFalse(Validatable("foobaz").isContaining("bar").satisfied)
+    }
+    //endregion
+
+    //region isNotContaining
+    @Test
+    fun `'isNotContaining' succeeds when the value is null`() {
+        assertTrue(Validatable<CharSequence?>(null).isNotContaining("").satisfied)
+    }
+
+    @Test
+    fun `'isNotContaining' succeeds when the value does not contain the provided char sequence`() {
+        assertTrue(Validatable("foobaz").isNotContaining("bar").satisfied)
+    }
+
+    @Test
+    fun `'isNotContaining' fails when the value contains the provided char sequence`() {
+        assertFalse(Validatable("foobarbaz").isNotContaining("bar").satisfied)
     }
     //endregion
 }

@@ -3,7 +3,7 @@ package dev.nesk.akkurate.examples.walkthrough.unwrap
 import dev.nesk.akkurate.ValidationResult
 import dev.nesk.akkurate.Validator
 import dev.nesk.akkurate.annotations.Validate
-import dev.nesk.akkurate.constraints.builders.lengthLowerThan
+import dev.nesk.akkurate.constraints.builders.hasLengthLowerThan
 import dev.nesk.akkurate.constraints.otherwise
 import dev.nesk.akkurate.examples.walkthrough.unwrap.validation.accessors.title
 
@@ -19,7 +19,7 @@ val validateBook = Validator<Book> {
     val (unwrappedTitle) = title
 
     // The unwrapped value can be used however you want, including in constraint messages.
-    title.lengthLowerThan(10) otherwise { "This title is too long: \"$unwrappedTitle\"" }
+    title.hasLengthLowerThan(10) otherwise { "This title is too long: \"$unwrappedTitle\"" }
 }
 
 fun main() {

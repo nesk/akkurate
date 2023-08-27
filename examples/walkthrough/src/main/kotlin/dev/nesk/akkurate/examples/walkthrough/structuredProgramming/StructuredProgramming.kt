@@ -4,8 +4,8 @@ import dev.nesk.akkurate.Validator
 import dev.nesk.akkurate.accessors.each
 import dev.nesk.akkurate.accessors.iterator
 import dev.nesk.akkurate.annotations.Validate
-import dev.nesk.akkurate.constraints.builders.notEmpty
-import dev.nesk.akkurate.constraints.builders.sizeLowerThanOrEqualTo
+import dev.nesk.akkurate.constraints.builders.hasSizeLowerThanOrEqualTo
+import dev.nesk.akkurate.constraints.builders.isNotEmpty
 import dev.nesk.akkurate.examples.walkthrough.structuredProgramming.validation.accessors.books
 import dev.nesk.akkurate.examples.walkthrough.structuredProgramming.validation.accessors.maximumCapacity
 import dev.nesk.akkurate.examples.walkthrough.structuredProgramming.validation.accessors.title
@@ -26,19 +26,19 @@ val validateLibrary = Validator<Library> {
 
     // You can use a loops to iterate over collections.
     for (book in books) {
-        book.title.notEmpty()
+        book.title.isNotEmpty()
     }
 
     // However, since iterating over a collection to validate is common, you might as well use the following helper.
     books.each {
-        title.notEmpty()
+        title.isNotEmpty()
     }
 
     // We want to constrain the size of the book collection only if the maximum capacity is at least 1.
     // So we unwrap the value, add a condition, and create a constraint only if its positive.
     val (max) = maximumCapacity
     if (max > 0) {
-        books.sizeLowerThanOrEqualTo(max)
+        books.hasSizeLowerThanOrEqualTo(max)
     }
 
 }

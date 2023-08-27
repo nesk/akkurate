@@ -4,8 +4,8 @@ import dev.nesk.akkurate.ValidationResult
 import dev.nesk.akkurate.Validator
 import dev.nesk.akkurate.accessors.length
 import dev.nesk.akkurate.annotations.Validate
-import dev.nesk.akkurate.constraints.builders.greaterThanOrEqualTo
-import dev.nesk.akkurate.constraints.builders.notEmpty
+import dev.nesk.akkurate.constraints.builders.isGreaterThanOrEqualTo
+import dev.nesk.akkurate.constraints.builders.isNotEmpty
 import dev.nesk.akkurate.constraints.otherwise
 import dev.nesk.akkurate.constraints.withPath
 import dev.nesk.akkurate.examples.walkthrough.customMessagesAndPaths.validation.accessors.description
@@ -17,19 +17,19 @@ data class Book(val title: String, val description: String)
 val validateBook = Validator<Book> {
 
     // For each constraint, you can use the `otherwise` function to provide a custom message.
-    title.notEmpty() otherwise { "The title cannot be empty" }
+    title.isNotEmpty() otherwise { "The title cannot be empty" }
 
     // You can also redefine the path used by the constraint, this can be useful when you apply
     // a constraint on a deep property, but you want the constraint violation to show the path
     // of a parent property.
 
     // Without customization, the path will be "description.length" because we apply a constraint directly on the length property.
-    description.length.greaterThanOrEqualTo(20)
+    description.length.isGreaterThanOrEqualTo(20)
 
     // Here we override the natural path with "description".
-    description.length.greaterThanOrEqualTo(20) otherwise { "At least 20 chars" } withPath { absolute("description") }
+    description.length.isGreaterThanOrEqualTo(20) otherwise { "At least 20 chars" } withPath { absolute("description") }
 
-    // Of course, this is just an example, we already got you covered with builtin constraints like `lengthGreaterThanOrEqualTo`.
+    // Of course, this is just an example, we already got you covered with builtin constraints like `hasLengthGreaterThanOrEqualTo`.
 
 }
 

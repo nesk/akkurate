@@ -2,9 +2,9 @@ package dev.nesk.akkurate.examples.walkthrough.dsl
 
 import dev.nesk.akkurate.Validator
 import dev.nesk.akkurate.annotations.Validate
-import dev.nesk.akkurate.constraints.builders.lengthGreaterThanOrEqualTo
-import dev.nesk.akkurate.constraints.builders.lengthLowerThanOrEqualTo
-import dev.nesk.akkurate.constraints.builders.notEmpty
+import dev.nesk.akkurate.constraints.builders.hasLengthGreaterThanOrEqualTo
+import dev.nesk.akkurate.constraints.builders.hasLengthLowerThanOrEqualTo
+import dev.nesk.akkurate.constraints.builders.isNotEmpty
 import dev.nesk.akkurate.examples.walkthrough.dsl.validation.accessors.author
 import dev.nesk.akkurate.examples.walkthrough.dsl.validation.accessors.firstName
 import dev.nesk.akkurate.examples.walkthrough.dsl.validation.accessors.identity
@@ -19,20 +19,20 @@ val validateBook = Validator<Book> {
     // To access a deeply nested property, you can write your code just like you would outside the
     // validator. The difference is, instead of retrieving the original value of each property, you
     // get a `Validatable` wrapping it, which allows you to apply constraints.
-    author.identity.firstName.notEmpty()
+    author.identity.firstName.isNotEmpty()
 
     // The library DSL allows you to avoid repetition of long paths, you can nest your
     // code if you want to validate multiple properties under a specific path.
 
     author.identity {
-        firstName.lengthGreaterThanOrEqualTo(2)
-        lastName.lengthGreaterThanOrEqualTo(3)
+        firstName.hasLengthGreaterThanOrEqualTo(2)
+        lastName.hasLengthGreaterThanOrEqualTo(3)
 
         // Through the DSL you can also apply the same constraints for multiple properties.
         // Here, both `firstName` and `lastName` will be constrained by a maximum length.
 
         (firstName and lastName) {
-            lengthLowerThanOrEqualTo(50)
+            hasLengthLowerThanOrEqualTo(50)
         }
     }
 

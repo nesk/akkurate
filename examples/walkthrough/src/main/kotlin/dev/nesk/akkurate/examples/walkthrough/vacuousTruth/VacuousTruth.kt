@@ -2,7 +2,7 @@ package dev.nesk.akkurate.examples.walkthrough.vacuousTruth
 
 import dev.nesk.akkurate.Validator
 import dev.nesk.akkurate.annotations.Validate
-import dev.nesk.akkurate.constraints.builders.past
+import dev.nesk.akkurate.constraints.builders.isInPast
 import dev.nesk.akkurate.examples.walkthrough.vacuousTruth.validation.accessors.birthDate
 import java.time.Instant
 
@@ -20,6 +20,6 @@ val validateBook = Validator<User> {
 
     // A user might not want to provide its birthdate. If there is no birthdate (a.k.a. `null`)
     // then the constraint is ALWAYS satisfied. However, if a birthdate is specified, it must be in the past.
-    birthDate.past()
+    birthDate.isInPast()
 
 }

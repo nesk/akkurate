@@ -16,8 +16,8 @@ without having to write custom constraints for anything else than business logic
 ## Basic usage
 
 Constraints are extension functions for the `Validatable` class. Some can be applied to all wrapped types, some others
-only to specific ones. For example, `equalTo` can be applied to all wrapped types, whereas `lengthLowerThan` can only be
-applied to `Validatable<CharSequence>`.
+only to specific ones. For example, `equalTo` can be applied to all wrapped types, whereas `hasLengthLowerThan` can only
+be applied to `Validatable<CharSequence>`.
 
 To apply a constraint, call it on a property inside a `Validator`:
 
@@ -26,7 +26,7 @@ To apply a constraint, call it on a property inside a `Validator`:
 data class Book(val title: String)
 
 Validator<Book> {
-    title.notEmpty()
+    title.isNotEmpty()
 }
 ```
 
@@ -34,7 +34,7 @@ Some constraints also accept parameters:
 
 ```kotlin
 Validator<Book> {
-    title.lengthLowerThanOrEqualTo(50)
+    title.hasLengthLowerThanOrEqualTo(50)
 }
 ```
 
@@ -60,11 +60,11 @@ data class Book(val title: String, val author: Author)
 data class Author(val fullName: String)
 
 val validateBook = Validator<Book> {
-    title.notEmpty()
+    title.isNotEmpty()
 
     author.fullName {
-        notEmpty()
-        containing(" ") // We expect at least a space in a full name.
+        isNotEmpty()
+        isContaining(" ") // We expect at least a space in a full name.
     }
 }
 
@@ -150,7 +150,7 @@ Use `otherwise` to provide a custom message for a constraint:
 
 ```kotlin
 Validator<Book> {
-    title.notEmpty() otherwise { "Sorry, the title cannot be empty" }
+    title.isNotEmpty() otherwise { "Sorry, the title cannot be empty" }
 }
 ```
 
@@ -159,7 +159,7 @@ messages:
 
 ```kotlin
 Validator<Book> {
-    title.lengthLowerThanOrEqualTo(50) otherwise {
+    title.hasLengthLowerThanOrEqualTo(50) otherwise {
         "${title.unwrap().length} is greater than 50"
     }
 }
@@ -170,7 +170,7 @@ Validator<Book> {
 Use `withPath` combined to `absolute` to provide a custom path for a constraint:
 
 ```kotlin
-author.fullName.notEmpty() withPath { absolute("a", "b", "c") }
+author.fullName.isNotEmpty() withPath { absolute("a", "b", "c") }
 ```
 
 The constraint violation path will be `[a, b, c]`.
@@ -199,7 +199,7 @@ What those methods essentially do is returning a `List<String>`. When in need of
 the path you want based on the current path, which is passed as a parameter:
 
 ```kotlin
-author.fullName.notEmpty() withPath { path ->
+author.fullName.isNotEmpty() withPath { path ->
     listOf(path.first, "a", "b", "c", path.last)
 }
 ```

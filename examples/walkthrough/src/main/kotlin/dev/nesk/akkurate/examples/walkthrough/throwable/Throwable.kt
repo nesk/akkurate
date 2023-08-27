@@ -3,7 +3,7 @@ package dev.nesk.akkurate.examples.walkthrough.throwable
 import dev.nesk.akkurate.ValidationResult
 import dev.nesk.akkurate.Validator
 import dev.nesk.akkurate.annotations.Validate
-import dev.nesk.akkurate.constraints.builders.notEmpty
+import dev.nesk.akkurate.constraints.builders.isNotEmpty
 import dev.nesk.akkurate.examples.walkthrough.throwable.validation.accessors.title
 
 // Instead of handling the result returned by the `validateBook` function,
@@ -33,5 +33,5 @@ fun main() {
 data class Book(val title: String)
 
 val validateBook = Validator<Book> {
-    title.notEmpty()
+    title.isNotEmpty()
 }

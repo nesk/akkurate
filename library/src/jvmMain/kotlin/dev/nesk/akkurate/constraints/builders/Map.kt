@@ -16,26 +16,26 @@ import dev.nesk.akkurate.validatables.Validatable
 
 // TODO: add contains/doesNotContain
 
-@JvmName("mapSizeEqualTo")
-public fun <T> Validatable<Map<*, T>?>.sizeEqualTo(size: Int): Constraint =
+@JvmName("mapHasSizeEqualTo")
+public fun <T> Validatable<Map<*, T>?>.hasSizeEqualTo(size: Int): Constraint =
     constrainIfNotNull { it.size == size } otherwise { "The number of items must be equal to $size" }
 
-@JvmName("mapSizeLowerThan")
-public fun <T> Validatable<Map<*, T>?>.sizeLowerThan(size: Int): Constraint =
+@JvmName("mapHasSizeLowerThan")
+public fun <T> Validatable<Map<*, T>?>.hasSizeLowerThan(size: Int): Constraint =
     constrainIfNotNull { it.size < size } otherwise { "The number of items must be lower than $size" }
 
-@JvmName("mapSizeLowerThanOrEqualTo")
-public fun <T> Validatable<Map<*, T>?>.sizeLowerThanOrEqualTo(size: Int): Constraint =
+@JvmName("mapHasSizeLowerThanOrEqualTo")
+public fun <T> Validatable<Map<*, T>?>.hasSizeLowerThanOrEqualTo(size: Int): Constraint =
     constrainIfNotNull { it.size <= size } otherwise { "The number of items must be lower than or equal to $size" }
 
-@JvmName("mapSizeGreaterThan")
-public fun <T> Validatable<Map<*, T>?>.sizeGreaterThan(size: Int): Constraint =
+@JvmName("mapHasSizeGreaterThan")
+public fun <T> Validatable<Map<*, T>?>.hasSizeGreaterThan(size: Int): Constraint =
     constrainIfNotNull { it.size > size } otherwise { "The number of items must be greater than $size" }
 
-@JvmName("mapSizeGreaterThanOrEqualTo")
-public fun <T> Validatable<Map<*, T>?>.sizeGreaterThanOrEqualTo(size: Int): Constraint =
+@JvmName("mapHasSizeGreaterThanOrEqualTo")
+public fun <T> Validatable<Map<*, T>?>.hasSizeGreaterThanOrEqualTo(size: Int): Constraint =
     constrainIfNotNull { it.size >= size } otherwise { "The number of items must be greater than or equal to $size" }
 
-@JvmName("mapSizeBetween")
-public fun <T> Validatable<Map<*, T>?>.sizeBetween(range: IntRange): Constraint =
+@JvmName("mapHasSizeBetween")
+public fun <T> Validatable<Map<*, T>?>.hasSizeBetween(range: IntRange): Constraint =
     constrainIfNotNull { it.size in range } otherwise { "The number of items must be between ${range.first} and ${range.last}" }

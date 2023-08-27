@@ -108,929 +108,929 @@ class NumberTest {
     }
     //endregion
 
-    //region negative
+    //region isNegative
     @Test
-    fun `'Short negative' succeeds when the value is null`() {
-        assertTrue(Validatable<Short?>(null).negative().satisfied)
+    fun `'Short isNegative' succeeds when the value is null`() {
+        assertTrue(Validatable<Short?>(null).isNegative().satisfied)
     }
 
     @Test
-    fun `'Short negative' succeeds when the value is negative`() {
-        assertTrue(Validatable((-1).toShort()).negative().satisfied)
+    fun `'Short isNegative' succeeds when the value is negative`() {
+        assertTrue(Validatable((-1).toShort()).isNegative().satisfied)
     }
 
     @Test
-    fun `'Short negative' fails when the value is positive or zero`() {
-        assertFalse(Validatable((1).toShort()).negative().satisfied, "The constraint is not satisfied when the value is positive")
-        assertFalse(Validatable((0).toShort()).negative().satisfied, "The constraint is not satisfied when the value is zero")
+    fun `'Short isNegative' fails when the value is positive or zero`() {
+        assertFalse(Validatable((1).toShort()).isNegative().satisfied, "The constraint is not satisfied when the value is positive")
+        assertFalse(Validatable((0).toShort()).isNegative().satisfied, "The constraint is not satisfied when the value is zero")
     }
 
     @Test
-    fun `'Int negative' succeeds when the value is null`() {
-        assertTrue(Validatable<Int?>(null).negative().satisfied)
+    fun `'Int isNegative' succeeds when the value is null`() {
+        assertTrue(Validatable<Int?>(null).isNegative().satisfied)
     }
 
     @Test
-    fun `'Int negative' succeeds when the value is negative`() {
-        assertTrue(Validatable(-1).negative().satisfied)
+    fun `'Int isNegative' succeeds when the value is negative`() {
+        assertTrue(Validatable(-1).isNegative().satisfied)
     }
 
     @Test
-    fun `'Int negative' fails when the value is positive or zero`() {
-        assertFalse(Validatable(1).negative().satisfied, "The constraint is not satisfied when the value is positive")
-        assertFalse(Validatable(0).negative().satisfied, "The constraint is not satisfied when the value is zero")
+    fun `'Int isNegative' fails when the value is positive or zero`() {
+        assertFalse(Validatable(1).isNegative().satisfied, "The constraint is not satisfied when the value is positive")
+        assertFalse(Validatable(0).isNegative().satisfied, "The constraint is not satisfied when the value is zero")
     }
 
     @Test
-    fun `'Long negative' succeeds when the value is null`() {
-        assertTrue(Validatable<Long?>(null).negative().satisfied)
+    fun `'Long isNegative' succeeds when the value is null`() {
+        assertTrue(Validatable<Long?>(null).isNegative().satisfied)
     }
 
     @Test
-    fun `'Long negative' succeeds when the value is negative`() {
-        assertTrue(Validatable(-1L).negative().satisfied)
+    fun `'Long isNegative' succeeds when the value is negative`() {
+        assertTrue(Validatable(-1L).isNegative().satisfied)
     }
 
     @Test
-    fun `'Long negative' fails when the value is positive or zero`() {
-        assertFalse(Validatable(1L).negative().satisfied, "The constraint is not satisfied when the value is positive")
-        assertFalse(Validatable(0L).negative().satisfied, "The constraint is not satisfied when the value is zero")
+    fun `'Long isNegative' fails when the value is positive or zero`() {
+        assertFalse(Validatable(1L).isNegative().satisfied, "The constraint is not satisfied when the value is positive")
+        assertFalse(Validatable(0L).isNegative().satisfied, "The constraint is not satisfied when the value is zero")
     }
 
     @Test
-    fun `'Float negative' succeeds when the value is null`() {
-        assertTrue(Validatable<Float?>(null).negative().satisfied)
+    fun `'Float isNegative' succeeds when the value is null`() {
+        assertTrue(Validatable<Float?>(null).isNegative().satisfied)
     }
 
     @Test
-    fun `'Float negative' succeeds when the value is negative`() {
-        assertTrue(Validatable(-1f).negative().satisfied)
+    fun `'Float isNegative' succeeds when the value is negative`() {
+        assertTrue(Validatable(-1f).isNegative().satisfied)
     }
 
     @Test
-    fun `'Float negative' fails when the value is positive or zero`() {
-        assertFalse(Validatable(1f).negative().satisfied, "The constraint is not satisfied when the value is positive")
-        assertFalse(Validatable(0f).negative().satisfied, "The constraint is not satisfied when the value is zero")
+    fun `'Float isNegative' fails when the value is positive or zero`() {
+        assertFalse(Validatable(1f).isNegative().satisfied, "The constraint is not satisfied when the value is positive")
+        assertFalse(Validatable(0f).isNegative().satisfied, "The constraint is not satisfied when the value is zero")
     }
 
     @Test
-    fun `'Double negative' succeeds when the value is null`() {
-        assertTrue(Validatable<Double?>(null).negative().satisfied)
+    fun `'Double isNegative' succeeds when the value is null`() {
+        assertTrue(Validatable<Double?>(null).isNegative().satisfied)
     }
 
     @Test
-    fun `'Double negative' succeeds when the value is negative`() {
-        assertTrue(Validatable(-1.0).negative().satisfied)
+    fun `'Double isNegative' succeeds when the value is negative`() {
+        assertTrue(Validatable(-1.0).isNegative().satisfied)
     }
 
     @Test
-    fun `'Double negative' fails when the value is positive or zero`() {
-        assertFalse(Validatable(1.0).negative().satisfied, "The constraint is not satisfied when the value is positive")
-        assertFalse(Validatable(0.0).negative().satisfied, "The constraint is not satisfied when the value is zero")
-    }
-    //endregion
-
-    //region negativeOrZero
-    @Test
-    fun `'Short negativeOrZero' succeeds when the value is null`() {
-        assertTrue(Validatable<Short?>(null).negativeOrZero().satisfied)
-    }
-
-    @Test
-    fun `'Short negativeOrZero' succeeds when the value is negative or zero`() {
-        assertTrue(Validatable((-1).toShort()).negativeOrZero().satisfied, "The constraint is satisfied when the value is negative")
-        assertTrue(Validatable((0).toShort()).negativeOrZero().satisfied, "The constraint is satisfied when the value is zero")
-    }
-
-    @Test
-    fun `'Short negativeOrZero' fails when the value is positive`() {
-        assertFalse(Validatable((1).toShort()).negativeOrZero().satisfied)
-    }
-
-    @Test
-    fun `'Int negativeOrZero' succeeds when the value is null`() {
-        assertTrue(Validatable<Int?>(null).negativeOrZero().satisfied)
-    }
-
-    @Test
-    fun `'Int negativeOrZero' succeeds when the value is negative or zero`() {
-        assertTrue(Validatable(-1).negativeOrZero().satisfied, "The constraint is satisfied when the value is negative")
-        assertTrue(Validatable(0).negativeOrZero().satisfied, "The constraint is satisfied when the value is zero")
-    }
-
-    @Test
-    fun `'Int negativeOrZero' fails when the value is positive`() {
-        assertFalse(Validatable(1).negativeOrZero().satisfied)
-    }
-
-    @Test
-    fun `'Long negativeOrZero' succeeds when the value is null`() {
-        assertTrue(Validatable<Long?>(null).negativeOrZero().satisfied)
-    }
-
-    @Test
-    fun `'Long negativeOrZero' succeeds when the value is negative or zero`() {
-        assertTrue(Validatable(-1L).negativeOrZero().satisfied, "The constraint is satisfied when the value is negative")
-        assertTrue(Validatable(0L).negativeOrZero().satisfied, "The constraint is satisfied when the value is zero")
-    }
-
-    @Test
-    fun `'Long negativeOrZero' fails when the value is positive`() {
-        assertFalse(Validatable(1L).negativeOrZero().satisfied)
-    }
-
-    @Test
-    fun `'Float negativeOrZero' succeeds when the value is null`() {
-        assertTrue(Validatable<Float?>(null).negativeOrZero().satisfied)
-    }
-
-    @Test
-    fun `'Float negativeOrZero' succeeds when the value is negative or zero`() {
-        assertTrue(Validatable(-1f).negativeOrZero().satisfied, "The constraint is satisfied when the value is negative")
-        assertTrue(Validatable(0f).negativeOrZero().satisfied, "The constraint is satisfied when the value is zero")
-    }
-
-    @Test
-    fun `'Float negativeOrZero' fails when the value is positive`() {
-        assertFalse(Validatable(1f).negativeOrZero().satisfied)
-    }
-
-    @Test
-    fun `'Double negativeOrZero' succeeds when the value is null`() {
-        assertTrue(Validatable<Double?>(null).negativeOrZero().satisfied)
-    }
-
-    @Test
-    fun `'Double negativeOrZero' succeeds when the value is negative or zero`() {
-        assertTrue(Validatable(-1.0).negativeOrZero().satisfied, "The constraint is satisfied when the value is negative")
-        assertTrue(Validatable(0.0).negativeOrZero().satisfied, "The constraint is satisfied when the value is zero")
-    }
-
-    @Test
-    fun `'Double negativeOrZero' fails when the value is positive`() {
-        assertFalse(Validatable(1.0).negativeOrZero().satisfied)
+    fun `'Double isNegative' fails when the value is positive or zero`() {
+        assertFalse(Validatable(1.0).isNegative().satisfied, "The constraint is not satisfied when the value is positive")
+        assertFalse(Validatable(0.0).isNegative().satisfied, "The constraint is not satisfied when the value is zero")
     }
     //endregion
 
-    //region positive
+    //region isNegativeOrZero
     @Test
-    fun `'Short positive' succeeds when the value is null`() {
-        assertTrue(Validatable<Short?>(null).positive().satisfied)
+    fun `'Short isNegativeOrZero' succeeds when the value is null`() {
+        assertTrue(Validatable<Short?>(null).isNegativeOrZero().satisfied)
     }
 
     @Test
-    fun `'Short positive' succeeds when the value is positive`() {
-        assertTrue(Validatable((1).toShort()).positive().satisfied)
+    fun `'Short isNegativeOrZero' succeeds when the value is negative or zero`() {
+        assertTrue(Validatable((-1).toShort()).isNegativeOrZero().satisfied, "The constraint is satisfied when the value is negative")
+        assertTrue(Validatable((0).toShort()).isNegativeOrZero().satisfied, "The constraint is satisfied when the value is zero")
     }
 
     @Test
-    fun `'Short positive' fails when the value is negative or zero`() {
-        assertFalse(Validatable((-1).toShort()).positive().satisfied, "The constraint is not satisfied when the value is negative")
-        assertFalse(Validatable((0).toShort()).positive().satisfied, "The constraint is not satisfied when the value is zero")
+    fun `'Short isNegativeOrZero' fails when the value is positive`() {
+        assertFalse(Validatable((1).toShort()).isNegativeOrZero().satisfied)
     }
 
     @Test
-    fun `'Int positive' succeeds when the value is null`() {
-        assertTrue(Validatable<Int?>(null).positive().satisfied)
+    fun `'Int isNegativeOrZero' succeeds when the value is null`() {
+        assertTrue(Validatable<Int?>(null).isNegativeOrZero().satisfied)
     }
 
     @Test
-    fun `'Int positive' succeeds when the value is positive`() {
-        assertTrue(Validatable(1).positive().satisfied)
+    fun `'Int isNegativeOrZero' succeeds when the value is negative or zero`() {
+        assertTrue(Validatable(-1).isNegativeOrZero().satisfied, "The constraint is satisfied when the value is negative")
+        assertTrue(Validatable(0).isNegativeOrZero().satisfied, "The constraint is satisfied when the value is zero")
     }
 
     @Test
-    fun `'Int positive' fails when the value is negative or zero`() {
-        assertFalse(Validatable(-1).positive().satisfied, "The constraint is not satisfied when the value is negative")
-        assertFalse(Validatable(0).positive().satisfied, "The constraint is not satisfied when the value is zero")
+    fun `'Int isNegativeOrZero' fails when the value is positive`() {
+        assertFalse(Validatable(1).isNegativeOrZero().satisfied)
     }
 
     @Test
-    fun `'Long positive' succeeds when the value is null`() {
-        assertTrue(Validatable<Long?>(null).positive().satisfied)
+    fun `'Long isNegativeOrZero' succeeds when the value is null`() {
+        assertTrue(Validatable<Long?>(null).isNegativeOrZero().satisfied)
     }
 
     @Test
-    fun `'Long positive' succeeds when the value is positive`() {
-        assertTrue(Validatable(1L).positive().satisfied)
+    fun `'Long isNegativeOrZero' succeeds when the value is negative or zero`() {
+        assertTrue(Validatable(-1L).isNegativeOrZero().satisfied, "The constraint is satisfied when the value is negative")
+        assertTrue(Validatable(0L).isNegativeOrZero().satisfied, "The constraint is satisfied when the value is zero")
     }
 
     @Test
-    fun `'Long positive' fails when the value is negative or zero`() {
-        assertFalse(Validatable(-1L).positive().satisfied, "The constraint is not satisfied when the value is negative")
-        assertFalse(Validatable(0L).positive().satisfied, "The constraint is not satisfied when the value is zero")
+    fun `'Long isNegativeOrZero' fails when the value is positive`() {
+        assertFalse(Validatable(1L).isNegativeOrZero().satisfied)
     }
 
     @Test
-    fun `'Float positive' succeeds when the value is null`() {
-        assertTrue(Validatable<Float?>(null).positive().satisfied)
+    fun `'Float isNegativeOrZero' succeeds when the value is null`() {
+        assertTrue(Validatable<Float?>(null).isNegativeOrZero().satisfied)
     }
 
     @Test
-    fun `'Float positive' succeeds when the value is positive`() {
-        assertTrue(Validatable(1f).positive().satisfied)
+    fun `'Float isNegativeOrZero' succeeds when the value is negative or zero`() {
+        assertTrue(Validatable(-1f).isNegativeOrZero().satisfied, "The constraint is satisfied when the value is negative")
+        assertTrue(Validatable(0f).isNegativeOrZero().satisfied, "The constraint is satisfied when the value is zero")
     }
 
     @Test
-    fun `'Float positive' fails when the value is negative or zero`() {
-        assertFalse(Validatable(-1f).positive().satisfied, "The constraint is not satisfied when the value is negative")
-        assertFalse(Validatable(0f).positive().satisfied, "The constraint is not satisfied when the value is zero")
+    fun `'Float isNegativeOrZero' fails when the value is positive`() {
+        assertFalse(Validatable(1f).isNegativeOrZero().satisfied)
     }
 
     @Test
-    fun `'Double positive' succeeds when the value is null`() {
-        assertTrue(Validatable<Double?>(null).positive().satisfied)
+    fun `'Double isNegativeOrZero' succeeds when the value is null`() {
+        assertTrue(Validatable<Double?>(null).isNegativeOrZero().satisfied)
     }
 
     @Test
-    fun `'Double positive' succeeds when the value is positive`() {
-        assertTrue(Validatable(1.0).positive().satisfied)
+    fun `'Double isNegativeOrZero' succeeds when the value is negative or zero`() {
+        assertTrue(Validatable(-1.0).isNegativeOrZero().satisfied, "The constraint is satisfied when the value is negative")
+        assertTrue(Validatable(0.0).isNegativeOrZero().satisfied, "The constraint is satisfied when the value is zero")
     }
 
     @Test
-    fun `'Double positive' fails when the value is negative or zero`() {
-        assertFalse(Validatable(-1.0).positive().satisfied, "The constraint is not satisfied when the value is negative")
-        assertFalse(Validatable(0.0).positive().satisfied, "The constraint is not satisfied when the value is zero")
-    }
-    //endregion
-
-    //region positiveOrZero
-    @Test
-    fun `'Short positiveOrZero' succeeds when the value is null`() {
-        assertTrue(Validatable<Short?>(null).positiveOrZero().satisfied)
-    }
-
-    @Test
-    fun `'Short positiveOrZero' succeeds when the value is positive or zero`() {
-        assertTrue(Validatable((1).toShort()).positiveOrZero().satisfied, "The constraint is satisfied when the value is positive")
-        assertTrue(Validatable((0).toShort()).positiveOrZero().satisfied, "The constraint is satisfied when the value is zero")
-    }
-
-    @Test
-    fun `'Short positiveOrZero' fails when the value is negative`() {
-        assertFalse(Validatable((-1).toShort()).positiveOrZero().satisfied)
-    }
-
-    @Test
-    fun `'Int positiveOrZero' succeeds when the value is null`() {
-        assertTrue(Validatable<Int?>(null).positiveOrZero().satisfied)
-    }
-
-    @Test
-    fun `'Int positiveOrZero' succeeds when the value is positive or zero`() {
-        assertTrue(Validatable(1).positiveOrZero().satisfied, "The constraint is satisfied when the value is positive")
-        assertTrue(Validatable(0).positiveOrZero().satisfied, "The constraint is satisfied when the value is zero")
-    }
-
-    @Test
-    fun `'Int positiveOrZero' fails when the value is negative`() {
-        assertFalse(Validatable(-1).positiveOrZero().satisfied)
-    }
-
-    @Test
-    fun `'Long positiveOrZero' succeeds when the value is null`() {
-        assertTrue(Validatable<Long?>(null).positiveOrZero().satisfied)
-    }
-
-    @Test
-    fun `'Long positiveOrZero' succeeds when the value is positive or zero`() {
-        assertTrue(Validatable(1L).positiveOrZero().satisfied, "The constraint is satisfied when the value is positive")
-        assertTrue(Validatable(0L).positiveOrZero().satisfied, "The constraint is satisfied when the value is zero")
-    }
-
-    @Test
-    fun `'Long positiveOrZero' fails when the value is negative`() {
-        assertFalse(Validatable(-1L).positiveOrZero().satisfied)
-    }
-
-    @Test
-    fun `'Float positiveOrZero' succeeds when the value is null`() {
-        assertTrue(Validatable<Float?>(null).positiveOrZero().satisfied)
-    }
-
-    @Test
-    fun `'Float positiveOrZero' succeeds when the value is positive or zero`() {
-        assertTrue(Validatable(1f).positiveOrZero().satisfied, "The constraint is satisfied when the value is positive")
-        assertTrue(Validatable(0f).positiveOrZero().satisfied, "The constraint is satisfied when the value is zero")
-    }
-
-    @Test
-    fun `'Float positiveOrZero' fails when the value is negative`() {
-        assertFalse(Validatable(-1f).positiveOrZero().satisfied)
-    }
-
-    @Test
-    fun `'Double positiveOrZero' succeeds when the value is null`() {
-        assertTrue(Validatable<Double?>(null).positiveOrZero().satisfied)
-    }
-
-    @Test
-    fun `'Double positiveOrZero' succeeds when the value is positive or zero`() {
-        assertTrue(Validatable(1.0).positiveOrZero().satisfied, "The constraint is satisfied when the value is positive")
-        assertTrue(Validatable(0.0).positiveOrZero().satisfied, "The constraint is satisfied when the value is zero")
-    }
-
-    @Test
-    fun `'Double positiveOrZero' fails when the value is negative`() {
-        assertFalse(Validatable(-1.0).positiveOrZero().satisfied)
+    fun `'Double isNegativeOrZero' fails when the value is positive`() {
+        assertFalse(Validatable(1.0).isNegativeOrZero().satisfied)
     }
     //endregion
 
-    //region lowerThan
+    //region isPositive
     @Test
-    fun `'Short lowerThan' succeeds when the value is null`() {
-        assertTrue(Validatable<Short?>(null).lowerThan(3).satisfied)
+    fun `'Short isPositive' succeeds when the value is null`() {
+        assertTrue(Validatable<Short?>(null).isPositive().satisfied)
     }
 
     @Test
-    fun `'Short lowerThan' succeeds when the value is lower than the provided one`() {
-        assertTrue(Validatable((2).toShort()).lowerThan(3).satisfied)
+    fun `'Short isPositive' succeeds when the value is positive`() {
+        assertTrue(Validatable((1).toShort()).isPositive().satisfied)
     }
 
     @Test
-    fun `'Short lowerThan' fails when the value is greater than or equal to the provided one`() {
-        assertFalse(Validatable((2).toShort()).lowerThan(1).satisfied, "The constraint is not satisfied when the value is greater than the provided one")
-        assertFalse(Validatable((2).toShort()).lowerThan(2).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    fun `'Short isPositive' fails when the value is negative or zero`() {
+        assertFalse(Validatable((-1).toShort()).isPositive().satisfied, "The constraint is not satisfied when the value is negative")
+        assertFalse(Validatable((0).toShort()).isPositive().satisfied, "The constraint is not satisfied when the value is zero")
     }
 
     @Test
-    fun `'Int lowerThan' succeeds when the value is null`() {
-        assertTrue(Validatable<Int?>(null).lowerThan(3).satisfied)
+    fun `'Int isPositive' succeeds when the value is null`() {
+        assertTrue(Validatable<Int?>(null).isPositive().satisfied)
     }
 
     @Test
-    fun `'Int lowerThan' succeeds when the value is lower than the provided one`() {
-        assertTrue(Validatable(2).lowerThan(3).satisfied)
+    fun `'Int isPositive' succeeds when the value is positive`() {
+        assertTrue(Validatable(1).isPositive().satisfied)
     }
 
     @Test
-    fun `'Int lowerThan' fails when the value is greater than or equal to the provided one`() {
-        assertFalse(Validatable(2).lowerThan(1).satisfied, "The constraint is not satisfied when the value is greater than the provided one")
-        assertFalse(Validatable(2).lowerThan(2).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    fun `'Int isPositive' fails when the value is negative or zero`() {
+        assertFalse(Validatable(-1).isPositive().satisfied, "The constraint is not satisfied when the value is negative")
+        assertFalse(Validatable(0).isPositive().satisfied, "The constraint is not satisfied when the value is zero")
     }
 
     @Test
-    fun `'Long lowerThan' succeeds when the value is null`() {
-        assertTrue(Validatable<Long?>(null).lowerThan(3).satisfied)
+    fun `'Long isPositive' succeeds when the value is null`() {
+        assertTrue(Validatable<Long?>(null).isPositive().satisfied)
     }
 
     @Test
-    fun `'Long lowerThan' succeeds when the value is lower than the provided one`() {
-        assertTrue(Validatable(2L).lowerThan(3).satisfied)
+    fun `'Long isPositive' succeeds when the value is positive`() {
+        assertTrue(Validatable(1L).isPositive().satisfied)
     }
 
     @Test
-    fun `'Long lowerThan' fails when the value is greater than or equal to the provided one`() {
-        assertFalse(Validatable(2L).lowerThan(1).satisfied, "The constraint is not satisfied when the value is greater than the provided one")
-        assertFalse(Validatable(2L).lowerThan(2).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    fun `'Long isPositive' fails when the value is negative or zero`() {
+        assertFalse(Validatable(-1L).isPositive().satisfied, "The constraint is not satisfied when the value is negative")
+        assertFalse(Validatable(0L).isPositive().satisfied, "The constraint is not satisfied when the value is zero")
     }
 
     @Test
-    fun `'Float lowerThan' succeeds when the value is null`() {
-        assertTrue(Validatable<Float?>(null).lowerThan(3f).satisfied)
+    fun `'Float isPositive' succeeds when the value is null`() {
+        assertTrue(Validatable<Float?>(null).isPositive().satisfied)
     }
 
     @Test
-    fun `'Float lowerThan' succeeds when the value is lower than the provided one`() {
-        assertTrue(Validatable(2f).lowerThan(3f).satisfied)
+    fun `'Float isPositive' succeeds when the value is positive`() {
+        assertTrue(Validatable(1f).isPositive().satisfied)
     }
 
     @Test
-    fun `'Float lowerThan' fails when the value is greater than or equal to the provided one`() {
-        assertFalse(Validatable(2f).lowerThan(1f).satisfied, "The constraint is not satisfied when the value is greater than the provided one")
-        assertFalse(Validatable(2f).lowerThan(2f).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    fun `'Float isPositive' fails when the value is negative or zero`() {
+        assertFalse(Validatable(-1f).isPositive().satisfied, "The constraint is not satisfied when the value is negative")
+        assertFalse(Validatable(0f).isPositive().satisfied, "The constraint is not satisfied when the value is zero")
     }
 
     @Test
-    fun `'Double lowerThan' succeeds when the value is null`() {
-        assertTrue(Validatable<Double?>(null).lowerThan(3.0).satisfied)
+    fun `'Double isPositive' succeeds when the value is null`() {
+        assertTrue(Validatable<Double?>(null).isPositive().satisfied)
     }
 
     @Test
-    fun `'Double lowerThan' succeeds when the value is lower than the provided one`() {
-        assertTrue(Validatable(2.0).lowerThan(3.0).satisfied)
+    fun `'Double isPositive' succeeds when the value is positive`() {
+        assertTrue(Validatable(1.0).isPositive().satisfied)
     }
 
     @Test
-    fun `'Double lowerThan' fails when the value is greater than or equal to the provided one`() {
-        assertFalse(Validatable(2.0).lowerThan(1.0).satisfied, "The constraint is not satisfied when the value is greater than the provided one")
-        assertFalse(Validatable(2.0).lowerThan(2.0).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
-    }
-    //endregion
-
-    //region lowerThanOrEqualTo
-    @Test
-    fun `'Short lowerThanOrEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<Short?>(null).lowerThanOrEqualTo(3).satisfied)
-    }
-
-    @Test
-    fun `'Short lowerThanOrEqualTo' succeeds when the value is lower than or equal to the provided one`() {
-        assertTrue(Validatable((2).toShort()).lowerThanOrEqualTo(3).satisfied, "The constraint is satisfied when the value is lower than the provided one")
-        assertTrue(Validatable((2).toShort()).lowerThanOrEqualTo(2).satisfied, "The constraint is satisfied when the value is equal to the provided one")
-    }
-
-    @Test
-    fun `'Short lowerThanOrEqualTo' fails when the value is greater than the provided one`() {
-        assertFalse(Validatable((2).toShort()).lowerThanOrEqualTo(1).satisfied)
-    }
-
-    @Test
-    fun `'Int lowerThanOrEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<Int?>(null).lowerThanOrEqualTo(3).satisfied)
-    }
-
-    @Test
-    fun `'Int lowerThanOrEqualTo' succeeds when the value is lower than or equal to the provided one`() {
-        assertTrue(Validatable(2).lowerThanOrEqualTo(3).satisfied, "The constraint is satisfied when the value is lower than the provided one")
-        assertTrue(Validatable(2).lowerThanOrEqualTo(2).satisfied, "The constraint is satisfied when the value is equal to the provided one")
-    }
-
-    @Test
-    fun `'Int lowerThanOrEqualTo' fails when the value is greater than the provided one`() {
-        assertFalse(Validatable(2).lowerThanOrEqualTo(1).satisfied)
-    }
-
-    @Test
-    fun `'Long lowerThanOrEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<Long?>(null).lowerThanOrEqualTo(3).satisfied)
-    }
-
-    @Test
-    fun `'Long lowerThanOrEqualTo' succeeds when the value is lower than or equal to the provided one`() {
-        assertTrue(Validatable(2L).lowerThanOrEqualTo(3).satisfied, "The constraint is satisfied when the value is lower than the provided one")
-        assertTrue(Validatable(2L).lowerThanOrEqualTo(2).satisfied, "The constraint is satisfied when the value is equal to the provided one")
-    }
-
-    @Test
-    fun `'Long lowerThanOrEqualTo' fails when the value is greater than the provided one`() {
-        assertFalse(Validatable(2L).lowerThanOrEqualTo(1).satisfied)
-    }
-
-    @Test
-    fun `'Float lowerThanOrEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<Float?>(null).lowerThanOrEqualTo(3f).satisfied)
-    }
-
-    @Test
-    fun `'Float lowerThanOrEqualTo' succeeds when the value is lower than or equal to the provided one`() {
-        assertTrue(Validatable(2f).lowerThanOrEqualTo(3f).satisfied, "The constraint is satisfied when the value is lower than the provided one")
-        assertTrue(Validatable(2f).lowerThanOrEqualTo(2f).satisfied, "The constraint is satisfied when the value is equal to the provided one")
-    }
-
-    @Test
-    fun `'Float lowerThanOrEqualTo' fails when the value is greater than the provided one`() {
-        assertFalse(Validatable(2f).lowerThanOrEqualTo(1f).satisfied)
-    }
-
-    @Test
-    fun `'Double lowerThanOrEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<Double?>(null).lowerThanOrEqualTo(3.0).satisfied)
-    }
-
-    @Test
-    fun `'Double lowerThanOrEqualTo' succeeds when the value is lower than or equal to the provided one`() {
-        assertTrue(Validatable(2.0).lowerThanOrEqualTo(3.0).satisfied, "The constraint is satisfied when the value is lower than the provided one")
-        assertTrue(Validatable(2.0).lowerThanOrEqualTo(2.0).satisfied, "The constraint is satisfied when the value is equal to the provided one")
-    }
-
-    @Test
-    fun `'Double lowerThanOrEqualTo' fails when the value is greater than the provided one`() {
-        assertFalse(Validatable(2.0).lowerThanOrEqualTo(1.0).satisfied)
+    fun `'Double isPositive' fails when the value is negative or zero`() {
+        assertFalse(Validatable(-1.0).isPositive().satisfied, "The constraint is not satisfied when the value is negative")
+        assertFalse(Validatable(0.0).isPositive().satisfied, "The constraint is not satisfied when the value is zero")
     }
     //endregion
 
-    //region greaterThan
+    //region isPositiveOrZero
     @Test
-    fun `'Short greaterThan' succeeds when the value is null`() {
-        assertTrue(Validatable<Short?>(null).greaterThan(3).satisfied)
+    fun `'Short isPositiveOrZero' succeeds when the value is null`() {
+        assertTrue(Validatable<Short?>(null).isPositiveOrZero().satisfied)
     }
 
     @Test
-    fun `'Short greaterThan' succeeds when the value is greater than the provided one`() {
-        assertTrue(Validatable((2).toShort()).greaterThan(1).satisfied)
+    fun `'Short isPositiveOrZero' succeeds when the value is positive or zero`() {
+        assertTrue(Validatable((1).toShort()).isPositiveOrZero().satisfied, "The constraint is satisfied when the value is positive")
+        assertTrue(Validatable((0).toShort()).isPositiveOrZero().satisfied, "The constraint is satisfied when the value is zero")
     }
 
     @Test
-    fun `'Short greaterThan' fails when the value is lower than or equal to the provided one`() {
-        assertFalse(Validatable((2).toShort()).greaterThan(3).satisfied, "The constraint is not satisfied when the value is lower than the provided one")
-        assertFalse(Validatable((2).toShort()).greaterThan(2).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    fun `'Short isPositiveOrZero' fails when the value is negative`() {
+        assertFalse(Validatable((-1).toShort()).isPositiveOrZero().satisfied)
     }
 
     @Test
-    fun `'Int greaterThan' succeeds when the value is null`() {
-        assertTrue(Validatable<Int?>(null).greaterThan(3).satisfied)
+    fun `'Int isPositiveOrZero' succeeds when the value is null`() {
+        assertTrue(Validatable<Int?>(null).isPositiveOrZero().satisfied)
     }
 
     @Test
-    fun `'Int greaterThan' succeeds when the value is greater than the provided one`() {
-        assertTrue(Validatable(2).greaterThan(1).satisfied)
+    fun `'Int isPositiveOrZero' succeeds when the value is positive or zero`() {
+        assertTrue(Validatable(1).isPositiveOrZero().satisfied, "The constraint is satisfied when the value is positive")
+        assertTrue(Validatable(0).isPositiveOrZero().satisfied, "The constraint is satisfied when the value is zero")
     }
 
     @Test
-    fun `'Int greaterThan' fails when the value is lower than or equal to the provided one`() {
-        assertFalse(Validatable(2).greaterThan(3).satisfied, "The constraint is not satisfied when the value is lower than the provided one")
-        assertFalse(Validatable(2).greaterThan(2).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    fun `'Int isPositiveOrZero' fails when the value is negative`() {
+        assertFalse(Validatable(-1).isPositiveOrZero().satisfied)
     }
 
     @Test
-    fun `'Long greaterThan' succeeds when the value is null`() {
-        assertTrue(Validatable<Long?>(null).greaterThan(3).satisfied)
+    fun `'Long isPositiveOrZero' succeeds when the value is null`() {
+        assertTrue(Validatable<Long?>(null).isPositiveOrZero().satisfied)
     }
 
     @Test
-    fun `'Long greaterThan' succeeds when the value is greater than the provided one`() {
-        assertTrue(Validatable(2L).greaterThan(1).satisfied)
+    fun `'Long isPositiveOrZero' succeeds when the value is positive or zero`() {
+        assertTrue(Validatable(1L).isPositiveOrZero().satisfied, "The constraint is satisfied when the value is positive")
+        assertTrue(Validatable(0L).isPositiveOrZero().satisfied, "The constraint is satisfied when the value is zero")
     }
 
     @Test
-    fun `'Long greaterThan' fails when the value is lower than or equal to the provided one`() {
-        assertFalse(Validatable(2L).greaterThan(3).satisfied, "The constraint is not satisfied when the value is lower than the provided one")
-        assertFalse(Validatable(2L).greaterThan(2).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    fun `'Long isPositiveOrZero' fails when the value is negative`() {
+        assertFalse(Validatable(-1L).isPositiveOrZero().satisfied)
     }
 
     @Test
-    fun `'Float greaterThan' succeeds when the value is null`() {
-        assertTrue(Validatable<Float?>(null).greaterThan(3f).satisfied)
+    fun `'Float isPositiveOrZero' succeeds when the value is null`() {
+        assertTrue(Validatable<Float?>(null).isPositiveOrZero().satisfied)
     }
 
     @Test
-    fun `'Float greaterThan' succeeds when the value is greater than the provided one`() {
-        assertTrue(Validatable(2f).greaterThan(1f).satisfied)
+    fun `'Float isPositiveOrZero' succeeds when the value is positive or zero`() {
+        assertTrue(Validatable(1f).isPositiveOrZero().satisfied, "The constraint is satisfied when the value is positive")
+        assertTrue(Validatable(0f).isPositiveOrZero().satisfied, "The constraint is satisfied when the value is zero")
     }
 
     @Test
-    fun `'Float greaterThan' fails when the value is lower than or equal to the provided one`() {
-        assertFalse(Validatable(2f).greaterThan(3f).satisfied, "The constraint is not satisfied when the value is lower than the provided one")
-        assertFalse(Validatable(2f).greaterThan(2f).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    fun `'Float isPositiveOrZero' fails when the value is negative`() {
+        assertFalse(Validatable(-1f).isPositiveOrZero().satisfied)
     }
 
     @Test
-    fun `'Double greaterThan' succeeds when the value is null`() {
-        assertTrue(Validatable<Double?>(null).greaterThan(3.0).satisfied)
+    fun `'Double isPositiveOrZero' succeeds when the value is null`() {
+        assertTrue(Validatable<Double?>(null).isPositiveOrZero().satisfied)
     }
 
     @Test
-    fun `'Double greaterThan' succeeds when the value is greater than the provided one`() {
-        assertTrue(Validatable(2.0).greaterThan(1.0).satisfied)
+    fun `'Double isPositiveOrZero' succeeds when the value is positive or zero`() {
+        assertTrue(Validatable(1.0).isPositiveOrZero().satisfied, "The constraint is satisfied when the value is positive")
+        assertTrue(Validatable(0.0).isPositiveOrZero().satisfied, "The constraint is satisfied when the value is zero")
     }
 
     @Test
-    fun `'Double greaterThan' fails when the value is lower than or equal to the provided one`() {
-        assertFalse(Validatable(2.0).greaterThan(3.0).satisfied, "The constraint is not satisfied when the value is lower than the provided one")
-        assertFalse(Validatable(2.0).greaterThan(2.0).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
-    }
-    //endregion
-
-    //region greaterThanOrEqualTo
-    @Test
-    fun `'Short greaterThanOrEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<Short?>(null).greaterThanOrEqualTo(3).satisfied)
-    }
-
-    @Test
-    fun `'Short greaterThanOrEqualTo' succeeds when the value is greater than or equal to the provided one`() {
-        assertTrue(Validatable((2).toShort()).greaterThanOrEqualTo(1).satisfied, "The constraint is satisfied when the value is greater than the provided one")
-        assertTrue(Validatable((2).toShort()).greaterThanOrEqualTo(2).satisfied, "The constraint is satisfied when the value is equal to the provided one")
-    }
-
-    @Test
-    fun `'Short greaterThanOrEqualTo' fails when the value is lower than the provided one`() {
-        assertFalse(Validatable((2).toShort()).greaterThanOrEqualTo(3).satisfied)
-    }
-
-    @Test
-    fun `'Int greaterThanOrEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<Int?>(null).greaterThanOrEqualTo(3).satisfied)
-    }
-
-    @Test
-    fun `'Int greaterThanOrEqualTo' succeeds when the value is greater than or equal to the provided one`() {
-        assertTrue(Validatable(2).greaterThanOrEqualTo(1).satisfied, "The constraint is satisfied when the value is greater than the provided one")
-        assertTrue(Validatable(2).greaterThanOrEqualTo(2).satisfied, "The constraint is satisfied when the value is equal to the provided one")
-    }
-
-    @Test
-    fun `'Int greaterThanOrEqualTo' fails when the value is lower than the provided one`() {
-        assertFalse(Validatable(2).greaterThanOrEqualTo(3).satisfied)
-    }
-
-    @Test
-    fun `'Long greaterThanOrEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<Long?>(null).greaterThanOrEqualTo(3).satisfied)
-    }
-
-    @Test
-    fun `'Long greaterThanOrEqualTo' succeeds when the value is greater than or equal to the provided one`() {
-        assertTrue(Validatable(2L).greaterThanOrEqualTo(1).satisfied, "The constraint is satisfied when the value is greater than the provided one")
-        assertTrue(Validatable(2L).greaterThanOrEqualTo(2).satisfied, "The constraint is satisfied when the value is equal to the provided one")
-    }
-
-    @Test
-    fun `'Long greaterThanOrEqualTo' fails when the value is lower than the provided one`() {
-        assertFalse(Validatable(2L).greaterThanOrEqualTo(3).satisfied)
-    }
-
-    @Test
-    fun `'Float greaterThanOrEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<Float?>(null).greaterThanOrEqualTo(3f).satisfied)
-    }
-
-    @Test
-    fun `'Float greaterThanOrEqualTo' succeeds when the value is greater than or equal to the provided one`() {
-        assertTrue(Validatable(2f).greaterThanOrEqualTo(1f).satisfied, "The constraint is satisfied when the value is greater than the provided one")
-        assertTrue(Validatable(2f).greaterThanOrEqualTo(2f).satisfied, "The constraint is satisfied when the value is equal to the provided one")
-    }
-
-    @Test
-    fun `'Float greaterThanOrEqualTo' fails when the value is lower than the provided one`() {
-        assertFalse(Validatable(2f).greaterThanOrEqualTo(3f).satisfied)
-    }
-
-    @Test
-    fun `'Double greaterThanOrEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<Double?>(null).greaterThanOrEqualTo(3.0).satisfied)
-    }
-
-    @Test
-    fun `'Double greaterThanOrEqualTo' succeeds when the value is greater than or equal to the provided one`() {
-        assertTrue(Validatable(2.0).greaterThanOrEqualTo(1.0).satisfied, "The constraint is satisfied when the value is greater than the provided one")
-        assertTrue(Validatable(2.0).greaterThanOrEqualTo(2.0).satisfied, "The constraint is satisfied when the value is equal to the provided one")
-    }
-
-    @Test
-    fun `'Double greaterThanOrEqualTo' fails when the value is lower than the provided one`() {
-        assertFalse(Validatable(2.0).greaterThanOrEqualTo(3.0).satisfied)
+    fun `'Double isPositiveOrZero' fails when the value is negative`() {
+        assertFalse(Validatable(-1.0).isPositiveOrZero().satisfied)
     }
     //endregion
 
-    //region between
+    //region isLowerThan
     @Test
-    fun `'Short between' succeeds when the value is null`() {
-        assertTrue(Validatable<Short?>(null).between(3..9).satisfied)
+    fun `'Short isLowerThan' succeeds when the value is null`() {
+        assertTrue(Validatable<Short?>(null).isLowerThan(3).satisfied)
     }
 
     @Test
-    fun `'Short between' succeeds when the value is within the provided range`() {
-        assertTrue(Validatable((2).toShort()).between(1..3).satisfied)
+    fun `'Short isLowerThan' succeeds when the value is lower than the provided one`() {
+        assertTrue(Validatable((2).toShort()).isLowerThan(3).satisfied)
     }
 
     @Test
-    fun `'Short between' fails when the value is outside the provided range`() {
-        assertFalse(Validatable((2).toShort()).between(3..5).satisfied)
+    fun `'Short isLowerThan' fails when the value is greater than or equal to the provided one`() {
+        assertFalse(Validatable((2).toShort()).isLowerThan(1).satisfied, "The constraint is not satisfied when the value is greater than the provided one")
+        assertFalse(Validatable((2).toShort()).isLowerThan(2).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
     }
 
     @Test
-    fun `'Int between' succeeds when the value is null`() {
-        assertTrue(Validatable<Int?>(null).between(3..9).satisfied)
+    fun `'Int isLowerThan' succeeds when the value is null`() {
+        assertTrue(Validatable<Int?>(null).isLowerThan(3).satisfied)
     }
 
     @Test
-    fun `'Int between' succeeds when the value is within the provided range`() {
-        assertTrue(Validatable(2).between(1..3).satisfied)
+    fun `'Int isLowerThan' succeeds when the value is lower than the provided one`() {
+        assertTrue(Validatable(2).isLowerThan(3).satisfied)
     }
 
     @Test
-    fun `'Int between' fails when the value is outside the provided range`() {
-        assertFalse(Validatable(2).between(3..5).satisfied)
+    fun `'Int isLowerThan' fails when the value is greater than or equal to the provided one`() {
+        assertFalse(Validatable(2).isLowerThan(1).satisfied, "The constraint is not satisfied when the value is greater than the provided one")
+        assertFalse(Validatable(2).isLowerThan(2).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
     }
 
     @Test
-    fun `'Long between' succeeds when the value is null`() {
-        assertTrue(Validatable<Long?>(null).between(3L..9L).satisfied)
+    fun `'Long isLowerThan' succeeds when the value is null`() {
+        assertTrue(Validatable<Long?>(null).isLowerThan(3).satisfied)
     }
 
     @Test
-    fun `'Long between' succeeds when the value is within the provided range`() {
-        assertTrue(Validatable(2L).between(1L..3L).satisfied)
+    fun `'Long isLowerThan' succeeds when the value is lower than the provided one`() {
+        assertTrue(Validatable(2L).isLowerThan(3).satisfied)
     }
 
     @Test
-    fun `'Long between' fails when the value is outside the provided range`() {
-        assertFalse(Validatable(2L).between(3L..5L).satisfied)
+    fun `'Long isLowerThan' fails when the value is greater than or equal to the provided one`() {
+        assertFalse(Validatable(2L).isLowerThan(1).satisfied, "The constraint is not satisfied when the value is greater than the provided one")
+        assertFalse(Validatable(2L).isLowerThan(2).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
     }
 
     @Test
-    fun `'Float between' succeeds with a closed range when the value is null`() {
-        assertTrue(Validatable<Float?>(null).between(3f..9f).satisfied)
+    fun `'Float isLowerThan' succeeds when the value is null`() {
+        assertTrue(Validatable<Float?>(null).isLowerThan(3f).satisfied)
     }
 
     @Test
-    fun `'Float between' succeeds with a closed range when the value is within the provided range`() {
-        assertTrue(Validatable(2f).between(1f..3f).satisfied)
+    fun `'Float isLowerThan' succeeds when the value is lower than the provided one`() {
+        assertTrue(Validatable(2f).isLowerThan(3f).satisfied)
     }
 
     @Test
-    fun `'Float between' fails with a closed range when the value is outside the provided range`() {
-        assertFalse(Validatable(2f).between(3f..5f).satisfied)
+    fun `'Float isLowerThan' fails when the value is greater than or equal to the provided one`() {
+        assertFalse(Validatable(2f).isLowerThan(1f).satisfied, "The constraint is not satisfied when the value is greater than the provided one")
+        assertFalse(Validatable(2f).isLowerThan(2f).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
     }
 
     @Test
-    fun `'Double between' succeeds with a closed range when the value is null`() {
-        assertTrue(Validatable<Double?>(null).between(3.0..9.0).satisfied)
+    fun `'Double isLowerThan' succeeds when the value is null`() {
+        assertTrue(Validatable<Double?>(null).isLowerThan(3.0).satisfied)
     }
 
     @Test
-    fun `'Double between' succeeds with a closed range when the value is within the provided range`() {
-        assertTrue(Validatable(2.0).between(1.0..3.0).satisfied)
+    fun `'Double isLowerThan' succeeds when the value is lower than the provided one`() {
+        assertTrue(Validatable(2.0).isLowerThan(3.0).satisfied)
     }
 
     @Test
-    fun `'Double between' fails with a closed range when the value is outside the provided range`() {
-        assertFalse(Validatable(2.0).between(3.0..5.0).satisfied)
-    }
-
-    @Test
-    fun `'Float between' succeeds with an open-ended range when the value is null`() {
-        assertTrue(Validatable<Float?>(null).between(3f..<9f).satisfied)
-    }
-
-    @Test
-    fun `'Float between' succeeds with an open-ended range when the value is within the provided range`() {
-        assertTrue(Validatable(2f).between(1f..<3f).satisfied)
-    }
-
-    @Test
-    fun `'Float between' fails with an open-ended range when the value is outside the provided range`() {
-        assertFalse(Validatable(2f).between(1f..<2f).satisfied)
-    }
-
-    @Test
-    fun `'Double between' succeeds with an open-ended range when the value is null`() {
-        assertTrue(Validatable<Double?>(null).between(3.0..<9.0).satisfied)
-    }
-
-    @Test
-    fun `'Double between' succeeds with an open-ended range when the value is within the provided range`() {
-        assertTrue(Validatable(2.0).between(1.0..<3.0).satisfied)
-    }
-
-    @Test
-    fun `'Double between' fails with an open-ended range when the value is outside the provided range`() {
-        assertFalse(Validatable(2.0).between(1.0..<2.0).satisfied)
+    fun `'Double isLowerThan' fails when the value is greater than or equal to the provided one`() {
+        assertFalse(Validatable(2.0).isLowerThan(1.0).satisfied, "The constraint is not satisfied when the value is greater than the provided one")
+        assertFalse(Validatable(2.0).isLowerThan(2.0).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
     }
     //endregion
 
-    //region integralCountEqualTo
+    //region isLowerThanOrEqualTo
     @Test
-    fun `'Short integralCountEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<Short?>(null).integralCountEqualTo(3).satisfied)
+    fun `'Short isLowerThanOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Short?>(null).isLowerThanOrEqualTo(3).satisfied)
     }
 
     @Test
-    fun `'Short integralCountEqualTo' throws an exception when the provided count is lower than 1`() {
+    fun `'Short isLowerThanOrEqualTo' succeeds when the value is lower than or equal to the provided one`() {
+        assertTrue(Validatable((2).toShort()).isLowerThanOrEqualTo(3).satisfied, "The constraint is satisfied when the value is lower than the provided one")
+        assertTrue(Validatable((2).toShort()).isLowerThanOrEqualTo(2).satisfied, "The constraint is satisfied when the value is equal to the provided one")
+    }
+
+    @Test
+    fun `'Short isLowerThanOrEqualTo' fails when the value is greater than the provided one`() {
+        assertFalse(Validatable((2).toShort()).isLowerThanOrEqualTo(1).satisfied)
+    }
+
+    @Test
+    fun `'Int isLowerThanOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Int?>(null).isLowerThanOrEqualTo(3).satisfied)
+    }
+
+    @Test
+    fun `'Int isLowerThanOrEqualTo' succeeds when the value is lower than or equal to the provided one`() {
+        assertTrue(Validatable(2).isLowerThanOrEqualTo(3).satisfied, "The constraint is satisfied when the value is lower than the provided one")
+        assertTrue(Validatable(2).isLowerThanOrEqualTo(2).satisfied, "The constraint is satisfied when the value is equal to the provided one")
+    }
+
+    @Test
+    fun `'Int isLowerThanOrEqualTo' fails when the value is greater than the provided one`() {
+        assertFalse(Validatable(2).isLowerThanOrEqualTo(1).satisfied)
+    }
+
+    @Test
+    fun `'Long isLowerThanOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Long?>(null).isLowerThanOrEqualTo(3).satisfied)
+    }
+
+    @Test
+    fun `'Long isLowerThanOrEqualTo' succeeds when the value is lower than or equal to the provided one`() {
+        assertTrue(Validatable(2L).isLowerThanOrEqualTo(3).satisfied, "The constraint is satisfied when the value is lower than the provided one")
+        assertTrue(Validatable(2L).isLowerThanOrEqualTo(2).satisfied, "The constraint is satisfied when the value is equal to the provided one")
+    }
+
+    @Test
+    fun `'Long isLowerThanOrEqualTo' fails when the value is greater than the provided one`() {
+        assertFalse(Validatable(2L).isLowerThanOrEqualTo(1).satisfied)
+    }
+
+    @Test
+    fun `'Float isLowerThanOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Float?>(null).isLowerThanOrEqualTo(3f).satisfied)
+    }
+
+    @Test
+    fun `'Float isLowerThanOrEqualTo' succeeds when the value is lower than or equal to the provided one`() {
+        assertTrue(Validatable(2f).isLowerThanOrEqualTo(3f).satisfied, "The constraint is satisfied when the value is lower than the provided one")
+        assertTrue(Validatable(2f).isLowerThanOrEqualTo(2f).satisfied, "The constraint is satisfied when the value is equal to the provided one")
+    }
+
+    @Test
+    fun `'Float isLowerThanOrEqualTo' fails when the value is greater than the provided one`() {
+        assertFalse(Validatable(2f).isLowerThanOrEqualTo(1f).satisfied)
+    }
+
+    @Test
+    fun `'Double isLowerThanOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Double?>(null).isLowerThanOrEqualTo(3.0).satisfied)
+    }
+
+    @Test
+    fun `'Double isLowerThanOrEqualTo' succeeds when the value is lower than or equal to the provided one`() {
+        assertTrue(Validatable(2.0).isLowerThanOrEqualTo(3.0).satisfied, "The constraint is satisfied when the value is lower than the provided one")
+        assertTrue(Validatable(2.0).isLowerThanOrEqualTo(2.0).satisfied, "The constraint is satisfied when the value is equal to the provided one")
+    }
+
+    @Test
+    fun `'Double isLowerThanOrEqualTo' fails when the value is greater than the provided one`() {
+        assertFalse(Validatable(2.0).isLowerThanOrEqualTo(1.0).satisfied)
+    }
+    //endregion
+
+    //region isGreaterThan
+    @Test
+    fun `'Short isGreaterThan' succeeds when the value is null`() {
+        assertTrue(Validatable<Short?>(null).isGreaterThan(3).satisfied)
+    }
+
+    @Test
+    fun `'Short isGreaterThan' succeeds when the value is greater than the provided one`() {
+        assertTrue(Validatable((2).toShort()).isGreaterThan(1).satisfied)
+    }
+
+    @Test
+    fun `'Short isGreaterThan' fails when the value is lower than or equal to the provided one`() {
+        assertFalse(Validatable((2).toShort()).isGreaterThan(3).satisfied, "The constraint is not satisfied when the value is lower than the provided one")
+        assertFalse(Validatable((2).toShort()).isGreaterThan(2).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    }
+
+    @Test
+    fun `'Int isGreaterThan' succeeds when the value is null`() {
+        assertTrue(Validatable<Int?>(null).isGreaterThan(3).satisfied)
+    }
+
+    @Test
+    fun `'Int isGreaterThan' succeeds when the value is greater than the provided one`() {
+        assertTrue(Validatable(2).isGreaterThan(1).satisfied)
+    }
+
+    @Test
+    fun `'Int isGreaterThan' fails when the value is lower than or equal to the provided one`() {
+        assertFalse(Validatable(2).isGreaterThan(3).satisfied, "The constraint is not satisfied when the value is lower than the provided one")
+        assertFalse(Validatable(2).isGreaterThan(2).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    }
+
+    @Test
+    fun `'Long isGreaterThan' succeeds when the value is null`() {
+        assertTrue(Validatable<Long?>(null).isGreaterThan(3).satisfied)
+    }
+
+    @Test
+    fun `'Long isGreaterThan' succeeds when the value is greater than the provided one`() {
+        assertTrue(Validatable(2L).isGreaterThan(1).satisfied)
+    }
+
+    @Test
+    fun `'Long isGreaterThan' fails when the value is lower than or equal to the provided one`() {
+        assertFalse(Validatable(2L).isGreaterThan(3).satisfied, "The constraint is not satisfied when the value is lower than the provided one")
+        assertFalse(Validatable(2L).isGreaterThan(2).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    }
+
+    @Test
+    fun `'Float isGreaterThan' succeeds when the value is null`() {
+        assertTrue(Validatable<Float?>(null).isGreaterThan(3f).satisfied)
+    }
+
+    @Test
+    fun `'Float isGreaterThan' succeeds when the value is greater than the provided one`() {
+        assertTrue(Validatable(2f).isGreaterThan(1f).satisfied)
+    }
+
+    @Test
+    fun `'Float isGreaterThan' fails when the value is lower than or equal to the provided one`() {
+        assertFalse(Validatable(2f).isGreaterThan(3f).satisfied, "The constraint is not satisfied when the value is lower than the provided one")
+        assertFalse(Validatable(2f).isGreaterThan(2f).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    }
+
+    @Test
+    fun `'Double isGreaterThan' succeeds when the value is null`() {
+        assertTrue(Validatable<Double?>(null).isGreaterThan(3.0).satisfied)
+    }
+
+    @Test
+    fun `'Double isGreaterThan' succeeds when the value is greater than the provided one`() {
+        assertTrue(Validatable(2.0).isGreaterThan(1.0).satisfied)
+    }
+
+    @Test
+    fun `'Double isGreaterThan' fails when the value is lower than or equal to the provided one`() {
+        assertFalse(Validatable(2.0).isGreaterThan(3.0).satisfied, "The constraint is not satisfied when the value is lower than the provided one")
+        assertFalse(Validatable(2.0).isGreaterThan(2.0).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    }
+    //endregion
+
+    //region isGreaterThanOrEqualTo
+    @Test
+    fun `'Short isGreaterThanOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Short?>(null).isGreaterThanOrEqualTo(3).satisfied)
+    }
+
+    @Test
+    fun `'Short isGreaterThanOrEqualTo' succeeds when the value is greater than or equal to the provided one`() {
+        assertTrue(Validatable((2).toShort()).isGreaterThanOrEqualTo(1).satisfied, "The constraint is satisfied when the value is greater than the provided one")
+        assertTrue(Validatable((2).toShort()).isGreaterThanOrEqualTo(2).satisfied, "The constraint is satisfied when the value is equal to the provided one")
+    }
+
+    @Test
+    fun `'Short isGreaterThanOrEqualTo' fails when the value is lower than the provided one`() {
+        assertFalse(Validatable((2).toShort()).isGreaterThanOrEqualTo(3).satisfied)
+    }
+
+    @Test
+    fun `'Int isGreaterThanOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Int?>(null).isGreaterThanOrEqualTo(3).satisfied)
+    }
+
+    @Test
+    fun `'Int isGreaterThanOrEqualTo' succeeds when the value is greater than or equal to the provided one`() {
+        assertTrue(Validatable(2).isGreaterThanOrEqualTo(1).satisfied, "The constraint is satisfied when the value is greater than the provided one")
+        assertTrue(Validatable(2).isGreaterThanOrEqualTo(2).satisfied, "The constraint is satisfied when the value is equal to the provided one")
+    }
+
+    @Test
+    fun `'Int isGreaterThanOrEqualTo' fails when the value is lower than the provided one`() {
+        assertFalse(Validatable(2).isGreaterThanOrEqualTo(3).satisfied)
+    }
+
+    @Test
+    fun `'Long isGreaterThanOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Long?>(null).isGreaterThanOrEqualTo(3).satisfied)
+    }
+
+    @Test
+    fun `'Long isGreaterThanOrEqualTo' succeeds when the value is greater than or equal to the provided one`() {
+        assertTrue(Validatable(2L).isGreaterThanOrEqualTo(1).satisfied, "The constraint is satisfied when the value is greater than the provided one")
+        assertTrue(Validatable(2L).isGreaterThanOrEqualTo(2).satisfied, "The constraint is satisfied when the value is equal to the provided one")
+    }
+
+    @Test
+    fun `'Long isGreaterThanOrEqualTo' fails when the value is lower than the provided one`() {
+        assertFalse(Validatable(2L).isGreaterThanOrEqualTo(3).satisfied)
+    }
+
+    @Test
+    fun `'Float isGreaterThanOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Float?>(null).isGreaterThanOrEqualTo(3f).satisfied)
+    }
+
+    @Test
+    fun `'Float isGreaterThanOrEqualTo' succeeds when the value is greater than or equal to the provided one`() {
+        assertTrue(Validatable(2f).isGreaterThanOrEqualTo(1f).satisfied, "The constraint is satisfied when the value is greater than the provided one")
+        assertTrue(Validatable(2f).isGreaterThanOrEqualTo(2f).satisfied, "The constraint is satisfied when the value is equal to the provided one")
+    }
+
+    @Test
+    fun `'Float isGreaterThanOrEqualTo' fails when the value is lower than the provided one`() {
+        assertFalse(Validatable(2f).isGreaterThanOrEqualTo(3f).satisfied)
+    }
+
+    @Test
+    fun `'Double isGreaterThanOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Double?>(null).isGreaterThanOrEqualTo(3.0).satisfied)
+    }
+
+    @Test
+    fun `'Double isGreaterThanOrEqualTo' succeeds when the value is greater than or equal to the provided one`() {
+        assertTrue(Validatable(2.0).isGreaterThanOrEqualTo(1.0).satisfied, "The constraint is satisfied when the value is greater than the provided one")
+        assertTrue(Validatable(2.0).isGreaterThanOrEqualTo(2.0).satisfied, "The constraint is satisfied when the value is equal to the provided one")
+    }
+
+    @Test
+    fun `'Double isGreaterThanOrEqualTo' fails when the value is lower than the provided one`() {
+        assertFalse(Validatable(2.0).isGreaterThanOrEqualTo(3.0).satisfied)
+    }
+    //endregion
+
+    //region isBetween
+    @Test
+    fun `'Short isBetween' succeeds when the value is null`() {
+        assertTrue(Validatable<Short?>(null).isBetween(3..9).satisfied)
+    }
+
+    @Test
+    fun `'Short isBetween' succeeds when the value is within the provided range`() {
+        assertTrue(Validatable((2).toShort()).isBetween(1..3).satisfied)
+    }
+
+    @Test
+    fun `'Short isBetween' fails when the value is outside the provided range`() {
+        assertFalse(Validatable((2).toShort()).isBetween(3..5).satisfied)
+    }
+
+    @Test
+    fun `'Int isBetween' succeeds when the value is null`() {
+        assertTrue(Validatable<Int?>(null).isBetween(3..9).satisfied)
+    }
+
+    @Test
+    fun `'Int isBetween' succeeds when the value is within the provided range`() {
+        assertTrue(Validatable(2).isBetween(1..3).satisfied)
+    }
+
+    @Test
+    fun `'Int isBetween' fails when the value is outside the provided range`() {
+        assertFalse(Validatable(2).isBetween(3..5).satisfied)
+    }
+
+    @Test
+    fun `'Long isBetween' succeeds when the value is null`() {
+        assertTrue(Validatable<Long?>(null).isBetween(3L..9L).satisfied)
+    }
+
+    @Test
+    fun `'Long isBetween' succeeds when the value is within the provided range`() {
+        assertTrue(Validatable(2L).isBetween(1L..3L).satisfied)
+    }
+
+    @Test
+    fun `'Long isBetween' fails when the value is outside the provided range`() {
+        assertFalse(Validatable(2L).isBetween(3L..5L).satisfied)
+    }
+
+    @Test
+    fun `'Float isBetween' succeeds with a closed range when the value is null`() {
+        assertTrue(Validatable<Float?>(null).isBetween(3f..9f).satisfied)
+    }
+
+    @Test
+    fun `'Float isBetween' succeeds with a closed range when the value is within the provided range`() {
+        assertTrue(Validatable(2f).isBetween(1f..3f).satisfied)
+    }
+
+    @Test
+    fun `'Float isBetween' fails with a closed range when the value is outside the provided range`() {
+        assertFalse(Validatable(2f).isBetween(3f..5f).satisfied)
+    }
+
+    @Test
+    fun `'Double isBetween' succeeds with a closed range when the value is null`() {
+        assertTrue(Validatable<Double?>(null).isBetween(3.0..9.0).satisfied)
+    }
+
+    @Test
+    fun `'Double isBetween' succeeds with a closed range when the value is within the provided range`() {
+        assertTrue(Validatable(2.0).isBetween(1.0..3.0).satisfied)
+    }
+
+    @Test
+    fun `'Double isBetween' fails with a closed range when the value is outside the provided range`() {
+        assertFalse(Validatable(2.0).isBetween(3.0..5.0).satisfied)
+    }
+
+    @Test
+    fun `'Float isBetween' succeeds with an open-ended range when the value is null`() {
+        assertTrue(Validatable<Float?>(null).isBetween(3f..<9f).satisfied)
+    }
+
+    @Test
+    fun `'Float isBetween' succeeds with an open-ended range when the value is within the provided range`() {
+        assertTrue(Validatable(2f).isBetween(1f..<3f).satisfied)
+    }
+
+    @Test
+    fun `'Float isBetween' fails with an open-ended range when the value is outside the provided range`() {
+        assertFalse(Validatable(2f).isBetween(1f..<2f).satisfied)
+    }
+
+    @Test
+    fun `'Double isBetween' succeeds with an open-ended range when the value is null`() {
+        assertTrue(Validatable<Double?>(null).isBetween(3.0..<9.0).satisfied)
+    }
+
+    @Test
+    fun `'Double isBetween' succeeds with an open-ended range when the value is within the provided range`() {
+        assertTrue(Validatable(2.0).isBetween(1.0..<3.0).satisfied)
+    }
+
+    @Test
+    fun `'Double isBetween' fails with an open-ended range when the value is outside the provided range`() {
+        assertFalse(Validatable(2.0).isBetween(1.0..<2.0).satisfied)
+    }
+    //endregion
+
+    //region hasIntegralCountEqualTo
+    @Test
+    fun `'Short hasIntegralCountEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Short?>(null).hasIntegralCountEqualTo(3).satisfied)
+    }
+
+    @Test
+    fun `'Short hasIntegralCountEqualTo' throws an exception when the provided count is lower than 1`() {
         assertThrows<IllegalArgumentException> {
-            Validatable((123).toShort()).integralCountEqualTo(0)
+            Validatable((123).toShort()).hasIntegralCountEqualTo(0)
         }
     }
 
     @Test
-    fun `'Short integralCountEqualTo' succeeds when the number of digits is equal to the provided one`() {
-        assertTrue(Validatable((123).toShort()).integralCountEqualTo(3).satisfied, "The constraint is satisfied with a positive number")
-        assertTrue(Validatable((-123).toShort()).integralCountEqualTo(3).satisfied, "The constraint is satisfied with a negative number")
+    fun `'Short hasIntegralCountEqualTo' succeeds when the number of digits is equal to the provided one`() {
+        assertTrue(Validatable((123).toShort()).hasIntegralCountEqualTo(3).satisfied, "The constraint is satisfied with a positive number")
+        assertTrue(Validatable((-123).toShort()).hasIntegralCountEqualTo(3).satisfied, "The constraint is satisfied with a negative number")
     }
 
     @Test
-    fun `'Short integralCountEqualTo' fails when the number of digits is different than the provided one`() {
-        assertFalse(Validatable((123).toShort()).integralCountEqualTo(5).satisfied)
+    fun `'Short hasIntegralCountEqualTo' fails when the number of digits is different than the provided one`() {
+        assertFalse(Validatable((123).toShort()).hasIntegralCountEqualTo(5).satisfied)
     }
 
     @Test
-    fun `'Int integralCountEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<Int?>(null).integralCountEqualTo(3).satisfied)
+    fun `'Int hasIntegralCountEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Int?>(null).hasIntegralCountEqualTo(3).satisfied)
     }
 
     @Test
-    fun `'Int integralCountEqualTo' throws an exception when the provided count is lower than 1`() {
+    fun `'Int hasIntegralCountEqualTo' throws an exception when the provided count is lower than 1`() {
         assertThrows<IllegalArgumentException> {
-            Validatable(123).integralCountEqualTo(0)
+            Validatable(123).hasIntegralCountEqualTo(0)
         }
     }
 
     @Test
-    fun `'Int integralCountEqualTo' succeeds when the number of digits is equal to the provided one`() {
-        assertTrue(Validatable(123).integralCountEqualTo(3).satisfied, "The constraint is satisfied with a positive number")
-        assertTrue(Validatable(-123).integralCountEqualTo(3).satisfied, "The constraint is satisfied with a negative number")
+    fun `'Int hasIntegralCountEqualTo' succeeds when the number of digits is equal to the provided one`() {
+        assertTrue(Validatable(123).hasIntegralCountEqualTo(3).satisfied, "The constraint is satisfied with a positive number")
+        assertTrue(Validatable(-123).hasIntegralCountEqualTo(3).satisfied, "The constraint is satisfied with a negative number")
     }
 
     @Test
-    fun `'Int integralCountEqualTo' fails when the number of digits is different than the provided one`() {
-        assertFalse(Validatable(123).integralCountEqualTo(5).satisfied)
+    fun `'Int hasIntegralCountEqualTo' fails when the number of digits is different than the provided one`() {
+        assertFalse(Validatable(123).hasIntegralCountEqualTo(5).satisfied)
     }
 
     @Test
-    fun `'Long integralCountEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<Long?>(null).integralCountEqualTo(3).satisfied)
+    fun `'Long hasIntegralCountEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Long?>(null).hasIntegralCountEqualTo(3).satisfied)
     }
 
     @Test
-    fun `'Long integralCountEqualTo' throws an exception when the provided count is lower than 1`() {
+    fun `'Long hasIntegralCountEqualTo' throws an exception when the provided count is lower than 1`() {
         assertThrows<IllegalArgumentException> {
-            Validatable(123L).integralCountEqualTo(0)
+            Validatable(123L).hasIntegralCountEqualTo(0)
         }
     }
 
     @Test
-    fun `'Long integralCountEqualTo' succeeds when the number of digits is equal to the provided one`() {
-        assertTrue(Validatable(123L).integralCountEqualTo(3).satisfied, "The constraint is satisfied with a positive number")
-        assertTrue(Validatable(-123L).integralCountEqualTo(3).satisfied, "The constraint is satisfied with a negative number")
+    fun `'Long hasIntegralCountEqualTo' succeeds when the number of digits is equal to the provided one`() {
+        assertTrue(Validatable(123L).hasIntegralCountEqualTo(3).satisfied, "The constraint is satisfied with a positive number")
+        assertTrue(Validatable(-123L).hasIntegralCountEqualTo(3).satisfied, "The constraint is satisfied with a negative number")
     }
 
     @Test
-    fun `'Long integralCountEqualTo' fails when the number of digits is different than the provided one`() {
-        assertFalse(Validatable(123L).integralCountEqualTo(5).satisfied)
+    fun `'Long hasIntegralCountEqualTo' fails when the number of digits is different than the provided one`() {
+        assertFalse(Validatable(123L).hasIntegralCountEqualTo(5).satisfied)
     }
 
     @Test
-    fun `'Float integralCountEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<Float?>(null).integralCountEqualTo(3).satisfied)
+    fun `'Float hasIntegralCountEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Float?>(null).hasIntegralCountEqualTo(3).satisfied)
     }
 
     @Test
-    fun `'Float integralCountEqualTo' throws an exception when the provided count is lower than 1`() {
+    fun `'Float hasIntegralCountEqualTo' throws an exception when the provided count is lower than 1`() {
         assertThrows<IllegalArgumentException> {
-            Validatable(123.45f).integralCountEqualTo(0)
+            Validatable(123.45f).hasIntegralCountEqualTo(0)
         }
     }
 
     @Test
-    fun `'Float integralCountEqualTo' succeeds when the number of digits is equal to the provided one`() {
-        assertTrue(Validatable(123.45f).integralCountEqualTo(3).satisfied, "The constraint is satisfied with a positive number")
-        assertTrue(Validatable(-123.45f).integralCountEqualTo(3).satisfied, "The constraint is satisfied with a negative number")
+    fun `'Float hasIntegralCountEqualTo' succeeds when the number of digits is equal to the provided one`() {
+        assertTrue(Validatable(123.45f).hasIntegralCountEqualTo(3).satisfied, "The constraint is satisfied with a positive number")
+        assertTrue(Validatable(-123.45f).hasIntegralCountEqualTo(3).satisfied, "The constraint is satisfied with a negative number")
     }
 
     @Test
-    fun `'Float integralCountEqualTo' fails when the number of digits is different than the provided one`() {
-        assertFalse(Validatable(123.45f).integralCountEqualTo(5).satisfied)
+    fun `'Float hasIntegralCountEqualTo' fails when the number of digits is different than the provided one`() {
+        assertFalse(Validatable(123.45f).hasIntegralCountEqualTo(5).satisfied)
     }
 
     @Test
-    fun `'Double integralCountEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<Double?>(null).integralCountEqualTo(3).satisfied)
+    fun `'Double hasIntegralCountEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Double?>(null).hasIntegralCountEqualTo(3).satisfied)
     }
 
     @Test
-    fun `'Double integralCountEqualTo' throws an exception when the provided count is lower than 1`() {
+    fun `'Double hasIntegralCountEqualTo' throws an exception when the provided count is lower than 1`() {
         assertThrows<IllegalArgumentException> {
-            Validatable(123.45).integralCountEqualTo(0)
+            Validatable(123.45).hasIntegralCountEqualTo(0)
         }
     }
 
     @Test
-    fun `'Double integralCountEqualTo' succeeds when the number of digits is equal to the provided one`() {
-        assertTrue(Validatable(123.45).integralCountEqualTo(3).satisfied, "The constraint is satisfied with a positive number")
-        assertTrue(Validatable(-123.45).integralCountEqualTo(3).satisfied, "The constraint is satisfied with a negative number")
+    fun `'Double hasIntegralCountEqualTo' succeeds when the number of digits is equal to the provided one`() {
+        assertTrue(Validatable(123.45).hasIntegralCountEqualTo(3).satisfied, "The constraint is satisfied with a positive number")
+        assertTrue(Validatable(-123.45).hasIntegralCountEqualTo(3).satisfied, "The constraint is satisfied with a negative number")
     }
 
     @Test
-    fun `'Double integralCountEqualTo' fails when the number of digits is different than the provided one`() {
-        assertFalse(Validatable(123.45).integralCountEqualTo(5).satisfied)
+    fun `'Double hasIntegralCountEqualTo' fails when the number of digits is different than the provided one`() {
+        assertFalse(Validatable(123.45).hasIntegralCountEqualTo(5).satisfied)
     }
     //endregion
 
-    //region fractionalCountEqualTo
+    //region hasFractionalCountEqualTo
     @Test
-    fun `'Float fractionalCountEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<Float?>(null).fractionalCountEqualTo(2).satisfied)
+    fun `'Float hasFractionalCountEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Float?>(null).hasFractionalCountEqualTo(2).satisfied)
     }
 
     @Test
-    fun `'Float fractionalCountEqualTo' throws an exception when the provided count is lower than 1`() {
+    fun `'Float hasFractionalCountEqualTo' throws an exception when the provided count is lower than 1`() {
         assertThrows<IllegalArgumentException> {
-            Validatable(123.45f).fractionalCountEqualTo(0)
+            Validatable(123.45f).hasFractionalCountEqualTo(0)
         }
     }
 
     @Test
-    fun `'Float fractionalCountEqualTo' succeeds when the number of digits is equal to the provided one`() {
-        assertTrue(Validatable(123.45f).fractionalCountEqualTo(2).satisfied)
+    fun `'Float hasFractionalCountEqualTo' succeeds when the number of digits is equal to the provided one`() {
+        assertTrue(Validatable(123.45f).hasFractionalCountEqualTo(2).satisfied)
     }
 
     @Test
-    fun `'Float fractionalCountEqualTo' fails when the number of digits is different than the provided one`() {
-        assertFalse(Validatable(123.45f).fractionalCountEqualTo(5).satisfied)
+    fun `'Float hasFractionalCountEqualTo' fails when the number of digits is different than the provided one`() {
+        assertFalse(Validatable(123.45f).hasFractionalCountEqualTo(5).satisfied)
     }
 
     @Test
-    fun `'Double fractionalCountEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<Double?>(null).fractionalCountEqualTo(2).satisfied)
+    fun `'Double hasFractionalCountEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Double?>(null).hasFractionalCountEqualTo(2).satisfied)
     }
 
     @Test
-    fun `'Double fractionalCountEqualTo' throws an exception when the provided count is lower than 1`() {
+    fun `'Double hasFractionalCountEqualTo' throws an exception when the provided count is lower than 1`() {
         assertThrows<IllegalArgumentException> {
-            Validatable(123.45).fractionalCountEqualTo(0)
+            Validatable(123.45).hasFractionalCountEqualTo(0)
         }
     }
 
     @Test
-    fun `'Double fractionalCountEqualTo' succeeds when the number of digits is equal to the provided one`() {
-        assertTrue(Validatable(123.45).fractionalCountEqualTo(2).satisfied)
+    fun `'Double hasFractionalCountEqualTo' succeeds when the number of digits is equal to the provided one`() {
+        assertTrue(Validatable(123.45).hasFractionalCountEqualTo(2).satisfied)
     }
 
     @Test
-    fun `'Double fractionalCountEqualTo' fails when the number of digits is different than the provided one`() {
-        assertFalse(Validatable(123.45).fractionalCountEqualTo(5).satisfied)
+    fun `'Double hasFractionalCountEqualTo' fails when the number of digits is different than the provided one`() {
+        assertFalse(Validatable(123.45).hasFractionalCountEqualTo(5).satisfied)
     }
     //endregion
 }

@@ -27,427 +27,427 @@ class TemporalAccessorTest {
         clock = originalClock
     }
 
-    //region past
+    //region isInPast
     @Test
-    fun `'Instant past' succeeds when the value is null`() {
-        assertTrue(Validatable<Instant?>(null).past().satisfied)
+    fun `'Instant isInPast' succeeds when the value is null`() {
+        assertTrue(Validatable<Instant?>(null).isInPast().satisfied)
     }
 
     @Test
-    fun `'Instant past' succeeds when the value is in the past`() {
-        assertTrue(Validatable(presentInstant - fewSeconds).past().satisfied)
+    fun `'Instant isInPast' succeeds when the value is in the isInPast`() {
+        assertTrue(Validatable(presentInstant - fewSeconds).isInPast().satisfied)
     }
 
     @Test
-    fun `'Instant past' fails when the value is in the future or present`() {
-        assertFalse(Validatable(presentInstant + fewSeconds).past().satisfied, "The constraint is not satisfied when the value is in the future")
-        assertFalse(Validatable(presentInstant).past().satisfied, "The constraint is not satisfied when the value is present")
+    fun `'Instant isInPast' fails when the value is in the future or present`() {
+        assertFalse(Validatable(presentInstant + fewSeconds).isInPast().satisfied, "The constraint is not satisfied when the value is in the future")
+        assertFalse(Validatable(presentInstant).isInPast().satisfied, "The constraint is not satisfied when the value is present")
     }
 
     @Test
-    fun `'LocalDateTime past' succeeds when the value is null`() {
-        assertTrue(Validatable<LocalDateTime?>(null).past().satisfied)
+    fun `'LocalDateTime isInPast' succeeds when the value is null`() {
+        assertTrue(Validatable<LocalDateTime?>(null).isInPast().satisfied)
     }
 
     @Test
-    fun `'LocalDateTime past' succeeds when the value is in the past`() {
-        assertTrue(Validatable(presentLocalDateTime - fewSeconds).past().satisfied)
+    fun `'LocalDateTime isInPast' succeeds when the value is in the isInPast`() {
+        assertTrue(Validatable(presentLocalDateTime - fewSeconds).isInPast().satisfied)
     }
 
     @Test
-    fun `'LocalDateTime past' fails when the value is in the future or present`() {
-        assertFalse(Validatable(presentLocalDateTime + fewSeconds).past().satisfied, "The constraint is not satisfied when the value is in the future")
-        assertFalse(Validatable(presentLocalDateTime).past().satisfied, "The constraint is not satisfied when the value is present")
+    fun `'LocalDateTime isInPast' fails when the value is in the future or present`() {
+        assertFalse(Validatable(presentLocalDateTime + fewSeconds).isInPast().satisfied, "The constraint is not satisfied when the value is in the future")
+        assertFalse(Validatable(presentLocalDateTime).isInPast().satisfied, "The constraint is not satisfied when the value is present")
     }
 
     @Test
-    fun `'ZonedDateTime past' succeeds when the value is null`() {
-        assertTrue(Validatable<ZonedDateTime?>(null).past().satisfied)
+    fun `'ZonedDateTime isInPast' succeeds when the value is null`() {
+        assertTrue(Validatable<ZonedDateTime?>(null).isInPast().satisfied)
     }
 
     @Test
-    fun `'ZonedDateTime past' succeeds when the value is in the past`() {
-        assertTrue(Validatable(presentZonedDateTime - fewSeconds).past().satisfied)
+    fun `'ZonedDateTime isInPast' succeeds when the value is in the isInPast`() {
+        assertTrue(Validatable(presentZonedDateTime - fewSeconds).isInPast().satisfied)
     }
 
     @Test
-    fun `'ZonedDateTime past' fails when the value is in the future or present`() {
-        assertFalse(Validatable(presentZonedDateTime + fewSeconds).past().satisfied, "The constraint is not satisfied when the value is in the future")
-        assertFalse(Validatable(presentZonedDateTime).past().satisfied, "The constraint is not satisfied when the value is present")
-    }
-    //endregion
-
-    //region pastOrPresent
-    @Test
-    fun `'Instant pastOrPresent' succeeds when the value is null`() {
-        assertTrue(Validatable<Instant?>(null).pastOrPresent().satisfied)
-    }
-
-    @Test
-    fun `'Instant pastOrPresent' succeeds when the value is in the past or present`() {
-        assertTrue(Validatable(presentInstant - fewSeconds).pastOrPresent().satisfied, "The constraint is satisfied when the value is in the past")
-        assertTrue(Validatable(presentInstant).pastOrPresent().satisfied, "The constraint is satisfied when the value is present")
-    }
-
-    @Test
-    fun `'Instant pastOrPresent' fails when the value is in the future`() {
-        assertFalse(Validatable(presentInstant + fewSeconds).pastOrPresent().satisfied)
-    }
-
-    @Test
-    fun `'LocalDateTime pastOrPresent' succeeds when the value is null`() {
-        assertTrue(Validatable<LocalDateTime?>(null).pastOrPresent().satisfied)
-    }
-
-    @Test
-    fun `'LocalDateTime pastOrPresent' succeeds when the value is in the past or present`() {
-        assertTrue(Validatable(presentLocalDateTime - fewSeconds).pastOrPresent().satisfied, "The constraint is satisfied when the value is in the past")
-        assertTrue(Validatable(presentLocalDateTime).pastOrPresent().satisfied, "The constraint is satisfied when the value is present")
-    }
-
-    @Test
-    fun `'LocalDateTime pastOrPresent' fails when the value is in the future`() {
-        assertFalse(Validatable(presentLocalDateTime + fewSeconds).pastOrPresent().satisfied)
-    }
-
-    @Test
-    fun `'ZonedDateTime pastOrPresent' succeeds when the value is null`() {
-        assertTrue(Validatable<ZonedDateTime?>(null).pastOrPresent().satisfied)
-    }
-
-    @Test
-    fun `'ZonedDateTime pastOrPresent' succeeds when the value is in the past or present`() {
-        assertTrue(Validatable(presentZonedDateTime - fewSeconds).pastOrPresent().satisfied, "The constraint is satisfied when the value is in the past")
-        assertTrue(Validatable(presentZonedDateTime).pastOrPresent().satisfied, "The constraint is satisfied when the value is present")
-    }
-
-    @Test
-    fun `'ZonedDateTime pastOrPresent' fails when the value is in the future`() {
-        assertFalse(Validatable(presentZonedDateTime + fewSeconds).pastOrPresent().satisfied)
+    fun `'ZonedDateTime isInPast' fails when the value is in the future or present`() {
+        assertFalse(Validatable(presentZonedDateTime + fewSeconds).isInPast().satisfied, "The constraint is not satisfied when the value is in the future")
+        assertFalse(Validatable(presentZonedDateTime).isInPast().satisfied, "The constraint is not satisfied when the value is present")
     }
     //endregion
 
-    //region future
+    //region isInPastOrIsPresent
     @Test
-    fun `'Instant future' succeeds when the value is null`() {
-        assertTrue(Validatable<Instant?>(null).future().satisfied)
+    fun `'Instant isInPastOrIsPresent' succeeds when the value is null`() {
+        assertTrue(Validatable<Instant?>(null).isInPastOrIsPresent().satisfied)
     }
 
     @Test
-    fun `'Instant future' succeeds when the value is in the future`() {
-        assertTrue(Validatable(presentInstant + fewSeconds).future().satisfied)
+    fun `'Instant isInPastOrIsPresent' succeeds when the value is in the past or present`() {
+        assertTrue(Validatable(presentInstant - fewSeconds).isInPastOrIsPresent().satisfied, "The constraint is satisfied when the value is in the past")
+        assertTrue(Validatable(presentInstant).isInPastOrIsPresent().satisfied, "The constraint is satisfied when the value is present")
     }
 
     @Test
-    fun `'Instant future' fails when the value is in the past or present`() {
-        assertFalse(Validatable(presentInstant - fewSeconds).future().satisfied, "The constraint is not satisfied when the value is in the past")
-        assertFalse(Validatable(presentInstant).future().satisfied, "The constraint is not satisfied when the value is present")
+    fun `'Instant isInPastOrIsPresent' fails when the value is in the future`() {
+        assertFalse(Validatable(presentInstant + fewSeconds).isInPastOrIsPresent().satisfied)
     }
 
     @Test
-    fun `'LocalDateTime future' succeeds when the value is null`() {
-        assertTrue(Validatable<LocalDateTime?>(null).future().satisfied)
+    fun `'LocalDateTime isInPastOrIsPresent' succeeds when the value is null`() {
+        assertTrue(Validatable<LocalDateTime?>(null).isInPastOrIsPresent().satisfied)
     }
 
     @Test
-    fun `'LocalDateTime future' succeeds when the value is in the future`() {
-        assertTrue(Validatable(presentLocalDateTime + fewSeconds).future().satisfied)
+    fun `'LocalDateTime isInPastOrIsPresent' succeeds when the value is in the past or present`() {
+        assertTrue(Validatable(presentLocalDateTime - fewSeconds).isInPastOrIsPresent().satisfied, "The constraint is satisfied when the value is in the past")
+        assertTrue(Validatable(presentLocalDateTime).isInPastOrIsPresent().satisfied, "The constraint is satisfied when the value is present")
     }
 
     @Test
-    fun `'LocalDateTime future' fails when the value is in the past or present`() {
-        assertFalse(Validatable(presentLocalDateTime - fewSeconds).future().satisfied, "The constraint is not satisfied when the value is in the past")
-        assertFalse(Validatable(presentLocalDateTime).future().satisfied, "The constraint is not satisfied when the value is present")
+    fun `'LocalDateTime isInPastOrIsPresent' fails when the value is in the future`() {
+        assertFalse(Validatable(presentLocalDateTime + fewSeconds).isInPastOrIsPresent().satisfied)
     }
 
     @Test
-    fun `'ZonedDateTime future' succeeds when the value is null`() {
-        assertTrue(Validatable<ZonedDateTime?>(null).future().satisfied)
+    fun `'ZonedDateTime isInPastOrIsPresent' succeeds when the value is null`() {
+        assertTrue(Validatable<ZonedDateTime?>(null).isInPastOrIsPresent().satisfied)
     }
 
     @Test
-    fun `'ZonedDateTime future' succeeds when the value is in the future`() {
-        assertTrue(Validatable(presentZonedDateTime + fewSeconds).future().satisfied)
+    fun `'ZonedDateTime isInPastOrIsPresent' succeeds when the value is in the past or present`() {
+        assertTrue(Validatable(presentZonedDateTime - fewSeconds).isInPastOrIsPresent().satisfied, "The constraint is satisfied when the value is in the past")
+        assertTrue(Validatable(presentZonedDateTime).isInPastOrIsPresent().satisfied, "The constraint is satisfied when the value is present")
     }
 
     @Test
-    fun `'ZonedDateTime future' fails when the value is in the past or present`() {
-        assertFalse(Validatable(presentZonedDateTime - fewSeconds).future().satisfied, "The constraint is not satisfied when the value is in the past")
-        assertFalse(Validatable(presentZonedDateTime).future().satisfied, "The constraint is not satisfied when the value is present")
-    }
-    //endregion
-
-    //region futureOrPresent
-    @Test
-    fun `'Instant futureOrPresent' succeeds when the value is null`() {
-        assertTrue(Validatable<Instant?>(null).futureOrPresent().satisfied)
-    }
-
-    @Test
-    fun `'Instant futureOrPresent' succeeds when the value is in the future or present`() {
-        assertTrue(Validatable(presentInstant + fewSeconds).futureOrPresent().satisfied, "The constraint is satisfied when the value is in the past")
-        assertTrue(Validatable(presentInstant).futureOrPresent().satisfied, "The constraint is satisfied when the value is present")
-    }
-
-    @Test
-    fun `'Instant futureOrPresent' fails when the value is in the past`() {
-        assertFalse(Validatable(presentInstant - fewSeconds).futureOrPresent().satisfied)
-    }
-
-    @Test
-    fun `'LocalDateTime futureOrPresent' succeeds when the value is null`() {
-        assertTrue(Validatable<LocalDateTime?>(null).futureOrPresent().satisfied)
-    }
-
-    @Test
-    fun `'LocalDateTime futureOrPresent' succeeds when the value is in the future or present`() {
-        assertTrue(Validatable(presentLocalDateTime + fewSeconds).futureOrPresent().satisfied, "The constraint is satisfied when the value is in the past")
-        assertTrue(Validatable(presentLocalDateTime).futureOrPresent().satisfied, "The constraint is satisfied when the value is present")
-    }
-
-    @Test
-    fun `'LocalDateTime futureOrPresent' fails when the value is in the past`() {
-        assertFalse(Validatable(presentLocalDateTime - fewSeconds).futureOrPresent().satisfied)
-    }
-
-    @Test
-    fun `'ZonedDateTime futureOrPresent' succeeds when the value is null`() {
-        assertTrue(Validatable<ZonedDateTime?>(null).futureOrPresent().satisfied)
-    }
-
-    @Test
-    fun `'ZonedDateTime futureOrPresent' succeeds when the value is in the future or present`() {
-        assertTrue(Validatable(presentZonedDateTime + fewSeconds).futureOrPresent().satisfied, "The constraint is satisfied when the value is in the past")
-        assertTrue(Validatable(presentZonedDateTime).futureOrPresent().satisfied, "The constraint is satisfied when the value is present")
-    }
-
-    @Test
-    fun `'ZonedDateTime futureOrPresent' fails when the value is in the past`() {
-        assertFalse(Validatable(presentZonedDateTime - fewSeconds).futureOrPresent().satisfied)
+    fun `'ZonedDateTime isInPastOrIsPresent' fails when the value is in the future`() {
+        assertFalse(Validatable(presentZonedDateTime + fewSeconds).isInPastOrIsPresent().satisfied)
     }
     //endregion
 
-    //region before
+    //region isInFuture
     @Test
-    fun `'Instant before' succeeds when the value is null`() {
-        assertTrue(Validatable<Instant?>(null).before(presentInstant).satisfied)
+    fun `'Instant isInFuture' succeeds when the value is null`() {
+        assertTrue(Validatable<Instant?>(null).isInFuture().satisfied)
     }
 
     @Test
-    fun `'Instant before' succeeds when the value is before the provided one`() {
-        assertTrue(Validatable(presentInstant).before(presentInstant + fewSeconds).satisfied)
+    fun `'Instant isInFuture' succeeds when the value is in the future`() {
+        assertTrue(Validatable(presentInstant + fewSeconds).isInFuture().satisfied)
     }
 
     @Test
-    fun `'Instant before' fails when the value is after or equal to the provided one`() {
-        assertFalse(Validatable(presentInstant).before(presentInstant - fewSeconds).satisfied, "The constraint is not satisfied when the value is after the provided one")
-        assertFalse(Validatable(presentInstant).before(presentInstant).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    fun `'Instant isInFuture' fails when the value is in the past or present`() {
+        assertFalse(Validatable(presentInstant - fewSeconds).isInFuture().satisfied, "The constraint is not satisfied when the value is in the past")
+        assertFalse(Validatable(presentInstant).isInFuture().satisfied, "The constraint is not satisfied when the value is present")
     }
 
     @Test
-    fun `'LocalDateTime before' succeeds when the value is null`() {
-        assertTrue(Validatable<LocalDateTime?>(null).before(presentLocalDateTime).satisfied)
+    fun `'LocalDateTime isInFuture' succeeds when the value is null`() {
+        assertTrue(Validatable<LocalDateTime?>(null).isInFuture().satisfied)
     }
 
     @Test
-    fun `'LocalDateTime before' succeeds when the value is before the provided one`() {
-        assertTrue(Validatable(presentLocalDateTime).before(presentLocalDateTime + fewSeconds).satisfied)
+    fun `'LocalDateTime isInFuture' succeeds when the value is in the future`() {
+        assertTrue(Validatable(presentLocalDateTime + fewSeconds).isInFuture().satisfied)
     }
 
     @Test
-    fun `'LocalDateTime before' fails when the value is after or equal to the provided one`() {
+    fun `'LocalDateTime isInFuture' fails when the value is in the past or present`() {
+        assertFalse(Validatable(presentLocalDateTime - fewSeconds).isInFuture().satisfied, "The constraint is not satisfied when the value is in the past")
+        assertFalse(Validatable(presentLocalDateTime).isInFuture().satisfied, "The constraint is not satisfied when the value is present")
+    }
+
+    @Test
+    fun `'ZonedDateTime isInFuture' succeeds when the value is null`() {
+        assertTrue(Validatable<ZonedDateTime?>(null).isInFuture().satisfied)
+    }
+
+    @Test
+    fun `'ZonedDateTime isInFuture' succeeds when the value is in the future`() {
+        assertTrue(Validatable(presentZonedDateTime + fewSeconds).isInFuture().satisfied)
+    }
+
+    @Test
+    fun `'ZonedDateTime isInFuture' fails when the value is in the past or present`() {
+        assertFalse(Validatable(presentZonedDateTime - fewSeconds).isInFuture().satisfied, "The constraint is not satisfied when the value is in the past")
+        assertFalse(Validatable(presentZonedDateTime).isInFuture().satisfied, "The constraint is not satisfied when the value is present")
+    }
+    //endregion
+
+    //region isInFutureOrIsPresent
+    @Test
+    fun `'Instant isInFutureOrIsPresent' succeeds when the value is null`() {
+        assertTrue(Validatable<Instant?>(null).isInFutureOrIsPresent().satisfied)
+    }
+
+    @Test
+    fun `'Instant isInFutureOrIsPresent' succeeds when the value is in the future or present`() {
+        assertTrue(Validatable(presentInstant + fewSeconds).isInFutureOrIsPresent().satisfied, "The constraint is satisfied when the value is in the past")
+        assertTrue(Validatable(presentInstant).isInFutureOrIsPresent().satisfied, "The constraint is satisfied when the value is present")
+    }
+
+    @Test
+    fun `'Instant isInFutureOrIsPresent' fails when the value is in the isInPast`() {
+        assertFalse(Validatable(presentInstant - fewSeconds).isInFutureOrIsPresent().satisfied)
+    }
+
+    @Test
+    fun `'LocalDateTime isInFutureOrIsPresent' succeeds when the value is null`() {
+        assertTrue(Validatable<LocalDateTime?>(null).isInFutureOrIsPresent().satisfied)
+    }
+
+    @Test
+    fun `'LocalDateTime isInFutureOrIsPresent' succeeds when the value is in the future or present`() {
+        assertTrue(Validatable(presentLocalDateTime + fewSeconds).isInFutureOrIsPresent().satisfied, "The constraint is satisfied when the value is in the past")
+        assertTrue(Validatable(presentLocalDateTime).isInFutureOrIsPresent().satisfied, "The constraint is satisfied when the value is present")
+    }
+
+    @Test
+    fun `'LocalDateTime isInFutureOrIsPresent' fails when the value is in the isInPast`() {
+        assertFalse(Validatable(presentLocalDateTime - fewSeconds).isInFutureOrIsPresent().satisfied)
+    }
+
+    @Test
+    fun `'ZonedDateTime isInFutureOrIsPresent' succeeds when the value is null`() {
+        assertTrue(Validatable<ZonedDateTime?>(null).isInFutureOrIsPresent().satisfied)
+    }
+
+    @Test
+    fun `'ZonedDateTime isInFutureOrIsPresent' succeeds when the value is in the future or present`() {
+        assertTrue(Validatable(presentZonedDateTime + fewSeconds).isInFutureOrIsPresent().satisfied, "The constraint is satisfied when the value is in the past")
+        assertTrue(Validatable(presentZonedDateTime).isInFutureOrIsPresent().satisfied, "The constraint is satisfied when the value is present")
+    }
+
+    @Test
+    fun `'ZonedDateTime isInFutureOrIsPresent' fails when the value is in the isInPast`() {
+        assertFalse(Validatable(presentZonedDateTime - fewSeconds).isInFutureOrIsPresent().satisfied)
+    }
+    //endregion
+
+    //region isBefore
+    @Test
+    fun `'Instant isBefore' succeeds when the value is null`() {
+        assertTrue(Validatable<Instant?>(null).isBefore(presentInstant).satisfied)
+    }
+
+    @Test
+    fun `'Instant isBefore' succeeds when the value is before the provided one`() {
+        assertTrue(Validatable(presentInstant).isBefore(presentInstant + fewSeconds).satisfied)
+    }
+
+    @Test
+    fun `'Instant isBefore' fails when the value is after or equal to the provided one`() {
+        assertFalse(Validatable(presentInstant).isBefore(presentInstant - fewSeconds).satisfied, "The constraint is not satisfied when the value is after the provided one")
+        assertFalse(Validatable(presentInstant).isBefore(presentInstant).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    }
+
+    @Test
+    fun `'LocalDateTime isBefore' succeeds when the value is null`() {
+        assertTrue(Validatable<LocalDateTime?>(null).isBefore(presentLocalDateTime).satisfied)
+    }
+
+    @Test
+    fun `'LocalDateTime isBefore' succeeds when the value is before the provided one`() {
+        assertTrue(Validatable(presentLocalDateTime).isBefore(presentLocalDateTime + fewSeconds).satisfied)
+    }
+
+    @Test
+    fun `'LocalDateTime isBefore' fails when the value is after or equal to the provided one`() {
         assertFalse(
-            Validatable(presentLocalDateTime).before(presentLocalDateTime - fewSeconds).satisfied,
+            Validatable(presentLocalDateTime).isBefore(presentLocalDateTime - fewSeconds).satisfied,
             "The constraint is not satisfied when the value is after the provided one"
         )
-        assertFalse(Validatable(presentLocalDateTime).before(presentLocalDateTime).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+        assertFalse(Validatable(presentLocalDateTime).isBefore(presentLocalDateTime).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
     }
 
     @Test
-    fun `'ZonedDateTime before' succeeds when the value is null`() {
-        assertTrue(Validatable<ZonedDateTime?>(null).before(presentZonedDateTime).satisfied)
+    fun `'ZonedDateTime isBefore' succeeds when the value is null`() {
+        assertTrue(Validatable<ZonedDateTime?>(null).isBefore(presentZonedDateTime).satisfied)
     }
 
     @Test
-    fun `'ZonedDateTime before' succeeds when the value is before the provided one`() {
-        assertTrue(Validatable(presentZonedDateTime).before(presentZonedDateTime + fewSeconds).satisfied)
+    fun `'ZonedDateTime isBefore' succeeds when the value is before the provided one`() {
+        assertTrue(Validatable(presentZonedDateTime).isBefore(presentZonedDateTime + fewSeconds).satisfied)
     }
 
     @Test
-    fun `'ZonedDateTime before' fails when the value is after or equal to the provided one`() {
+    fun `'ZonedDateTime isBefore' fails when the value is after or equal to the provided one`() {
         assertFalse(
-            Validatable(presentZonedDateTime).before(presentZonedDateTime - fewSeconds).satisfied,
+            Validatable(presentZonedDateTime).isBefore(presentZonedDateTime - fewSeconds).satisfied,
             "The constraint is not satisfied when the value is after the provided one"
         )
-        assertFalse(Validatable(presentZonedDateTime).before(presentZonedDateTime).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+        assertFalse(Validatable(presentZonedDateTime).isBefore(presentZonedDateTime).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
     }
     //endregion
 
-    //region beforeOrEqualTo
+    //region isBeforeOrEqualTo
     @Test
-    fun `'Instant beforeOrEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<Instant?>(null).beforeOrEqualTo(presentInstant).satisfied)
+    fun `'Instant isBeforeOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Instant?>(null).isBeforeOrEqualTo(presentInstant).satisfied)
     }
 
     @Test
-    fun `'Instant beforeOrEqualTo' succeeds when the value is before or equal to the provided one`() {
-        assertTrue(Validatable(presentInstant).beforeOrEqualTo(presentInstant + fewSeconds).satisfied, "The constraint is satisfied when the value is before the provided one")
-        assertTrue(Validatable(presentInstant).beforeOrEqualTo(presentInstant).satisfied, "The constraint is satisfied when the value is equal to the provided one")
+    fun `'Instant isBeforeOrEqualTo' succeeds when the value is before or equal to the provided one`() {
+        assertTrue(Validatable(presentInstant).isBeforeOrEqualTo(presentInstant + fewSeconds).satisfied, "The constraint is satisfied when the value is before the provided one")
+        assertTrue(Validatable(presentInstant).isBeforeOrEqualTo(presentInstant).satisfied, "The constraint is satisfied when the value is equal to the provided one")
     }
 
     @Test
-    fun `'Instant beforeOrEqualTo' fails when the value is after the provided one`() {
-        assertFalse(Validatable(presentInstant).beforeOrEqualTo(presentInstant - fewSeconds).satisfied)
+    fun `'Instant isBeforeOrEqualTo' fails when the value is after the provided one`() {
+        assertFalse(Validatable(presentInstant).isBeforeOrEqualTo(presentInstant - fewSeconds).satisfied)
     }
 
     @Test
-    fun `'LocalDateTime beforeOrEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<LocalDateTime?>(null).beforeOrEqualTo(presentLocalDateTime).satisfied)
+    fun `'LocalDateTime isBeforeOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<LocalDateTime?>(null).isBeforeOrEqualTo(presentLocalDateTime).satisfied)
     }
 
     @Test
-    fun `'LocalDateTime beforeOrEqualTo' succeeds when the value is before or equal to the provided one`() {
+    fun `'LocalDateTime isBeforeOrEqualTo' succeeds when the value is before or equal to the provided one`() {
         assertTrue(
-            Validatable(presentLocalDateTime).beforeOrEqualTo(presentLocalDateTime + fewSeconds).satisfied,
+            Validatable(presentLocalDateTime).isBeforeOrEqualTo(presentLocalDateTime + fewSeconds).satisfied,
             "The constraint is satisfied when the value is before the provided one"
         )
-        assertTrue(Validatable(presentLocalDateTime).beforeOrEqualTo(presentLocalDateTime).satisfied, "The constraint is satisfied when the value is equal to the provided one")
+        assertTrue(Validatable(presentLocalDateTime).isBeforeOrEqualTo(presentLocalDateTime).satisfied, "The constraint is satisfied when the value is equal to the provided one")
     }
 
     @Test
-    fun `'LocalDateTime beforeOrEqualTo' fails when the value is after the provided one`() {
-        assertFalse(Validatable(presentLocalDateTime).beforeOrEqualTo(presentLocalDateTime - fewSeconds).satisfied)
+    fun `'LocalDateTime isBeforeOrEqualTo' fails when the value is after the provided one`() {
+        assertFalse(Validatable(presentLocalDateTime).isBeforeOrEqualTo(presentLocalDateTime - fewSeconds).satisfied)
     }
 
     @Test
-    fun `'ZonedDateTime beforeOrEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<ZonedDateTime?>(null).beforeOrEqualTo(presentZonedDateTime).satisfied)
+    fun `'ZonedDateTime isBeforeOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<ZonedDateTime?>(null).isBeforeOrEqualTo(presentZonedDateTime).satisfied)
     }
 
     @Test
-    fun `'ZonedDateTime beforeOrEqualTo' succeeds when the value is before or equal to the provided one`() {
+    fun `'ZonedDateTime isBeforeOrEqualTo' succeeds when the value is before or equal to the provided one`() {
         assertTrue(
-            Validatable(presentZonedDateTime).beforeOrEqualTo(presentZonedDateTime + fewSeconds).satisfied,
+            Validatable(presentZonedDateTime).isBeforeOrEqualTo(presentZonedDateTime + fewSeconds).satisfied,
             "The constraint is satisfied when the value is before the provided one"
         )
-        assertTrue(Validatable(presentZonedDateTime).beforeOrEqualTo(presentZonedDateTime).satisfied, "The constraint is satisfied when the value is equal to the provided one")
+        assertTrue(Validatable(presentZonedDateTime).isBeforeOrEqualTo(presentZonedDateTime).satisfied, "The constraint is satisfied when the value is equal to the provided one")
     }
 
     @Test
-    fun `'ZonedDateTime beforeOrEqualTo' fails when the value is after the provided one`() {
-        assertFalse(Validatable(presentZonedDateTime).beforeOrEqualTo(presentZonedDateTime - fewSeconds).satisfied)
-    }
-    //endregion
-
-    //region after
-    @Test
-    fun `'Instant after' succeeds when the value is null`() {
-        assertTrue(Validatable<Instant?>(null).after(presentInstant).satisfied)
-    }
-
-    @Test
-    fun `'Instant after' succeeds when the value is after the provided one`() {
-        assertTrue(Validatable(presentInstant).after(presentInstant - fewSeconds).satisfied)
-    }
-
-    @Test
-    fun `'Instant after' fails when the value is before or equal to the provided one`() {
-        assertFalse(Validatable(presentInstant).after(presentInstant + fewSeconds).satisfied, "The constraint is not satisfied when the value is before the provided one")
-        assertFalse(Validatable(presentInstant).after(presentInstant).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
-    }
-
-    @Test
-    fun `'LocalDateTime after' succeeds when the value is null`() {
-        assertTrue(Validatable<LocalDateTime?>(null).after(presentLocalDateTime).satisfied)
-    }
-
-    @Test
-    fun `'LocalDateTime after' succeeds when the value is after the provided one`() {
-        assertTrue(Validatable(presentLocalDateTime).after(presentLocalDateTime - fewSeconds).satisfied)
-    }
-
-    @Test
-    fun `'LocalDateTime after' fails when the value is before or equal to the provided one`() {
-        assertFalse(
-            Validatable(presentLocalDateTime).after(presentLocalDateTime + fewSeconds).satisfied,
-            "The constraint is not satisfied when the value is before the provided one"
-        )
-        assertFalse(Validatable(presentLocalDateTime).after(presentLocalDateTime).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
-    }
-
-    @Test
-    fun `'ZonedDateTime after' succeeds when the value is null`() {
-        assertTrue(Validatable<ZonedDateTime?>(null).after(presentZonedDateTime).satisfied)
-    }
-
-    @Test
-    fun `'ZonedDateTime after' succeeds when the value is after the provided one`() {
-        assertTrue(Validatable(presentZonedDateTime).after(presentZonedDateTime - fewSeconds).satisfied)
-    }
-
-    @Test
-    fun `'ZonedDateTime after' fails when the value is before or equal to the provided one`() {
-        assertFalse(
-            Validatable(presentZonedDateTime).after(presentZonedDateTime + fewSeconds).satisfied,
-            "The constraint is not satisfied when the value is before the provided one"
-        )
-        assertFalse(Validatable(presentZonedDateTime).after(presentZonedDateTime).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    fun `'ZonedDateTime isBeforeOrEqualTo' fails when the value is after the provided one`() {
+        assertFalse(Validatable(presentZonedDateTime).isBeforeOrEqualTo(presentZonedDateTime - fewSeconds).satisfied)
     }
     //endregion
 
-    //region afterOrEqualTo
+    //region isAfter
     @Test
-    fun `'Instant afterOrEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<Instant?>(null).afterOrEqualTo(presentInstant).satisfied)
+    fun `'Instant isAfter' succeeds when the value is null`() {
+        assertTrue(Validatable<Instant?>(null).isAfter(presentInstant).satisfied)
     }
 
     @Test
-    fun `'Instant afterOrEqualTo' succeeds when the value is after or equal to the provided one`() {
-        assertTrue(Validatable(presentInstant).afterOrEqualTo(presentInstant - fewSeconds).satisfied, "The constraint is satisfied when the value is after the provided one")
-        assertTrue(Validatable(presentInstant).afterOrEqualTo(presentInstant).satisfied, "The constraint is satisfied when the value is equal to the provided one")
+    fun `'Instant isAfter' succeeds when the value is after the provided one`() {
+        assertTrue(Validatable(presentInstant).isAfter(presentInstant - fewSeconds).satisfied)
     }
 
     @Test
-    fun `'Instant afterOrEqualTo' fails when the value is before the provided one`() {
-        assertFalse(Validatable(presentInstant).afterOrEqualTo(presentInstant + fewSeconds).satisfied)
+    fun `'Instant isAfter' fails when the value is before or equal to the provided one`() {
+        assertFalse(Validatable(presentInstant).isAfter(presentInstant + fewSeconds).satisfied, "The constraint is not satisfied when the value is before the provided one")
+        assertFalse(Validatable(presentInstant).isAfter(presentInstant).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
     }
 
     @Test
-    fun `'LocalDateTime afterOrEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<LocalDateTime?>(null).afterOrEqualTo(presentLocalDateTime).satisfied)
+    fun `'LocalDateTime isAfter' succeeds when the value is null`() {
+        assertTrue(Validatable<LocalDateTime?>(null).isAfter(presentLocalDateTime).satisfied)
     }
 
     @Test
-    fun `'LocalDateTime afterOrEqualTo' succeeds when the value is after or equal to the provided one`() {
+    fun `'LocalDateTime isAfter' succeeds when the value is after the provided one`() {
+        assertTrue(Validatable(presentLocalDateTime).isAfter(presentLocalDateTime - fewSeconds).satisfied)
+    }
+
+    @Test
+    fun `'LocalDateTime isAfter' fails when the value is before or equal to the provided one`() {
+        assertFalse(
+            Validatable(presentLocalDateTime).isAfter(presentLocalDateTime + fewSeconds).satisfied,
+            "The constraint is not satisfied when the value is before the provided one"
+        )
+        assertFalse(Validatable(presentLocalDateTime).isAfter(presentLocalDateTime).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    }
+
+    @Test
+    fun `'ZonedDateTime isAfter' succeeds when the value is null`() {
+        assertTrue(Validatable<ZonedDateTime?>(null).isAfter(presentZonedDateTime).satisfied)
+    }
+
+    @Test
+    fun `'ZonedDateTime isAfter' succeeds when the value is after the provided one`() {
+        assertTrue(Validatable(presentZonedDateTime).isAfter(presentZonedDateTime - fewSeconds).satisfied)
+    }
+
+    @Test
+    fun `'ZonedDateTime isAfter' fails when the value is before or equal to the provided one`() {
+        assertFalse(
+            Validatable(presentZonedDateTime).isAfter(presentZonedDateTime + fewSeconds).satisfied,
+            "The constraint is not satisfied when the value is before the provided one"
+        )
+        assertFalse(Validatable(presentZonedDateTime).isAfter(presentZonedDateTime).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    }
+    //endregion
+
+    //region isAfterOrEqualTo
+    @Test
+    fun `'Instant isAfterOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Instant?>(null).isAfterOrEqualTo(presentInstant).satisfied)
+    }
+
+    @Test
+    fun `'Instant isAfterOrEqualTo' succeeds when the value is after or equal to the provided one`() {
+        assertTrue(Validatable(presentInstant).isAfterOrEqualTo(presentInstant - fewSeconds).satisfied, "The constraint is satisfied when the value is after the provided one")
+        assertTrue(Validatable(presentInstant).isAfterOrEqualTo(presentInstant).satisfied, "The constraint is satisfied when the value is equal to the provided one")
+    }
+
+    @Test
+    fun `'Instant isAfterOrEqualTo' fails when the value is before the provided one`() {
+        assertFalse(Validatable(presentInstant).isAfterOrEqualTo(presentInstant + fewSeconds).satisfied)
+    }
+
+    @Test
+    fun `'LocalDateTime isAfterOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<LocalDateTime?>(null).isAfterOrEqualTo(presentLocalDateTime).satisfied)
+    }
+
+    @Test
+    fun `'LocalDateTime isAfterOrEqualTo' succeeds when the value is after or equal to the provided one`() {
         assertTrue(
-            Validatable(presentLocalDateTime).afterOrEqualTo(presentLocalDateTime - fewSeconds).satisfied,
+            Validatable(presentLocalDateTime).isAfterOrEqualTo(presentLocalDateTime - fewSeconds).satisfied,
             "The constraint is satisfied when the value is after the provided one"
         )
-        assertTrue(Validatable(presentLocalDateTime).afterOrEqualTo(presentLocalDateTime).satisfied, "The constraint is satisfied when the value is equal to the provided one")
+        assertTrue(Validatable(presentLocalDateTime).isAfterOrEqualTo(presentLocalDateTime).satisfied, "The constraint is satisfied when the value is equal to the provided one")
     }
 
     @Test
-    fun `'LocalDateTime afterOrEqualTo' fails when the value is before the provided one`() {
-        assertFalse(Validatable(presentLocalDateTime).afterOrEqualTo(presentLocalDateTime + fewSeconds).satisfied)
+    fun `'LocalDateTime isAfterOrEqualTo' fails when the value is before the provided one`() {
+        assertFalse(Validatable(presentLocalDateTime).isAfterOrEqualTo(presentLocalDateTime + fewSeconds).satisfied)
     }
 
     @Test
-    fun `'ZonedDateTime afterOrEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<ZonedDateTime?>(null).afterOrEqualTo(presentZonedDateTime).satisfied)
+    fun `'ZonedDateTime isAfterOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<ZonedDateTime?>(null).isAfterOrEqualTo(presentZonedDateTime).satisfied)
     }
 
     @Test
-    fun `'ZonedDateTime afterOrEqualTo' succeeds when the value is after or equal to the provided one`() {
+    fun `'ZonedDateTime isAfterOrEqualTo' succeeds when the value is after or equal to the provided one`() {
         assertTrue(
-            Validatable(presentZonedDateTime).afterOrEqualTo(presentZonedDateTime - fewSeconds).satisfied,
+            Validatable(presentZonedDateTime).isAfterOrEqualTo(presentZonedDateTime - fewSeconds).satisfied,
             "The constraint is satisfied when the value is after the provided one"
         )
-        assertTrue(Validatable(presentZonedDateTime).afterOrEqualTo(presentZonedDateTime).satisfied, "The constraint is satisfied when the value is equal to the provided one")
+        assertTrue(Validatable(presentZonedDateTime).isAfterOrEqualTo(presentZonedDateTime).satisfied, "The constraint is satisfied when the value is equal to the provided one")
     }
 
     @Test
-    fun `'ZonedDateTime afterOrEqualTo' fails when the value is before the provided one`() {
-        assertFalse(Validatable(presentZonedDateTime).afterOrEqualTo(presentZonedDateTime + fewSeconds).satisfied)
+    fun `'ZonedDateTime isAfterOrEqualTo' fails when the value is before the provided one`() {
+        assertFalse(Validatable(presentZonedDateTime).isAfterOrEqualTo(presentZonedDateTime + fewSeconds).satisfied)
     }
     //endregion
 }

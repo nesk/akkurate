@@ -26,122 +26,122 @@ class ArrayTest {
         private val NULL_VALIDATABLE = Validatable<Array<*>?>(null)
     }
 
-    //region sizeEqualTo
+    //region hasSizeEqualTo
 
     @Test
-    fun `'sizeEqualTo' succeeds when the value is null`() {
-        assertTrue(NULL_VALIDATABLE.sizeEqualTo(NULL_SIZE).satisfied)
+    fun `'hasSizeEqualTo' succeeds when the value is null`() {
+        assertTrue(NULL_VALIDATABLE.hasSizeEqualTo(NULL_SIZE).satisfied)
     }
 
     @Test
-    fun `'sizeEqualTo' succeeds when the size is equal to the provided one`() {
-        assertTrue(VALIDATABLE.sizeEqualTo(EXACT_SIZE).satisfied)
+    fun `'hasSizeEqualTo' succeeds when the size is equal to the provided one`() {
+        assertTrue(VALIDATABLE.hasSizeEqualTo(EXACT_SIZE).satisfied)
     }
 
     @Test
-    fun `'sizeEqualTo' fails when the size is different than the provided one`() {
-        assertFalse(VALIDATABLE.sizeEqualTo(SIZE_MINUS_ONE).satisfied, "The constraint is not satisfied when the size is greater than the provided one")
-        assertFalse(VALIDATABLE.sizeEqualTo(SIZE_PLUS_ONE).satisfied, "The constraint is not satisfied when the size is lower than the provided one")
-    }
-
-    //endregion
-
-    //region sizeLowerThan
-
-    @Test
-    fun `'sizeLowerThan' succeeds when the value is null`() {
-        assertTrue(NULL_VALIDATABLE.sizeLowerThan(NULL_SIZE).satisfied)
-    }
-
-    @Test
-    fun `'sizeLowerThan' succeeds when the size is lower than the provided one`() {
-        assertTrue(VALIDATABLE.sizeLowerThan(SIZE_PLUS_ONE).satisfied)
-    }
-
-    @Test
-    fun `'sizeLowerThan' fails when the size is greater than or equal to the provided one`() {
-        assertFalse(VALIDATABLE.sizeLowerThan(SIZE_MINUS_ONE).satisfied, "The constraint is not satisfied when the size is greater than the provided one")
-        assertFalse(VALIDATABLE.sizeLowerThan(EXACT_SIZE).satisfied, "The constraint is not satisfied when the size is equal to the provided one")
+    fun `'hasSizeEqualTo' fails when the size is different than the provided one`() {
+        assertFalse(VALIDATABLE.hasSizeEqualTo(SIZE_MINUS_ONE).satisfied, "The constraint is not satisfied when the size is greater than the provided one")
+        assertFalse(VALIDATABLE.hasSizeEqualTo(SIZE_PLUS_ONE).satisfied, "The constraint is not satisfied when the size is lower than the provided one")
     }
 
     //endregion
 
-    //region sizeLowerThanOrEqualTo
+    //region hasSizeLowerThan
 
     @Test
-    fun `'sizeLowerThanOrEqualTo' succeeds when the value is null`() {
-        assertTrue(NULL_VALIDATABLE.sizeLowerThanOrEqualTo(NULL_SIZE).satisfied)
+    fun `'hasSizeLowerThan' succeeds when the value is null`() {
+        assertTrue(NULL_VALIDATABLE.hasSizeLowerThan(NULL_SIZE).satisfied)
     }
 
     @Test
-    fun `'sizeLowerThanOrEqualTo' succeeds when the size is lower than or equal to the provided one`() {
-        assertTrue(VALIDATABLE.sizeLowerThanOrEqualTo(SIZE_PLUS_ONE).satisfied, "The constraint is satisfied when the size is lower than the provided one")
-        assertTrue(VALIDATABLE.sizeLowerThanOrEqualTo(EXACT_SIZE).satisfied, "The constraint is satisfied when the size is equal to the provided one")
+    fun `'hasSizeLowerThan' succeeds when the size is lower than the provided one`() {
+        assertTrue(VALIDATABLE.hasSizeLowerThan(SIZE_PLUS_ONE).satisfied)
     }
 
     @Test
-    fun `'sizeLowerThanOrEqualTo' fails when the size is greater than the provided one`() {
-        assertFalse(VALIDATABLE.sizeLowerThanOrEqualTo(SIZE_MINUS_ONE).satisfied)
-    }
-
-    //endregion
-
-    //region sizeGreaterThan
-
-    @Test
-    fun `'sizeGreaterThan' succeeds when the value is null`() {
-        assertTrue(NULL_VALIDATABLE.sizeGreaterThan(NULL_SIZE).satisfied)
-    }
-
-    @Test
-    fun `'sizeGreaterThan' succeeds when the size is greater than the provided one`() {
-        assertTrue(VALIDATABLE.sizeGreaterThan(SIZE_MINUS_ONE).satisfied)
-    }
-
-    @Test
-    fun `'sizeGreaterThan' fails when the size is lower than or equal to the provided one`() {
-        assertFalse(VALIDATABLE.sizeGreaterThan(SIZE_PLUS_ONE).satisfied, "The constraint is not satisfied when the size is lower than the provided one")
-        assertFalse(VALIDATABLE.sizeGreaterThan(EXACT_SIZE).satisfied, "The constraint is not satisfied when the size is equal to the provided one")
+    fun `'hasSizeLowerThan' fails when the size is greater than or equal to the provided one`() {
+        assertFalse(VALIDATABLE.hasSizeLowerThan(SIZE_MINUS_ONE).satisfied, "The constraint is not satisfied when the size is greater than the provided one")
+        assertFalse(VALIDATABLE.hasSizeLowerThan(EXACT_SIZE).satisfied, "The constraint is not satisfied when the size is equal to the provided one")
     }
 
     //endregion
 
-    //region sizeGreaterThanOrEqualTo
+    //region hasSizeLowerThanOrEqualTo
 
     @Test
-    fun `'sizeGreaterThanOrEqualTo' succeeds when the value is null`() {
-        assertTrue(NULL_VALIDATABLE.sizeGreaterThanOrEqualTo(NULL_SIZE).satisfied)
+    fun `'hasSizeLowerThanOrEqualTo' succeeds when the value is null`() {
+        assertTrue(NULL_VALIDATABLE.hasSizeLowerThanOrEqualTo(NULL_SIZE).satisfied)
     }
 
     @Test
-    fun `'sizeGreaterThanOrEqualTo' succeeds when the size is greater than or equal to the provided one`() {
-        assertTrue(VALIDATABLE.sizeGreaterThanOrEqualTo(SIZE_MINUS_ONE).satisfied, "The constraint is satisfied when the size is greater than the provided one")
-        assertTrue(VALIDATABLE.sizeGreaterThanOrEqualTo(EXACT_SIZE).satisfied, "The constraint is satisfied when the size is equal to the provided one")
+    fun `'hasSizeLowerThanOrEqualTo' succeeds when the size is lower than or equal to the provided one`() {
+        assertTrue(VALIDATABLE.hasSizeLowerThanOrEqualTo(SIZE_PLUS_ONE).satisfied, "The constraint is satisfied when the size is lower than the provided one")
+        assertTrue(VALIDATABLE.hasSizeLowerThanOrEqualTo(EXACT_SIZE).satisfied, "The constraint is satisfied when the size is equal to the provided one")
     }
 
     @Test
-    fun `'sizeGreaterThanOrEqualTo' fails when the size is lower than the provided one`() {
-        assertFalse(VALIDATABLE.sizeGreaterThanOrEqualTo(SIZE_PLUS_ONE).satisfied)
+    fun `'hasSizeLowerThanOrEqualTo' fails when the size is greater than the provided one`() {
+        assertFalse(VALIDATABLE.hasSizeLowerThanOrEqualTo(SIZE_MINUS_ONE).satisfied)
     }
 
     //endregion
 
-    //region sizeBetween
+    //region hasSizeGreaterThan
 
     @Test
-    fun `'sizeBetween' succeeds when the value is null`() {
-        assertTrue(NULL_VALIDATABLE.sizeBetween(NULL_SIZE..NULL_SIZE).satisfied)
+    fun `'hasSizeGreaterThan' succeeds when the value is null`() {
+        assertTrue(NULL_VALIDATABLE.hasSizeGreaterThan(NULL_SIZE).satisfied)
     }
 
     @Test
-    fun `'sizeBetween' succeeds when the size is between the provided range`() {
-        assertTrue(VALIDATABLE.sizeBetween(SIZE_MINUS_ONE..SIZE_PLUS_ONE).satisfied)
+    fun `'hasSizeGreaterThan' succeeds when the size is greater than the provided one`() {
+        assertTrue(VALIDATABLE.hasSizeGreaterThan(SIZE_MINUS_ONE).satisfied)
     }
 
     @Test
-    fun `'sizeBetween' fails when the size is outside the provided range`() {
+    fun `'hasSizeGreaterThan' fails when the size is lower than or equal to the provided one`() {
+        assertFalse(VALIDATABLE.hasSizeGreaterThan(SIZE_PLUS_ONE).satisfied, "The constraint is not satisfied when the size is lower than the provided one")
+        assertFalse(VALIDATABLE.hasSizeGreaterThan(EXACT_SIZE).satisfied, "The constraint is not satisfied when the size is equal to the provided one")
+    }
+
+    //endregion
+
+    //region hasSizeGreaterThanOrEqualTo
+
+    @Test
+    fun `'hasSizeGreaterThanOrEqualTo' succeeds when the value is null`() {
+        assertTrue(NULL_VALIDATABLE.hasSizeGreaterThanOrEqualTo(NULL_SIZE).satisfied)
+    }
+
+    @Test
+    fun `'hasSizeGreaterThanOrEqualTo' succeeds when the size is greater than or equal to the provided one`() {
+        assertTrue(VALIDATABLE.hasSizeGreaterThanOrEqualTo(SIZE_MINUS_ONE).satisfied, "The constraint is satisfied when the size is greater than the provided one")
+        assertTrue(VALIDATABLE.hasSizeGreaterThanOrEqualTo(EXACT_SIZE).satisfied, "The constraint is satisfied when the size is equal to the provided one")
+    }
+
+    @Test
+    fun `'hasSizeGreaterThanOrEqualTo' fails when the size is lower than the provided one`() {
+        assertFalse(VALIDATABLE.hasSizeGreaterThanOrEqualTo(SIZE_PLUS_ONE).satisfied)
+    }
+
+    //endregion
+
+    //region hasSizeBetween
+
+    @Test
+    fun `'hasSizeBetween' succeeds when the value is null`() {
+        assertTrue(NULL_VALIDATABLE.hasSizeBetween(NULL_SIZE..NULL_SIZE).satisfied)
+    }
+
+    @Test
+    fun `'hasSizeBetween' succeeds when the size is between the provided range`() {
+        assertTrue(VALIDATABLE.hasSizeBetween(SIZE_MINUS_ONE..SIZE_PLUS_ONE).satisfied)
+    }
+
+    @Test
+    fun `'hasSizeBetween' fails when the size is outside the provided range`() {
         @Suppress("EmptyRange")
-        assertFalse(VALIDATABLE.sizeBetween(1..0).satisfied)
+        assertFalse(VALIDATABLE.hasSizeBetween(1..0).satisfied)
     }
 
     //endregion

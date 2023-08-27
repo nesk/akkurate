@@ -3,7 +3,7 @@ package dev.nesk.akkurate.examples.walkthrough.conditionalConstraint
 import dev.nesk.akkurate.ValidationResult
 import dev.nesk.akkurate.Validator
 import dev.nesk.akkurate.annotations.Validate
-import dev.nesk.akkurate.constraints.builders.lengthGreaterThanOrEqualTo
+import dev.nesk.akkurate.constraints.builders.hasLengthGreaterThanOrEqualTo
 import dev.nesk.akkurate.constraints.constrain
 import dev.nesk.akkurate.constraints.otherwise
 import dev.nesk.akkurate.examples.walkthrough.conditionalConstraint.validation.accessors.handle
@@ -34,7 +34,7 @@ val validateTwitterRegistration = Validator<UserRepository, TwitterRegistration>
 
     // When applying a constraint, you can use the `satisfied` property to check if the constraint
     // is satisfied or not. Or you can also use destructuring, which is easier to use.
-    val (isValidHandle) = handle.lengthGreaterThanOrEqualTo(5)
+    val (isValidHandle) = handle.hasLengthGreaterThanOrEqualTo(5)
 
     // Now you can apply other constraints based on the result of a previous one. Here, the database
     // constraint will be applied only if the handle is at least five characters.
