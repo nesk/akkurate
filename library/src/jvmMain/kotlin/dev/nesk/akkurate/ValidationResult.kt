@@ -20,7 +20,7 @@ public sealed interface ValidationResult<out T> {
         }
 
         override fun hashCode(): Int = value?.hashCode() ?: 0
-        override fun toString(): String = "Success(value=$value)"
+        override fun toString(): String = "ValidationResult.Success(value=$value)"
     }
 
     // This could be a data class in the future if Kotlin adds a feature to remove the `copy()` method when a constructor is internal or private.
@@ -40,8 +40,10 @@ public sealed interface ValidationResult<out T> {
         }
 
         override fun hashCode(): Int = violations.hashCode()
-        override fun toString(): String = "Failure(violations=$violations)"
+        override fun toString(): String = "ValidationResult.Failure(violations=$violations)"
     }
 
-    public class Exception internal constructor(public val violations: ConstraintViolationSet) : RuntimeException()
+    public class Exception internal constructor(public val violations: ConstraintViolationSet) : RuntimeException() {
+        override fun toString(): String = "ValidationResult.Exception(violations=$violations)"
+    }
 }
