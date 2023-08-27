@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE vars SYSTEM "https://resources.jetbrains.com/writerside/1.0/vars.dtd">
+<vars>
+    <var name="product" value="Akkurate"/>
+    <var name="github_product_url" value="https://github.com/nesk/akkurate"/>
+    <var name="api_reference_url" value="https://example.com/"/>
+</vars>
