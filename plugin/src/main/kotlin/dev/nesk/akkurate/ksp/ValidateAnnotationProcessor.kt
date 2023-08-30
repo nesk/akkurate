@@ -1,18 +1,21 @@
 package dev.nesk.akkurate.ksp
 
 import com.google.devtools.ksp.processing.*
-import com.google.devtools.ksp.symbol.KSAnnotated
-import com.google.devtools.ksp.symbol.KSClassDeclaration
-import com.google.devtools.ksp.symbol.KSDeclaration
-import com.google.devtools.ksp.symbol.KSPropertyDeclaration
+import com.google.devtools.ksp.symbol.*
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import dev.nesk.akkurate.annotations.Validate
-import dev.nesk.akkurate.validatables.Validatable
 import java.io.OutputStreamWriter
 import kotlin.reflect.KProperty1
 
 class ValidateAnnotationProcessor(private val codeGenerator: CodeGenerator, private val logger: KSPLogger) : SymbolProcessor {
+    companion object {
+        // The KSP plugin can't depend on the library, because the latter already depends on the KSP plugin, which would create
+        // a circular dependency; so we must manually create name references for some symbols contained in the library.
+        val validatableOfFunction = MemberName("dev.nesk.akkurate.validatables", "validatableOf")
+        val validatableClass = ClassName("dev.nesk.akkurate.validatables", "Validatable")
+    }
+
     /**
      * All the generated accessors for each property of the validatables.
      *
@@ -23,7 +26,7 @@ class ValidateAnnotationProcessor(private val codeGenerator: CodeGenerator, priv
     private val accessors: MutableSet<PropertySpec> = mutableSetOf()
 
     /**
-     * The name of the declaration with an uppercase first character.
+     * The name of the declaration with an uppercase-first character.
      */
     private val KSDeclaration.capitalizedName: String get() = simpleName.asString().replaceFirstChar { it.uppercase() }
 
@@ -104,7 +107,6 @@ class ValidateAnnotationProcessor(private val codeGenerator: CodeGenerator, priv
     private fun KSPropertyDeclaration.toValidatablePropertySpec(withNullableReceiver: Boolean = false): PropertySpec {
         val receiver = parentDeclaration!!
         val nullabilityText = if (withNullableReceiver) "Nullable" else ""
-        val validatableOfFunction = MemberName("dev.nesk.akkurate.validatables", "validatableOf")
         val kProperty1Class = KProperty1::class.asClassName()
 
         return PropertySpec.builder(simpleName.asString(), type.toTypeName().toValidatableType(forceNullable = withNullableReceiver))
@@ -135,6 +137,6 @@ class ValidateAnnotationProcessor(private val codeGenerator: CodeGenerator, priv
      */
     private fun TypeName.toValidatableType(forceNullable: Boolean): ParameterizedTypeName {
         val parameterType = if (forceNullable) this.copy(nullable = true) else this
-        return Validatable::class.asClassName().parameterizedBy(parameterType)
+        return validatableClass.parameterizedBy(parameterType)
     }
 }
