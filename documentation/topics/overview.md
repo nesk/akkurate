@@ -24,7 +24,11 @@ validation code.
   as simple as a lambda with parameters.
 - **Contextual and asynchronous.** Query sync/async data sources whenever you need to, like a database, or a REST API.
   Everything can happen inside validation.
-- **Integrated with your favorite tools. _(SOON)_** Validate your data within any popular framework, we take care of the
-  integrations for you.
-- **Code once, deploy everywhere. _(SOON)_** Take advantage of Kotlin Multiplatform; write your validation code once
-  then use it in your front-end and back-end code.
+- ![Coming soon](clock.png){width="16"} **Testable out of the box.** Finding how to test your validation code shouldn't
+  be one of your tasks. You will find all the tools you need to write good tests.
+- ![Coming soon](clock.png){width="16"} **Integrated with your favorite tools.** Validate your data within any popular
+  framework, we take care of the integrations for you.
+- ![Coming soon](clock.png){width="16"} **Code once, deploy everywhere.** Take advantage of Kotlin Multiplatform; write
+  your validation code once, use it both for front-end and back-end usages.
+
+> Features marked with ![Coming soon](clock.png){width="16"} are on the roadmap.
