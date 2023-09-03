@@ -27,7 +27,7 @@ import kotlin.test.assertTrue
 @OptIn(ExperimentalPathApi::class)
 class ValidateAnnotationProcessorTest {
     @Test
-    fun `can process without annotations`() {
+    fun `processing without annotated classes doesn't generate any file`() {
         // Arrange
         val source = SourceFile.kotlin("Examples.kt", "class User(val name: String)")
         // Act
@@ -39,7 +39,7 @@ class ValidateAnnotationProcessorTest {
     }
 
     @Test
-    fun `can process a single annotated class`() {
+    fun `processing a single annotated class generates a single file containing the accessors`() {
         // Arrange
         val source = SourceFile.kotlin(
             "Examples.kt", """
@@ -56,11 +56,11 @@ class ValidateAnnotationProcessorTest {
         assertCompilationIsSuccessful(result)
         assertCountOfFilesGeneratedByTheProcessor(1, compiler)
         Path("${compiler.kotlinFilesDir}/dev/nesk/validation/accessors/ValidationAccessors.kt").readText()
-            .matchWithSnapshot("can process a single annotated class")
+            .matchWithSnapshot("processing a single annotated class generates a single file containing the accessors")
     }
 
     @Test
-    fun `can process multiple annotated classes`() {
+    fun `processing multiple annotated classes in the same package generates a single file containing the accessors`() {
         // Arrange
         val source = SourceFile.kotlin(
             "Examples.kt", """
@@ -78,11 +78,11 @@ class ValidateAnnotationProcessorTest {
         assertCompilationIsSuccessful(result)
         assertCountOfFilesGeneratedByTheProcessor(1, compiler)
         Path("${compiler.kotlinFilesDir}/dev/nesk/validation/accessors/ValidationAccessors.kt").readText()
-            .matchWithSnapshot("can process multiple annotated classes")
+            .matchWithSnapshot("processing multiple annotated classes in the same package generates a single file containing the accessors")
     }
 
     @Test
-    fun `can process annotated classes referenced as nullables`() {
+    fun `processing annotated classes referenced as nullables generates nullable accessors`() {
         // Arrange
         val source = SourceFile.kotlin(
             "Examples.kt", """
@@ -100,11 +100,11 @@ class ValidateAnnotationProcessorTest {
         assertCompilationIsSuccessful(result)
         assertCountOfFilesGeneratedByTheProcessor(1, compiler)
         Path("${compiler.kotlinFilesDir}/dev/nesk/validation/accessors/ValidationAccessors.kt").readText()
-            .matchWithSnapshot("can process annotated classes referenced as nullables")
+            .matchWithSnapshot("processing annotated classes referenced as nullables generates nullable accessors")
     }
 
     @Test
-    fun `can process annotated classes with cyclic references`() {
+    fun `processing annotated classes with cyclic references generates accessors for all the classes without failing`() {
         // Arrange
         val source = SourceFile.kotlin(
             "Examples.kt", """
@@ -122,11 +122,11 @@ class ValidateAnnotationProcessorTest {
         assertCompilationIsSuccessful(result)
         assertCountOfFilesGeneratedByTheProcessor(1, compiler)
         Path("${compiler.kotlinFilesDir}/dev/nesk/validation/accessors/ValidationAccessors.kt").readText()
-            .matchWithSnapshot("can process annotated classes with cyclic references")
+            .matchWithSnapshot("processing annotated classes with cyclic references generates accessors for all the classes without failing")
     }
 
     @Test
-    fun `can process annotated classes with cyclic nullable references`() {
+    fun `processing annotated classes with cyclic nullable references generates nullable accessors for all the classes without failing`() {
         // Arrange
         val source = SourceFile.kotlin(
             "Examples.kt", """
@@ -144,11 +144,11 @@ class ValidateAnnotationProcessorTest {
         assertCompilationIsSuccessful(result)
         assertCountOfFilesGeneratedByTheProcessor(1, compiler)
         Path("${compiler.kotlinFilesDir}/dev/nesk/validation/accessors/ValidationAccessors.kt").readText()
-            .matchWithSnapshot("can process annotated classes with cyclic nullable references")
+            .matchWithSnapshot("processing annotated classes with cyclic nullable references generates nullable accessors for all the classes without failing")
     }
 
     @Test
-    fun `can process annotated classes across multiple packages`() {
+    fun `processing annotated classes across multiple packages generates a file per package`() {
         // Arrange
         val companySource = SourceFile.kotlin(
             "Company.kt", """
@@ -174,9 +174,9 @@ class ValidateAnnotationProcessorTest {
         assertCompilationIsSuccessful(result)
         assertCountOfFilesGeneratedByTheProcessor(2, compiler)
         Path("${compiler.kotlinFilesDir}/dev/nesk/company/validation/accessors/ValidationAccessors.kt").readText()
-            .matchWithSnapshot("can process annotated classes across multiple packages (company)")
+            .matchWithSnapshot("processing annotated classes across multiple packages generates a file per package (company)")
         Path("${compiler.kotlinFilesDir}/dev/nesk/user/validation/accessors/ValidationAccessors.kt").readText()
-            .matchWithSnapshot("can process annotated classes across multiple packages (user)")
+            .matchWithSnapshot("processing annotated classes across multiple packages generates a file per package (user)")
     }
 
     @Test
