@@ -1,0 +1,16 @@
+package dev.nesk.validation.accessors
+
+import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.validatables.validatableOf
+import kotlin.Int
+import kotlin.String
+import kotlin.jvm.JvmName
+import kotlin.reflect.KProperty1
+
+public val Validatable<String>.length: Validatable<Int>
+  @JvmName(name = "validatableStringLength")
+  get() = validatableOf(String::length)
+
+public val Validatable<String?>.length: Validatable<Int?>
+  @JvmName(name = "validatableNullableStringLength")
+  get() = validatableOf(String::length as KProperty1)

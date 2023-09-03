@@ -25,13 +25,19 @@ import dev.nesk.akkurate.annotations.Validate
 import java.io.OutputStreamWriter
 import kotlin.reflect.KProperty1
 
-class ValidateAnnotationProcessor(private val codeGenerator: CodeGenerator, private val logger: KSPLogger) : SymbolProcessor {
+class ValidateAnnotationProcessor(
+    private val codeGenerator: CodeGenerator,
+    private val logger: KSPLogger,
+    private val config: ValidateAnnotationProcessorConfig,
+) : SymbolProcessor {
     companion object {
         // The KSP plugin can't depend on the library, because the latter already depends on the KSP plugin, which would create
         // a circular dependency; so we must manually create name references for some symbols contained in the library.
         val validatableOfFunction = MemberName("dev.nesk.akkurate.validatables", "validatableOf")
         val validatableClass = ClassName("dev.nesk.akkurate.validatables", "Validatable")
     }
+
+    private var validatableClasses: Set<String> = config.normalizedValidatableClasses
 
     /**
      * All the generated accessors for each property of the validatables.
@@ -53,16 +59,29 @@ class ValidateAnnotationProcessor(private val codeGenerator: CodeGenerator, priv
     private val PropertySpec.originalPackageName: String get() = ((receiverType as ParameterizedTypeName).typeArguments.first() as ClassName).packageName
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
-        val validatables = resolver.getSymbolsWithAnnotation(Validate::class.qualifiedName!!)
+        val symbolsFromOptions = validatableClasses
+            .map(resolver::getKSNameFromString)
+            .mapNotNull { name ->
+                resolver.getClassDeclarationByName(name).also {
+                    if (it == null) {
+                        logger.warn("Unable to find class provided in 'validatablesClasses' option: '${name.asString()}'")
+                    }
+                }
+            }
+            .filter { it.typeParameters.isEmpty() } // Support for generic validatables might come later.
+
+        val annotatedSymbols = resolver.getSymbolsWithAnnotation(Validate::class.qualifiedName!!)
             .filterIsInstance<KSClassDeclaration>()
             .filter { it.typeParameters.isEmpty() } // Support for generic validatables might come later.
-        logger.info("Found ${validatables.count()} classes annotated with @Validate.")
+        logger.info("Found ${annotatedSymbols.count()} classes annotated with @Validate.")
+
+        val validatables = symbolsFromOptions + annotatedSymbols
 
         // Create two accessors for each property of a validatable, the second one enables an easy traversal within a nullable structure.
         for (validatable in validatables) {
-            logger.logging("Processing class '${validatable.qualifiedName!!.asString()}' with properties:")
+            logger.info("Processing class '${validatable.qualifiedName!!.asString()}' with properties:")
             for (property in validatable.getAllProperties()) {
-                logger.logging("  ${property.simpleName.asString()}")
+                logger.info("  ${property.simpleName.asString()}")
                 accessors += property.toValidatablePropertySpec()
                 accessors += property.toValidatablePropertySpec(withNullableReceiver = true)
             }
@@ -73,7 +92,7 @@ class ValidateAnnotationProcessor(private val codeGenerator: CodeGenerator, priv
             .groupBy { it.originalPackageName }
             .forEach { (packageName, accessors) ->
                 val fileName = "ValidationAccessors"
-                val newPackageName = "$packageName.validation.accessors"
+                val newPackageName = "${config.normalizedOverrideOriginalPackageWith ?: packageName}.${config.normalizedappendPackagesWith ?: ""}".trim { it == '.' }
                 logger.info("Writing accessors with namespace '$newPackageName' to file '$fileName.kt'.")
 
                 val fileBuilder = FileSpec.builder(newPackageName, fileName)
@@ -86,7 +105,10 @@ class ValidateAnnotationProcessor(private val codeGenerator: CodeGenerator, priv
             }
 
         logger.info("A total of ${validatables.count()} classes and ${accessors.size} properties were processed.")
+
+        validatableClasses = emptySet() // Empty the set to avoid processing those classes again on the next processing round.
         accessors.clear()
+
         return emptyList()
     }
 
