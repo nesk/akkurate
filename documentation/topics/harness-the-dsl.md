@@ -16,8 +16,8 @@ Validator<Book> {
 }
 ```
 
-> Remember, before accessing the properties inside the `Validator`, to trigger code generation by building your
-> project.
+> Remember to trigger code generation before accessing the properties inside the `Validator`, you can do this by
+> building your project.
 
 {style="note"}
 

@@ -1,6 +1,6 @@
 # Getting started
 
-This article will show you how to install %product% and run your first validation with it.
+This article will show you how to install %product% and write your first validation code.
 
 ## Installation
 
