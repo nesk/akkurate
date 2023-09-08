@@ -4,10 +4,45 @@ This article will show you how to install %product% and write your first validat
 
 ## Installation
 
-> TODO
->
-> - (JVM ONLY for the moment)
-> - Gradle, KSP, Maven artifacts…
+%product% is shipped with two dependencies; one is the library, the other one is a compiler plugin based on
+[KSP](https://kotlinlang.org/docs/ksp-overview.html). Follow the installation instructions below, according to your
+project structure.
+
+<procedure title="Install in a single-platform project">
+
+<step>
+Add KSP to your plugin list; make sure to <a href="https://github.com/google/ksp/releases">use the appropriate 
+version</a>, depending on the Kotlin version you're using.
+<br/>
+<code-block lang="kotlin">
+plugins {
+    kotlin("jvm") version "1.9.10"
+    id("com.google.devtools.ksp") version "1.9.10-1.0.13"
+}
+</code-block>
+</step>
+
+<step>
+Add the dependencies and register the compiler plugin through KSP.
+<br/>
+<code-block lang="kotlin">
+dependencies {
+    implementation("dev.nesk.akkurate:akkurate-core:%version%")
+    implementation("dev.nesk.akkurate:akkurate-ksp-plugin:%version%")
+    ksp("dev.nesk.akkurate:akkurate-ksp-plugin:%version%")
+}
+</code-block>
+</step>
+
+</procedure>
+
+<procedure title="Install in a multiplatform project">
+
+<tip>
+<p>Coming soon!</p>
+</tip>
+
+</procedure>
 
 ## Basic usage
 
