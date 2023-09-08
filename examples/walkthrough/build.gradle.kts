@@ -11,9 +11,9 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":plugin"))
-    implementation(project(":library"))
-    ksp(project(":plugin"))
+    implementation(project(":akkurate-core"))
+    implementation(project(":akkurate-ksp-plugin"))
+    ksp(project(":akkurate-ksp-plugin"))
 }
 
 kotlin {

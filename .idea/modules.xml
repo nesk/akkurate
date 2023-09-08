@@ -3,6 +3,16 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/akkurate.iml" filepath="$PROJECT_DIR$/.idea/modules/akkurate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/akkurate.akkurate-core.iml" filepath="$PROJECT_DIR$/.idea/modules/library/akkurate.akkurate-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/akkurate.akkurate-core.commonMain.iml" filepath="$PROJECT_DIR$/.idea/modules/library/akkurate.akkurate-core.commonMain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/akkurate.akkurate-core.commonTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/akkurate.akkurate-core.commonTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/akkurate.akkurate-core.jvmMain.iml" filepath="$PROJECT_DIR$/.idea/modules/library/akkurate.akkurate-core.jvmMain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/akkurate.akkurate-core.jvmTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/akkurate.akkurate-core.jvmTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/akkurate.akkurate-core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/library/akkurate.akkurate-core.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/akkurate.akkurate-core.test.iml" filepath="$PROJECT_DIR$/.idea/modules/library/akkurate.akkurate-core.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plugin/akkurate.akkurate-ksp-plugin.iml" filepath="$PROJECT_DIR$/.idea/modules/plugin/akkurate.akkurate-ksp-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plugin/akkurate.akkurate-ksp-plugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/plugin/akkurate.akkurate-ksp-plugin.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plugin/akkurate.akkurate-ksp-plugin.test.iml" filepath="$PROJECT_DIR$/.idea/modules/plugin/akkurate.akkurate-ksp-plugin.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/examples/akkurate.examples.iml" filepath="$PROJECT_DIR$/.idea/modules/examples/akkurate.examples.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/examples/full/akkurate.examples.full.iml" filepath="$PROJECT_DIR$/.idea/modules/examples/full/akkurate.examples.full.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/examples/full/akkurate.examples.full.main.iml" filepath="$PROJECT_DIR$/.idea/modules/examples/full/akkurate.examples.full.main.iml" />
@@ -10,17 +20,14 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/examples/walkthrough/akkurate.examples.walkthrough.iml" filepath="$PROJECT_DIR$/.idea/modules/examples/walkthrough/akkurate.examples.walkthrough.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/examples/walkthrough/akkurate.examples.walkthrough.main.iml" filepath="$PROJECT_DIR$/.idea/modules/examples/walkthrough/akkurate.examples.walkthrough.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/examples/walkthrough/akkurate.examples.walkthrough.test.iml" filepath="$PROJECT_DIR$/.idea/modules/examples/walkthrough/akkurate.examples.walkthrough.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/akkurate.library.iml" filepath="$PROJECT_DIR$/.idea/modules/library/akkurate.library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/akkurate.library.commonMain.iml" filepath="$PROJECT_DIR$/.idea/modules/library/akkurate.library.commonMain.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/akkurate.library.commonTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/akkurate.library.commonTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/akkurate.library.generatedByKspKotlinJvm.iml" filepath="$PROJECT_DIR$/.idea/modules/library/akkurate.library.generatedByKspKotlinJvm.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/akkurate.library.jvmMain.iml" filepath="$PROJECT_DIR$/.idea/modules/library/akkurate.library.jvmMain.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/akkurate.library.jvmTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/akkurate.library.jvmTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/akkurate.library.main.iml" filepath="$PROJECT_DIR$/.idea/modules/library/akkurate.library.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/akkurate.library.test.iml" filepath="$PROJECT_DIR$/.idea/modules/library/akkurate.library.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plugin/akkurate.plugin.iml" filepath="$PROJECT_DIR$/.idea/modules/plugin/akkurate.plugin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plugin/akkurate.plugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/plugin/akkurate.plugin.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plugin/akkurate.plugin.test.iml" filepath="$PROJECT_DIR$/.idea/modules/plugin/akkurate.plugin.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/dev.nesk.akkurate.akkurate.akkurate-core.commonMain.iml" filepath="$PROJECT_DIR$/.idea/modules/library/dev.nesk.akkurate.akkurate.akkurate-core.commonMain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/dev.nesk.akkurate.akkurate.akkurate-core.commonTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/dev.nesk.akkurate.akkurate.akkurate-core.commonTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/dev.nesk.akkurate.akkurate.akkurate-core.jvmMain.iml" filepath="$PROJECT_DIR$/.idea/modules/library/dev.nesk.akkurate.akkurate.akkurate-core.jvmMain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/dev.nesk.akkurate.akkurate.akkurate-core.jvmTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/dev.nesk.akkurate.akkurate.akkurate-core.jvmTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/dev.nesk.akkurate.akkurate.akkurate-core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/library/dev.nesk.akkurate.akkurate.akkurate-core.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/dev.nesk.akkurate.akkurate.akkurate-core.test.iml" filepath="$PROJECT_DIR$/.idea/modules/library/dev.nesk.akkurate.akkurate.akkurate-core.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plugin/dev.nesk.akkurate.akkurate.akkurate-ksp-plugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/plugin/dev.nesk.akkurate.akkurate.akkurate-ksp-plugin.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plugin/dev.nesk.akkurate.akkurate.akkurate-ksp-plugin.test.iml" filepath="$PROJECT_DIR$/.idea/modules/plugin/dev.nesk.akkurate.akkurate.akkurate-ksp-plugin.test.iml" />
     </modules>
   </component>
 </project>
