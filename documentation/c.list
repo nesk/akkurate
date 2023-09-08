@@ -2,4 +2,5 @@
 <!DOCTYPE categories
         SYSTEM "https://resources.jetbrains.com/writerside/1.0/categories.dtd">
 <categories>
+    <category id="external" name="External resources" order="1"/>
 </categories>

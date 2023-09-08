@@ -32,3 +32,9 @@ validation code.
   your validation code once, use it both for front-end and back-end usages.
 
 > Features marked with ![Coming soon](clock.png){width="16"} are on the roadmap.
+
+<seealso style="cards">
+  <category ref="external">
+    <a href="%github_product_url%">GitHub repository</a>
+  </category>
+</seealso>
