@@ -12,8 +12,8 @@ buildscript {
 }
 apply(plugin = "com.karumi.kotlin-snapshot")
 
-group = "me.johann"
-version = "1.0-SNAPSHOT"
+group = "dev.nesk.akkurate"
+version = "0.1.0"
 
 repositories {
     mavenCentral()

@@ -2,8 +2,8 @@ plugins {
     kotlin("multiplatform")
 }
 
-group = "me.johann"
-version = "1.0-SNAPSHOT"
+group = "dev.nesk.akkurate"
+version = "0.1.0"
 
 repositories {
     mavenCentral()
