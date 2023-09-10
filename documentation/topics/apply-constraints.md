@@ -11,7 +11,7 @@ without having to write custom constraints for anything else than business logic
 > This is a bold assertion and, let's be honest, it might not be true at the moment. _But we want it to be true!_ So let
 > us know if you're missing a constraint, [and report it on our GitHub repository.](%github_product_url%/issues)
 
-[Find all the documented constraints in the API reference.](%api_reference_url%)
+[Find all the documented constraints in the API reference.](%api_reference_url%/akkurate-core/dev.nesk.akkurate.constraints.builders/index.html)
 
 ## Basic usage
 
