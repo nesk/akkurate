@@ -8,7 +8,7 @@
 
     <build-profile instance="akkurate">
         <variables>
-            <noindex-content>true</noindex-content>
+            <noindex-content>false</noindex-content>
         </variables>
     </build-profile>
 
