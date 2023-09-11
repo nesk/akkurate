@@ -33,6 +33,6 @@ public class ConstraintViolationSet internal constructor(private val messages: S
 
     override fun hashCode(): Int = messages.hashCode()
 
-    override fun toString(): String = "ConstraintViolationSet(errors=$messages)"
+    override fun toString(): String = "ConstraintViolationSet(messages=$messages)"
 
 }
