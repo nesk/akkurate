@@ -10,9 +10,68 @@ validation code.
 > %product% is under development and, despite being heavily tested, its API isn't yet stabilized; _breaking changes
 > might happen on minor releases._ However, we will always provide migration guides.
 >
-> Report any issue or bug <a href="%github_product_url%">in the GitHub repository.</a>
+> Report any issue or bug <a href="%github_product_url%/issues">in the GitHub repository.</a>
 
 {style="warning"}
+
+## Showcase
+
+Here's an example showcasing how you can constrain a book and its list of authors.
+
+```kotlin
+// Define your classes
+
+@Validate
+data class Book(
+    val title: String,
+    val releaseDate: LocalDateTime,
+    val authors: List<Author>,
+)
+
+@Validate
+data class Author(val firstName: String, val lastName: String)
+
+// Write your validation rules
+
+val validateBook = Validator<Book> {
+    // First the property, then the constraint, finally the message.
+    title.isNotEmpty() otherwise { "Missing title" }
+
+    releaseDate.isInPast() otherwise { "Release date must be in past" }
+
+    authors.hasSizeBetween(1..10) otherwise { "Wrong author count" }
+
+    authors.each { // Apply constraints to each author
+        (firstName and lastName) {
+            // Apply the same constraint to both properties
+            isNotEmpty() otherwise { "Missing name" }
+        }
+    }
+}
+
+// Validate your data
+
+when (val result = validateBook(someBook)) {
+    is Success -> println("Success: ${result.value}")
+    is Failure -> {
+        val list = result.violations
+            .joinToString("\n") { "${it.path}: ${it.message}" }
+        println("Failures:\n$list")
+    }
+}
+```
+
+Note how each constraint applied to a property can be read like a sentence. This code:
+
+```kotlin
+title.isNotEmpty() otherwise { "Missing title" }
+```
+
+can be read:
+
+```text
+Check if 'title' is not empty otherwise write "Missing title".
+```
 
 ## Features
 
