@@ -19,6 +19,7 @@ package dev.nesk.akkurate.validatables
 
 import dev.nesk.akkurate._test.assertContentEquals
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class ValidatableCompoundTest {
     @Test
@@ -88,7 +89,7 @@ class ValidatableCompoundTest {
     @Test
     fun `invoking a validatable compound with a lambda executes that lambda for each validatable in the compound order`() {
         // Arrange
-        val validatables = setOf(
+        val validatables = listOf(
             Validatable("foo", "foo"),
             Validatable("bar", "bar"),
         )
@@ -99,5 +100,21 @@ class ValidatableCompoundTest {
         }
         // Assert
         assertContentEquals(validatables, receivedValidatables, "The lambda has been called for each validatable in the compound order")
+    }
+
+    @Test
+    fun `a validatable compound containing two validatables with the same value will call the lambda twice, not just once due to 'equals' implementation`() {
+        // Arrange
+        val validatables = listOf(
+            Validatable("", "foo"),
+            Validatable("", "bar"),
+        )
+        val compound = ValidatableCompound(validatables)
+        // Act
+        val receivedValidatables = buildList {
+            compound { add(this) }
+        }
+        // Assert
+        assertEquals(2, receivedValidatables.size, "The lambda has been called twice")
     }
 }

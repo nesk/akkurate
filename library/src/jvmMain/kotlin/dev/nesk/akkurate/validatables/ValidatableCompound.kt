@@ -29,7 +29,9 @@ package dev.nesk.akkurate.validatables
 
     To ease development, the first release will make parentheses mandatory.
  */
-public class ValidatableCompound<T>(public val validatables: Set<Validatable<T>>) {
+public class ValidatableCompound<T> internal constructor(validatables: List<Validatable<T>>) {
+    public val validatables: List<Validatable<T>> = validatables.distinctBy { it.path() }
+
     public infix fun and(other: Validatable<T>): ValidatableCompound<T> = ValidatableCompound(validatables + setOf(other))
     public infix fun and(other: ValidatableCompound<T>): ValidatableCompound<T> = ValidatableCompound(validatables + other.validatables)
 
@@ -37,8 +39,8 @@ public class ValidatableCompound<T>(public val validatables: Set<Validatable<T>>
     public inline operator fun invoke(block: Validatable<T>.() -> Unit): Unit = validatables.forEach { it.block() }
 }
 
-public infix fun <T> Validatable<T>.and(other: Validatable<T>): ValidatableCompound<T> = ValidatableCompound(setOf(this, other))
-public infix fun <T> Validatable<T>.and(other: ValidatableCompound<T>): ValidatableCompound<T> = ValidatableCompound(setOf(this) + other.validatables)
+public infix fun <T> Validatable<T>.and(other: Validatable<T>): ValidatableCompound<T> = ValidatableCompound(listOf(this, other))
+public infix fun <T> Validatable<T>.and(other: ValidatableCompound<T>): ValidatableCompound<T> = ValidatableCompound(listOf(this) + other.validatables)
 
 // TODO: find a solution to improve type combinations
 //infix fun <T1, T2> ValidatableCompound<T1>.and(other: Validatable<T2>): ValidatableCompound<Any?> = TODO()
