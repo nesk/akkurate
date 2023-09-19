@@ -4,6 +4,7 @@ import dev.nesk.akkurate.validatables.Validatable
 import dev.nesk.akkurate.validatables.validatableOf
 import kotlin.Int
 import kotlin.String
+import kotlin.Suppress
 import kotlin.jvm.JvmName
 import kotlin.reflect.KProperty1
 
@@ -13,4 +14,5 @@ public val Validatable<String>.length: Validatable<Int>
 
 public val Validatable<String?>.length: Validatable<Int?>
   @JvmName(name = "validatableNullableStringLength")
+  @Suppress("USELESS_CAST")
   get() = validatableOf(String::length as KProperty1)

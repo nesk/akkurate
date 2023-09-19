@@ -4,6 +4,7 @@ import dev.nesk.Company
 import dev.nesk.User
 import dev.nesk.akkurate.validatables.Validatable
 import dev.nesk.akkurate.validatables.validatableOf
+import kotlin.Suppress
 import kotlin.jvm.JvmName
 import kotlin.reflect.KProperty1
 
@@ -13,6 +14,7 @@ public val Validatable<Company>.admin: Validatable<User?>
 
 public val Validatable<Company?>.admin: Validatable<User?>
   @JvmName(name = "validatableNullableCompanyAdmin")
+  @Suppress("USELESS_CAST")
   get() = validatableOf(Company::admin as KProperty1)
 
 public val Validatable<User>.company: Validatable<Company?>
@@ -21,4 +23,5 @@ public val Validatable<User>.company: Validatable<Company?>
 
 public val Validatable<User?>.company: Validatable<Company?>
   @JvmName(name = "validatableNullableUserCompany")
+  @Suppress("USELESS_CAST")
   get() = validatableOf(User::company as KProperty1)

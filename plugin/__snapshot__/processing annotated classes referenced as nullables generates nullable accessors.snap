@@ -5,6 +5,7 @@ import dev.nesk.UserName
 import dev.nesk.akkurate.validatables.Validatable
 import dev.nesk.akkurate.validatables.validatableOf
 import kotlin.String
+import kotlin.Suppress
 import kotlin.jvm.JvmName
 import kotlin.reflect.KProperty1
 
@@ -14,6 +15,7 @@ public val Validatable<User>.name: Validatable<UserName?>
 
 public val Validatable<User?>.name: Validatable<UserName?>
   @JvmName(name = "validatableNullableUserName")
+  @Suppress("USELESS_CAST")
   get() = validatableOf(User::name as KProperty1)
 
 public val Validatable<UserName>.text: Validatable<String>
@@ -22,4 +24,5 @@ public val Validatable<UserName>.text: Validatable<String>
 
 public val Validatable<UserName?>.text: Validatable<String?>
   @JvmName(name = "validatableNullableUserNameText")
+  @Suppress("USELESS_CAST")
   get() = validatableOf(UserName::text as KProperty1)

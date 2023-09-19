@@ -10,6 +10,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Fixed
 
 - The target version of generated JVM bytecode is now 1.8 instead of 11. (https://github.com/nesk/akkurate/issues/5)
+- Suppress the warning about useless casts in generated accessors. (https://github.com/nesk/akkurate/issues/8)
 
 ## [0.1.0] - 2023-09-12
 

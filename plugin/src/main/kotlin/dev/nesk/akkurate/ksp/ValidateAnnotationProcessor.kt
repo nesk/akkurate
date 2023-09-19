@@ -35,6 +35,8 @@ class ValidateAnnotationProcessor(
         // a circular dependency; so we must manually create name references for some symbols contained in the library.
         val validatableOfFunction = MemberName("dev.nesk.akkurate.validatables", "validatableOf")
         val validatableClass = ClassName("dev.nesk.akkurate.validatables", "Validatable")
+
+        private val suppressUselessCast = AnnotationSpec.builder(Suppress::class).addMember("%S", "USELESS_CAST").build()
     }
 
     private var validatableClasses: Set<String> = config.normalizedValidatableClasses
@@ -158,8 +160,9 @@ class ValidateAnnotationProcessor(
                             .build()
                     )
 
+                    // FIXME: The cast is a workaround for https://youtrack.jetbrains.com/issue/KT-59493, it can be removed with KT v1.9.20.
                     if (withNullableReceiver) {
-                        // FIXME: The cast is a workaround for https://youtrack.jetbrains.com/issue/KT-59493, it can be removed with KT v1.9.20
+                        addAnnotation(suppressUselessCast)
                         addStatement("return %M(%T::%N as %T)", validatableOfFunction, receiver.toTypeName(), toMemberName(), kProperty1Class)
                     } else {
                         addStatement("return %M(%T::%N)", validatableOfFunction, receiver.toTypeName(), toMemberName())
