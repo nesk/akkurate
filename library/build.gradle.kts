@@ -16,7 +16,7 @@ kotlin {
     explicitApi()
 
     jvm {
-        jvmToolchain(11)
+        jvmToolchain(8)
         withJava()
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
