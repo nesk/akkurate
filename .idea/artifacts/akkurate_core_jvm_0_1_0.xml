@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="akkurate-core-jvm-0.1.0">
-    <output-path>$PROJECT_DIR$/library/build/libs</output-path>
-    <root id="archive" name="akkurate-core-jvm-0.1.0.jar">
-      <element id="module-output" name="dev.nesk.akkurate.akkurate.akkurate-core.jvmMain" />
-    </root>
-  </artifact>
-</component>
