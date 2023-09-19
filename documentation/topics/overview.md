@@ -61,7 +61,7 @@ when (val result = validateBook(someBook)) {
 }
 ```
 
-Note how each constraint applied to a property can be read like a sentence. This code:
+Notice how each constraint applied to a property can be read like a sentence. This code:
 
 ```kotlin
 title.isNotEmpty() otherwise { "Missing title" }
@@ -95,5 +95,7 @@ Check if 'title' is not empty otherwise write "Missing title".
 <seealso style="cards">
   <category ref="external">
     <a href="%github_product_url%">GitHub repository</a>
+    <a href="%github_product_url%/discussions">Community</a>
+    <a href="%github_product_url%/discussions">Roadmap</a>
   </category>
 </seealso>

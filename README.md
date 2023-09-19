@@ -62,7 +62,7 @@ when (val result = validateBook(someBook)) {
 }
 ```
 
-Note how each constraint applied to a property can be read like a sentence. This code:
+Notice how each constraint applied to a property can be read like a sentence. This code:
 
 ```kotlin
 title.isNotEmpty() otherwise { "Missing title" }
@@ -77,32 +77,30 @@ Check if 'title' is not empty otherwise write "Missing title".
 ## Features
 
 - **Beautiful DSL and API.** \
-  Write crystal clear validation code and keep it <tooltip term="DRY">DRY</tooltip>. Use
-  loops and conditions when needed; forget about annotation hell.
-  
+  Write crystal clear validation code and keep it <tooltip term="DRY">DRY</tooltip>. Use loops and conditions when
+  needed; forget about annotation hell.
+
 - **Bundled with all the essential constraints.** \
-  Write custom constraints for your business logic and nothing more. The
-  rest? It's on us!
-  
+  Write custom constraints for your business logic and nothing more. The rest? It's on us!
+
 - **Easily and highly extendable.** \
-  No need to write verbose code to create custom constraints, within Akkurate they're
-  as simple as a lambda with parameters.
-  
+  No need to write verbose code to create custom constraints, within Akkurate they're as simple as a lambda with
+  parameters.
+
 - **Contextual and asynchronous.** \
-  Query sync/async data sources whenever you need to, like a database, or a REST API.
-  Everything can happen inside validation.
-  
+  Query sync/async data sources whenever you need to, like a database, or a REST API. Everything can happen inside
+  validation.
+
 - ⏱ **Testable out of the box.** \
-  Finding how to test your validation code shouldn't
-  be one of your tasks. You will find all the tools you need to write good tests.
-  
+  Finding how to test your validation code shouldn't be one of your tasks. You will find all the tools you need to write
+  good tests.
+
 - ⏱ **Integrated with your favorite tools.** \
-  Validate your data within any popular
-  framework, we take care of the integrations for you.
-  
+  Validate your data within any popular framework, we take care of the integrations for you.
+
 - ⏱ **Code once, deploy everywhere.** \
-  Take advantage of Kotlin Multiplatform; write
-  your validation code once, use it both for front-end and back-end usages.
+  Take advantage of Kotlin Multiplatform; write your validation code once, use it both for front-end and back-end
+  usages.
 
 > [!NOTE]
 > Features marked with ⏱ are on the roadmap.
