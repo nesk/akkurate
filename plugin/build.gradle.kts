@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.dokka")
     `maven-publish`
     signing
+    id("com.adarshr.test-logger") version "3.2.0"
 }
 
 buildscript {
