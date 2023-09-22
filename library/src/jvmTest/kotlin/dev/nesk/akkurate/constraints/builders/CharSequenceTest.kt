@@ -57,6 +57,40 @@ class CharSequenceTest {
     }
     //endregion
 
+    //region hasLengthEqualTo
+    @Test
+    fun `'hasLengthEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<CharSequence?>(null).hasLengthEqualTo(0).satisfied)
+    }
+
+    @Test
+    fun `'hasLengthEqualTo' succeeds when the length is equal to the provided one`() {
+        assertTrue(Validatable("foo").hasLengthEqualTo(3).satisfied)
+    }
+
+    @Test
+    fun `'hasLengthEqualTo' fails when the length is not equal to the provided one`() {
+        assertFalse(Validatable("foo").hasLengthEqualTo(-1).satisfied)
+    }
+    //endregion
+
+    //region hasLengthNotEqualTo
+    @Test
+    fun `'hasLengthNotEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<CharSequence?>(null).hasLengthNotEqualTo(0).satisfied)
+    }
+
+    @Test
+    fun `'hasLengthNotEqualTo' succeeds when the length is not equal to the provided one`() {
+        assertTrue(Validatable("foo").hasLengthNotEqualTo(-1).satisfied)
+    }
+
+    @Test
+    fun `'hasLengthNotEqualTo' fails when the length is equal to the provided one`() {
+        assertFalse(Validatable("foo").hasLengthNotEqualTo(3).satisfied)
+    }
+    //endregion
+
     //region hasLengthLowerThan
     @Test
     fun `'hasLengthLowerThan' succeeds when the value is null`() {

@@ -28,6 +28,12 @@ public fun Validatable<CharSequence?>.isEmpty(): Constraint =
 public fun Validatable<CharSequence?>.isNotEmpty(): Constraint =
     constrainIfNotNull { it.isNotEmpty() } otherwise { "Must not be empty" }
 
+public fun Validatable<CharSequence?>.hasLengthEqualTo(length: Int): Constraint =
+    constrainIfNotNull { it.length == length } otherwise { "Length must be equal to $length" }
+
+public fun Validatable<CharSequence?>.hasLengthNotEqualTo(length: Int): Constraint =
+    constrainIfNotNull { it.length != length } otherwise { "Length must be different from $length" }
+
 public fun Validatable<CharSequence?>.hasLengthLowerThan(length: Int): Constraint =
     constrainIfNotNull { it.length < length } otherwise { "Length must be lower than $length" }
 

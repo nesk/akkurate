@@ -12,7 +12,13 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Change visibility of `ValidateAnnotationProcessor.validatableOfFunction` to private. ([#12](https://github.com/nesk/akkurate/issues/12))
 - Change visibility of `ValidateAnnotationProcessor.validatableClass` to private. ([#12](https://github.com/nesk/akkurate/issues/12))
 
-### Changes
+### Added
+
+- Add new constraints ([#3](https://github.com/nesk/akkurate/issues/3)):
+  - `CharSequence`
+    - `hasLengthEqualTo` / `hasLengthNotEqualTo`  
+
+### Changed
 
 - Enable [Explicit API Mode](https://kotlinlang.org/docs/jvm-api-guidelines-backward-compatibility.html#explicit-api-mode) for the KSP plugin. ([#12](https://github.com/nesk/akkurate/issues/12)) 
 
