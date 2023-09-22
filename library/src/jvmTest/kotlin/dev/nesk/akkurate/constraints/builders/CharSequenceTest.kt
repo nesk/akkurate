@@ -214,6 +214,40 @@ class CharSequenceTest {
     }
     //endregion
 
+    //region isMatching
+    @Test
+    fun `'isMatching' succeeds when the value is null`() {
+        assertTrue(Validatable<CharSequence?>(null).isMatching(Regex("")).satisfied)
+    }
+
+    @Test
+    fun `'isMatching' succeeds when the value matches the provided regular expression`() {
+        assertTrue(Validatable("foo").isMatching(Regex("^fo{2}$")).satisfied)
+    }
+
+    @Test
+    fun `'isMatching' fails when the value doesn't match the provided regular expression`() {
+        assertFalse(Validatable("foo").isMatching(Regex("^fo{1}$")).satisfied)
+    }
+    //endregion
+
+    //region isNotMatching
+    @Test
+    fun `'isNotMatching' succeeds when the value is null`() {
+        assertTrue(Validatable<CharSequence?>(null).isNotMatching(Regex("")).satisfied)
+    }
+
+    @Test
+    fun `'isNotMatching' succeeds when the value matches the provided regular expression`() {
+        assertTrue(Validatable("foo").isNotMatching(Regex("^fo{1}$")).satisfied)
+    }
+
+    @Test
+    fun `'isNotMatching' fails when the value doesn't match the provided regular expression`() {
+        assertFalse(Validatable("foo").isNotMatching(Regex("^fo{2}")).satisfied)
+    }
+    //endregion
+
     //region isStartingWith
     @Test
     fun `'isStartingWith' succeeds when the value is null`() {

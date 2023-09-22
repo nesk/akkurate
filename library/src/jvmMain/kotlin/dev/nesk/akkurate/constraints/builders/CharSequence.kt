@@ -55,6 +55,12 @@ public fun Validatable<CharSequence?>.hasLengthGreaterThanOrEqualTo(length: Int)
 public fun Validatable<CharSequence?>.hasLengthBetween(range: IntRange): Constraint =
     constrainIfNotNull { it.length in range } otherwise { "Length must be between ${range.first} and ${range.last}" }
 
+public fun Validatable<CharSequence?>.isMatching(regex: Regex): Constraint =
+    constrainIfNotNull { regex.matches(it) } otherwise { "Must match the following pattern: ${regex.pattern}" }
+
+public fun Validatable<CharSequence?>.isNotMatching(regex: Regex): Constraint =
+    constrainIfNotNull { !regex.matches(it) } otherwise { "Must not match the following pattern: ${regex.pattern}" }
+
 public fun Validatable<CharSequence?>.isStartingWith(prefix: CharSequence): Constraint =
     constrainIfNotNull { it.startsWith(prefix) } otherwise { "Must start with \"$prefix\"" }
 
