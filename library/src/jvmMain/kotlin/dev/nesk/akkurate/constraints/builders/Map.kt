@@ -33,6 +33,14 @@ import dev.nesk.akkurate.validatables.Validatable
 
 // TODO: add contains/doesNotContain
 
+@JvmName("mapIsEmpty")
+public fun <T> Validatable<Map<*, T>?>.isEmpty(): Constraint =
+    constrainIfNotNull { it.isEmpty() } otherwise { "Must be empty" }
+
+@JvmName("mapIsNotEmpty")
+public fun <T> Validatable<Map<*, T>?>.isNotEmpty(): Constraint =
+    constrainIfNotNull { it.isNotEmpty() } otherwise { "Must not be empty" }
+
 @JvmName("mapHasSizeEqualTo")
 public fun <T> Validatable<Map<*, T>?>.hasSizeEqualTo(size: Int): Constraint =
     constrainIfNotNull { it.size == size } otherwise { "The number of items must be equal to $size" }

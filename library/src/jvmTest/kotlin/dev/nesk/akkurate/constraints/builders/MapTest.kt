@@ -38,10 +38,49 @@ class MapTest {
         private val SIZE_PLUS_ONE = VALUE.size + 1
         private val SIZE_MINUS_ONE = VALUE.size - 1
         private val VALIDATABLE = Validatable(VALUE)
+        private val EMPTY_VALIDATABLE = Validatable(emptyMap<Int, Char>())
 
         private const val NULL_SIZE = Int.MAX_VALUE // no matter the size
         private val NULL_VALIDATABLE = Validatable<Map<*, *>?>(null)
     }
+
+    //region isEmpty
+
+    @Test
+    fun `'isEmpty' succeeds when the value is null`() {
+        assertTrue(NULL_VALIDATABLE.isEmpty().satisfied)
+    }
+
+    @Test
+    fun `'isEmpty' succeeds when the value is empty`() {
+        assertTrue(EMPTY_VALIDATABLE.isEmpty().satisfied)
+    }
+
+    @Test
+    fun `'isEmpty' fails when the value is not empty`() {
+        assertFalse(VALIDATABLE.isEmpty().satisfied)
+    }
+
+    //endregion
+
+    //region isNotEmpty
+
+    @Test
+    fun `'isNotEmpty' succeeds when the value is null`() {
+        assertTrue(NULL_VALIDATABLE.isNotEmpty().satisfied)
+    }
+
+    @Test
+    fun `'isNotEmpty' succeeds when the value is not empty`() {
+        assertTrue(VALIDATABLE.isNotEmpty().satisfied)
+    }
+
+    @Test
+    fun `'isNotEmpty' fails when the value is empty`() {
+        assertFalse(EMPTY_VALIDATABLE.isNotEmpty().satisfied)
+    }
+
+    //endregion
 
     //region hasSizeEqualTo
 

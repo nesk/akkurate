@@ -21,6 +21,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
     - `isMatching` / `isNotMatching`
   - `kotlin.collections`
     - `hasSizeNotEqualTo`
+    - `isEmpty` / `isNotEmpty`
 
 ### Changed
 

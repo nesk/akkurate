@@ -33,6 +33,14 @@ import dev.nesk.akkurate.validatables.Validatable
 
 // TODO: add contains/doesNotContain
 
+@JvmName("arrayIsEmpty")
+public fun <T> Validatable<Array<out T>?>.isEmpty(): Constraint =
+    constrainIfNotNull { it.isEmpty() } otherwise { "Must be empty" }
+
+@JvmName("arrayIsNotEmpty")
+public fun <T> Validatable<Array<out T>?>.isNotEmpty(): Constraint =
+    constrainIfNotNull { it.isNotEmpty() } otherwise { "Must not be empty" }
+
 @JvmName("arrayHasSizeEqualTo")
 public fun <T> Validatable<Array<out T>?>.hasSizeEqualTo(size: Int): Constraint =
     constrainIfNotNull { it.size == size } otherwise { "The number of items must be equal to $size" }
