@@ -17,6 +17,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Add new constraints ([#3](https://github.com/nesk/akkurate/issues/3)):
   - `CharSequence`
     - `hasLengthEqualTo` / `hasLengthNotEqualTo`  
+    - `isBlank` / `isNotBlank`  
 
 ### Changed
 

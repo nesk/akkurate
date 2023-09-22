@@ -57,6 +57,40 @@ class CharSequenceTest {
     }
     //endregion
 
+    //region isBlank
+    @Test
+    fun `'isBlank' succeeds when the value is null`() {
+        assertTrue(Validatable<CharSequence?>(null).isBlank().satisfied)
+    }
+
+    @Test
+    fun `'isBlank' succeeds when the value is blank`() {
+        assertTrue(Validatable("  \t\n").isBlank().satisfied)
+    }
+
+    @Test
+    fun `'isBlank' fails when the value is not blank`() {
+        assertFalse(Validatable("foo").isBlank().satisfied)
+    }
+    //endregion
+
+    //region isNotBlank
+    @Test
+    fun `'isNotBlank' succeeds when the value is null`() {
+        assertTrue(Validatable<CharSequence?>(null).isNotBlank().satisfied)
+    }
+
+    @Test
+    fun `'isNotBlank' succeeds when the value is not blank`() {
+        assertTrue(Validatable("foo").isNotBlank().satisfied)
+    }
+
+    @Test
+    fun `'isNotBlank' fails when the value is blank`() {
+        assertFalse(Validatable("  \t\n").isNotBlank().satisfied)
+    }
+    //endregion
+
     //region hasLengthEqualTo
     @Test
     fun `'hasLengthEqualTo' succeeds when the value is null`() {
