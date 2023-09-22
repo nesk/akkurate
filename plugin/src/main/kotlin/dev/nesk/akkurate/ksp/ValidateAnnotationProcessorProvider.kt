@@ -21,7 +21,7 @@ import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.processing.SymbolProcessorProvider
 
-class ValidateAnnotationProcessorProvider : SymbolProcessorProvider {
+public class ValidateAnnotationProcessorProvider : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
         val options = environment.options
         var config = ValidateAnnotationProcessorConfig().apply {

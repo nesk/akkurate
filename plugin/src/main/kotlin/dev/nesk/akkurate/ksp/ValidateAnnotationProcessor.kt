@@ -25,16 +25,16 @@ import dev.nesk.akkurate.annotations.Validate
 import java.io.OutputStreamWriter
 import kotlin.reflect.KProperty1
 
-class ValidateAnnotationProcessor(
+public class ValidateAnnotationProcessor(
     private val codeGenerator: CodeGenerator,
     private val logger: KSPLogger,
     private val config: ValidateAnnotationProcessorConfig,
 ) : SymbolProcessor {
-    companion object {
+    public companion object {
         // The KSP plugin can't depend on the library, because the latter already depends on the KSP plugin, which would create
         // a circular dependency; so we must manually create name references for some symbols contained in the library.
-        val validatableOfFunction = MemberName("dev.nesk.akkurate.validatables", "validatableOf")
-        val validatableClass = ClassName("dev.nesk.akkurate.validatables", "Validatable")
+        private val validatableOfFunction = MemberName("dev.nesk.akkurate.validatables", "validatableOf")
+        private val validatableClass = ClassName("dev.nesk.akkurate.validatables", "Validatable")
 
         private val suppressUselessCast = AnnotationSpec.builder(Suppress::class).addMember("%S", "USELESS_CAST").build()
     }

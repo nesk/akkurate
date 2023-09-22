@@ -17,7 +17,7 @@
 
 package dev.nesk.akkurate.ksp
 
-data class ValidateAnnotationProcessorConfig(
+public data class ValidateAnnotationProcessorConfig(
     /**
      * Each accessor will be generated with a package composed of the original one appended with this value.
      *

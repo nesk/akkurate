@@ -7,14 +7,21 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### ⚠️ Breaking changes
+
+- Change visibility of `ValidateAnnotationProcessor.validatableOfFunction` to private. ([#12](https://github.com/nesk/akkurate/issues/12))
+- Change visibility of `ValidateAnnotationProcessor.validatableClass` to private. ([#12](https://github.com/nesk/akkurate/issues/12))
+
+### Changes
+
+- Enable [Explicit API Mode](https://kotlinlang.org/docs/jvm-api-guidelines-backward-compatibility.html#explicit-api-mode) for the KSP plugin. ([#12](https://github.com/nesk/akkurate/issues/12)) 
+
 ## [0.1.1] - 2023-09-21
 
 ### Fixed
 
-- The target version of generated JVM bytecode is now 1.8 instead of 11.
-([#5](https://github.com/nesk/akkurate/issues/5))
-- Suppress the warning about useless casts in generated accessors.
-([#8](https://github.com/nesk/akkurate/issues/8))
+- The target version of generated JVM bytecode is now 1.8 instead of 11. ([#5](https://github.com/nesk/akkurate/issues/5))
+- Suppress the warning about useless casts in generated accessors. ([#8](https://github.com/nesk/akkurate/issues/8))
 
 ## [0.1.0] - 2023-09-12
 
