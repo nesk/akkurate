@@ -37,6 +37,10 @@ import dev.nesk.akkurate.validatables.Validatable
 public fun <T> Validatable<Map<*, T>?>.hasSizeEqualTo(size: Int): Constraint =
     constrainIfNotNull { it.size == size } otherwise { "The number of items must be equal to $size" }
 
+@JvmName("mapHasSizeNotEqualTo")
+public fun <T> Validatable<Map<*, T>?>.hasSizeNotEqualTo(size: Int): Constraint =
+    constrainIfNotNull { it.size != size } otherwise { "The number of items must be different from $size" }
+
 @JvmName("mapHasSizeLowerThan")
 public fun <T> Validatable<Map<*, T>?>.hasSizeLowerThan(size: Int): Constraint =
     constrainIfNotNull { it.size < size } otherwise { "The number of items must be lower than $size" }

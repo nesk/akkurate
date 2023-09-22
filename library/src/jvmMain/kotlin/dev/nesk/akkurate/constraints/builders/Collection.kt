@@ -37,6 +37,10 @@ import dev.nesk.akkurate.validatables.Validatable
 public fun <T> Validatable<Collection<T>?>.hasSizeEqualTo(size: Int): Constraint =
     constrainIfNotNull { it.size == size } otherwise { "The number of items must be equal to $size" }
 
+@JvmName("collectionHasSizeNotEqualTo")
+public fun <T> Validatable<Collection<T>?>.hasSizeNotEqualTo(size: Int): Constraint =
+    constrainIfNotNull { it.size != size } otherwise { "The number of items must be different from $size" }
+
 @JvmName("collectionHasSizeLowerThan")
 public fun <T> Validatable<Collection<T>?>.hasSizeLowerThan(size: Int): Constraint =
     constrainIfNotNull { it.size < size } otherwise { "The number of items must be lower than $size" }

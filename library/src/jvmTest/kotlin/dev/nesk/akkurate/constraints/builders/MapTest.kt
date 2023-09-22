@@ -22,8 +22,7 @@ import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-/**
- *
+/*
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  * !!! THE FOLLOWING CODE MUST BE SYNCED ACROSS `ArrayTest`, `CollectionTest` AND `MapTest` !!!
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -31,6 +30,7 @@ import kotlin.test.assertTrue
  * The validation API is the same across `Array`, `Collection` and `Map` types, and so are the tests.
  * But, due to missing union types in Kotlin, we must duplicate the code for each of those tests.
  */
+
 class MapTest {
     companion object {
         private val VALUE = mapOf(1 to 'f', 2 to 'o', 3 to 'o')
@@ -59,6 +59,26 @@ class MapTest {
     fun `'hasSizeEqualTo' fails when the size is different than the provided one`() {
         assertFalse(VALIDATABLE.hasSizeEqualTo(SIZE_MINUS_ONE).satisfied, "The constraint is not satisfied when the size is greater than the provided one")
         assertFalse(VALIDATABLE.hasSizeEqualTo(SIZE_PLUS_ONE).satisfied, "The constraint is not satisfied when the size is lower than the provided one")
+    }
+
+    //endregion
+
+    //region hasSizeNotEqualTo
+
+    @Test
+    fun `'hasSizeNotEqualTo' succeeds when the value is null`() {
+        assertTrue(NULL_VALIDATABLE.hasSizeNotEqualTo(NULL_SIZE).satisfied)
+    }
+
+    @Test
+    fun `'hasSizeNotEqualTo' succeeds when the size is different than the provided one`() {
+        assertTrue(VALIDATABLE.hasSizeNotEqualTo(SIZE_MINUS_ONE).satisfied, "The constraint is satisfied when the size is greater than the provided one")
+        assertTrue(VALIDATABLE.hasSizeNotEqualTo(SIZE_PLUS_ONE).satisfied, "The constraint is satisfied when the size is lower than the provided one")
+    }
+
+    @Test
+    fun `'hasSizeNotEqualTo' fails when the size is equal to the provided one`() {
+        assertFalse(VALIDATABLE.hasSizeNotEqualTo(EXACT_SIZE).satisfied)
     }
 
     //endregion
