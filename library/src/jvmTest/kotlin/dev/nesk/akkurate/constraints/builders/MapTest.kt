@@ -221,5 +221,82 @@ class MapTest {
     }
 
     //endregion
+
+
+    //region isContainingKey
+
+    @Test
+    fun `'isContainingKey' succeeds when the value is null`() {
+        assertTrue(NULL_VALIDATABLE.isContainingKey(Int.MAX_VALUE).satisfied)
+    }
+
+    @Test
+    fun `'isContainingKey' succeeds when the value contains the provided item`() {
+        assertTrue(VALIDATABLE.isContainingKey(1).satisfied)
+    }
+
+    @Test
+    fun `'isContainingKey' fails when the value does not contain the provided item`() {
+        assertFalse(VALIDATABLE.isContainingKey(-1).satisfied)
+    }
+
+    //endregion
+
+    //region isNotContainingKey
+
+    @Test
+    fun `'isNotContainingKey' succeeds when the value is null`() {
+        assertTrue(NULL_VALIDATABLE.isNotContainingKey(Int.MAX_VALUE).satisfied)
+    }
+
+    @Test
+    fun `'isNotContainingKey' succeeds when the value does not contain the provided item`() {
+        assertTrue(VALIDATABLE.isNotContainingKey(-1).satisfied)
+    }
+
+    @Test
+    fun `'isNotContainingKey' fails when the value contains the provided item`() {
+        assertFalse(VALIDATABLE.isNotContainingKey(1).satisfied)
+    }
+
+    //endregion
+
+    //region isContainingValue
+
+    @Test
+    fun `'isContainingValue' succeeds when the value is null`() {
+        assertTrue(NULL_VALIDATABLE.isContainingValue(' ').satisfied)
+    }
+
+    @Test
+    fun `'isContainingValue' succeeds when the value contains the provided item`() {
+        assertTrue(VALIDATABLE.isContainingValue('o').satisfied)
+    }
+
+    @Test
+    fun `'isContainingValue' fails when the value does not contain the provided item`() {
+        assertFalse(VALIDATABLE.isContainingValue('a').satisfied)
+    }
+
+    //endregion
+
+    //region isNotContainingValue
+
+    @Test
+    fun `'isNotContainingValue' succeeds when the value is null`() {
+        assertTrue(NULL_VALIDATABLE.isNotContainingValue(' ').satisfied)
+    }
+
+    @Test
+    fun `'isNotContainingValue' succeeds when the value does not contain the provided item`() {
+        assertTrue(VALIDATABLE.isNotContainingValue('a').satisfied)
+    }
+
+    @Test
+    fun `'isNotContainingValue' fails when the value contains the provided item`() {
+        assertFalse(VALIDATABLE.isNotContainingValue('o').satisfied)
+    }
+
+    //endregion
 }
 

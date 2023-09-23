@@ -31,8 +31,6 @@ import dev.nesk.akkurate.validatables.Validatable
  * union types in Kotlin, we must duplicate the code for each of those types.
  */
 
-// TODO: add contains/doesNotContain
-
 @JvmName("mapIsEmpty")
 public fun <T> Validatable<Map<*, T>?>.isEmpty(): Constraint =
     constrainIfNotNull { it.isEmpty() } otherwise { "Must be empty" }
@@ -68,3 +66,15 @@ public fun <T> Validatable<Map<*, T>?>.hasSizeGreaterThanOrEqualTo(size: Int): C
 @JvmName("mapHasSizeBetween")
 public fun <T> Validatable<Map<*, T>?>.hasSizeBetween(range: IntRange): Constraint =
     constrainIfNotNull { it.size in range } otherwise { "The number of items must be between ${range.first} and ${range.last}" }
+
+public fun <K> Validatable<Map<out K, *>?>.isContainingKey(key: K): Constraint =
+    constrainIfNotNull { it.containsKey(key) } otherwise { "Must contain key \"$key\"" }
+
+public fun <K> Validatable<Map<out K, *>?>.isNotContainingKey(key: K): Constraint =
+    constrainIfNotNull { !it.containsKey(key) } otherwise { "Must contain key \"$key\"" }
+
+public fun <V> Validatable<Map<*, V>?>.isContainingValue(value: V): Constraint =
+    constrainIfNotNull { it.containsValue(value) } otherwise { "Must contain value \"$value\"" }
+
+public fun <V> Validatable<Map<*, V>?>.isNotContainingValue(value: V): Constraint =
+    constrainIfNotNull { !it.containsValue(value) } otherwise { "Must contain value \"$value\"" }
