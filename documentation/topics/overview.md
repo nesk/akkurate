@@ -96,6 +96,6 @@ Check if 'title' is not empty otherwise write "Missing title".
   <category ref="external">
     <a href="%github_product_url%">GitHub repository</a>
     <a href="%github_product_url%/discussions">Community</a>
-    <a href="%github_product_url%/discussions">Roadmap</a>
+    <a href="%roadmap_url%">Roadmap</a>
   </category>
 </seealso>
