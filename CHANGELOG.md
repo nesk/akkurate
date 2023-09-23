@@ -22,6 +22,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   - `kotlin.collections`
     - `hasSizeNotEqualTo`
     - `isEmpty` / `isNotEmpty`
+    - `isContaining` / `isNotContaining`
 
 ### Changed
 

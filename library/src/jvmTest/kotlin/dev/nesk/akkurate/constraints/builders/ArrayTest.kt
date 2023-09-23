@@ -221,4 +221,42 @@ class ArrayTest {
     }
 
     //endregion
+
+    //region isContaining
+
+    @Test
+    fun `'isContaining' succeeds when the value is null`() {
+        assertTrue(NULL_VALIDATABLE.isContaining(' ').satisfied)
+    }
+
+    @Test
+    fun `'isContaining' succeeds when the value contains the provided element`() {
+        assertTrue(VALIDATABLE.isContaining('o').satisfied)
+    }
+
+    @Test
+    fun `'isContaining' fails when the value does not contain the provided element`() {
+        assertFalse(VALIDATABLE.isContaining('a').satisfied)
+    }
+
+    //endregion
+
+    //region isNotContaining
+
+    @Test
+    fun `'isNotContaining' succeeds when the value is null`() {
+        assertTrue(NULL_VALIDATABLE.isNotContaining(' ').satisfied)
+    }
+
+    @Test
+    fun `'isNotContaining' succeeds when the value does not contain the provided element`() {
+        assertTrue(VALIDATABLE.isNotContaining('a').satisfied)
+    }
+
+    @Test
+    fun `'isNotContaining' fails when the value contains the provided element`() {
+        assertFalse(VALIDATABLE.isNotContaining('o').satisfied)
+    }
+
+    //endregion
 }

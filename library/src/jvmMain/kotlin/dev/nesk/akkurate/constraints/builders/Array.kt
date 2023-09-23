@@ -31,8 +31,6 @@ import dev.nesk.akkurate.validatables.Validatable
  * union types in Kotlin, we must duplicate the code for each of those types.
  */
 
-// TODO: add contains/doesNotContain
-
 @JvmName("arrayIsEmpty")
 public fun <T> Validatable<Array<out T>?>.isEmpty(): Constraint =
     constrainIfNotNull { it.isEmpty() } otherwise { "Must be empty" }
@@ -68,3 +66,11 @@ public fun <T> Validatable<Array<out T>?>.hasSizeGreaterThanOrEqualTo(size: Int)
 @JvmName("arrayHasSizeBetween")
 public fun <T> Validatable<Array<out T>?>.hasSizeBetween(range: IntRange): Constraint =
     constrainIfNotNull { it.size in range } otherwise { "The number of items must be between ${range.first} and ${range.last}" }
+
+@JvmName("arrayIsContaining")
+public fun <T> Validatable<Array<out T>?>.isContaining(element: T): Constraint =
+    constrainIfNotNull { it.contains(element) } otherwise { "Must contain \"$element\"" }
+
+@JvmName("arrayIsNotContaining")
+public fun <T> Validatable<Array<out T>?>.isNotContaining(element: T): Constraint =
+    constrainIfNotNull { !it.contains(element) } otherwise { "Must not contain \"$element\"" }
