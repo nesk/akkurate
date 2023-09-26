@@ -7,6 +7,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.2.0] - 2023-09-26
+
 ### ⚠️ Breaking changes
 
 - Change visibility of `ValidateAnnotationProcessor.validatableOfFunction` to private. ([#12](https://github.com/nesk/akkurate/issues/12))
@@ -42,8 +44,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 First release
 
-[Unreleased]: https://github.com/nesk/akkurate/compare/0.1.1...HEAD
-
+[Unreleased]: https://github.com/nesk/akkurate/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/nesk/akkurate/compare/0.1.1...0.2.0
 [0.1.1]: https://github.com/nesk/akkurate/compare/0.1.0...0.1.1
-
 [0.1.0]: https://github.com/nesk/akkurate/releases/tag/0.1.0
