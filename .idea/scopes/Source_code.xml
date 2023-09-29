@@ -1,3 +1,3 @@
 <component name="DependencyValidationManager">
-  <scope name="Source code" pattern="src[akkurate.library*]:*..*||src[akkurate.plugin*]:*..*||src[akkurate.examples.walkthrough*]:*..*||test[akkurate.library*]:*..*||test[akkurate.plugin*]:*..*" />
+  <scope name="Source code" pattern="src[dev*]:*..*||test:*..*" />
 </component>
