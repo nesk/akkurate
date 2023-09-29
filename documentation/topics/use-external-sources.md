@@ -1,7 +1,7 @@
 # Use external sources
 
-Data validation can sometimes rely on external sources, a database, an HTTP API, a file, among other things. %product%
-comes with a mechanic of contextual validation to allow using those external sources during validation.
+Data validation can sometimes rely on external sources, a database, an HTTP API, even a file. %product% comes with a
+mechanic of contextual validation to allow using those external sources during validation.
 
 ## Contextual validation
 
@@ -9,42 +9,58 @@ comes with a mechanic of contextual validation to allow using those external sou
 were using the following global variable to query our database:
 
 ```kotlin
-val userDao = object {
-    fun existsByHandle(handle: String) = true // fake implementation
+val userDao = object : UserDao {
+    override fun existsByUsername(username: String): Boolean = TODO()
 }
 ```
 
-However, instead of global variable, there is a high chance you store your DAO instance inside a container and inject it
-wherever you need.
+However, instead of using a global variable, you're probably storing your DAO instance inside a container and injecting
+it wherever you need.
 
-Contextual validation allows you to pass a context to your validator, in addition to the validated object. To use a
-context with a validator, instead of instantiating `Validator<ValueType>`, we
-instantiate `Validator<ContextType, ValueType>`.
+%product% allows you to pass a context to your validator in addition to the validated object. This is done by
+using `Validator<ContextType, ValueType>` to instantiate the validator.
 
-Here's a validator checking if the validated string is contained within the contextual list:
+Let's reuse [our Twitter example](complex-structures.md#conditional-constraints) and adapt it with this new feature:
 
 ```kotlin
-val validateContains = Validator<List<String>, String> { list ->
-    // list: List<String>
-    constrain { list.contains(it) }
+// We remove the global variable and only keep the interface.
+interface UserDao {
+    fun existsByUsername(username: String): Boolean
+}
+
+@Validate
+data class UserUpdate(val username: String)
+
+val validate = Validator<UserDao, UserUpdate> { userDao ->
+    //     The context is passed as a parameter ^^^^^^^
+
+    val (isValidUsername) = username.hasLengthGreaterThanOrEqualTo(5)
+
+    if (isValidUsername) {
+        username.constrain {
+            // Use the context wherever you want.
+            !userDao.existsByUsername(it)
+        } otherwise { "This username is already taken" }
+    }
 }
 ```
 
-The context type is passed first, then the value type. The context will then be passed as the first parameter of the
-lambda.
+The _context type_ is passed first, then the value type; while the _context value_ is available as the first parameter
+of the lambda.
 
-To run the validation, call your validator with the context first, and the value next:
+Now, when calling our validator, we have to provide an instance of `UserDao` before the value to validate:
 
 ```kotlin
-val names = listOf("john", "sarah", "alex")
+val someUserDao: UserDao = TODO()
+val someUserUpdate: UserUpdate = TODO()
 
-validateContains(names, "sarah") // success
+validate(someUserDao, someUserUpdate)
 ```
 
-> We're not supporting
+> We don't support
 > [Kotlin's context receivers](https://github.com/Kotlin/KEEP/blob/310b1f798edd5313dbc48b2f54a234ffee5d6314/proposals/context-receivers.md)
-> yet. Because they're still experimental, the implementation and the API aren't stable, and they don't
-> provide as much flexibility as our custom implementation.
+> as they're still experimental (the implementation and API aren't stable). Also, they don't provide as much flexibility
+> as our custom implementation.
 
 {style="note"}
 
@@ -56,10 +72,12 @@ code hierarchy and let some more specific code provide the object to validate.
 You can solve this by [currying](https://en.wikipedia.org/wiki/Currying) your validator:
 
 ```kotlin
-val validateContainsName = validateContains(names)
+val validateWithSomeUserDao = validate(someUserDao)
+val userUpdate1: UserUpdate = TODO()
+val userUpdate2: UserUpdate = TODO()
 
-validateContainsName("sarah") // success
-validateContainsName("trudy") // failure
+validateWithSomeUserDao(userUpdate1)
+validateWithSomeUserDao(userUpdate2)
 ```
 
 ### Use multiple contextual objects
@@ -67,14 +85,13 @@ validateContainsName("trudy") // failure
 When you need to pass multiple objects as a context, create a data class to wrap them:
 
 ```kotlin
-interface BookDao
-interface UserDao
+interface TweetDao
 
-data class BookUserContext(val bookDao: BookDao, val userDao: UserDao)
+data class Context(val userDao: UserDao, val tweetDao: TweetDao)
 
-Validator<BookUserContext, Any> { context ->
-    context.bookDao // BookDao 
+Validator<Context, Any> { context ->
     context.userDao // UserDao 
+    context.tweetDao // TweetDao 
 }
 ```
 
@@ -82,36 +99,40 @@ Use [destructuring](https://kotlinlang.org/docs/destructuring-declarations.html#
 concise code:
 
 ```kotlin
-Validator<BookUserContext, Any> { (bookDao, userDao) ->
-    bookDao // BookDao 
+Validator<Context, Any> { (userDao, tweetDao) ->
     userDao // UserDao 
+    tweetDao // TweetDao 
 }
 ```
 
 ## Suspendable validation
 
 If your external source is asynchronous, like an HTTP API, you have to make your validator suspendable by calling
-`Validator.suspendable`:
+`Validator.suspendable`.
+
+Let's reuse [the contextual validation example based on Twitter](#contextual-validation) and replace the `UserDao`
+interface by `UserApi`:
 
 ```kotlin
-interface BookHttpApi {
-    suspend fun existsById(id: Int)
-}
-
-@Validate
-data class Book(val id: Int)
-
-val validateBook = Validator.suspendable<BookHttpApi, Book> { api ->
-    constrain { !api.existsById(it.id) } otherwise {
-        "This book already exists"
-    }
+interface UserApi {
+    suspend fun existsByUsername(username: String): Boolean
 }
 ```
 
-The generated validator can only be called from a suspendable function:
+To be able to call the suspendable method `existsByUsername`, we have to make our validator suspendable:
+
+```kotlin
+val validate = Validator.suspendable<UserApi, UserUpdate> { api ->
+    username.constrain {
+        !api.existsByUsername(it)
+    } otherwise { "This username is already taken" }
+}
+```
+
+Note that suspendable validators can only be called from suspendable functions:
 
 ```kotlin
 suspend fun main() {
-    validateBook(bookHttpApiInstance, Book(id = 1))
+    validate(someUserApi, someUserUpdate)
 }
 ```

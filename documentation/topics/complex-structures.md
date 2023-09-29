@@ -62,45 +62,68 @@ Validator<Library> {
 
 #### Conditional constraints
 
-Sometimes, you need to apply a constraint depending on the result of a previous one.
+Sometimes, you need to apply a constraint depending on the result of a previous one, like Twitter has to do in its
+settings when a user wants to update its username.
 
-Let's take Twitter as an example. When it launched, you could register with a one-character handle. However, this is no
-longer possible; you're now forced to use at least five characters.
+When Twitter launched, you could pick a one-character username. However, this is no longer possible; you're now forced
+to use at least five characters.
 
-Now imagine being Twitter's product owner for today's registration page. Someone tries to register with the “a” handle.
-This is less than five characters, and it already exists. So, what errors do you want to display?
+Now imagine being Twitter's product owner for today's settings page. Someone tries to change its username to “a”. This
+is less than five characters, and it already exists. So, what errors do you want to display?
 
-* Two errors? One about character count, and another one about an already taken handle?
-* Or only one error about character count?
+1. Two errors? One about character count, and another one about an already taken username?
+2. Or only one error about character count?
 
-Since new users can't register with handles shorter than 5 characters anyway, you might want to skip the database check
-when the handle is too short.
+The answer is the second one:
 
-This is a typical case for conditional constraints. When a constraint is applied, you can read its `satisfied`
-property to check if the constraint is satisfied or not. You can also use destructuring, _which is easier to read._
+![A single input contains the value "a" while an error message is displayed below. The error states "Your username must be longer than 4 characters."](twitter-too-short.png "Twitter's form to change a username")
+{width="597" height="156"}
+
+![A single input contains the value "johndoe" while an error message is displayed below. The error states "That username has been taken. Please choose another."](twitter-taken.png "Twitter's form to change a username")
+{width="597" height="156"}
+
+Since new users can't register with handles shorter than 5 characters anyway, Twitter chose to skip the database check
+when the username is too short. Avoiding an unnecessary database query and restraining error spamming for the user.
+
+This is a typical use case for conditional constraints. When a constraint is applied, you can read its `satisfied`
+property to check if the constraint is satisfied or not.
 
 ```kotlin
+interface UserDao {
+    fun existsByUsername(username: String): Boolean
+}
+
 // For the sake of the example, let's assume we've got the following
 // global variable, acting as a DAO (Data Access Object).
-val userDao = object {
-    fun existsByHandle(handle: String) = true // fake implementation
+val userDao = object : UserDao {
+    override fun existsByUsername(username: String): Boolean = TODO()
 }
 
 @Validate
-data class TwitterRegistration(val handle: String)
+data class UserUpdate(val username: String)
 
-Validator<TwitterRegistration> {
-    // Retrieve the status of the constraint.
-    val (isValidHandle) = handle.hasLengthGreaterThanOrEqualTo(5)
+Validator<UserUpdate> {
+    // Retrieve the satisfied status of the constraint.
+    val (isValidUsername) = username.hasLengthGreaterThanOrEqualTo(5)
 
     // Run the database check only if the last constraint succeeded.
-    if (isValidHandle) {
-        handle.constrain {
-            !userDao.existsByHandle(it)
-        } otherwise { "This handle is already taken" }
+    if (isValidUsername) {
+        username.constrain {
+            !userDao.existsByUsername(it)
+        } otherwise { "This username is already taken" }
     }
 }
 ```
+
+> The `satisfied` property can be read by referencing its name: \
+> `val constraintOk = (prop.isNotEmpty()).satisfied` \
+> \
+> or by using [destructuring](https://kotlinlang.org/docs/destructuring-declarations.html#destructuring-in-lambdas): \
+> `val (constraintOk) = prop.isNotEmpty()` \
+> \
+> We recommend using the destructuring form, since its easier to read.
+
+{style="note"}
 
 ## Composition
 
