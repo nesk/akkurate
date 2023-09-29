@@ -15,7 +15,7 @@ without having to write custom constraints for anything else than business logic
 
 ## Basic usage
 
-Constraints are extension functions for the `Validatable` class. Some can be applied to all wrapped types, some others
+Constraints are extension functions of the `Validatable` class. Some can be applied to all wrapped types, some others
 only to specific ones. For example, `equalTo` can be applied to all wrapped types, whereas `hasLengthLowerThan` can only
 be applied to `Validatable<CharSequence>`.
 

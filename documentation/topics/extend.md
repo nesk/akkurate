@@ -1,7 +1,7 @@
 # Extend %product%
 
-Although %product% focuses on providing all the necessary constraints to validate day-to-day Kotlin objects, you might
-need to write your own constraints for custom business validation.
+Although %product% focuses on providing [all the essential constraints](apply-constraints.md#built-in-constraints), you
+might need to write your own constraints for custom business validation.
 
 > Remember, if you're missing a constraint, [report it on our GitHub repository.](%github_product_url%/issues)
 
@@ -71,7 +71,8 @@ private fun Validatable<String>.hasWordCountGreaterThan(count: Int) =
     }
 ```
 
-Finally, it might be useful to support nullable values like in %product%'s built-in constraints. The
+Finally, it might be useful to support [nullable values](harness-the-dsl.md#use-nullable-types) like in %product%'s
+built-in constraints. The
 `constrainIfNotNull` function can be used to create constraints that are always satisfied when the value is `null`
 (like described by [the Vacuous Truth principle](https://en.wikipedia.org/wiki/Vacuous_truth#In_computer_programming)):
 

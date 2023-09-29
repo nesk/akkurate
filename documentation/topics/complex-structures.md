@@ -118,7 +118,7 @@ Validator<UserUpdate> {
 > The `satisfied` property can be read by referencing its name: \
 > `val constraintOk = (prop.isNotEmpty()).satisfied` \
 > \
-> or by using [destructuring](https://kotlinlang.org/docs/destructuring-declarations.html#destructuring-in-lambdas): \
+> or by using [destructuring](%destructuring_url%): \
 > `val (constraintOk) = prop.isNotEmpty()` \
 > \
 > We recommend using the destructuring form, since its easier to read.

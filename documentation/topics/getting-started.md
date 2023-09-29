@@ -39,7 +39,7 @@ dependencies {
 <procedure title="Install in a multiplatform project">
 
 <tip>
-<p>Coming soon!</p>
+<p>Coming soon! <a href="%roadmap_url%">See the roadmap for more informations.</a></p>
 </tip>
 
 </procedure>
@@ -61,9 +61,10 @@ data class Book(val title: String, val releaseDate: LocalDateTime)
 
 This annotation marks the class for the compiler processor, so it can generate _validatable accessors_ for it. Now,
 build the project with `./gradlew build` (or <ui-path> Build | Build Project</ui-path> in IntelliJ IDEA) to trigger code
-generation. We will explain this whole concept later.
+generation. We will explain this whole concept a bit further.
 
-To apply some constraints, you need to instantiate a `Validator` with a lambda, let's start with an empty one:
+[To apply constraints](apply-constraints.md), you need to instantiate a `Validator` with a lambda, let's start with an
+empty one:
 
 ```kotlin
 val validateBook = Validator<Book> {
@@ -75,7 +76,7 @@ The lambda receiver is a `Validatable<Book>`, a generic class wrapping each valu
 is to track the path of each value, provide a <tooltip term="DSL">DSL</tooltip> to ease validation, and act as a
 register for the constraints you apply to the value.
 
-Now, let's constrain the title and the release date; the former must contain characters, and the latter cannot be more
+Now, let's constrain the title and the release date; the former must contain characters, and the latter can't be more
 than one year later after the current date:
 
 ```kotlin
@@ -91,7 +92,7 @@ You might have noticed that `title` and `releaseDate` aren't properties of the `
 anyway. This is why we had to annotate our data class with `@Validate` and trigger the generation of _validatable
 accessors_; those act as a bridge between the `Validatable<T>` class and the underlying value.
 
-Now let's validate a book with our new validator:
+It is time to validate a book with our new validator:
 
 ```kotlin
 val invalidBook = Book(

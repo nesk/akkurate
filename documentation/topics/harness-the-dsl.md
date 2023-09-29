@@ -195,7 +195,7 @@ validateBook(Book(title = "The Lord of the Rings"))
 // prints: The Lord of the Rings
 ```
 
-You can also use destructuring:
+You can also use [destructuring](%destructuring_url%):
 
 ```kotlin
 val validateBook = Validator<Book> {

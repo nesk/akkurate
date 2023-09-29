@@ -95,8 +95,7 @@ Validator<Context, Any> { context ->
 }
 ```
 
-Use [destructuring](https://kotlinlang.org/docs/destructuring-declarations.html#destructuring-in-lambdas) to write more
-concise code:
+Use [destructuring](%destructuring_url%) to write more concise code:
 
 ```kotlin
 Validator<Context, Any> { (userDao, tweetDao) ->

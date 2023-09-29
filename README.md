@@ -76,29 +76,29 @@ Check if 'title' is not empty otherwise write "Missing title".
 
 ## Features
 
-- **Beautiful DSL and API.** \
+- [**Beautiful DSL and API**](https://akkurate.dev/docs/harness-the-dsl.html) \
   Write crystal clear validation code and keep it <tooltip term="DRY">DRY</tooltip>. Use loops and conditions when
   needed; forget about annotation hell.
 
-- **Bundled with all the essential constraints.** \
+- [**Bundled with all the essential constraints**](https://akkurate.dev/docs/apply-constraints.html) \
   Write custom constraints for your business logic and nothing more. The rest? It's on us!
 
-- **Easily and highly extendable.** \
+- [**Easily and highly extendable**](https://akkurate.dev/docs/extend.html) \
   No need to write verbose code to create custom constraints, within Akkurate they're as simple as a lambda with
   parameters.
 
-- **Contextual and asynchronous.** \
+- [**Contextual and asynchronous**](https://akkurate.dev/docs/use-external-sources.html) \
   Query sync/async data sources whenever you need to, like a database, or a REST API. Everything can happen inside
   validation.
 
-- ⏱ **Testable out of the box.** \
+- ⏱ **Testable out of the box** \
   Finding how to test your validation code shouldn't be one of your tasks. You will find all the tools you need to write
   good tests.
 
-- ⏱ **Integrated with your favorite tools.** \
+- ⏱ **Integrated with your favorite tools** \
   Validate your data within any popular framework, we take care of the integrations for you.
 
-- ⏱ **Code once, deploy everywhere.** \
+- ⏱ **Code once, deploy everywhere** \
   Take advantage of Kotlin Multiplatform; write your validation code once, use it both for front-end and back-end
   usages.
 

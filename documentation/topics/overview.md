@@ -16,7 +16,7 @@ validation code.
 
 ## Showcase
 
-Here's an example showcasing how you can constrain a book and its list of authors.
+Here's how you can constrain a book and its list of authors.
 
 ```kotlin
 // Define your classes
@@ -75,14 +75,14 @@ Check if 'title' is not empty otherwise write "Missing title".
 
 ## Features
 
-- **Beautiful DSL and API.** Write crystal clear validation code and keep it <tooltip term="DRY">DRY</tooltip>. Use
-  loops and conditions when needed; forget about annotation hell.
-- **Bundled with all the essential constraints.** Write custom constraints for your business logic and nothing more. The
-  rest? It's on us!
-- **Easily and highly extendable.** No need to write verbose code to create custom constraints, within %product% they're
-  as simple as a lambda with parameters.
-- **Contextual and asynchronous.** Query sync/async data sources whenever you need to, like a database, or a REST API.
-  Everything can happen inside validation.
+- [**Beautiful DSL and API.**](harness-the-dsl.md) Write crystal clear validation code and keep it <tooltip term="DRY">
+  DRY</tooltip>. Use loops and conditions when needed; forget about annotation hell.
+- [**Bundled with all the essential constraints.**](apply-constraints.md#built-in-constraints) Write custom constraints
+  for your business logic and nothing more. The rest? It's on us!
+- [**Easily and highly extendable.**](extend.md) No need to write verbose code to create custom constraints, within
+  %product% they're as simple as a lambda with parameters.
+- [**Contextual and asynchronous.**](use-external-sources.md) Query sync/async data sources whenever you need to, like a
+  database, or a REST API. Everything can happen inside validation.
 - ![Coming soon](clock.png){width="16"} **Testable out of the box.** Finding how to test your validation code shouldn't
   be one of your tasks. You will find all the tools you need to write good tests.
 - ![Coming soon](clock.png){width="16"} **Integrated with your favorite tools.** Validate your data within any popular
