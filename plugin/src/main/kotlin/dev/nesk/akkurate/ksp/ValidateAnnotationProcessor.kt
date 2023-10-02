@@ -21,6 +21,8 @@ import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.symbol.*
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.squareup.kotlinpoet.ksp.toClassName
+import com.squareup.kotlinpoet.ksp.toTypeName
 import dev.nesk.akkurate.annotations.Validate
 import java.io.OutputStreamWriter
 import kotlin.reflect.KProperty1
@@ -37,6 +39,7 @@ public class ValidateAnnotationProcessor(
         private val validatableClass = ClassName("dev.nesk.akkurate.validatables", "Validatable")
 
         private val suppressUselessCast = AnnotationSpec.builder(Suppress::class).addMember("%S", "USELESS_CAST").build()
+        private val kProperty1Class = KProperty1::class.asClassName()
     }
 
     private var validatableClasses: Set<String> = config.normalizedValidatableClasses
@@ -58,7 +61,15 @@ public class ValidateAnnotationProcessor(
     /**
      * The package name of the generic type wrapped by the [Validatable].
      */
-    private val PropertySpec.originalPackageName: String get() = ((receiverType as ParameterizedTypeName).typeArguments.first() as ClassName).packageName
+    private val PropertySpec.originalPackageName: String
+        get() {
+            val wrappedType = (receiverType as ParameterizedTypeName).typeArguments.first()
+            return when (wrappedType) {
+                is ClassName -> wrappedType.packageName
+                is ParameterizedTypeName -> wrappedType.rawType.packageName
+                else -> "default.package.name"
+            }
+        }
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
         val symbolsFromOptions = validatableClasses
@@ -84,8 +95,8 @@ public class ValidateAnnotationProcessor(
             logger.info("Processing class '${validatable.qualifiedName!!.asString()}' with properties:")
             for (property in validatable.getAllProperties()) {
                 logger.info("  ${property.simpleName.asString()}")
-                accessors += property.toValidatablePropertySpec()
-                accessors += property.toValidatablePropertySpec(withNullableReceiver = true)
+                accessors += property.toValidatablePropertySpec(validatable)
+                accessors += property.toValidatablePropertySpec(validatable, withNullableReceiver = true)
             }
         }
 
@@ -145,14 +156,20 @@ public class ValidateAnnotationProcessor(
      *   get() = createValidatable(`value`.name)
      * ```
      */
-    private fun KSPropertyDeclaration.toValidatablePropertySpec(withNullableReceiver: Boolean = false): PropertySpec {
-        val receiver = parentDeclaration!!
+    private fun KSPropertyDeclaration.toValidatablePropertySpec(receiver: KSClassDeclaration, withNullableReceiver: Boolean = false): PropertySpec {
         val nullabilityText = if (withNullableReceiver) "Nullable" else ""
-        val kProperty1Class = KProperty1::class.asClassName()
 
-        return PropertySpec.builder(simpleName.asString(), type.toTypeName().toValidatableType(forceNullable = withNullableReceiver))
-            .receiver(receiver.toTypeName().toValidatableType(forceNullable = withNullableReceiver))
-            .getter(
+        val receiverClassName = receiver.toClassName()
+        val receiverType = receiver.asType(emptyList()).toClassName()
+        val validatableReceiverType = receiverType.toValidatableType(forceNullable = withNullableReceiver)
+
+        val propertyName = simpleName.asString()
+        val validatablePropertyType = type.resolve().toTypeName().toValidatableType(forceNullable = withNullableReceiver)
+
+        return PropertySpec.builder(propertyName, validatablePropertyType).apply {
+            receiver(validatableReceiverType)
+
+            getter(
                 FunSpec.getterBuilder().apply {
                     addAnnotation(
                         AnnotationSpec.builder(JvmName::class)
@@ -163,13 +180,13 @@ public class ValidateAnnotationProcessor(
                     // FIXME: The cast is a workaround for https://youtrack.jetbrains.com/issue/KT-59493, it can be removed with KT v1.9.20.
                     if (withNullableReceiver) {
                         addAnnotation(suppressUselessCast)
-                        addStatement("return %M(%T::%N as %T)", validatableOfFunction, receiver.toTypeName(), toMemberName(), kProperty1Class)
+                        addStatement("return %M(%T::%N as %T)", validatableOfFunction, receiverType, propertyName, kProperty1Class)
                     } else {
-                        addStatement("return %M(%T::%N)", validatableOfFunction, receiver.toTypeName(), toMemberName())
+                        addStatement("return %M(%T::%N)", validatableOfFunction, receiverType, propertyName)
                     }
                 }.build()
             )
-            .build()
+        }.build()
     }
 
     /**
