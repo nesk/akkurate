@@ -82,6 +82,32 @@ class ValidateAnnotationProcessorTest {
     }
 
     @Test
+    fun `processing a generic class generates generic accessors`() {
+        // Arrange
+        val source = SourceFile.kotlin(
+            "Examples.kt", """
+                package dev.nesk
+                import dev.nesk.akkurate.annotations.Validate
+                @Validate class Wrapper<A, out B, C : CharSequence>(
+                    val prop1: A,
+                    val prop2: List<A>,
+                    val prop3: List<Map<B, C>>,
+                    val prop4: List<String>,
+                )
+            """
+        )
+
+        // Act
+        val (result, compiler) = compile(source)
+
+        // Assert
+        assertCompilationIsSuccessful(result)
+        assertCountOfFilesGeneratedByTheProcessor(1, compiler)
+        Path("${compiler.kotlinFilesDir}/dev/nesk/validation/accessors/ValidationAccessors.kt").readText()
+            .matchWithSnapshot("processing a generic class generates generic accessors")
+    }
+
+    @Test
     fun `processing annotated classes referenced as nullables generates nullable accessors`() {
         // Arrange
         val source = SourceFile.kotlin(

@@ -7,6 +7,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- Support generating accessors for generic types ([#10](https://github.com/nesk/akkurate/issues/10))
+
 ## [0.2.0] - 2023-09-26
 
 ### ⚠️ Breaking changes

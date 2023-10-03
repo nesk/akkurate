@@ -23,6 +23,7 @@ import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
+import com.squareup.kotlinpoet.ksp.toTypeParameterResolver
 import dev.nesk.akkurate.annotations.Validate
 import java.io.OutputStreamWriter
 import kotlin.reflect.KProperty1
@@ -81,11 +82,8 @@ public class ValidateAnnotationProcessor(
                     }
                 }
             }
-            .filter { it.typeParameters.isEmpty() } // Support for generic validatables might come later.
 
-        val annotatedSymbols = resolver.getSymbolsWithAnnotation(Validate::class.qualifiedName!!)
-            .filterIsInstance<KSClassDeclaration>()
-            .filter { it.typeParameters.isEmpty() } // Support for generic validatables might come later.
+        val annotatedSymbols = resolver.getSymbolsWithAnnotation(Validate::class.qualifiedName!!).filterIsInstance<KSClassDeclaration>()
         logger.info("Found ${annotatedSymbols.count()} classes annotated with @Validate.")
 
         val validatables = symbolsFromOptions + annotatedSymbols
@@ -160,14 +158,20 @@ public class ValidateAnnotationProcessor(
         val nullabilityText = if (withNullableReceiver) "Nullable" else ""
 
         val receiverClassName = receiver.toClassName()
-        val receiverType = receiver.asType(emptyList()).toClassName()
+        val receiverTypeParams = receiver.typeParameters.toTypeParameterResolver()
+        val receiverType = receiver.asType(emptyList()).toTypeName(receiverTypeParams)
         val validatableReceiverType = receiverType.toValidatableType(forceNullable = withNullableReceiver)
 
         val propertyName = simpleName.asString()
-        val validatablePropertyType = type.resolve().toTypeName().toValidatableType(forceNullable = withNullableReceiver)
+        val validatablePropertyType = type.resolve().toTypeName(receiverTypeParams).toValidatableType(forceNullable = withNullableReceiver)
 
         return PropertySpec.builder(propertyName, validatablePropertyType).apply {
             receiver(validatableReceiverType)
+
+            // Walk the type variable names, strip them of their variance, and add them to the property.
+            validatableReceiverType.walkTypeVariableNames().forEach {
+                addTypeVariable(TypeVariableName(it.name, it.bounds))
+            }
 
             getter(
                 FunSpec.getterBuilder().apply {
@@ -197,5 +201,18 @@ public class ValidateAnnotationProcessor(
     private fun TypeName.toValidatableType(forceNullable: Boolean): ParameterizedTypeName {
         val parameterType = if (forceNullable) this.copy(nullable = true) else this
         return validatableClass.parameterizedBy(parameterType)
+    }
+
+    /**
+     * Gets a sequence for visiting the type variables of this type and its descendants.
+     */
+    private fun ParameterizedTypeName.walkTypeVariableNames(): Sequence<TypeVariableName> = sequence {
+        for (typeArgument in typeArguments) {
+            when (typeArgument) {
+                is TypeVariableName -> yield(typeArgument)
+                is ParameterizedTypeName -> yieldAll(typeArgument.walkTypeVariableNames())
+                else -> Unit
+            }
+        }
     }
 }
