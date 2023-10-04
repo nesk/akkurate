@@ -173,6 +173,12 @@ public class ValidateAnnotationProcessor(
                 addTypeVariable(TypeVariableName(it.name, it.bounds))
             }
 
+            // Add a KDoc to explain this property is a validatable accessor. If available, provide the original documentation too.
+            addKdoc(buildCodeBlock {
+                add("[${validatableClass.simpleName}] accessor of [%T.%N]", receiverClassName, propertyName)
+                docString?.let { add("\n\n" + it.trimIndent()) }
+            })
+
             getter(
                 FunSpec.getterBuilder().apply {
                     addAnnotation(

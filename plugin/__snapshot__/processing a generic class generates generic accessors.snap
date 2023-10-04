@@ -11,39 +11,63 @@ import kotlin.collections.Map
 import kotlin.jvm.JvmName
 import kotlin.reflect.KProperty1
 
+/**
+ * [Validatable] accessor of [Wrapper.prop1]
+ */
 public val <A, B, C : CharSequence> Validatable<Wrapper<A, B, C>>.prop1: Validatable<A>
   @JvmName(name = "validatableWrapperProp1")
   get() = validatableOf(Wrapper<A, B, C>::prop1)
 
+/**
+ * [Validatable] accessor of [Wrapper.prop1]
+ */
 public val <A, B, C : CharSequence> Validatable<Wrapper<A, B, C>?>.prop1: Validatable<A?>
   @JvmName(name = "validatableNullableWrapperProp1")
   @Suppress("USELESS_CAST")
   get() = validatableOf(Wrapper<A, B, C>::prop1 as KProperty1)
 
+/**
+ * [Validatable] accessor of [Wrapper.prop2]
+ */
 public val <A, B, C : CharSequence> Validatable<Wrapper<A, B, C>>.prop2: Validatable<List<A>>
   @JvmName(name = "validatableWrapperProp2")
   get() = validatableOf(Wrapper<A, B, C>::prop2)
 
+/**
+ * [Validatable] accessor of [Wrapper.prop2]
+ */
 public val <A, B, C : CharSequence> Validatable<Wrapper<A, B, C>?>.prop2: Validatable<List<A>?>
   @JvmName(name = "validatableNullableWrapperProp2")
   @Suppress("USELESS_CAST")
   get() = validatableOf(Wrapper<A, B, C>::prop2 as KProperty1)
 
+/**
+ * [Validatable] accessor of [Wrapper.prop3]
+ */
 public val <A, B, C : CharSequence> Validatable<Wrapper<A, B, C>>.prop3:
     Validatable<List<Map<B, C>>>
   @JvmName(name = "validatableWrapperProp3")
   get() = validatableOf(Wrapper<A, B, C>::prop3)
 
+/**
+ * [Validatable] accessor of [Wrapper.prop3]
+ */
 public val <A, B, C : CharSequence> Validatable<Wrapper<A, B, C>?>.prop3:
     Validatable<List<Map<B, C>>?>
   @JvmName(name = "validatableNullableWrapperProp3")
   @Suppress("USELESS_CAST")
   get() = validatableOf(Wrapper<A, B, C>::prop3 as KProperty1)
 
+/**
+ * [Validatable] accessor of [Wrapper.prop4]
+ */
 public val <A, B, C : CharSequence> Validatable<Wrapper<A, B, C>>.prop4: Validatable<List<String>>
   @JvmName(name = "validatableWrapperProp4")
   get() = validatableOf(Wrapper<A, B, C>::prop4)
 
+/**
+ * [Validatable] accessor of [Wrapper.prop4]
+ */
 public val <A, B, C : CharSequence> Validatable<Wrapper<A, B, C>?>.prop4: Validatable<List<String>?>
   @JvmName(name = "validatableNullableWrapperProp4")
   @Suppress("USELESS_CAST")

@@ -8,10 +8,16 @@ import kotlin.Suppress
 import kotlin.jvm.JvmName
 import kotlin.reflect.KProperty1
 
+/**
+ * [Validatable] accessor of [String.length]
+ */
 public val Validatable<String>.length: Validatable<Int>
   @JvmName(name = "validatableStringLength")
   get() = validatableOf(String::length)
 
+/**
+ * [Validatable] accessor of [String.length]
+ */
 public val Validatable<String?>.length: Validatable<Int?>
   @JvmName(name = "validatableNullableStringLength")
   @Suppress("USELESS_CAST")

@@ -82,6 +82,48 @@ class ValidateAnnotationProcessorTest {
     }
 
     @Test
+    fun `processing a documented class generates accessors with the same documentation`() {
+        // Arrange
+        val source = SourceFile.kotlin(
+            "Examples.kt", """
+                package dev.nesk
+                import dev.nesk.akkurate.annotations.Validate
+                @Validate class User(
+                    /**
+                     * The first name of the user. Must not be empty or blank. 
+                     */
+                    val firstName: String,
+                    /**
+                     * The last name of the user. Must not be empty or blank. 
+                     */
+                    val lastName: String,
+                ) {
+                    /**
+                     * The full name of the user, a simple concatenation of [firstName] and [lastName].
+                     *
+                     * Example:
+                     * 
+                     * ```
+                     * val user = User("John", "Doe")
+                     * user.fullName // "John Doe"
+                     * ```
+                     */
+                    val fullName: String get() = "${'$'}firstName ${'$'}lastName"
+                }
+            """
+        )
+
+        // Act
+        val (result, compiler) = compile(source)
+
+        // Assert
+        assertCompilationIsSuccessful(result)
+        assertCountOfFilesGeneratedByTheProcessor(1, compiler)
+        Path("${compiler.kotlinFilesDir}/dev/nesk/validation/accessors/ValidationAccessors.kt").readText()
+            .matchWithSnapshot("processing a documented class generates accessors with the same documentation")
+    }
+
+    @Test
     fun `processing a generic class generates generic accessors`() {
         // Arrange
         val source = SourceFile.kotlin(

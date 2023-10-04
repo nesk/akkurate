@@ -8,10 +8,16 @@ import kotlin.Suppress
 import kotlin.jvm.JvmName
 import kotlin.reflect.KProperty1
 
+/**
+ * [Validatable] accessor of [User.company]
+ */
 public val Validatable<User>.company: Validatable<Company>
   @JvmName(name = "validatableUserCompany")
   get() = validatableOf(User::company)
 
+/**
+ * [Validatable] accessor of [User.company]
+ */
 public val Validatable<User?>.company: Validatable<Company?>
   @JvmName(name = "validatableNullableUserCompany")
   @Suppress("USELESS_CAST")

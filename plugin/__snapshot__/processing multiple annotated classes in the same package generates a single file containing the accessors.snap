@@ -9,19 +9,31 @@ import kotlin.Suppress
 import kotlin.jvm.JvmName
 import kotlin.reflect.KProperty1
 
+/**
+ * [Validatable] accessor of [User.name]
+ */
 public val Validatable<User>.name: Validatable<UserName>
   @JvmName(name = "validatableUserName")
   get() = validatableOf(User::name)
 
+/**
+ * [Validatable] accessor of [User.name]
+ */
 public val Validatable<User?>.name: Validatable<UserName?>
   @JvmName(name = "validatableNullableUserName")
   @Suppress("USELESS_CAST")
   get() = validatableOf(User::name as KProperty1)
 
+/**
+ * [Validatable] accessor of [UserName.text]
+ */
 public val Validatable<UserName>.text: Validatable<String>
   @JvmName(name = "validatableUserNameText")
   get() = validatableOf(UserName::text)
 
+/**
+ * [Validatable] accessor of [UserName.text]
+ */
 public val Validatable<UserName?>.text: Validatable<String?>
   @JvmName(name = "validatableNullableUserNameText")
   @Suppress("USELESS_CAST")

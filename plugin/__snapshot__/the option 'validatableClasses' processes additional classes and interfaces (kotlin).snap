@@ -9,19 +9,31 @@ import kotlin.Suppress
 import kotlin.jvm.JvmName
 import kotlin.reflect.KProperty1
 
+/**
+ * [Validatable] accessor of [String.length]
+ */
 public val Validatable<String>.length: Validatable<Int>
   @JvmName(name = "validatableStringLength")
   get() = validatableOf(String::length)
 
+/**
+ * [Validatable] accessor of [String.length]
+ */
 public val Validatable<String?>.length: Validatable<Int?>
   @JvmName(name = "validatableNullableStringLength")
   @Suppress("USELESS_CAST")
   get() = validatableOf(String::length as KProperty1)
 
+/**
+ * [Validatable] accessor of [CharSequence.length]
+ */
 public val Validatable<CharSequence>.length: Validatable<Int>
   @JvmName(name = "validatableCharSequenceLength")
   get() = validatableOf(CharSequence::length)
 
+/**
+ * [Validatable] accessor of [CharSequence.length]
+ */
 public val Validatable<CharSequence?>.length: Validatable<Int?>
   @JvmName(name = "validatableNullableCharSequenceLength")
   @Suppress("USELESS_CAST")

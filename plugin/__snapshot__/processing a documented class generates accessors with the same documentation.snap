@@ -1,0 +1,80 @@
+package dev.nesk.validation.accessors
+
+import dev.nesk.User
+import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.validatables.validatableOf
+import kotlin.String
+import kotlin.Suppress
+import kotlin.jvm.JvmName
+import kotlin.reflect.KProperty1
+
+/**
+ * [Validatable] accessor of [User.fullName]
+ *
+ * The full name of the user, a simple concatenation of [firstName] and [lastName].
+ *
+ * Example:
+ *
+ * ```
+ * val user = User("John", "Doe")
+ * user.fullName // "John Doe"
+ * ```
+ */
+public val Validatable<User>.fullName: Validatable<String>
+  @JvmName(name = "validatableUserFullName")
+  get() = validatableOf(User::fullName)
+
+/**
+ * [Validatable] accessor of [User.fullName]
+ *
+ * The full name of the user, a simple concatenation of [firstName] and [lastName].
+ *
+ * Example:
+ *
+ * ```
+ * val user = User("John", "Doe")
+ * user.fullName // "John Doe"
+ * ```
+ */
+public val Validatable<User?>.fullName: Validatable<String?>
+  @JvmName(name = "validatableNullableUserFullName")
+  @Suppress("USELESS_CAST")
+  get() = validatableOf(User::fullName as KProperty1)
+
+/**
+ * [Validatable] accessor of [User.firstName]
+ *
+ * The first name of the user. Must not be empty or blank. 
+ */
+public val Validatable<User>.firstName: Validatable<String>
+  @JvmName(name = "validatableUserFirstName")
+  get() = validatableOf(User::firstName)
+
+/**
+ * [Validatable] accessor of [User.firstName]
+ *
+ * The first name of the user. Must not be empty or blank. 
+ */
+public val Validatable<User?>.firstName: Validatable<String?>
+  @JvmName(name = "validatableNullableUserFirstName")
+  @Suppress("USELESS_CAST")
+  get() = validatableOf(User::firstName as KProperty1)
+
+/**
+ * [Validatable] accessor of [User.lastName]
+ *
+ * The last name of the user. Must not be empty or blank. 
+ */
+public val Validatable<User>.lastName: Validatable<String>
+  @JvmName(name = "validatableUserLastName")
+  get() = validatableOf(User::lastName)
+
+/**
+ * [Validatable] accessor of [User.lastName]
+ *
+ * The last name of the user. Must not be empty or blank. 
+ */
+public val Validatable<User?>.lastName: Validatable<String?>
+  @JvmName(name = "validatableNullableUserLastName")
+  @Suppress("USELESS_CAST")
+  get() = validatableOf(User::lastName as KProperty1)
