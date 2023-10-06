@@ -46,15 +46,6 @@ public class ValidateAnnotationProcessor(
     private var validatableClasses: Set<String> = config.normalizedValidatableClasses
 
     /**
-     * All the generated accessors for each property of the validatables.
-     *
-     * An accessor is an extension property for a [Validatable] receiver, returning the property value wrapped in another [Validatable].
-     *
-     * @see KSPropertyDeclaration.toValidatablePropertySpec
-     */
-    private val accessors: MutableSet<PropertySpec> = mutableSetOf()
-
-    /**
      * The name of the declaration with an uppercase-first character.
      */
     private val KSDeclaration.capitalizedName: String get() = simpleName.asString().replaceFirstChar { it.uppercase() }
@@ -89,36 +80,35 @@ public class ValidateAnnotationProcessor(
         val validatables = symbolsFromOptions + annotatedSymbols
 
         // Create two accessors for each property of a validatable, the second one enables an easy traversal within a nullable structure.
-        for (validatable in validatables) {
-            logger.info("Processing class '${validatable.qualifiedName!!.asString()}' with properties:")
-            for (property in validatable.getAllProperties()) {
-                logger.info("  ${property.simpleName.asString()}")
-                accessors += property.toValidatablePropertySpec(validatable)
-                accessors += property.toValidatablePropertySpec(validatable, withNullableReceiver = true)
+        val accessors: Set<PropertySpec> = buildSet {
+            for (validatable in validatables) {
+                logger.info("Processing class '${validatable.qualifiedName!!.asString()}'.")
+                for (property in validatable.getAllProperties()) {
+                    logger.info("Processing property '${property.simpleName.asString()}'.")
+                    add(property.toValidatablePropertySpec(validatable))
+                    add(property.toValidatablePropertySpec(validatable, withNullableReceiver = true))
+                }
             }
         }
 
         // Group the accessors by their package and generate a file for each package with the corresponding accessors.
-        accessors
-            .groupBy { it.originalPackageName }
-            .forEach { (packageName, accessors) ->
-                val fileName = "ValidationAccessors"
-                val newPackageName = "${config.normalizedOverrideOriginalPackageWith ?: packageName}.${config.normalizedappendPackagesWith ?: ""}".trim { it == '.' }
-                logger.info("Writing accessors with namespace '$newPackageName' to file '$fileName.kt'.")
+        for ((packageName, packageAccessors) in accessors.groupBy { it.originalPackageName }) {
+            val fileName = "ValidationAccessors"
+            val newPackageName = "${config.normalizedOverrideOriginalPackageWith ?: packageName}.${config.normalizedappendPackagesWith ?: ""}".trim { it == '.' }
+            logger.info("Writing accessors with namespace '$newPackageName' to file '$fileName.kt'.")
 
-                val fileBuilder = FileSpec.builder(newPackageName, fileName)
-                accessors.forEach(fileBuilder::addProperty)
+            val fileBuilder = FileSpec.builder(newPackageName, fileName)
+            packageAccessors.forEach(fileBuilder::addProperty)
 
-                // TODO: change the ALL_FILES
-                codeGenerator.createNewFile(Dependencies.ALL_FILES, newPackageName, fileBuilder.name, "kt").use { output ->
-                    OutputStreamWriter(output).use { fileBuilder.build().writeTo(it) }
-                }
+            // TODO: change the ALL_FILES
+            codeGenerator.createNewFile(Dependencies.ALL_FILES, newPackageName, fileBuilder.name, "kt").use { output ->
+                OutputStreamWriter(output).use { fileBuilder.build().writeTo(it) }
             }
+        }
 
         logger.info("A total of ${validatables.count()} classes and ${accessors.size} properties were processed.")
 
         validatableClasses = emptySet() // Empty the set to avoid processing those classes again on the next processing round.
-        accessors.clear()
 
         return emptyList()
     }
