@@ -10,6 +10,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### ⚠️ Breaking changes
 
 - Validation accessors are generated only for public properties. ([#11](https://github.com/nesk/akkurate/issues/11) [#15](https://github.com/nesk/akkurate/issues/15))
+- Accessors are now generated for the properties of the implemented interface when possible, not for the implementation. ([#11](https://github.com/nesk/akkurate/issues/11))
 
 ### Added
 

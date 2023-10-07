@@ -17,6 +17,7 @@
 
 package dev.nesk.akkurate.ksp
 
+import com.google.devtools.ksp.closestClassDeclaration
 import com.google.devtools.ksp.getVisibility
 import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.symbol.*
@@ -89,8 +90,9 @@ public class ValidateAnnotationProcessor(
                     if (!property.isPublic) continue
 
                     logger.info("Processing property '${property.simpleName.asString()}'.")
-                    add(property.toValidatablePropertySpec(validatable))
-                    add(property.toValidatablePropertySpec(validatable, withNullableReceiver = true))
+                    val rootProperty = property.topMostPublicOverridee
+                    add(rootProperty.toValidatablePropertySpec())
+                    add(rootProperty.toValidatablePropertySpec(withNullableReceiver = true))
                 }
             }
         }
@@ -148,9 +150,10 @@ public class ValidateAnnotationProcessor(
      *   get() = createValidatable(`value`.name)
      * ```
      */
-    private fun KSPropertyDeclaration.toValidatablePropertySpec(receiver: KSClassDeclaration, withNullableReceiver: Boolean = false): PropertySpec {
+    private fun KSPropertyDeclaration.toValidatablePropertySpec(withNullableReceiver: Boolean = false): PropertySpec {
         val nullabilityText = if (withNullableReceiver) "Nullable" else ""
 
+        val receiver = closestClassDeclaration()!!
         val receiverClassName = receiver.toClassName()
         val receiverTypeParams = receiver.typeParameters.toTypeParameterResolver()
         val receiverType = receiver.asType(emptyList()).toTypeName(receiverTypeParams)
@@ -239,5 +242,34 @@ public class ValidateAnnotationProcessor(
             }
 
             return visibility == Visibility.PUBLIC
+        }
+
+    /**
+     * Returns the top most public overridee of the property.
+     *
+     * For example, look at the `size` property of the following code:
+     *
+     * ```
+     * class EmptyList : List<Nothing> {
+     *     override val size: Int = 0
+     * }
+     * ```
+     *
+     * Calling `findOverridee()` on it will return [List.size]; calling `topMostOveridee` will return [Collection.size].
+     *
+     * This extension property avoids generating too many accessors. Instead of generating an accessor for
+     * [List.size] and another one for [Set.size], we generate a single accessor for [Collection.size].
+     */
+    private val KSPropertyDeclaration.topMostPublicOverridee: KSPropertyDeclaration
+        get() {
+            var mostPublicOverridee = this
+            var currentOverridee = this.findOverridee()
+            while (currentOverridee != null) {
+                if (currentOverridee.isPublic) {
+                    mostPublicOverridee = currentOverridee
+                }
+                currentOverridee = currentOverridee.findOverridee()
+            }
+            return mostPublicOverridee
         }
 }

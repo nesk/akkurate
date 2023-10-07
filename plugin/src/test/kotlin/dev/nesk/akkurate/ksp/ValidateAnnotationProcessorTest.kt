@@ -301,14 +301,14 @@ class ValidateAnnotationProcessorTest {
             "Examples.kt", """
                 package dev.nesk
                 import dev.nesk.akkurate.annotations.Validate
-                @Validate class User(val name: String)
+                @Validate class User(val names: Pair<String, String>, val fullName: String)
             """
         )
 
         // Act
         val (result, compiler) = compile(
             source,
-            options = mapOf("validatableClasses" to "${String::class.qualifiedName!!}|${CharSequence::class.qualifiedName!!}")
+            options = mapOf("validatableClasses" to "${Pair::class.qualifiedName!!}|${CharSequence::class.qualifiedName!!}")
         )
 
         // Assert

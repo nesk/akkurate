@@ -4,25 +4,40 @@ import dev.nesk.akkurate.validatables.Validatable
 import dev.nesk.akkurate.validatables.validatableOf
 import kotlin.CharSequence
 import kotlin.Int
-import kotlin.String
+import kotlin.Pair
 import kotlin.Suppress
 import kotlin.jvm.JvmName
 import kotlin.reflect.KProperty1
 
 /**
- * [Validatable] accessor of [String.length]
+ * [Validatable] accessor of [Pair.first]
  */
-public val Validatable<String>.length: Validatable<Int>
-  @JvmName(name = "validatableStringLength")
-  get() = validatableOf(String::length)
+public val <A, B> Validatable<Pair<A, B>>.first: Validatable<A>
+  @JvmName(name = "validatablePairFirst")
+  get() = validatableOf(Pair<A, B>::first)
 
 /**
- * [Validatable] accessor of [String.length]
+ * [Validatable] accessor of [Pair.first]
  */
-public val Validatable<String?>.length: Validatable<Int?>
-  @JvmName(name = "validatableNullableStringLength")
+public val <A, B> Validatable<Pair<A, B>?>.first: Validatable<A?>
+  @JvmName(name = "validatableNullablePairFirst")
   @Suppress("USELESS_CAST")
-  get() = validatableOf(String::length as KProperty1)
+  get() = validatableOf(Pair<A, B>::first as KProperty1)
+
+/**
+ * [Validatable] accessor of [Pair.second]
+ */
+public val <A, B> Validatable<Pair<A, B>>.second: Validatable<B>
+  @JvmName(name = "validatablePairSecond")
+  get() = validatableOf(Pair<A, B>::second)
+
+/**
+ * [Validatable] accessor of [Pair.second]
+ */
+public val <A, B> Validatable<Pair<A, B>?>.second: Validatable<B?>
+  @JvmName(name = "validatableNullablePairSecond")
+  @Suppress("USELESS_CAST")
+  get() = validatableOf(Pair<A, B>::second as KProperty1)
 
 /**
  * [Validatable] accessor of [CharSequence.length]
