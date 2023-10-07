@@ -7,6 +7,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### ⚠️ Breaking changes
+
+- Validation accessors are generated only for public properties. ([#11](https://github.com/nesk/akkurate/issues/11) [#15](https://github.com/nesk/akkurate/issues/15))
+
 ### Added
 
 - Support generating accessors for generic types ([#10](https://github.com/nesk/akkurate/issues/10))

@@ -17,6 +17,7 @@
 
 package dev.nesk.akkurate.ksp
 
+import com.google.devtools.ksp.getVisibility
 import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.symbol.*
 import com.squareup.kotlinpoet.*
@@ -84,6 +85,9 @@ public class ValidateAnnotationProcessor(
             for (validatable in validatables) {
                 logger.info("Processing class '${validatable.qualifiedName!!.asString()}'.")
                 for (property in validatable.getAllProperties()) {
+                    // Until issue #15 is fixed, we handle only public properties to avoid unexpected bugs (https://github.com/nesk/akkurate/issues/15)
+                    if (!property.isPublic) continue
+
                     logger.info("Processing property '${property.simpleName.asString()}'.")
                     add(property.toValidatablePropertySpec(validatable))
                     add(property.toValidatablePropertySpec(validatable, withNullableReceiver = true))
@@ -211,4 +215,29 @@ public class ValidateAnnotationProcessor(
             }
         }
     }
+
+    /**
+     * Determines if a declaration is public or not.
+     *
+     * Handles [a bug in ksp](https://github.com/google/ksp/issues/1515) where the visibility of some properties can't be resolved.
+     */
+    private val KSDeclaration.isPublic: Boolean
+        get() {
+            if (parentDeclaration?.isPublic == false) {
+                return false
+            }
+
+            val visibility: Visibility = try {
+                getVisibility()
+            } catch (e: IllegalStateException) {
+                // Rethrow the exception if it's not about an unhandled visibility.
+                if (e.message?.startsWith("unhandled visibility") != true) {
+                    throw e
+                }
+                // If the visibility can't be resolved, default to private visibility.
+                Visibility.PRIVATE
+            }
+
+            return visibility == Visibility.PUBLIC
+        }
 }
