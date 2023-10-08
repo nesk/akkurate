@@ -100,7 +100,7 @@ public class ValidateAnnotationProcessor(
         // Group the accessors by their package and generate a file for each package with the corresponding accessors.
         for ((packageName, packageAccessors) in accessors.groupBy { it.originalPackageName }) {
             val fileName = "ValidationAccessors"
-            val newPackageName = "${config.normalizedOverrideOriginalPackageWith ?: packageName}.${config.normalizedappendPackagesWith ?: ""}".trim { it == '.' }
+            val newPackageName = "${config.normalizedOverrideOriginalPackageWith ?: packageName}.${config.normalizedAppendPackagesWith}".trim { it == '.' }
             logger.info("Writing accessors with namespace '$newPackageName' to file '$fileName.kt'.")
 
             val fileBuilder = FileSpec.builder(newPackageName, fileName)

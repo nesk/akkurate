@@ -19,14 +19,14 @@ package dev.nesk.akkurate.ksp
 
 public data class ValidateAnnotationProcessorConfig(
     /**
-     * Each accessor will be generated with a package composed of the original one appended with this value.
+     * Appends the provided value to the original package of the generated accessor.
      *
      * In the following example, the classes inside `com.example.project` will generate accessors into `com.example.project.foo.bar`:
      * ```kotlin
      * appendPackagesWith = "foo.bar"
      * ```
      */
-    var appendPackagesWith: String? = "validation.accessors",
+    var appendPackagesWith: String = "validation.accessors",
 
     /**
      * A collection of classes to generate accessors for. Use a Fully-Qualified Class Name (FQCN) for each class.
@@ -50,7 +50,7 @@ public data class ValidateAnnotationProcessorConfig(
 
     internal val normalizedOverrideOriginalPackageWith get() = overrideOriginalPackageWith.symbolNameOrNull
 
-    internal val normalizedappendPackagesWith get() = appendPackagesWith.symbolNameOrNull
+    internal val normalizedAppendPackagesWith get() = appendPackagesWith.symbolNameOrNull ?: ""
 
     internal val normalizedValidatableClasses get() = validatableClasses.mapNotNull { it.symbolNameOrNull }.toSet()
 }
