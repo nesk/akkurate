@@ -17,6 +17,7 @@
 
 package dev.nesk.akkurate.ksp
 
+import com.google.devtools.ksp.KspExperimental
 import com.google.devtools.ksp.closestClassDeclaration
 import com.google.devtools.ksp.getVisibility
 import com.google.devtools.ksp.processing.*
@@ -46,6 +47,7 @@ public class ValidateAnnotationProcessor(
     }
 
     private var validatableClasses: Set<String> = config.normalizedValidatableClasses
+    private var validatablePackages: Set<String> = config.normalizedValidatablePackages
 
     /**
      * The name of the declaration with an uppercase-first character.
@@ -65,8 +67,9 @@ public class ValidateAnnotationProcessor(
             }
         }
 
+    @OptIn(KspExperimental::class)
     override fun process(resolver: Resolver): List<KSAnnotated> {
-        val symbolsFromOptions = validatableClasses
+        val providedClassesDeclarations = validatableClasses
             .map(resolver::getKSNameFromString)
             .mapNotNull { name ->
                 resolver.getClassDeclarationByName(name).also {
@@ -76,10 +79,17 @@ public class ValidateAnnotationProcessor(
                 }
             }
 
-        val annotatedSymbols = resolver.getSymbolsWithAnnotation(Validate::class.qualifiedName!!).filterIsInstance<KSClassDeclaration>()
-        logger.info("Found ${annotatedSymbols.count()} classes annotated with @Validate.")
+        val providedPackagesDeclarations = validatablePackages.flatMap {
+            resolver.getDeclarationsFromPackage(it)
+                .filterIsInstance<KSClassDeclaration>()
+        }
 
-        val validatables = symbolsFromOptions + annotatedSymbols
+        val annotatedDeclarations = resolver.getSymbolsWithAnnotation(Validate::class.qualifiedName!!).filterIsInstance<KSClassDeclaration>()
+        logger.info("Found ${annotatedDeclarations.count()} classes annotated with @Validate.")
+
+        val validatables = (providedClassesDeclarations + providedPackagesDeclarations + annotatedDeclarations)
+            .filterNot { it.modifiers.contains(Modifier.ANNOTATION) } // Filter out annotation classes
+            .toSet()
 
         // Create two accessors for each property of a validatable, the second one enables an easy traversal within a nullable structure.
         val accessors: Set<PropertySpec> = buildSet {
@@ -114,7 +124,9 @@ public class ValidateAnnotationProcessor(
 
         logger.info("A total of ${validatables.count()} classes and ${accessors.size} properties were processed.")
 
-        validatableClasses = emptySet() // Empty the set to avoid processing those classes again on the next processing round.
+        // Empty the sets to avoid processing those classes/packages again on the next processing round.
+        validatableClasses = emptySet()
+        validatablePackages = emptySet()
 
         return emptyList()
     }

@@ -28,6 +28,7 @@ public class ValidateAnnotationProcessorProvider : SymbolProcessorProvider {
             options["appendPackagesWith"]?.let { appendPackagesWith = it }
             options["__PRIVATE_API__prependPackagesWith"]?.let { prependPackagesWith = it }
             validatableClasses = options.getOrDefault("validatableClasses", "").split("|").toSet()
+            validatablePackages = options.getOrDefault("__PRIVATE_API__validatablePackages", "").split("|").toSet()
         }
         return ValidateAnnotationProcessor(environment.codeGenerator, environment.logger, config)
     }

@@ -341,6 +341,40 @@ class ValidateAnnotationProcessorTest {
             .matchWithSnapshot("the option 'validatableClasses' processes additional classes and interfaces (kotlin)")
     }
 
+    @Test
+    fun `the option 'validatablePackages' processes all the classes of the provided packages`() {
+        // Arrange
+        val companySource = SourceFile.kotlin(
+            "Company.kt", """
+                package dev.nesk.company
+                import dev.nesk.user.User
+                class Company(val admin: User)
+            """
+        )
+        val userSource = SourceFile.kotlin(
+            "User.kt", """
+                package dev.nesk.user
+                import dev.nesk.company.Company
+                class User(val company: Company)
+            """
+        )
+
+        // Act
+        val (result, compiler) = compile(
+            companySource,
+            userSource,
+            options = mapOf("__PRIVATE_API__validatablePackages" to "dev.nesk.company|dev.nesk.user")
+        )
+
+        // Assert
+        assertCompilationIsSuccessful(result)
+        assertCountOfFilesGeneratedByTheProcessor(2, compiler)
+        Path("${compiler.kotlinFilesDir}/dev/nesk/company/validation/accessors/ValidationAccessors.kt").readText()
+            .matchWithSnapshot("the option 'validatablePackages' processes all the classes of the provided packages (dev.nesk.company)")
+        Path("${compiler.kotlinFilesDir}/dev/nesk/user/validation/accessors/ValidationAccessors.kt").readText()
+            .matchWithSnapshot("the option 'validatablePackages' processes all the classes of the provided packages (dev.nesk.user)")
+    }
+
     private fun compile(vararg sources: SourceFile, options: Map<String, String> = emptyMap()): Pair<KotlinCompilation.Result, KotlinCompilation> {
         val compiler = KotlinCompilation().apply {
             inheritClassPath = true

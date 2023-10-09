@@ -1,0 +1,24 @@
+package dev.nesk.company.validation.accessors
+
+import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.validatables.validatableOf
+import dev.nesk.company.Company
+import dev.nesk.user.User
+import kotlin.Suppress
+import kotlin.jvm.JvmName
+import kotlin.reflect.KProperty1
+
+/**
+ * [Validatable] accessor of [Company.admin]
+ */
+public val Validatable<Company>.admin: Validatable<User>
+  @JvmName(name = "validatableCompanyAdmin")
+  get() = validatableOf(Company::admin)
+
+/**
+ * [Validatable] accessor of [Company.admin]
+ */
+public val Validatable<Company?>.admin: Validatable<User?>
+  @JvmName(name = "validatableNullableCompanyAdmin")
+  @Suppress("USELESS_CAST")
+  get() = validatableOf(Company::admin as KProperty1)

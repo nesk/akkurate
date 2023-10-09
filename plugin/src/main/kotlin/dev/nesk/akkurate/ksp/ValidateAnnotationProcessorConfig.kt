@@ -42,6 +42,23 @@ public data class ValidateAnnotationProcessorConfig(
     var validatableClasses: Set<String> = emptySet(),
 ) {
     /**
+     * A collection of packages containing classes to generate accessors for.
+     *
+     * Each class or interface contained within the package will be processed.
+     *
+     * This configuration
+     *
+     * Example:
+     * ```kotlin
+     * validatablePackages = setOf(
+     *     "com.example.project1",
+     *     "com.example.project2",
+     * )
+     * ```
+     */
+    internal var validatablePackages: Set<String> = emptySet()
+
+    /**
      * Prepends the provided value to the original package of the generated accessor.
      *
      * In the following example, the classes inside `com.example.project` will generate accessors into `foo.bar.com.example.project`:
@@ -61,4 +78,6 @@ public data class ValidateAnnotationProcessorConfig(
     internal val normalizedPrependPackagesWith get() = prependPackagesWith.symbolNameOrNull ?: ""
 
     internal val normalizedValidatableClasses get() = validatableClasses.mapNotNull { it.symbolNameOrNull }.toSet()
+
+    internal val normalizedValidatablePackages get() = validatablePackages.mapNotNull { it.symbolNameOrNull }.toSet()
 }
