@@ -1,0 +1,24 @@
+package foo.bar.dev.nesk.validation.accessors
+
+import dev.nesk.User
+import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.validatables.validatableOf
+import kotlin.String
+import kotlin.Suppress
+import kotlin.jvm.JvmName
+import kotlin.reflect.KProperty1
+
+/**
+ * [Validatable] accessor of [User.name]
+ */
+public val Validatable<User>.name: Validatable<String>
+  @JvmName(name = "validatableUserName")
+  get() = validatableOf(User::name)
+
+/**
+ * [Validatable] accessor of [User.name]
+ */
+public val Validatable<User?>.name: Validatable<String?>
+  @JvmName(name = "validatableNullableUserName")
+  @Suppress("USELESS_CAST")
+  get() = validatableOf(User::name as KProperty1)

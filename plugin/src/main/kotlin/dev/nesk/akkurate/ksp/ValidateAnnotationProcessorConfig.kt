@@ -41,12 +41,24 @@ public data class ValidateAnnotationProcessorConfig(
      */
     var validatableClasses: Set<String> = emptySet(),
 ) {
+    /**
+     * Prepends the provided value to the original package of the generated accessor.
+     *
+     * In the following example, the classes inside `com.example.project` will generate accessors into `foo.bar.com.example.project`:
+     * ```kotlin
+     * prependPackagesWith = "foo.bar"
+     * ```
+     */
+    internal var prependPackagesWith: String = ""
+
     private val String?.symbolNameOrNull: String?
         get() = this?.run {
             trim().trim { it == '.' }.ifEmpty { null }
         }
 
     internal val normalizedAppendPackagesWith get() = appendPackagesWith.symbolNameOrNull ?: ""
+
+    internal val normalizedPrependPackagesWith get() = prependPackagesWith.symbolNameOrNull ?: ""
 
     internal val normalizedValidatableClasses get() = validatableClasses.mapNotNull { it.symbolNameOrNull }.toSet()
 }

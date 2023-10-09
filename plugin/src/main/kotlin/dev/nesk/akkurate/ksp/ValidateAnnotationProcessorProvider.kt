@@ -24,8 +24,9 @@ import com.google.devtools.ksp.processing.SymbolProcessorProvider
 public class ValidateAnnotationProcessorProvider : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
         val options = environment.options
-        var config = ValidateAnnotationProcessorConfig().apply {
+        val config = ValidateAnnotationProcessorConfig().apply {
             options["appendPackagesWith"]?.let { appendPackagesWith = it }
+            options["__PRIVATE_API__prependPackagesWith"]?.let { prependPackagesWith = it }
             validatableClasses = options.getOrDefault("validatableClasses", "").split("|").toSet()
         }
         return ValidateAnnotationProcessor(environment.codeGenerator, environment.logger, config)

@@ -295,6 +295,27 @@ class ValidateAnnotationProcessorTest {
     }
 
     @Test
+    fun `the option 'prependPackagesWith' prepends its value to the original package name`() {
+        // Arrange
+        val source = SourceFile.kotlin(
+            "Examples.kt", """
+                package dev.nesk
+                import dev.nesk.akkurate.annotations.Validate
+                @Validate class User(val name: String)
+            """
+        )
+
+        // Act
+        val (result, compiler) = compile(source, options = mapOf("__PRIVATE_API__prependPackagesWith" to " ..foo.bar.. "))
+
+        // Assert
+        assertCompilationIsSuccessful(result)
+        assertCountOfFilesGeneratedByTheProcessor(1, compiler)
+        Path("${compiler.kotlinFilesDir}/foo/bar/dev/nesk/validation/accessors/ValidationAccessors.kt").readText()
+            .matchWithSnapshot("the option 'prependPackagesWith' prepends its value to the original package name")
+    }
+
+    @Test
     fun `the option 'validatableClasses' processes additional classes and interfaces`() {
         // Arrange
         val source = SourceFile.kotlin(
