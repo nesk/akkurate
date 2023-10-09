@@ -41,14 +41,10 @@ public data class ValidateAnnotationProcessorConfig(
      */
     var validatableClasses: Set<String> = emptySet(),
 ) {
-    internal var overrideOriginalPackageWith: String? = null
-
     private val String?.symbolNameOrNull: String?
         get() = this?.run {
             trim().trim { it == '.' }.ifEmpty { null }
         }
-
-    internal val normalizedOverrideOriginalPackageWith get() = overrideOriginalPackageWith.symbolNameOrNull
 
     internal val normalizedAppendPackagesWith get() = appendPackagesWith.symbolNameOrNull ?: ""
 

@@ -27,7 +27,6 @@ public class ValidateAnnotationProcessorProvider : SymbolProcessorProvider {
         var config = ValidateAnnotationProcessorConfig().apply {
             options["appendPackagesWith"]?.let { appendPackagesWith = it }
             validatableClasses = options.getOrDefault("validatableClasses", "").split("|").toSet()
-            overrideOriginalPackageWith = options["__PRIVATE_API__overrideOriginalPackageWith"]
         }
         return ValidateAnnotationProcessor(environment.codeGenerator, environment.logger, config)
     }

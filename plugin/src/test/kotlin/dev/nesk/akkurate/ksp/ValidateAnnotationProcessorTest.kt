@@ -320,26 +320,6 @@ class ValidateAnnotationProcessorTest {
             .matchWithSnapshot("the option 'validatableClasses' processes additional classes and interfaces (kotlin)")
     }
 
-    @Test
-    fun `the option 'overrideOriginalPackageWith' overrides the original package of the symbols with its value`() {
-        // Arrange
-        val source = SourceFile.kotlin("Examples.kt", "")
-
-        // Act
-        val (result, compiler) = compile(
-            source, options = mapOf(
-                "__PRIVATE_API__overrideOriginalPackageWith" to "dev.nesk",
-                "validatableClasses" to String::class.qualifiedName!!,
-            )
-        )
-
-        // Assert
-        assertCompilationIsSuccessful(result)
-        assertCountOfFilesGeneratedByTheProcessor(1, compiler)
-        Path("${compiler.kotlinFilesDir}/dev/nesk/validation/accessors/ValidationAccessors.kt").readText()
-            .matchWithSnapshot("the option 'overrideOriginalPackageWith' overrides the original package of the symbols with its value")
-    }
-
     private fun compile(vararg sources: SourceFile, options: Map<String, String> = emptyMap()): Pair<KotlinCompilation.Result, KotlinCompilation> {
         val compiler = KotlinCompilation().apply {
             inheritClassPath = true
