@@ -1,3 +1,4 @@
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
@@ -14,6 +15,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Provide built-in accessors for `kotlin` and `kotlin.collections` packages ([#11](https://github.com/nesk/akkurate/issues/11))
 - Support generating accessors for generic types ([#10](https://github.com/nesk/akkurate/issues/10))
 - A KDoc is provided for each validatable accessor ([#6](https://github.com/nesk/akkurate/issues/6))
 

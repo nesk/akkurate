@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform")
+    id("com.google.devtools.ksp") version "1.9.10-1.0.13"
     id("org.jetbrains.dokka")
     `maven-publish`
     signing
@@ -35,6 +36,17 @@ kotlin {
         val jvmMain by getting
         val jvmTest by getting
     }
+}
+
+dependencies {
+    add("kspCommonMainMetadata", project(":akkurate-ksp-plugin"))
+    add("kspJvm", project(":akkurate-ksp-plugin"))
+}
+
+ksp {
+    arg("__PRIVATE_API__validatablePackages", "kotlin|kotlin.collections")
+    arg("__PRIVATE_API__prependPackagesWith", "dev.nesk.akkurate.accessors")
+    arg("appendPackagesWith", "")
 }
 
 //region Create a Javadoc JAR

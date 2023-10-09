@@ -19,7 +19,7 @@ package dev.nesk.akkurate.examples.walkthrough.customMessagesAndPaths
 
 import dev.nesk.akkurate.ValidationResult
 import dev.nesk.akkurate.Validator
-import dev.nesk.akkurate.accessors.length
+import dev.nesk.akkurate.accessors.kotlin.length
 import dev.nesk.akkurate.annotations.Validate
 import dev.nesk.akkurate.constraints.builders.isGreaterThanOrEqualTo
 import dev.nesk.akkurate.constraints.builders.isNotEmpty
