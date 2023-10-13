@@ -17,6 +17,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Support generating accessors for generic types ([#10](https://github.com/nesk/akkurate/issues/10))
 - A KDoc is provided for each validatable accessor ([#6](https://github.com/nesk/akkurate/issues/6))
 
+### Changed
+
+- Propagate the `@Validate` annotation to the nested classes ([#11](https://github.com/nesk/akkurate/issues/11))
+
 ## [0.2.0] - 2023-09-26
 
 ### ⚠️ Breaking changes

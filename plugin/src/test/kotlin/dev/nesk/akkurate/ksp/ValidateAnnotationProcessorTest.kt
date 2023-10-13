@@ -274,6 +274,29 @@ class ValidateAnnotationProcessorTest {
     }
 
     @Test
+    fun `accessors are generated for nested classes`() {
+        // Arrange
+        val source = SourceFile.kotlin(
+            "Examples.kt", """
+                package dev.nesk
+                import dev.nesk.akkurate.annotations.Validate
+                @Validate class Foo {
+                    class Bar(val baz: Any)                
+                }
+            """
+        )
+
+        // Act
+        val (result, compiler) = compile(source)
+
+        // Assert
+        assertCompilationIsSuccessful(result)
+        assertCountOfFilesGeneratedByTheProcessor(1, compiler)
+        Path("${compiler.kotlinFilesDir}/dev/nesk/validation/accessors/ValidationAccessors.kt").readText()
+            .matchWithSnapshot("accessors are generated for nested classes")
+    }
+
+    @Test
     fun `the option 'appendPackagesWith' appends its value to the original package name`() {
         // Arrange
         val source = SourceFile.kotlin(

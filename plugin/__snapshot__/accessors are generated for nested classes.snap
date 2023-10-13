@@ -1,0 +1,25 @@
+@file:Suppress("USELESS_CAST")
+
+package dev.nesk.validation.accessors
+
+import dev.nesk.Foo
+import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.validatables.validatableOf
+import kotlin.Any
+import kotlin.Suppress
+import kotlin.jvm.JvmName
+import kotlin.reflect.KProperty1
+
+/**
+ * [Validatable] accessor of [Foo.Bar.baz]
+ */
+public val Validatable<Foo.Bar>.baz: Validatable<Any>
+  @JvmName(name = "validatableFooBarBaz")
+  get() = validatableOf(Foo.Bar::baz as KProperty1)
+
+/**
+ * [Validatable] accessor of [Foo.Bar.baz]
+ */
+public val Validatable<Foo.Bar?>.baz: Validatable<Any?>
+  @JvmName(name = "validatableNullableFooBarBaz")
+  get() = validatableOf(Foo.Bar::baz as KProperty1)

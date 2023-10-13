@@ -50,9 +50,10 @@ public class ValidateAnnotationProcessor(
     private var validatablePackages: Set<String> = config.normalizedValidatablePackages
 
     /**
-     * The name of the declaration with an uppercase-first character.
+     * The unique name of the declaration inside its package.
      */
-    private val KSDeclaration.capitalizedName: String get() = simpleName.asString().replaceFirstChar { it.uppercase() }
+    private val KSDeclaration.uniqueNameInPackage: String
+        get() = (parentDeclaration?.uniqueNameInPackage ?: "") + simpleName.asString().replaceFirstChar { it.uppercase() }
 
     /**
      * The package name of the generic type wrapped by the [Validatable].
@@ -88,7 +89,8 @@ public class ValidateAnnotationProcessor(
         logger.info("Found ${annotatedDeclarations.count()} classes annotated with @Validate.")
 
         val validatables = (providedClassesDeclarations + providedPackagesDeclarations + annotatedDeclarations)
-            .filterNot { it.modifiers.contains(Modifier.ANNOTATION) } // Filter out annotation classes
+            .flatMap { it.listWithAllDeepChildrenClasses }
+            .filterNot { it.classKind == ClassKind.ANNOTATION_CLASS || it.classKind == ClassKind.OBJECT } // Filter out annotation classes and objects
             .toSet()
 
         // Create two accessors for each property of a validatable, the second one enables an easy traversal within a nullable structure.
@@ -194,7 +196,7 @@ public class ValidateAnnotationProcessor(
                 FunSpec.getterBuilder().apply {
                     addAnnotation(
                         AnnotationSpec.builder(JvmName::class)
-                            .addMember("name = %S", "validatable$nullabilityText${receiver.capitalizedName}${capitalizedName}")
+                            .addMember("name = %S", "validatable$nullabilityText${uniqueNameInPackage}")
                             .build()
                     )
 
@@ -227,6 +229,15 @@ public class ValidateAnnotationProcessor(
             }
         }
     }
+
+    /**
+     * Generates a list of all the children classes, including the deep ones and the current one.
+     */
+    private val KSClassDeclaration.listWithAllDeepChildrenClasses: List<KSClassDeclaration>
+        get() = listOf(this) + this.declarations
+            .filterIsInstance<KSClassDeclaration>()
+            .flatMap { it.listWithAllDeepChildrenClasses }
+            .toSet()
 
     /**
      * Determines if a declaration is public or not.
