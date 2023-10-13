@@ -88,16 +88,16 @@ public class ValidateAnnotationProcessor(
         val annotatedDeclarations = resolver.getSymbolsWithAnnotation(Validate::class.qualifiedName!!).filterIsInstance<KSClassDeclaration>()
         logger.info("Found ${annotatedDeclarations.count()} classes annotated with @Validate.")
 
-        val validatables = (providedClassesDeclarations + providedPackagesDeclarations + annotatedDeclarations)
+        val classDeclarations = (providedClassesDeclarations + providedPackagesDeclarations + annotatedDeclarations)
             .flatMap { it.listWithAllDeepChildrenClasses }
             .filterNot { it.classKind == ClassKind.ANNOTATION_CLASS || it.classKind == ClassKind.OBJECT } // Filter out annotation classes and objects
             .toSet()
 
-        // Create two accessors for each property of a validatable, the second one enables an easy traversal within a nullable structure.
+        // Create two accessors for each property of a class, the second one enables an easy traversal within a nullable structure.
         val accessors: Set<PropertySpec> = buildSet {
-            for (validatable in validatables) {
-                logger.info("Processing class '${validatable.qualifiedName!!.asString()}'.")
-                for (property in validatable.getAllProperties()) {
+            for (classDeclaration in classDeclarations) {
+                logger.info("Processing class '${classDeclaration.qualifiedName!!.asString()}'.")
+                for (property in classDeclaration.getAllProperties()) {
                     if (
                         !property.isPublic // Until issue #15 is fixed, we handle only public properties to avoid unexpected bugs (https://github.com/nesk/akkurate/issues/15)
                         || property.extensionReceiver != null // Support extension properties aren't supported
@@ -128,7 +128,7 @@ public class ValidateAnnotationProcessor(
             }
         }
 
-        logger.info("A total of ${validatables.count()} classes and ${accessors.size} properties were processed.")
+        logger.info("A total of ${classDeclarations.count()} classes and ${accessors.size} properties were processed.")
 
         // Empty the sets to avoid processing those classes/packages again on the next processing round.
         validatableClasses = emptySet()
@@ -138,7 +138,7 @@ public class ValidateAnnotationProcessor(
     }
 
     /**
-     * Generates an extension property for the property of a validatable.
+     * Generates an extension property for the property of a validatable class.
      *
      * Take this data class as an example:
      * ```
