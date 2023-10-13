@@ -1,3 +1,5 @@
+@file:Suppress("USELESS_CAST")
+
 package dev.nesk.validation.accessors
 
 import dev.nesk.User
@@ -22,7 +24,7 @@ import kotlin.reflect.KProperty1
  */
 public val Validatable<User>.fullName: Validatable<String>
   @JvmName(name = "validatableUserFullName")
-  get() = validatableOf(User::fullName)
+  get() = validatableOf(User::fullName as KProperty1)
 
 /**
  * [Validatable] accessor of [User.fullName]
@@ -38,7 +40,6 @@ public val Validatable<User>.fullName: Validatable<String>
  */
 public val Validatable<User?>.fullName: Validatable<String?>
   @JvmName(name = "validatableNullableUserFullName")
-  @Suppress("USELESS_CAST")
   get() = validatableOf(User::fullName as KProperty1)
 
 /**
@@ -48,7 +49,7 @@ public val Validatable<User?>.fullName: Validatable<String?>
  */
 public val Validatable<User>.firstName: Validatable<String>
   @JvmName(name = "validatableUserFirstName")
-  get() = validatableOf(User::firstName)
+  get() = validatableOf(User::firstName as KProperty1)
 
 /**
  * [Validatable] accessor of [User.firstName]
@@ -57,7 +58,6 @@ public val Validatable<User>.firstName: Validatable<String>
  */
 public val Validatable<User?>.firstName: Validatable<String?>
   @JvmName(name = "validatableNullableUserFirstName")
-  @Suppress("USELESS_CAST")
   get() = validatableOf(User::firstName as KProperty1)
 
 /**
@@ -67,7 +67,7 @@ public val Validatable<User?>.firstName: Validatable<String?>
  */
 public val Validatable<User>.lastName: Validatable<String>
   @JvmName(name = "validatableUserLastName")
-  get() = validatableOf(User::lastName)
+  get() = validatableOf(User::lastName as KProperty1)
 
 /**
  * [Validatable] accessor of [User.lastName]
@@ -76,5 +76,4 @@ public val Validatable<User>.lastName: Validatable<String>
  */
 public val Validatable<User?>.lastName: Validatable<String?>
   @JvmName(name = "validatableNullableUserLastName")
-  @Suppress("USELESS_CAST")
   get() = validatableOf(User::lastName as KProperty1)

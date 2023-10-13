@@ -114,6 +114,8 @@ public class ValidateAnnotationProcessor(
             logger.info("Writing accessors with namespace '$newPackageName' to file '$fileName.kt'.")
 
             val fileBuilder = FileSpec.builder(newPackageName, fileName)
+                .addAnnotation(suppressUselessCast) // Needed for the bug-fixing cast
+
             packageAccessors.forEach(fileBuilder::addProperty)
 
             // TODO: change the ALL_FILES
@@ -196,13 +198,8 @@ public class ValidateAnnotationProcessor(
                             .build()
                     )
 
-                    // FIXME: The cast is a workaround for https://youtrack.jetbrains.com/issue/KT-59493, it can be removed with KT v1.9.20.
-                    if (withNullableReceiver) {
-                        addAnnotation(suppressUselessCast)
-                        addStatement("return %M(%T::%N as %T)", validatableOfFunction, receiverType, propertyName, kProperty1Class)
-                    } else {
-                        addStatement("return %M(%T::%N)", validatableOfFunction, receiverType, propertyName)
-                    }
+                    // FIXME: The cast is a workaround for https://youtrack.jetbrains.com/issue/KT-59493 and https://youtrack.jetbrains.com/issue/KT-62543
+                    addStatement("return %M(%T::%N as %T)", validatableOfFunction, receiverType, propertyName, kProperty1Class)
                 }.build()
             )
         }.build()

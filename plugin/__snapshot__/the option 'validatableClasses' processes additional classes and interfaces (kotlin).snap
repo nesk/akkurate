@@ -1,3 +1,5 @@
+@file:Suppress("USELESS_CAST")
+
 package kotlin.validation.accessors
 
 import dev.nesk.akkurate.validatables.Validatable
@@ -14,14 +16,13 @@ import kotlin.reflect.KProperty1
  */
 public val <A, B> Validatable<Pair<A, B>>.first: Validatable<A>
   @JvmName(name = "validatablePairFirst")
-  get() = validatableOf(Pair<A, B>::first)
+  get() = validatableOf(Pair<A, B>::first as KProperty1)
 
 /**
  * [Validatable] accessor of [Pair.first]
  */
 public val <A, B> Validatable<Pair<A, B>?>.first: Validatable<A?>
   @JvmName(name = "validatableNullablePairFirst")
-  @Suppress("USELESS_CAST")
   get() = validatableOf(Pair<A, B>::first as KProperty1)
 
 /**
@@ -29,14 +30,13 @@ public val <A, B> Validatable<Pair<A, B>?>.first: Validatable<A?>
  */
 public val <A, B> Validatable<Pair<A, B>>.second: Validatable<B>
   @JvmName(name = "validatablePairSecond")
-  get() = validatableOf(Pair<A, B>::second)
+  get() = validatableOf(Pair<A, B>::second as KProperty1)
 
 /**
  * [Validatable] accessor of [Pair.second]
  */
 public val <A, B> Validatable<Pair<A, B>?>.second: Validatable<B?>
   @JvmName(name = "validatableNullablePairSecond")
-  @Suppress("USELESS_CAST")
   get() = validatableOf(Pair<A, B>::second as KProperty1)
 
 /**
@@ -44,12 +44,11 @@ public val <A, B> Validatable<Pair<A, B>?>.second: Validatable<B?>
  */
 public val Validatable<CharSequence>.length: Validatable<Int>
   @JvmName(name = "validatableCharSequenceLength")
-  get() = validatableOf(CharSequence::length)
+  get() = validatableOf(CharSequence::length as KProperty1)
 
 /**
  * [Validatable] accessor of [CharSequence.length]
  */
 public val Validatable<CharSequence?>.length: Validatable<Int?>
   @JvmName(name = "validatableNullableCharSequenceLength")
-  @Suppress("USELESS_CAST")
   get() = validatableOf(CharSequence::length as KProperty1)
