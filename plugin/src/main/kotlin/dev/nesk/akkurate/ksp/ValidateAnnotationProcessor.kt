@@ -98,8 +98,10 @@ public class ValidateAnnotationProcessor(
             for (validatable in validatables) {
                 logger.info("Processing class '${validatable.qualifiedName!!.asString()}'.")
                 for (property in validatable.getAllProperties()) {
-                    // Until issue #15 is fixed, we handle only public properties to avoid unexpected bugs (https://github.com/nesk/akkurate/issues/15)
-                    if (!property.isPublic) continue
+                    if (
+                        !property.isPublic // Until issue #15 is fixed, we handle only public properties to avoid unexpected bugs (https://github.com/nesk/akkurate/issues/15)
+                        || property.extensionReceiver != null // Support extension properties aren't supported
+                    ) continue
 
                     logger.info("Processing property '${property.simpleName.asString()}'.")
                     val rootProperty = property.topMostPublicOverridee
