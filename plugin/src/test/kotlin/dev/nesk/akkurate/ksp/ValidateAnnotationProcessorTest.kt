@@ -297,6 +297,16 @@ class ValidateAnnotationProcessorTest {
     }
 
     @Test
+    fun `accessors within the 'kotlin' package are ignored and not written to the generated files`() {
+        // Act
+        val (result, compiler) = compile(options = mapOf("validatableClasses" to String::class.qualifiedName!!))
+
+        // Assert
+        assertCompilationIsSuccessful(result)
+        assertCountOfFilesGeneratedByTheProcessor(0, compiler)
+    }
+
+    @Test
     fun `the option 'appendPackagesWith' appends its value to the original package name`() {
         // Arrange
         val source = SourceFile.kotlin(
@@ -345,23 +355,24 @@ class ValidateAnnotationProcessorTest {
             "Examples.kt", """
                 package dev.nesk
                 import dev.nesk.akkurate.annotations.Validate
-                @Validate class User(val names: Pair<String, String>, val fullName: String)
+                @Validate class User(val firstName: FirstName, val lastName: LastName)
+
+                class FirstName(val text: String)
+                class LastName(val text: String)
             """
         )
 
         // Act
         val (result, compiler) = compile(
             source,
-            options = mapOf("validatableClasses" to "${Pair::class.qualifiedName!!}|${CharSequence::class.qualifiedName!!}")
+            options = mapOf("validatableClasses" to "dev.nesk.FirstName|dev.nesk.LastName")
         )
 
         // Assert
         assertCompilationIsSuccessful(result)
-        assertCountOfFilesGeneratedByTheProcessor(2, compiler)
+        assertCountOfFilesGeneratedByTheProcessor(1, compiler)
         Path("${compiler.kotlinFilesDir}/dev/nesk/validation/accessors/ValidationAccessors.kt").readText()
-            .matchWithSnapshot("the option 'validatableClasses' processes additional classes and interfaces (dev.nesk)")
-        Path("${compiler.kotlinFilesDir}/kotlin/validation/accessors/ValidationAccessors.kt").readText()
-            .matchWithSnapshot("the option 'validatableClasses' processes additional classes and interfaces (kotlin)")
+            .matchWithSnapshot("the option 'validatableClasses' processes additional classes and interfaces")
     }
 
     @Test

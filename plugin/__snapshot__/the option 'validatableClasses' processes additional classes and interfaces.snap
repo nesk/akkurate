@@ -1,0 +1,69 @@
+@file:Suppress("USELESS_CAST")
+
+package dev.nesk.validation.accessors
+
+import dev.nesk.FirstName
+import dev.nesk.LastName
+import dev.nesk.User
+import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.validatables.validatableOf
+import kotlin.String
+import kotlin.Suppress
+import kotlin.jvm.JvmName
+import kotlin.reflect.KProperty1
+
+/**
+ * [Validatable] accessor of [FirstName.text]
+ */
+public val Validatable<FirstName>.text: Validatable<String>
+  @JvmName(name = "validatableFirstNameText")
+  get() = validatableOf(FirstName::text as KProperty1)
+
+/**
+ * [Validatable] accessor of [FirstName.text]
+ */
+public val Validatable<FirstName?>.text: Validatable<String?>
+  @JvmName(name = "validatableNullableFirstNameText")
+  get() = validatableOf(FirstName::text as KProperty1)
+
+/**
+ * [Validatable] accessor of [LastName.text]
+ */
+public val Validatable<LastName>.text: Validatable<String>
+  @JvmName(name = "validatableLastNameText")
+  get() = validatableOf(LastName::text as KProperty1)
+
+/**
+ * [Validatable] accessor of [LastName.text]
+ */
+public val Validatable<LastName?>.text: Validatable<String?>
+  @JvmName(name = "validatableNullableLastNameText")
+  get() = validatableOf(LastName::text as KProperty1)
+
+/**
+ * [Validatable] accessor of [User.firstName]
+ */
+public val Validatable<User>.firstName: Validatable<FirstName>
+  @JvmName(name = "validatableUserFirstName")
+  get() = validatableOf(User::firstName as KProperty1)
+
+/**
+ * [Validatable] accessor of [User.firstName]
+ */
+public val Validatable<User?>.firstName: Validatable<FirstName?>
+  @JvmName(name = "validatableNullableUserFirstName")
+  get() = validatableOf(User::firstName as KProperty1)
+
+/**
+ * [Validatable] accessor of [User.lastName]
+ */
+public val Validatable<User>.lastName: Validatable<LastName>
+  @JvmName(name = "validatableUserLastName")
+  get() = validatableOf(User::lastName as KProperty1)
+
+/**
+ * [Validatable] accessor of [User.lastName]
+ */
+public val Validatable<User?>.lastName: Validatable<LastName?>
+  @JvmName(name = "validatableNullableUserLastName")
+  get() = validatableOf(User::lastName as KProperty1)

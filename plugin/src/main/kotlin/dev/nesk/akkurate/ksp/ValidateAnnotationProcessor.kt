@@ -56,16 +56,17 @@ public class ValidateAnnotationProcessor(
         get() = (parentDeclaration?.uniqueNameInPackage ?: "") + simpleName.asString().replaceFirstChar { it.uppercase() }
 
     /**
-     * The package name of the generic type wrapped by the [Validatable].
+     * The destination package of the accessor.
      */
-    private val PropertySpec.originalPackageName: String
+    private val PropertySpec.destinationPackageName: String
         get() {
             val wrappedType = (receiverType as ParameterizedTypeName).typeArguments.first()
-            return when (wrappedType) {
+            val wrappedPackageName = when (wrappedType) {
                 is ClassName -> wrappedType.packageName
                 is ParameterizedTypeName -> wrappedType.rawType.packageName
                 else -> "default.package.name"
             }
+            return "${config.normalizedPrependPackagesWith}.$wrappedPackageName.${config.normalizedAppendPackagesWith}".trim('.')
         }
 
     @OptIn(KspExperimental::class)
@@ -111,19 +112,27 @@ public class ValidateAnnotationProcessor(
             }
         }
 
-        // Group the accessors by their package and generate a file for each package with the corresponding accessors.
-        for ((packageName, packageAccessors) in accessors.groupBy { it.originalPackageName }) {
-            val fileName = "ValidationAccessors"
-            val newPackageName = "${config.normalizedPrependPackagesWith}.$packageName.${config.normalizedAppendPackagesWith}".trim { it == '.' }
-            logger.info("Writing accessors with namespace '$newPackageName' to file '$fileName.kt'.")
+        // Group the accessors by their package and filter out those in the `kotlin` package
+        val groupedAccessors = accessors
+            .groupBy { it.destinationPackageName }
+            .filterNot { (packageName, packageAccessors) ->
+                (packageName.split('.').first() == "kotlin").also {
+                    logger.warnIf(it, "Skipping ${packageAccessors.size} accessors in the '$packageName' package because they're in the 'kotlin' package")
+                }
+            }
 
-            val fileBuilder = FileSpec.builder(newPackageName, fileName)
+        // Generate a file for each package with the corresponding accessors
+        for ((packageName, packageAccessors) in groupedAccessors) {
+            val fileName = "ValidationAccessors"
+            logger.info("Writing accessors with namespace '$packageName' to file '$fileName.kt'.")
+
+            val fileBuilder = FileSpec.builder(packageName, fileName)
                 .addAnnotation(suppressUselessCast) // Needed for the bug-fixing cast
 
             packageAccessors.forEach(fileBuilder::addProperty)
 
             // TODO: change the ALL_FILES
-            codeGenerator.createNewFile(Dependencies.ALL_FILES, newPackageName, fileBuilder.name, "kt").use { output ->
+            codeGenerator.createNewFile(Dependencies.ALL_FILES, packageName, fileBuilder.name, "kt").use { output ->
                 OutputStreamWriter(output).use { fileBuilder.build().writeTo(it) }
             }
         }
@@ -294,4 +303,10 @@ public class ValidateAnnotationProcessor(
             }
             return mostPublicOverridee
         }
+
+    private fun KSPLogger.warnIf(condition: Boolean, message: String, symbol: KSNode? = null) {
+        if (condition) {
+            warn(message, symbol)
+        }
+    }
 }

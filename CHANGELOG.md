@@ -22,6 +22,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Fixed
 
 - Validatable accessors are no longer generated for extension properties 
+- Skip the generation of accessors in the `kotlin` package, avoiding compilation failures.
 
 ### Changed
 
