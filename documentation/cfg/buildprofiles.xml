@@ -4,11 +4,15 @@
 
     <variables>
         <og-image>https://akkurate.dev/social.png</og-image>
+        <web-root>https://akkurate.dev/docs/</web-root>
     </variables>
 
     <build-profile instance="akkurate">
         <variables>
             <noindex-content>false</noindex-content>
+            <algolia-id>L3ZXCPZ1DE</algolia-id>
+            <algolia-index>akkurate</algolia-index>
+            <algolia-api-key>b50c05f1dce77d8d4c21a1ba60842e3f</algolia-api-key>
         </variables>
     </build-profile>
 

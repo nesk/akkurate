@@ -19,10 +19,16 @@ env:
   # Replace HI with the ID of the instance in capital letters
   DOC_ARTIFACT: webHelpAKKURATE2-all.zip
   # Writerside docker image version
-  DOCKER_VERSION: 2.1.1479-p3869
+  DOCKER_VERSION: 232.10165
   # Add the variable below to upload Algolia indexes
   # Replace HI with the ID of the instance in capital letters
   ALGOLIA_ARTIFACT: algolia-indexes-AKKURATE.zip
+
+  ALGOLIA_APP_NAME: L3ZXCPZ1DE
+  ALGOLIA_INDEX_NAME: akkurate
+  ALGOLIA_KEY: ${{ secrets.ALGOLIA_KEY }}
+  CONFIG_JSON_PRODUCT: AKKURATE
+  CONFIG_JSON_VERSION: 0.3.0
 
 jobs:
   build-documentation:
@@ -56,13 +62,12 @@ jobs:
           path: ./documentation/images/social.png
           retention-days: 7
 
-      # Add the step below to upload Algolia indexes
-  #      - name: Upload algolia-indexes
-  #        uses: actions/upload-artifact@v3
-  #        with:
-  #          name: algolia-indexes
-  #          path: artifacts/${{ env.ALGOLIA_ARTIFACT }}
-  #          retention-days: 7
+      - name: Upload Algolia indexes
+        uses: actions/upload-artifact@v3
+        with:
+          name: algolia-indexes
+          path: artifacts/${{ env.ALGOLIA_ARTIFACT }}
+          retention-days: 7
 
   build-api-reference:
     name: Build API reference
@@ -112,6 +117,31 @@ jobs:
         uses: JetBrains/writerside-checker-action@v1
         with:
           instance: ${{ env.INSTANCE }}
+
+  publish-documentation-indexes:
+    name: Publish documentation indexes to Algolia
+    needs: build-documentation
+    runs-on: ubuntu-latest
+    container:
+      image: registry.jetbrains.team/p/writerside/builder/algolia-publisher:2.0.32-2
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          name: algolia-indexes
+      - uses: montudor/action-zip@v1
+        with:
+          args: unzip -qq ${{ env.ALGOLIA_ARTIFACT }} -d algolia-indexes
+      - run: |
+          env "algolia-key=${{env.ALGOLIA_KEY}}" java -jar /opt/builder/help-publication-agent.jar \
+          update-index \
+          --application-name ${{env.ALGOLIA_APP_NAME}} \
+          --index-name ${{env.ALGOLIA_INDEX_NAME}} \
+          --product ${{env.CONFIG_JSON_PRODUCT}} \
+          --version ${{env.CONFIG_JSON_VERSION}} \
+          --index-directory algolia-indexes/ \
+          2>&1 | tee algolia-update-index-log.txt
 
   deploy:
     name: Deploy everything
