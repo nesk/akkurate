@@ -19,12 +19,19 @@ package dev.nesk.akkurate.accessors
 
 import dev.nesk.akkurate.validatables.Validatable
 
-public operator fun <T> Validatable<Iterable<T>>.iterator(): Iterator<Validatable<T>> = unwrap()
-    .asSequence()
-    .withIndex()
-    .map { Validatable(it.value, it.index.toString(), this) }
-    .iterator()
+private val emptyIterator = object : Iterator<Nothing> {
+    override fun hasNext(): Boolean = false
+    override fun next(): Nothing = throw NoSuchElementException("This iterator is empty")
+}
 
-public inline fun <T> Validatable<Iterable<T>>.each(block: Validatable<T>.() -> Unit) {
+public operator fun <T> Validatable<Iterable<T>?>.iterator(): Iterator<Validatable<T>> = unwrap()?.let { iterable ->
+    iterable
+        .asSequence()
+        .withIndex()
+        .map { Validatable(it.value, it.index.toString(), this) }
+        .iterator()
+} ?: emptyIterator
+
+public inline fun <T> Validatable<Iterable<T>?>.each(block: Validatable<T>.() -> Unit) {
     for (row in this) row.invoke(block)
 }

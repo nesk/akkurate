@@ -19,8 +19,10 @@ package dev.nesk.akkurate.accessors
 
 import dev.nesk.akkurate._test.assertContentEquals
 import dev.nesk.akkurate.validatables.Validatable
+import org.junit.jupiter.api.assertThrows
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 
 class IterableTest {
     @Test
@@ -54,6 +56,17 @@ class IterableTest {
     }
 
     @Test
+    fun `'iterator' returns an empty iterator when the iterable is null`() {
+        // Arrange
+        val value: Iterable<Any>? = null
+        // Act
+        val iterator = Validatable(value).iterator()
+        // Assert
+        assertFalse(iterator.hasNext(), "The iterator has no next value")
+        assertThrows<NoSuchElementException>("The iterator cannot be iterated") { iterator.next() }
+    }
+
+    @Test
     fun `calling 'each' will execute the block for each value of the iterable, wrapped in Validatable and passed as the receiver`() {
         // Arrange
         val validatables = Validatable(1..2)
@@ -65,5 +78,16 @@ class IterableTest {
             setOf(Validatable(1, "0"), Validatable(2, "1")),
             receivers
         )
+    }
+
+    @Test
+    fun `'each' never executes the block when the iterable is null`() {
+        // Arrange
+        val validatables: Validatable<Iterable<Any>?> = Validatable(null)
+        // Act
+        var hasBeenExecuted = false
+        validatables.each { hasBeenExecuted = true }
+        // Assert
+        assertFalse(hasBeenExecuted)
     }
 }
