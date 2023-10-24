@@ -609,4 +609,265 @@ class TemporalAccessorTest {
         assertFalse(Validatable(presentZonedDateTime).isAfterOrEqualTo(presentZonedDateTime + fewSeconds).satisfied)
     }
     //endregion
+
+    //region isNegative
+    @Test
+    fun `'Duration isNegative' succeeds when the value is null`() {
+        assertTrue(Validatable<Duration?>(null).isNegative().satisfied)
+    }
+
+    @Test
+    fun `'Duration isNegative' succeeds when the value is negative`() {
+        assertTrue(Validatable(Duration.ofSeconds(-1)).isNegative().satisfied)
+    }
+
+    @Test
+    fun `'Duration isNegative' fails when the value is positive or zero`() {
+        assertFalse(Validatable(Duration.ofSeconds(1)).isNegative().satisfied, "The constraint is not satisfied when the value is positive")
+        assertFalse(Validatable(Duration.ofSeconds(0)).isNegative().satisfied, "The constraint is not satisfied when the value is zero")
+    }
+
+    @Test
+    fun `'Period isNegative' succeeds when the value is null`() {
+        assertTrue(Validatable<Period?>(null).isNegative().satisfied)
+    }
+
+    @Test
+    fun `'Period isNegative' succeeds when the value is negative`() {
+        assertTrue(Validatable(Period.ofDays(-1)).isNegative().satisfied)
+    }
+
+    @Test
+    fun `'Period isNegative' fails when the value is positive or zero`() {
+        assertFalse(Validatable(Period.ofDays(1)).isNegative().satisfied, "The constraint is not satisfied when the value is positive")
+        assertFalse(Validatable(Period.ofDays(0)).isNegative().satisfied, "The constraint is not satisfied when the value is zero")
+    }
+    //endregion
+
+    //region isNegativeOrZero
+    @Test
+    fun `'Duration isNegativeOrZero' succeeds when the value is null`() {
+        assertTrue(Validatable<Duration?>(null).isNegativeOrZero().satisfied)
+    }
+
+    @Test
+    fun `'Duration isNegativeOrZero' succeeds when the value is negative or zero`() {
+        assertTrue(Validatable(Duration.ofSeconds(-1)).isNegativeOrZero().satisfied, "The constraint is satisfied when the value is negative")
+        assertTrue(Validatable(Duration.ofSeconds(0)).isNegativeOrZero().satisfied, "The constraint is satisfied when the value is zero")
+    }
+
+    @Test
+    fun `'Duration isNegativeOrZero' fails when the value is positive`() {
+        assertFalse(Validatable(Duration.ofSeconds(1)).isNegativeOrZero().satisfied)
+    }
+
+    @Test
+    fun `'Period isNegativeOrZero' succeeds when the value is null`() {
+        assertTrue(Validatable<Period?>(null).isNegativeOrZero().satisfied)
+    }
+
+    @Test
+    fun `'Period isNegativeOrZero' succeeds when the value is negative or zero`() {
+        assertTrue(Validatable(Period.ofDays(-1)).isNegativeOrZero().satisfied, "The constraint is satisfied when the value is negative")
+        assertTrue(Validatable(Period.ofDays(0)).isNegativeOrZero().satisfied, "The constraint is satisfied when the value is zero")
+    }
+
+    @Test
+    fun `'Period isNegativeOrZero' fails when the value is positive`() {
+        assertFalse(Validatable(Duration.ofSeconds(1)).isNegativeOrZero().satisfied)
+    }
+    //endregion
+
+    //region isPositive
+    @Test
+    fun `'Duration isPositive' succeeds when the value is null`() {
+        assertTrue(Validatable<Duration?>(null).isPositive().satisfied)
+    }
+
+    @Test
+    fun `'Duration isPositive' succeeds when the value is positive`() {
+        assertTrue(Validatable(Duration.ofSeconds(1)).isPositive().satisfied)
+    }
+
+    @Test
+    fun `'Duration isPositive' fails when the value is negative or zero`() {
+        assertFalse(Validatable(Duration.ofSeconds(-1)).isPositive().satisfied, "The constraint is not satisfied when the value is negative")
+        assertFalse(Validatable(Duration.ofSeconds(0)).isPositive().satisfied, "The constraint is not satisfied when the value is zero")
+    }
+
+    @Test
+    fun `'Period isPositive' succeeds when the value is null`() {
+        assertTrue(Validatable<Period?>(null).isPositive().satisfied)
+    }
+
+    @Test
+    fun `'Period isPositive' succeeds when the value is positive`() {
+        assertTrue(Validatable(Period.ofDays(1)).isPositive().satisfied)
+    }
+
+    @Test
+    fun `'Period isPositive' fails when the value is negative or zero`() {
+        assertFalse(Validatable(Period.ofDays(-1)).isPositive().satisfied, "The constraint is not satisfied when the value is negative")
+        assertFalse(Validatable(Period.ofDays(0)).isPositive().satisfied, "The constraint is not satisfied when the value is zero")
+    }
+    //endregion
+
+    //region isPositiveOrZero
+    @Test
+    fun `'Duration isPositiveOrZero' succeeds when the value is null`() {
+        assertTrue(Validatable<Duration?>(null).isPositiveOrZero().satisfied)
+    }
+
+    @Test
+    fun `'Duration isPositiveOrZero' succeeds when the value is positive or zero`() {
+        assertTrue(Validatable(Duration.ofSeconds(1)).isPositiveOrZero().satisfied, "The constraint is satisfied when the value is positive")
+        assertTrue(Validatable(Duration.ofSeconds(0)).isPositiveOrZero().satisfied, "The constraint is satisfied when the value is zero")
+    }
+
+    @Test
+    fun `'Duration isPositiveOrZero' fails when the value is negative`() {
+        assertFalse(Validatable(Duration.ofSeconds(-1)).isPositiveOrZero().satisfied)
+    }
+
+    @Test
+    fun `'Period isPositiveOrZero' succeeds when the value is null`() {
+        assertTrue(Validatable<Period?>(null).isPositiveOrZero().satisfied)
+    }
+
+    @Test
+    fun `'Period isPositiveOrZero' succeeds when the value is positive or zero`() {
+        assertTrue(Validatable(Period.ofDays(1)).isPositiveOrZero().satisfied, "The constraint is satisfied when the value is positive")
+        assertTrue(Validatable(Period.ofDays(0)).isPositiveOrZero().satisfied, "The constraint is satisfied when the value is zero")
+    }
+
+    @Test
+    fun `'Period isPositiveOrZero' fails when the value is negative`() {
+        assertFalse(Validatable(Period.ofDays(-1)).isPositiveOrZero().satisfied)
+    }
+    //endregion
+
+    //region isLowerThan
+    @Test
+    fun `'Duration isLowerThan' succeeds when the value is null`() {
+        assertTrue(Validatable<Duration?>(null).isLowerThan(Duration.ofSeconds(3)).satisfied)
+    }
+
+    @Test
+    fun `'Duration isLowerThan' succeeds when the value is lower than the provided one`() {
+        assertTrue(Validatable(Duration.ofSeconds(2)).isLowerThan(Duration.ofSeconds(3)).satisfied)
+    }
+
+    @Test
+    fun `'Duration isLowerThan' fails when the value is greater than or equal to the provided one`() {
+        assertFalse(
+            Validatable(Duration.ofSeconds(2)).isLowerThan(Duration.ofSeconds(1)).satisfied,
+            "The constraint is not satisfied when the value is greater than the provided one"
+        )
+        assertFalse(Validatable(Duration.ofSeconds(2)).isLowerThan(Duration.ofSeconds(2)).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    }
+    //endregion
+
+    //region isLowerThanOrEqualTo
+    @Test
+    fun `'Duration isLowerThanOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Duration?>(null).isLowerThanOrEqualTo(Duration.ofSeconds(3)).satisfied)
+    }
+
+    @Test
+    fun `'Duration isLowerThanOrEqualTo' succeeds when the value is lower than or equal to the provided one`() {
+        assertTrue(
+            Validatable(Duration.ofSeconds(2)).isLowerThanOrEqualTo(Duration.ofSeconds(3)).satisfied,
+            "The constraint is satisfied when the value is lower than the provided one"
+        )
+        assertTrue(
+            Validatable(Duration.ofSeconds(2)).isLowerThanOrEqualTo(Duration.ofSeconds(2)).satisfied,
+            "The constraint is satisfied when the value is equal to the provided one"
+        )
+    }
+
+    @Test
+    fun `'Duration isLowerThanOrEqualTo' fails when the value is greater than the provided one`() {
+        assertFalse(Validatable(Duration.ofSeconds(2)).isLowerThanOrEqualTo(Duration.ofSeconds(1)).satisfied)
+    }
+    //endregion
+
+    //region isGreaterThan
+    @Test
+    fun `'Duration isGreaterThan' succeeds when the value is null`() {
+        assertTrue(Validatable<Duration?>(null).isGreaterThan(Duration.ofSeconds(3)).satisfied)
+    }
+
+    @Test
+    fun `'Duration isGreaterThan' succeeds when the value is greater than the provided one`() {
+        assertTrue(Validatable(Duration.ofSeconds(2)).isGreaterThan(Duration.ofSeconds(1)).satisfied)
+    }
+
+    @Test
+    fun `'Duration isGreaterThan' fails when the value is lower than or equal to the provided one`() {
+        assertFalse(
+            Validatable(Duration.ofSeconds(2)).isGreaterThan(Duration.ofSeconds(3)).satisfied,
+            "The constraint is not satisfied when the value is lower than the provided one"
+        )
+        assertFalse(
+            Validatable(Duration.ofSeconds(2)).isGreaterThan(Duration.ofSeconds(2)).satisfied,
+            "The constraint is not satisfied when the value is equal to the provided one"
+        )
+    }
+    //endregion
+
+    //region isGreaterThanOrEqualTo
+    @Test
+    fun `'Duration isGreaterThanOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<Duration?>(null).isGreaterThanOrEqualTo(Duration.ofSeconds(3)).satisfied)
+    }
+
+    @Test
+    fun `'Duration isGreaterThanOrEqualTo' succeeds when the value is greater than or equal to the provided one`() {
+        assertTrue(
+            Validatable(Duration.ofSeconds(2)).isGreaterThanOrEqualTo(Duration.ofSeconds(1)).satisfied,
+            "The constraint is satisfied when the value is greater than the provided one"
+        )
+        assertTrue(
+            Validatable(Duration.ofSeconds(2)).isGreaterThanOrEqualTo(Duration.ofSeconds(2)).satisfied,
+            "The constraint is satisfied when the value is equal to the provided one"
+        )
+    }
+
+    @Test
+    fun `'Duration isGreaterThanOrEqualTo' fails when the value is lower than the provided one`() {
+        assertFalse(Validatable(Duration.ofSeconds(2)).isGreaterThanOrEqualTo(Duration.ofSeconds(3)).satisfied)
+    }
+    //endregion
+
+    //region isBetween
+    @Test
+    fun `'Duration isBetween' succeeds with a closed range when the value is null`() {
+        assertTrue(Validatable<Duration?>(null).isBetween(Duration.ofSeconds(3)..Duration.ofSeconds(9)).satisfied)
+    }
+
+    @Test
+    fun `'Duration isBetween' succeeds with a closed range when the value is within the provided range`() {
+        assertTrue(Validatable(Duration.ofSeconds(2)).isBetween(Duration.ofSeconds(1)..Duration.ofSeconds(3)).satisfied)
+    }
+
+    @Test
+    fun `'Duration isBetween' fails with a closed range when the value is outside the provided range`() {
+        assertFalse(Validatable(Duration.ofSeconds(2)).isBetween(Duration.ofSeconds(3)..Duration.ofSeconds(5)).satisfied)
+    }
+
+    @Test
+    fun `'Duration isBetween' succeeds with an open-ended range when the value is null`() {
+        assertTrue(Validatable<Duration?>(null).isBetween(Duration.ofSeconds(3)..<Duration.ofSeconds(9)).satisfied)
+    }
+
+    @Test
+    fun `'Duration isBetween' succeeds with an open-ended range when the value is within the provided range`() {
+        assertTrue(Validatable(Duration.ofSeconds(2)).isBetween(Duration.ofSeconds(1)..<Duration.ofSeconds(3)).satisfied)
+    }
+
+    @Test
+    fun `'Duration isBetween' fails with an open-ended range when the value is outside the provided range`() {
+        assertFalse(Validatable(Duration.ofSeconds(2)).isBetween(Duration.ofSeconds(1)..<Duration.ofSeconds(2)).satisfied)
+    }
+    //endregion
 }

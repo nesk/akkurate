@@ -176,3 +176,80 @@ public fun Validatable<LocalDateTime?>.isAfterOrEqualTo(other: LocalDateTime): C
 public fun Validatable<ZonedDateTime?>.isAfterOrEqualTo(other: ZonedDateTime): Constraint =
     constrainIfNotNull { it >= other } otherwiseAfterOrEqual other
 //endregion
+
+//region isNegative
+private const val negativeMessage = "Must be negative"
+
+@JvmName("durationIsNegative")
+public fun Validatable<Duration?>.isNegative(): Constraint =
+    constrainIfNotNull { it.isNegative && it != Duration.ZERO } otherwise { negativeMessage }
+
+@JvmName("periodIsNegative")
+public fun Validatable<Period?>.isNegative(): Constraint =
+    constrainIfNotNull { it.isNegative && it != Period.ZERO } otherwise { negativeMessage }
+//endregion
+
+//region isNegativeOrZero
+private const val negativeMessageOrZero = "Must be negative"
+
+@JvmName("durationIsNegativeOrZero")
+public fun Validatable<Duration?>.isNegativeOrZero(): Constraint =
+    constrainIfNotNull { it.isNegative || it == Duration.ZERO } otherwise { negativeMessageOrZero }
+
+@JvmName("periodIsNegativeOrZero")
+public fun Validatable<Period?>.isNegativeOrZero(): Constraint =
+    constrainIfNotNull { it.isNegative || it == Period.ZERO } otherwise { negativeMessageOrZero }
+//endregion
+
+//region isPositive
+private const val positiveMessage = "Must be positive"
+
+@JvmName("durationIsPositive")
+public fun Validatable<Duration?>.isPositive(): Constraint =
+    constrainIfNotNull { !it.isNegative && it != Duration.ZERO } otherwise { positiveMessage }
+
+@JvmName("periodIsPositive")
+public fun Validatable<Period?>.isPositive(): Constraint =
+    constrainIfNotNull { !it.isNegative && it != Period.ZERO } otherwise { positiveMessage }
+//endregion
+
+//region isPositiveOrZero
+private const val positiveMessageOrZero = "Must be positive"
+
+@JvmName("durationIsPositiveOrZero")
+public fun Validatable<Duration?>.isPositiveOrZero(): Constraint =
+    constrainIfNotNull { !it.isNegative || it == Duration.ZERO } otherwise { positiveMessageOrZero }
+
+@JvmName("periodIsPositiveOrZero")
+public fun Validatable<Period?>.isPositiveOrZero(): Constraint =
+    constrainIfNotNull { !it.isNegative || it == Period.ZERO } otherwise { positiveMessageOrZero }
+//endregion
+
+//region isLowerThan
+public fun Validatable<Duration?>.isLowerThan(value: Duration): Constraint =
+    constrainIfNotNull { it < value } otherwise { "Must be lower than $value" }
+//endregion
+
+//region isLowerThanOrEqualTo
+public fun Validatable<Duration?>.isLowerThanOrEqualTo(value: Duration): Constraint =
+    constrainIfNotNull { it <= value } otherwise { "Must be lower than or equal to $value" }
+//endregion
+
+//region isGreaterThan
+public fun Validatable<Duration?>.isGreaterThan(value: Duration): Constraint =
+    constrainIfNotNull { it > value } otherwise { "Must be greater than $value" }
+//endregion
+
+//region isGreaterThanOrEqualTo
+public fun Validatable<Duration?>.isGreaterThanOrEqualTo(value: Duration): Constraint =
+    constrainIfNotNull { it >= value } otherwise { "Must be greater than or equal to $value" }
+//endregion
+
+//region isBetween
+public fun Validatable<Duration?>.isBetween(range: ClosedRange<Duration>): Constraint =
+    constrainIfNotNull { it in range } otherwise { "Must be between ${range.start} and ${range.endInclusive} (inclusive)" }
+
+public fun Validatable<Duration?>.isBetween(range: OpenEndRange<Duration>): Constraint =
+    constrainIfNotNull { it in range } otherwise { "Must be between ${range.start} and ${range.endExclusive} (exclusive)" }
+//endregion
+
