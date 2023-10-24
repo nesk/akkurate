@@ -11,6 +11,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - Support iterating over nullable iterables, like `Validatable<Iterable<*>?>`. ([#16](https://github.com/nesk/akkurate/issues/16))
+- Add constraints to validate JVM type `LocalDate`. ([#7](https://github.com/nesk/akkurate/issues/7))
 
 ## [0.3.0] - 2023-10-16
 

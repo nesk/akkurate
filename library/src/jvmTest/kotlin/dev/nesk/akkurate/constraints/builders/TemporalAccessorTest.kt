@@ -24,10 +24,12 @@ import kotlin.test.*
 class TemporalAccessorTest {
     companion object {
         private val fewSeconds = Duration.ofSeconds(5)
+        private val fewDays = Period.ofDays(2)
     }
 
     private val presentInstant = Instant.now()
     private val fixedClock = Clock.fixed(presentInstant, ZoneOffset.UTC)
+    private val presentLocalDate = LocalDate.now(fixedClock)
     private val presentLocalDateTime = LocalDateTime.now(fixedClock)
     private val presentZonedDateTime = ZonedDateTime.now(fixedClock)
 
@@ -59,6 +61,22 @@ class TemporalAccessorTest {
     fun `'Instant isInPast' fails when the value is in the future or present`() {
         assertFalse(Validatable(presentInstant + fewSeconds).isInPast().satisfied, "The constraint is not satisfied when the value is in the future")
         assertFalse(Validatable(presentInstant).isInPast().satisfied, "The constraint is not satisfied when the value is present")
+    }
+
+    @Test
+    fun `'LocalDate isInPast' succeeds when the value is null`() {
+        assertTrue(Validatable<LocalDate?>(null).isInPast().satisfied)
+    }
+
+    @Test
+    fun `'LocalDate isInPast' succeeds when the value is in the isInPast`() {
+        assertTrue(Validatable(presentLocalDate - fewDays).isInPast().satisfied)
+    }
+
+    @Test
+    fun `'LocalDate isInPast' fails when the value is in the future or present`() {
+        assertFalse(Validatable(presentLocalDate + fewDays).isInPast().satisfied, "The constraint is not satisfied when the value is in the future")
+        assertFalse(Validatable(presentLocalDate).isInPast().satisfied, "The constraint is not satisfied when the value is present")
     }
 
     @Test
@@ -112,6 +130,22 @@ class TemporalAccessorTest {
     }
 
     @Test
+    fun `'LocalDate isInPastOrIsPresent' succeeds when the value is null`() {
+        assertTrue(Validatable<LocalDate?>(null).isInPastOrIsPresent().satisfied)
+    }
+
+    @Test
+    fun `'LocalDate isInPastOrIsPresent' succeeds when the value is in the past or present`() {
+        assertTrue(Validatable(presentLocalDate - fewDays).isInPastOrIsPresent().satisfied, "The constraint is satisfied when the value is in the past")
+        assertTrue(Validatable(presentLocalDate).isInPastOrIsPresent().satisfied, "The constraint is satisfied when the value is present")
+    }
+
+    @Test
+    fun `'LocalDate isInPastOrIsPresent' fails when the value is in the future`() {
+        assertFalse(Validatable(presentLocalDate + fewDays).isInPastOrIsPresent().satisfied)
+    }
+
+    @Test
     fun `'LocalDateTime isInPastOrIsPresent' succeeds when the value is null`() {
         assertTrue(Validatable<LocalDateTime?>(null).isInPastOrIsPresent().satisfied)
     }
@@ -159,6 +193,22 @@ class TemporalAccessorTest {
     fun `'Instant isInFuture' fails when the value is in the past or present`() {
         assertFalse(Validatable(presentInstant - fewSeconds).isInFuture().satisfied, "The constraint is not satisfied when the value is in the past")
         assertFalse(Validatable(presentInstant).isInFuture().satisfied, "The constraint is not satisfied when the value is present")
+    }
+
+    @Test
+    fun `'LocalDate isInFuture' succeeds when the value is null`() {
+        assertTrue(Validatable<LocalDate?>(null).isInFuture().satisfied)
+    }
+
+    @Test
+    fun `'LocalDate isInFuture' succeeds when the value is in the future`() {
+        assertTrue(Validatable(presentLocalDate + fewDays).isInFuture().satisfied)
+    }
+
+    @Test
+    fun `'LocalDate isInFuture' fails when the value is in the past or present`() {
+        assertFalse(Validatable(presentLocalDate - fewDays).isInFuture().satisfied, "The constraint is not satisfied when the value is in the past")
+        assertFalse(Validatable(presentLocalDate).isInFuture().satisfied, "The constraint is not satisfied when the value is present")
     }
 
     @Test
@@ -212,6 +262,22 @@ class TemporalAccessorTest {
     }
 
     @Test
+    fun `'LocalDate isInFutureOrIsPresent' succeeds when the value is null`() {
+        assertTrue(Validatable<LocalDate?>(null).isInFutureOrIsPresent().satisfied)
+    }
+
+    @Test
+    fun `'LocalDate isInFutureOrIsPresent' succeeds when the value is in the future or present`() {
+        assertTrue(Validatable(presentLocalDate + fewDays).isInFutureOrIsPresent().satisfied, "The constraint is satisfied when the value is in the past")
+        assertTrue(Validatable(presentLocalDate).isInFutureOrIsPresent().satisfied, "The constraint is satisfied when the value is present")
+    }
+
+    @Test
+    fun `'LocalDate isInFutureOrIsPresent' fails when the value is in the isInPast`() {
+        assertFalse(Validatable(presentLocalDate - fewDays).isInFutureOrIsPresent().satisfied)
+    }
+
+    @Test
     fun `'LocalDateTime isInFutureOrIsPresent' succeeds when the value is null`() {
         assertTrue(Validatable<LocalDateTime?>(null).isInFutureOrIsPresent().satisfied)
     }
@@ -259,6 +325,25 @@ class TemporalAccessorTest {
     fun `'Instant isBefore' fails when the value is after or equal to the provided one`() {
         assertFalse(Validatable(presentInstant).isBefore(presentInstant - fewSeconds).satisfied, "The constraint is not satisfied when the value is after the provided one")
         assertFalse(Validatable(presentInstant).isBefore(presentInstant).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    }
+
+    @Test
+    fun `'LocalDate isBefore' succeeds when the value is null`() {
+        assertTrue(Validatable<LocalDate?>(null).isBefore(presentLocalDate).satisfied)
+    }
+
+    @Test
+    fun `'LocalDate isBefore' succeeds when the value is before the provided one`() {
+        assertTrue(Validatable(presentLocalDate).isBefore(presentLocalDate + fewDays).satisfied)
+    }
+
+    @Test
+    fun `'LocalDate isBefore' fails when the value is after or equal to the provided one`() {
+        assertFalse(
+            Validatable(presentLocalDate).isBefore(presentLocalDate - fewDays).satisfied,
+            "The constraint is not satisfied when the value is after the provided one"
+        )
+        assertFalse(Validatable(presentLocalDate).isBefore(presentLocalDate).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
     }
 
     @Test
@@ -318,6 +403,25 @@ class TemporalAccessorTest {
     }
 
     @Test
+    fun `'LocalDate isBeforeOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<LocalDate?>(null).isBeforeOrEqualTo(presentLocalDate).satisfied)
+    }
+
+    @Test
+    fun `'LocalDate isBeforeOrEqualTo' succeeds when the value is before or equal to the provided one`() {
+        assertTrue(
+            Validatable(presentLocalDate).isBeforeOrEqualTo(presentLocalDate + fewDays).satisfied,
+            "The constraint is satisfied when the value is before the provided one"
+        )
+        assertTrue(Validatable(presentLocalDate).isBeforeOrEqualTo(presentLocalDate).satisfied, "The constraint is satisfied when the value is equal to the provided one")
+    }
+
+    @Test
+    fun `'LocalDate isBeforeOrEqualTo' fails when the value is after the provided one`() {
+        assertFalse(Validatable(presentLocalDate).isBeforeOrEqualTo(presentLocalDate - fewDays).satisfied)
+    }
+
+    @Test
     fun `'LocalDateTime isBeforeOrEqualTo' succeeds when the value is null`() {
         assertTrue(Validatable<LocalDateTime?>(null).isBeforeOrEqualTo(presentLocalDateTime).satisfied)
     }
@@ -374,6 +478,25 @@ class TemporalAccessorTest {
     }
 
     @Test
+    fun `'LocalDate isAfter' succeeds when the value is null`() {
+        assertTrue(Validatable<LocalDate?>(null).isAfter(presentLocalDate).satisfied)
+    }
+
+    @Test
+    fun `'LocalDate isAfter' succeeds when the value is after the provided one`() {
+        assertTrue(Validatable(presentLocalDate).isAfter(presentLocalDate - fewDays).satisfied)
+    }
+
+    @Test
+    fun `'LocalDate isAfter' fails when the value is before or equal to the provided one`() {
+        assertFalse(
+            Validatable(presentLocalDate).isAfter(presentLocalDate + fewDays).satisfied,
+            "The constraint is not satisfied when the value is before the provided one"
+        )
+        assertFalse(Validatable(presentLocalDate).isAfter(presentLocalDate).satisfied, "The constraint is not satisfied when the value is equal to the provided one")
+    }
+
+    @Test
     fun `'LocalDateTime isAfter' succeeds when the value is null`() {
         assertTrue(Validatable<LocalDateTime?>(null).isAfter(presentLocalDateTime).satisfied)
     }
@@ -427,6 +550,25 @@ class TemporalAccessorTest {
     @Test
     fun `'Instant isAfterOrEqualTo' fails when the value is before the provided one`() {
         assertFalse(Validatable(presentInstant).isAfterOrEqualTo(presentInstant + fewSeconds).satisfied)
+    }
+
+    @Test
+    fun `'LocalDate isAfterOrEqualTo' succeeds when the value is null`() {
+        assertTrue(Validatable<LocalDate?>(null).isAfterOrEqualTo(presentLocalDate).satisfied)
+    }
+
+    @Test
+    fun `'LocalDate isAfterOrEqualTo' succeeds when the value is after or equal to the provided one`() {
+        assertTrue(
+            Validatable(presentLocalDate).isAfterOrEqualTo(presentLocalDate - fewDays).satisfied,
+            "The constraint is satisfied when the value is after the provided one"
+        )
+        assertTrue(Validatable(presentLocalDate).isAfterOrEqualTo(presentLocalDate).satisfied, "The constraint is satisfied when the value is equal to the provided one")
+    }
+
+    @Test
+    fun `'LocalDate isAfterOrEqualTo' fails when the value is before the provided one`() {
+        assertFalse(Validatable(presentLocalDate).isAfterOrEqualTo(presentLocalDate + fewDays).satisfied)
     }
 
     @Test

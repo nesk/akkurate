@@ -21,10 +21,7 @@ import dev.nesk.akkurate.constraints.Constraint
 import dev.nesk.akkurate.constraints.constrainIfNotNull
 import dev.nesk.akkurate.constraints.otherwise
 import dev.nesk.akkurate.validatables.Validatable
-import java.time.Clock
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZonedDateTime
+import java.time.*
 
 /**
  * All generated temporal values depend on this clock. Its internal visibility allows to change it during testing.
@@ -32,6 +29,7 @@ import java.time.ZonedDateTime
 internal var clock = Clock.systemDefaultZone()
 
 private val currentInstant get() = Instant.now(clock)
+private val currentLocalDate get() = LocalDate.now(clock)
 private val currentLocalDateTime get() = LocalDateTime.now(clock)
 private val currentZonedDateTime get() = ZonedDateTime.now(clock)
 
@@ -41,6 +39,10 @@ private const val pastMessage = "Must be in the past"
 @JvmName("instantIsInPast")
 public fun Validatable<Instant?>.isInPast(): Constraint =
     constrainIfNotNull { it < currentInstant } otherwise { pastMessage }
+
+@JvmName("localDateIsInPast")
+public fun Validatable<LocalDate?>.isInPast(): Constraint =
+    constrainIfNotNull { it < currentLocalDate } otherwise { pastMessage }
 
 @JvmName("localDateTimeIsInPast")
 public fun Validatable<LocalDateTime?>.isInPast(): Constraint =
@@ -58,6 +60,10 @@ private const val pastOrPresentMessage = "Must be in the past or present"
 public fun Validatable<Instant?>.isInPastOrIsPresent(): Constraint =
     constrainIfNotNull { it <= currentInstant } otherwise { pastOrPresentMessage }
 
+@JvmName("localDateIsInPastOrIsPresent")
+public fun Validatable<LocalDate?>.isInPastOrIsPresent(): Constraint =
+    constrainIfNotNull { it <= currentLocalDate } otherwise { pastOrPresentMessage }
+
 @JvmName("localDateTimeIsInPastOrIsPresent")
 public fun Validatable<LocalDateTime?>.isInPastOrIsPresent(): Constraint =
     constrainIfNotNull { it <= currentLocalDateTime } otherwise { pastOrPresentMessage }
@@ -73,6 +79,10 @@ private const val futureMessage = "Must be in the future"
 @JvmName("instantFuture")
 public fun Validatable<Instant?>.isInFuture(): Constraint =
     constrainIfNotNull { it > currentInstant } otherwise { futureMessage }
+
+@JvmName("localDateFuture")
+public fun Validatable<LocalDate?>.isInFuture(): Constraint =
+    constrainIfNotNull { it > currentLocalDate } otherwise { futureMessage }
 
 @JvmName("localDateTimeFuture")
 public fun Validatable<LocalDateTime?>.isInFuture(): Constraint =
@@ -90,6 +100,10 @@ private const val futureOrPresentMessage = "Must be in the future or present"
 public fun Validatable<Instant?>.isInFutureOrIsPresent(): Constraint =
     constrainIfNotNull { it >= currentInstant } otherwise { futureOrPresentMessage }
 
+@JvmName("localDateIsInFutureOrIsPresent")
+public fun Validatable<LocalDate?>.isInFutureOrIsPresent(): Constraint =
+    constrainIfNotNull { it >= currentLocalDate } otherwise { futureOrPresentMessage }
+
 @JvmName("localDateTimeIsInFutureOrIsPresent")
 public fun Validatable<LocalDateTime?>.isInFutureOrIsPresent(): Constraint =
     constrainIfNotNull { it >= currentLocalDateTime } otherwise { futureOrPresentMessage }
@@ -105,6 +119,9 @@ private infix fun Constraint.otherwiseBefore(other: Any) = otherwise { "Must be 
 public fun Validatable<Instant?>.isBefore(other: Instant): Constraint =
     constrainIfNotNull { it < other } otherwiseBefore other
 
+public fun Validatable<LocalDate?>.isBefore(other: LocalDate): Constraint =
+    constrainIfNotNull { it < other } otherwiseBefore other
+
 public fun Validatable<LocalDateTime?>.isBefore(other: LocalDateTime): Constraint =
     constrainIfNotNull { it < other } otherwiseBefore other
 
@@ -116,6 +133,9 @@ public fun Validatable<ZonedDateTime?>.isBefore(other: ZonedDateTime): Constrain
 private infix fun Constraint.otherwiseBeforeOrEqual(other: Any) = otherwise { "Must be before or equal to \"$other\"" }
 
 public fun Validatable<Instant?>.isBeforeOrEqualTo(other: Instant): Constraint =
+    constrainIfNotNull { it <= other } otherwiseBeforeOrEqual other
+
+public fun Validatable<LocalDate?>.isBeforeOrEqualTo(other: LocalDate): Constraint =
     constrainIfNotNull { it <= other } otherwiseBeforeOrEqual other
 
 public fun Validatable<LocalDateTime?>.isBeforeOrEqualTo(other: LocalDateTime): Constraint =
@@ -131,6 +151,9 @@ private infix fun Constraint.otherwiseAfter(other: Any) = otherwise { "Must be a
 public fun Validatable<Instant?>.isAfter(other: Instant): Constraint =
     constrainIfNotNull { it > other } otherwiseAfter other
 
+public fun Validatable<LocalDate?>.isAfter(other: LocalDate): Constraint =
+    constrainIfNotNull { it > other } otherwiseAfter other
+
 public fun Validatable<LocalDateTime?>.isAfter(other: LocalDateTime): Constraint =
     constrainIfNotNull { it > other } otherwiseAfter other
 
@@ -142,6 +165,9 @@ public fun Validatable<ZonedDateTime?>.isAfter(other: ZonedDateTime): Constraint
 private infix fun Constraint.otherwiseAfterOrEqual(other: Any) = otherwise { "Must be after or equal to \"$other\"" }
 
 public fun Validatable<Instant?>.isAfterOrEqualTo(other: Instant): Constraint =
+    constrainIfNotNull { it >= other } otherwiseAfterOrEqual other
+
+public fun Validatable<LocalDate?>.isAfterOrEqualTo(other: LocalDate): Constraint =
     constrainIfNotNull { it >= other } otherwiseAfterOrEqual other
 
 public fun Validatable<LocalDateTime?>.isAfterOrEqualTo(other: LocalDateTime): Constraint =
