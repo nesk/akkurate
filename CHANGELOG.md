@@ -11,6 +11,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### ⚠️ Breaking changes
 
 - The `Configuration` class is now instantiated through a builder DSL ([#13](https://github.com/nesk/akkurate/issues/13))
+- Remove unused `MutablePath` type alias
 
 ### Added
 

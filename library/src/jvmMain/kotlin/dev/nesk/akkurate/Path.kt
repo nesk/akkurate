@@ -20,7 +20,6 @@ package dev.nesk.akkurate
 import dev.nesk.akkurate.validatables.Validatable
 
 public typealias Path = List<String>
-public typealias MutablePath = MutableList<String>
 
 public class PathBuilder(private val validatable: Validatable<*>) {
     public fun absolute(vararg pathSegments: String): Path = pathSegments.toList()
