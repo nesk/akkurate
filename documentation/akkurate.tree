@@ -24,4 +24,5 @@
         <!--        <toc-element toc-title="Domain Model validation"/>-->
         <!--        <toc-element toc-title="Action-based validation"/>-->
     </toc-element>
+    <toc-element topic="migration-guide.md"/>
 </instance-profile>

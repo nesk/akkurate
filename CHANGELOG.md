@@ -8,6 +8,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### ⚠️ Breaking changes
+
+- The `Configuration` class is now instantiated through a builder DSL ([#13](https://github.com/nesk/akkurate/issues/13))
+
 ### Added
 
 - Support iterating over nullable iterables, like `Validatable<Iterable<*>?>`. ([#16](https://github.com/nesk/akkurate/issues/16))

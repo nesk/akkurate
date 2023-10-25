@@ -8,7 +8,7 @@ Designed from scratch to handle complex business logic, its role is to help you 
 validation code.
 
 > %product% is under development and, despite being heavily tested, its API isn't yet stabilized; _breaking changes
-> might happen on minor releases._ However, we will always provide migration guides.
+> might happen on minor releases._ However, [we will always provide migration guides.](migration-guide.md)
 >
 > Report any issue or bug <a href="%github_product_url%/issues">in the GitHub repository.</a>
 

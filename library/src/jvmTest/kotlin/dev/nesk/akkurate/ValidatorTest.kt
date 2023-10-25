@@ -141,7 +141,7 @@ class ValidatorTest {
 
     @Test
     fun `definining the root path in the configuration will prepend all the paths in the returned constraint violations`() {
-        val config = Configuration(rootPath = listOf("foo", "bar"))
+        val config = Configuration { rootPath("foo", "bar") }
         val validate = Validator<Value>(config) {
             validatableOf(Value::name).constrain { false }
         }
@@ -152,7 +152,7 @@ class ValidatorTest {
 
     @Test
     fun `definining the default message in the configuration will replace empty messages in constraints`() {
-        val config = Configuration(defaultViolationMessage = "default")
+        val config = Configuration { defaultViolationMessage = "default" }
         val validate = Validator<Nothing?>(config) {
             constrain { false }
         }
