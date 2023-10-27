@@ -19,6 +19,7 @@ package dev.nesk.akkurate.ksp
 
 import com.karumi.kotlinsnapshot.matchWithSnapshot
 import com.tschuchort.compiletesting.*
+import dev.nesk.akkurate.annotations.ExperimentalAkkurateCompilerApi
 import kotlin.io.path.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -409,6 +410,7 @@ class ValidateAnnotationProcessorTest {
             .matchWithSnapshot("the option 'validatablePackages' processes all the classes of the provided packages (dev.nesk.user)")
     }
 
+    @OptIn(ExperimentalAkkurateCompilerApi::class)
     private fun compile(vararg sources: SourceFile, options: Map<String, String> = emptyMap()): Pair<KotlinCompilation.Result, KotlinCompilation> {
         val compiler = KotlinCompilation().apply {
             inheritClassPath = true

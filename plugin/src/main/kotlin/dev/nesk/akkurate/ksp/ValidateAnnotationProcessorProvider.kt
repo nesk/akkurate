@@ -20,7 +20,9 @@ package dev.nesk.akkurate.ksp
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.processing.SymbolProcessorProvider
+import dev.nesk.akkurate.annotations.ExperimentalAkkurateCompilerApi
 
+@ExperimentalAkkurateCompilerApi
 public class ValidateAnnotationProcessorProvider : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
         val options = environment.options

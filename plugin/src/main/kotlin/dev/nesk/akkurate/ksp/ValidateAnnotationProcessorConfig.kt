@@ -17,6 +17,9 @@
 
 package dev.nesk.akkurate.ksp
 
+import dev.nesk.akkurate.annotations.ExperimentalAkkurateCompilerApi
+
+@ExperimentalAkkurateCompilerApi
 public data class ValidateAnnotationProcessorConfig(
     /**
      * Appends the provided value to the original package of the generated accessor.

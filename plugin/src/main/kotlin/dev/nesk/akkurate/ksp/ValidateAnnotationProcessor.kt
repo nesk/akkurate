@@ -27,10 +27,12 @@ import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.toTypeParameterResolver
+import dev.nesk.akkurate.annotations.ExperimentalAkkurateCompilerApi
 import dev.nesk.akkurate.annotations.Validate
 import java.io.OutputStreamWriter
 import kotlin.reflect.KProperty1
 
+@ExperimentalAkkurateCompilerApi
 public class ValidateAnnotationProcessor(
     private val codeGenerator: CodeGenerator,
     private val logger: KSPLogger,
