@@ -3,14 +3,14 @@
 Some breaking changes might happen sometimes, especially until %product% reaches its first stable version. Here you can
 find how to migrate to a new version containing breaking changes.
 
-## #unreleased#
+## Version 0.4.0
 
 The `Configuration`
 declaration [is no longer a data class.](https://kotlinlang.org/docs/jvm-api-guidelines-backward-compatibility.html#don-t-use-data-classes-in-an-api)
 To create a new configuration, use the following builder DSL:
 
 <tabs>
-<tab title="After v#unreleased#">
+<tab title="After v0.4.0">
 
 ```kotlin
 Configuration {
@@ -20,7 +20,7 @@ Configuration {
 ```
 
 </tab>
-<tab title="Before v#unreleased#">
+<tab title="Before v0.4.0">
 
 ```kotlin
 Configuration(

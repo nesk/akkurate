@@ -8,6 +8,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.4.0] - 2023-10-30
+
 ### ⚠️ Breaking changes
 
 - The `Configuration` class is now instantiated through a builder DSL ([#13](https://github.com/nesk/akkurate/issues/13))
@@ -78,7 +80,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 First release
 
-[Unreleased]: https://github.com/nesk/akkurate/compare/0.3.0...HEAD
+[Unreleased]: https://github.com/nesk/akkurate/compare/0.4.0...HEAD
+[0.4.0]: https://github.com/nesk/akkurate/compare/0.3.0...0.4.0
 [0.3.0]: https://github.com/nesk/akkurate/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/nesk/akkurate/compare/0.1.1...0.2.0
 [0.1.1]: https://github.com/nesk/akkurate/compare/0.1.0...0.1.1
