@@ -15,14 +15,8 @@
         <toc-element topic="use-external-sources.md"/>
         <toc-element topic="configuration.md"/>
     </toc-element>
-    <!--    <toc-element toc-title="Concepts">-->
-    <!--        <toc-element toc-title="Validator &amp; Validatable"/>-->
-    <!--        <toc-element toc-title="The compiler processor"/>-->
-    <!--    </toc-element>-->
     <toc-element toc-title="Tutorials">
-        <!--        <toc-element toc-title="Handle naming clash"/>-->
-        <!--        <toc-element toc-title="Domain Model validation"/>-->
-        <!--        <toc-element toc-title="Action-based validation"/>-->
+        <toc-element topic="ktor-validation-tutorial.md"/>
     </toc-element>
     <toc-element topic="migration-guide.md"/>
 </instance-profile>

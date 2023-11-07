@@ -8,7 +8,7 @@ This article will show you how to install %product% and write your first validat
 [KSP](https://kotlinlang.org/docs/ksp-overview.html). Follow the installation instructions below, according to your
 project structure.
 
-<procedure title="Install in a single-platform project">
+<procedure title="Install in a single-platform project" id="single-platform-installation">
 
 <step>
 Add KSP to your plugin list; make sure to <a href="https://github.com/google/ksp/releases">use the appropriate 

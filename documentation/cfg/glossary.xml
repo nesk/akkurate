@@ -3,4 +3,6 @@
 <terms>
     <term name="DRY">Don't Repeat Yourself</term>
     <term name="DSL">Domain-Specific Language</term>
+    <term name="DAO">Data Access Object</term>
+    <term name="ISBN">International Standard Book Number</term>
 </terms>
