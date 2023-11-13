@@ -1,5 +1,13 @@
 # Server-side validation with Ktor
 
+<tldr>
+
+**Code example:** [ktor-server](https://github.com/nesk/akkurate/tree/main/examples/ktor-server)
+
+**Time to complete:** 20 minutes
+
+</tldr>
+
 This tutorial provides a sampling of how %product% helps you write server-side validation with Ktor. We're going to
 create an HTTP API to manage the books contained within a library; its role is to ensure each book has a valid and
 unique <tooltip term="ISBN">ISBN</tooltip>, as well as a valid title.
