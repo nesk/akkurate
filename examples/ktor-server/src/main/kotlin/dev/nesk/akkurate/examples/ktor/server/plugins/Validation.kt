@@ -34,7 +34,7 @@ val validateBook = Validator.suspendable<BookDao, Book> { dao ->
         }
 
         if (isValidIsbn) {
-            constrain { dao.findByIsbn(it) == null } otherwise {
+            constrain { !dao.existsWithIsbn(it) } otherwise {
                 "This ISBN is already registered"
             }
         }

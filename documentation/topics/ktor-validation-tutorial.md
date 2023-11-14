@@ -230,14 +230,12 @@ Before writing any validation code, we need to add the following method to our `
 by its ISBN:
 
 ```kotlin
-suspend fun findByIsbn(isbn: String): Book? = dbQuery {
-    Books.select { Books.isbn eq isbn }
-        .map { it.toBook() }
-        .singleOrNull()
+suspend fun existsWithIsbn(isbn: String): Boolean = dbQuery {
+    Books.select { Books.isbn eq isbn }.singleOrNull() != null
 }
 ```
 
-That way, we can check if a book exists by running `bookDao.findByIsbn(isbn) != null`.
+That way, we can check if a book exists by running `bookDao.existsWithIsbn(isbn)`.
 
 ### Writing validation constraints
 
@@ -264,7 +262,7 @@ val validateBook = Validator.suspendable<BookDao, Book> { dao ->
         }
 
         if (isValidIsbn) {
-            constrain { dao.findByIsbn(it) == null } otherwise {
+            constrain { !dao.existsWithIsbn(it) } otherwise {
                 "This ISBN is already registered"
             }
         }
@@ -286,8 +284,8 @@ There are multiple things to explain here:
 
 - We use [a suspendable validator](use-external-sources.md#suspendable-validation)
   with [a context](use-external-sources.md#contextual-validation). Those allow our validator to call
-  the `BookDao.findByIsbn` method, to ensure a book isn't already registered in our database.
-- The call to `findByIsbn` is done within [an inline constraint](extend.md#inline-constraints)
+  the `BookDao.existsWithIsbn` method, to ensure a book isn't already registered in our database.
+- The call to `existsWithIsbn` is done within [an inline constraint](extend.md#inline-constraints)
   and [only if the ISBN is valid,](complex-structures.md#conditional-constraints) to avoid a useless query to the
   database.
 - We ensure the title is not blank but also that it isn't longer than 50 characters, otherwise the database will reject

@@ -60,9 +60,7 @@ class BookDao(database: Database) {
         Books.selectAll().map { it.toBook() }
     }
 
-    suspend fun findByIsbn(isbn: String): Book? = dbQuery {
-        Books.select { Books.isbn eq isbn }
-            .map { it.toBook() }
-            .singleOrNull()
+    suspend fun existsWithIsbn(isbn: String): Boolean = dbQuery {
+        Books.select { Books.isbn eq isbn }.singleOrNull() != null
     }
 }
