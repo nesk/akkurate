@@ -10,13 +10,15 @@ import dev.nesk.akkurate.examples.ktor.server.plugins.validation.accessors.isbn
 import dev.nesk.akkurate.examples.ktor.server.plugins.validation.accessors.title
 import io.ktor.server.application.*
 import io.ktor.server.plugins.requestvalidation.*
+import dev.nesk.akkurate.ValidationResult.Failure as AkkurateFailure
+import dev.nesk.akkurate.ValidationResult.Success as AkkurateSuccess
 
 fun Application.configureValidation() {
     install(RequestValidation) {
         validate<Book> { book ->
             when (val result = validateBook(bookDao, book)) {
-                is dev.nesk.akkurate.ValidationResult.Success -> ValidationResult.Valid
-                is dev.nesk.akkurate.ValidationResult.Failure -> {
+                is AkkurateSuccess -> ValidationResult.Valid
+                is AkkurateFailure -> {
                     val reasons = result.violations.map {
                         "${it.path.joinToString(".")}: ${it.message}"
                     }

@@ -304,12 +304,15 @@ This plugin allows configuring a validation function for a specific class; it wi
 A validation result must be returned, we can generate it from %product%'s own result:
 
 ```kotlin
+import dev.nesk.akkurate.ValidationResult.Failure as AkkurateFailure
+import dev.nesk.akkurate.ValidationResult.Success as AkkurateSuccess
+
 fun Application.configureValidation() {
     install(RequestValidation) {
         validate<Book> { book ->
             when (val result = validateBook(bookDao, book)) {
-                is dev.nesk.akkurate.ValidationResult.Success -> ValidationResult.Valid
-                is dev.nesk.akkurate.ValidationResult.Failure -> {
+                is AkkurateSuccess -> ValidationResult.Valid
+                is AkkurateFailure -> {
                     val reasons = result.violations.map {
                         "${it.path.joinToString(".")}: ${it.message}"
                     }
