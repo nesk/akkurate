@@ -107,8 +107,8 @@ fun Application.configureDatabases() {
 
 ## Handling the requests
 
-We will need two routes for HTTP API; `POST /books` to register a new book to the database, and `GET /books` to list all
-the books in the database.
+We will need two routes for our HTTP API; `POST /books` to register a new book to the database, and `GET /books` to list
+all the books in the database.
 
 Open the <path>Routing.kt</path> file and copy the following code in the `configureRouting` function:
 
@@ -315,9 +315,10 @@ fun Application.configureValidation() {
 }
 ```
 
-Notice how we execute our `validationBook` function with the provided book, then we map the result to Ktor's result.
+Notice how we execute our `validateBook` function with the provided book, then we map the result to Ktor's result.
 
-We also have to call our `configureValidation` function on application start, open the <path>Application.kt</path> file:
+We also have to call our `configureValidation` function on application start, this is done in the <path>
+Application.kt</path> file:
 
 ```kotlin
 fun Application.module() {
