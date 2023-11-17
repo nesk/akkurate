@@ -17,6 +17,7 @@
 
 package dev.nesk.akkurate._test
 
+import dev.nesk.akkurate.Configuration
 import dev.nesk.akkurate.constraints.ConstraintRegistry
 import dev.nesk.akkurate.validatables.Validatable
 
@@ -25,12 +26,12 @@ import dev.nesk.akkurate.validatables.Validatable
 /**
  * Instantiates a root [Validatable] with [a value][wrappedValue], a default [ConstraintRegistry] is automatically provided.
  */
-fun <T> Validatable(wrappedValue: T) = Validatable(wrappedValue, ConstraintRegistry())
+fun <T> Validatable(wrappedValue: T) = Validatable(wrappedValue, ConstraintRegistry(Configuration()))
 
 /**
  * Instantiates a child [Validatable] with [a value][wrappedValue] and [a path segment][pathSegment], a default parent is automatically provided.
  */
 fun <T> Validatable(wrappedValue: T, pathSegment: String): Validatable<T> {
-    val parent = Validatable(wrappedValue, ConstraintRegistry())
+    val parent = Validatable(wrappedValue, ConstraintRegistry(Configuration()))
     return Validatable(wrappedValue, pathSegment, parent)
 }

@@ -17,6 +17,7 @@
 
 package dev.nesk.akkurate.validatables
 
+import dev.nesk.akkurate.Configuration
 import dev.nesk.akkurate._test.Validatable
 import dev.nesk.akkurate.constraints.Constraint
 import dev.nesk.akkurate.constraints.ConstraintRegistry
@@ -53,7 +54,7 @@ class ValidatableTest {
     @Test
     fun `calling 'register' with a constraint stores it in the registry`() {
         // Arrange
-        val registry = ConstraintRegistry()
+        val registry = ConstraintRegistry(Configuration())
         val validatable = Validatable(null, registry)
         val constraint = Constraint(false, validatable)
         // Act
@@ -65,7 +66,7 @@ class ValidatableTest {
     @Test
     fun `calling 'register' with a constraint violation stores it in the registry`() {
         // Arrange
-        val registry = ConstraintRegistry()
+        val registry = ConstraintRegistry(Configuration())
         val validatable = Validatable(null, registry)
         val constraint = ConstraintViolation("", emptyList())
         // Act

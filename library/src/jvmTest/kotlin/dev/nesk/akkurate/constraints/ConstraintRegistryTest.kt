@@ -27,7 +27,7 @@ class ConstraintRegistryTest {
     fun `calling 'register' with a satisfied constraint leaves the collection empty`() {
         // Arrange
         val constraint = Constraint(true, Validatable(null))
-        val registry = ConstraintRegistry()
+        val registry = ConstraintRegistry(Configuration())
         // Act
         registry.register(constraint)
         // Assert
@@ -38,7 +38,7 @@ class ConstraintRegistryTest {
     fun `calling 'register' with an unsatisfied constraint adds it to the collection`() {
         // Arrange
         val constraint = Constraint(false, Validatable(null))
-        val registry = ConstraintRegistry()
+        val registry = ConstraintRegistry(Configuration())
         // Act
         registry.register(constraint)
         // Assert
@@ -49,7 +49,7 @@ class ConstraintRegistryTest {
     fun `calling 'register' with a constraint violation adds it to the collection`() {
         // Arrange
         val constraint = Constraint(false, Validatable(null))
-        val registry = ConstraintRegistry()
+        val registry = ConstraintRegistry(Configuration())
         // Act
         registry.register(constraint)
         // Assert
@@ -62,7 +62,7 @@ class ConstraintRegistryTest {
         val constraint1 = Constraint(false, Validatable(null, "path1"))
         val constraint2 = Constraint(true, Validatable(null, "path2"))
         val constraint3 = Constraint(false, Validatable(null, "path3"))
-        val registry = ConstraintRegistry()
+        val registry = ConstraintRegistry(Configuration())
         // Act
         registry.register(constraint1)
         registry.register(constraint2)
@@ -129,5 +129,40 @@ class ConstraintRegistryTest {
         // Assert
         assertIs<ValidationResult.Failure>(result, "The result is a failure")
         assertEquals("default", result.violations.single().message)
+    }
+
+    @Test
+    fun `calling 'checkFirstViolationConfiguration' with failOnFirstViolation=true skips all the upcoming constraints after the first constraint violation`() {
+        // Arrange
+        val config = Configuration { failOnFirstViolation = true }
+        val constraint1 = Constraint(false, Validatable(null)) otherwise { "first message" }
+        val constraint2 = Constraint(false, Validatable(null)) otherwise { "second message" }
+        // Act
+        val result = runWithConstraintRegistry(null, config) {
+            it.register(constraint1)
+            it.checkFirstViolationConfiguration()
+            it.register(constraint2)
+        }
+        // Assert
+        assertIs<ValidationResult.Failure>(result, "The result is a failure")
+        assertEquals("first message", result.violations.single().message)
+    }
+
+    @Test
+    fun `calling 'checkFirstViolationConfiguration' with failOnFirstViolation=false executes all the constraints before returning a failure`() {
+        // Arrange
+        val config = Configuration { failOnFirstViolation = false }
+        val constraint1 = Constraint(false, Validatable(null)) otherwise { "first message" }
+        val constraint2 = Constraint(false, Validatable(null)) otherwise { "second message" }
+        // Act
+        val result = runWithConstraintRegistry(null, config) {
+            it.register(constraint1)
+            it.checkFirstViolationConfiguration()
+            it.register(constraint2)
+        }
+        // Assert
+        assertIs<ValidationResult.Failure>(result, "The result is a failure")
+        assertEquals(2, result.violations.size)
+        assertContentEquals(listOf("first message", "second message"), result.violations.map { it.message })
     }
 }

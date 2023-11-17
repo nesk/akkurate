@@ -97,6 +97,7 @@ public inline infix fun Constraint.withPath(block: PathBuilder.(originalPath: Pa
 }
 
 public inline fun <T> Validatable<T>.constrain(block: (value: T) -> Boolean): Constraint {
+    runChecksBeforeConstraintRegistration()
     return Constraint(block(unwrap()), this)
         .also(::registerConstraint)
 }

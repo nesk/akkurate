@@ -17,6 +17,7 @@
 
 package dev.nesk.akkurate.constraints
 
+import dev.nesk.akkurate.Configuration
 import dev.nesk.akkurate._test.Validatable
 import dev.nesk.akkurate.validatables.Validatable
 import org.junit.jupiter.api.assertThrows
@@ -109,9 +110,23 @@ class ConstraintTest {
     }
 
     @Test
+    fun `calling 'constrain' with a truthy lambda creates a satisfied constraint and doesn't register it`() {
+        // Arrange
+        val constraintRegistry = ConstraintRegistry(Configuration())
+        val parent = Validatable(null, constraintRegistry)
+        val child = Validatable(null, "foo", parent)
+        // Act
+        val constraint = child.constrain { true }
+        // Assert
+        assertTrue(constraint.satisfied, "The constraint is satisfied")
+        assertEquals(child.path(), constraint.path, "The constraint path is the same as the validatable")
+        assertTrue(constraintRegistry.toSet().isEmpty(), "The constraint is not in the registry")
+    }
+
+    @Test
     fun `calling 'constrain' with a falsy lambda creates and registers an unsatisfied constraint with the validatable path`() {
         // Arrange
-        val constraintRegistry = ConstraintRegistry()
+        val constraintRegistry = ConstraintRegistry(Configuration())
         val parent = Validatable(null, constraintRegistry)
         val child = Validatable(null, "foo", parent)
         // Act
@@ -120,6 +135,26 @@ class ConstraintTest {
         assertFalse(constraint.satisfied, "The constraint is unsatisfied")
         assertEquals(child.path(), constraint.path, "The constraint path is the same as the validatable")
         assertSame(constraint, constraintRegistry.toSet().single(), "The unique constraint in the registry is the same as the one returned by the 'constraint' function")
+    }
+
+    @Test
+    fun `calling 'constrain' with failOnFirstViolation=true throws a FirstViolationException before the execution of the next constraint after an unsatisfied one`() {
+        // Arrange
+        val constraintRegistry = ConstraintRegistry(Configuration { failOnFirstViolation = true })
+        val validatable = Validatable(null, constraintRegistry)
+        var secondConstraintHasExecuted = false
+        // Act
+        validatable.constrain { false } otherwise { "message 1" }
+        val exception = assertThrows<FirstViolationException> {
+            validatable.constrain {
+                secondConstraintHasExecuted = true
+                false
+            } otherwise { "message 2" }
+        }
+
+        // Assert
+        assertFalse(secondConstraintHasExecuted, "The second constraint has not been executed")
+        assertEquals("message 1", exception.violation.message, "The exception contains a violation with 'message 1' as message")
     }
 
     @Test

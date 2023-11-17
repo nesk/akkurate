@@ -208,3 +208,32 @@ The path will be `[author, a, b, c, fullName]`.
 
 > You can use both `otherwise` and `withPath` on the same constraint. When doing so, we recommend keeping this order
 > to improve readability.
+
+## Fail on first violation
+
+In some performance-critical environments, you might need your validator to fail as fast as possible. This can be
+enabled [with the `failOnFirstViolation` configuration option.](%api_reference_url%/akkurate-core/dev.nesk.akkurate/-configuration/fail-on-first-violation.html)
+
+Let's reuse the example of [](apply-constraints.md#read-constraint-violations) and modify its configuration:
+
+```kotlin
+val config = Configuration {
+    failOnFirstViolation = true
+}
+
+val validateBook = Validator<Book>(config) {
+    // ...
+}
+```
+
+The output now contains only one constraint violation, the first one:
+
+```text
+The book is invalid, here are the errors:
+  - [title]: Must not be empty
+```
+
+> It is important to note that _the execution stops right after the first failed constraint,_ and the following ones are
+> not executed. This is essential when you want to fail fast for performance or security reasons.
+
+{style="note"}

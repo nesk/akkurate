@@ -25,6 +25,7 @@ class ConfigurationTest {
         Configuration().let {
             assertTrue(it.defaultViolationMessage.isNotBlank(), "The default message is not blank")
             assertTrue(it.rootPath.isEmpty(), "The default root path is empty")
+            assertFalse(it.failOnFirstViolation, "By default, it doesn't fail on the first constraint")
         }
     }
 
@@ -33,10 +34,12 @@ class ConfigurationTest {
         val config = Configuration {
             defaultViolationMessage = "foo"
             rootPath = listOf("bar", "baz")
+            failOnFirstViolation = true
         }
 
         assertEquals("foo", config.defaultViolationMessage, "defaultViolationMessage is customizable")
         assertEquals(listOf("bar", "baz"), config.rootPath, "rootPath is customizable")
+        assertTrue(config.failOnFirstViolation, "failOnFirstViolation is customizable")
     }
 
     @Test
@@ -45,17 +48,20 @@ class ConfigurationTest {
         val sourceConfig = Configuration {
             defaultViolationMessage = "foo"
             rootPath = listOf("bar", "baz")
+            failOnFirstViolation = true
         }
 
         // Act
         val alteredConfig = Configuration(sourceConfig) {
             defaultViolationMessage += "_"
             rootPath = rootPath.map { it + "_" }
+            failOnFirstViolation = failOnFirstViolation
         }
 
         // Assert
         assertEquals("foo_", alteredConfig.defaultViolationMessage, "defaultViolationMessage is altered")
         assertEquals(listOf("bar_", "baz_"), alteredConfig.rootPath, "rootPath is altered")
+        assertTrue(alteredConfig.failOnFirstViolation, "failOnFirstViolation is altered")
     }
 
     @Test
@@ -96,6 +102,7 @@ class ConfigurationTest {
         assertEquals(listOf("foo", "bar"), config.rootPath)
     }
 
+    //region equals/hashCode/toString
     @Test
     fun `'equals' returns true when all the values are the same`() {
         assertTrue(Configuration().equals(Configuration()))
@@ -112,6 +119,13 @@ class ConfigurationTest {
     fun `'equals' returns false when at least one of the values differ (variant 'rootPath')`() {
         val original = Configuration()
         val other = Configuration { rootPath("foo") }
+        assertFalse(original.equals(other))
+    }
+
+    @Test
+    fun `'equals' returns false when at least one of the values differ (variant 'failOnFirstViolation')`() {
+        val original = Configuration()
+        val other = Configuration { failOnFirstViolation = true }
         assertFalse(original.equals(other))
     }
 
@@ -133,4 +147,12 @@ class ConfigurationTest {
         val other = Configuration { rootPath("foo") }
         assertNotEquals(original.hashCode(), other.hashCode())
     }
+
+    @Test
+    fun `'hashCode' returns different hashes when at least one of the values differ (variant 'failOnFirstViolation')`() {
+        val original = Configuration()
+        val other = Configuration { failOnFirstViolation = true }
+        assertNotEquals(original.hashCode(), other.hashCode())
+    }
+    //endregion
 }

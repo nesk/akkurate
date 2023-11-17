@@ -63,6 +63,13 @@ public class Validatable<out T> private constructor(
     public operator fun component1(): T = wrappedValue
 
     /**
+     * Runs all the necessary checks before registering a constraint.
+     *
+     * This method shouldn't be called in user code, [constrain] should be used instead.
+     */
+    public fun runChecksBeforeConstraintRegistration(): Unit = constraintRegistry.checkFirstViolationConfiguration()
+
+    /**
      * Registers the provided constraint if it's unsatisfied.
      *
      * This method shouldn't be called in user code, [constrain] should be used instead.

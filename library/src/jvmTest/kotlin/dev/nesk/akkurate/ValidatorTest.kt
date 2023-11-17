@@ -162,6 +162,41 @@ class ValidatorTest {
     }
 
     @Test
+    fun `definining failOnFirstViolation=true in the configuration skips all the upcoming constraints after the first constraint violation`() {
+        // Arrange
+        val config = Configuration { failOnFirstViolation = true }
+        val validate = Validator<Nothing?>(config) {
+            constrain { false } otherwise { "first message" }
+            constrain { false } otherwise { "second message" }
+        }
+
+        // Act
+        val result = validate(null)
+
+        // Assert
+        assertIs<ValidationResult.Failure>(result, "The result is a failure")
+        assertEquals("first message", result.violations.single().message)
+    }
+
+    @Test
+    fun `definining failOnFirstViolation=false in the configuration executes all the constraints before returning a failure`() {
+        // Arrange
+        val config = Configuration { failOnFirstViolation = false }
+        val validate = Validator<Nothing?>(config) {
+            constrain { false } otherwise { "first message" }
+            constrain { false } otherwise { "second message" }
+        }
+
+        // Act
+        val result = validate(null)
+
+        // Assert
+        assertIs<ValidationResult.Failure>(result, "The result is a failure")
+        assertEquals(2, result.violations.size)
+        assertContentEquals(listOf("first message", "second message"), result.violations.map { it.message })
+    }
+
+    @Test
     fun `a composite validation reports all the contraint violations, including the nested ones`() {
         // Arrange
         val validate3 = Validator<Third> {

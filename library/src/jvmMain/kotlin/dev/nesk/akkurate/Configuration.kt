@@ -71,6 +71,40 @@ private interface ConfigurationInterface {
      * ```
      */
     val rootPath: Path
+
+    /**
+     * Whether validations should fail immediately on the first constraint violation, or wait for all the constraints to execute.
+     *
+     * When set to `true`, the first violation constraint will halt the validation, and [a failure][ValidationResult.Failure]
+     * will be returned immediately without executing the upcoming constraints:
+     * ```
+     * val config = Configuration {
+     *     failOnFirstViolation = true
+     * }
+     * val validate = Validator<Any?>(config) {
+     *     constrain { false } otherwise { "first message" }
+     *     constrain { false } otherwise { "second message" }
+     * }
+     * val failure = validate(null) as ValidationResult.Failure
+     * failure.violations.size // Returns: 1
+     * failure.violations.single().message // Returns: "first message"
+     * ```
+     *
+     * When set to `false` (the default), all the constraints will be executed before returning [a result][ValidationResult]:
+     *
+     * ```
+     * val config = Configuration {
+     *     failOnFirstViolation = false
+     * }
+     * val validate = Validator<Any?>(config) {
+     *     constrain { false } otherwise { "first message" }
+     *     constrain { false } otherwise { "second message" }
+     * }
+     * val failure = validate(null) as ValidationResult.Failure
+     * failure.violations.size // Returns: 2
+     * ```
+     */
+    val failOnFirstViolation: Boolean
 }
 
 /**
@@ -99,6 +133,8 @@ public class Configuration private constructor() : ConfigurationInterface {
 
         public override var rootPath: Path by config::rootPath
 
+        public override var failOnFirstViolation: Boolean by config::failOnFirstViolation
+
         /**
          * Defines the root path.
          */
@@ -115,9 +151,13 @@ public class Configuration private constructor() : ConfigurationInterface {
     public override var rootPath: Path = emptyList()
         private set
 
+    public override var failOnFirstViolation: Boolean = false
+        private set
+
     private fun copy() = Configuration().also { to ->
         to.defaultViolationMessage = defaultViolationMessage
         to.rootPath = rootPath
+        to.failOnFirstViolation = failOnFirstViolation
     }
 
     //region equals/hashCode/toString
@@ -129,6 +169,7 @@ public class Configuration private constructor() : ConfigurationInterface {
 
         if (defaultViolationMessage != other.defaultViolationMessage) return false
         if (rootPath != other.rootPath) return false
+        if (failOnFirstViolation != other.failOnFirstViolation) return false
 
         return true
     }
@@ -136,11 +177,11 @@ public class Configuration private constructor() : ConfigurationInterface {
     override fun hashCode(): Int {
         var result = defaultViolationMessage.hashCode()
         result = 31 * result + rootPath.hashCode()
+        result = 31 * result + failOnFirstViolation.hashCode()
         return result
     }
 
-    override fun toString(): String {
-        return "Configuration(defaultViolationMessage='$defaultViolationMessage', rootPath=$rootPath)"
-    }
+    override fun toString(): String =
+        "Configuration(defaultViolationMessage='$defaultViolationMessage', rootPath=$rootPath, failOnFirstViolation=$failOnFirstViolation)"
     //endregion
 }
