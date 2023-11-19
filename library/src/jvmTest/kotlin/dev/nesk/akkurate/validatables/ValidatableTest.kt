@@ -17,42 +17,25 @@
 
 package dev.nesk.akkurate.validatables
 
+import dev.nesk.akkurate._test.Validatable
 import dev.nesk.akkurate.constraints.Constraint
+import dev.nesk.akkurate.constraints.ConstraintRegistry
+import dev.nesk.akkurate.constraints.ConstraintViolation
 import kotlin.reflect.KProperty1
 import kotlin.test.*
 
 class ValidatableTest {
-    private fun <T> Validatable(wrappedValue: T, parent: Validatable<*>) = Validatable(wrappedValue, null, parent)
-
     @Test
-    fun `the default path is empty`() {
+    fun `the path of a root validatable is empty`() {
         assertEquals(emptyList(), Validatable("foo").path())
     }
 
     @Test
-    fun `the path segment is used as the root if no parent is provided`() {
-        assertEquals(listOf("root"), Validatable("foo", "root").path())
-    }
-
-    @Test
-    fun `without a path segment, the validatable uses the same path as its parent`() {
-        val parent = Validatable("foo", "parent")
-        val child = Validatable("foo", parent = parent)
-        assertEquals(listOf("parent"), child.path())
-    }
-
-    @Test
-    fun `the path segment gets appended to the empty parent path`() {
-        val parent = Validatable("foo")
-        val child = Validatable("foo", "child", parent)
-        assertEquals(listOf("child"), child.path())
-    }
-
-    @Test
     fun `the path segment gets appended to the parent path`() {
-        val parent = Validatable("foo", "parent")
-        val child = Validatable("foo", "child", parent)
-        assertEquals(listOf("parent", "child"), child.path())
+        val parent = Validatable(null)
+        val child1 = Validatable(null, "foo", parent)
+        val child2 = Validatable(null, "bar", child1)
+        assertEquals(listOf("foo", "bar"), child2.path())
     }
 
     @Test
@@ -68,60 +51,27 @@ class ValidatableTest {
     }
 
     @Test
-    fun `calling 'registerConstraint' with a satisfied constraint leaves the constraints collection empty`() {
+    fun `calling 'register' with a constraint stores it in the registry`() {
         // Arrange
-        val constraint = Constraint(true, Validatable(null))
-        val validatable = Validatable("foo")
+        val registry = ConstraintRegistry()
+        val validatable = Validatable(null, registry)
+        val constraint = Constraint(false, validatable)
         // Act
         validatable.registerConstraint(constraint)
         // Assert
-        assertTrue(validatable.constraints.isEmpty(), "The constraints collection is empty")
+        assertSame(constraint, registry.toSet().single())
     }
 
     @Test
-    fun `calling 'registerConstraint' with an unsatisfied constraint adds it to the constraints collection`() {
+    fun `calling 'register' with a constraint violation stores it in the registry`() {
         // Arrange
-        val constraint = Constraint(false, Validatable(null))
-        val validatable = Validatable("foo")
+        val registry = ConstraintRegistry()
+        val validatable = Validatable(null, registry)
+        val constraint = ConstraintViolation("", emptyList())
         // Act
         validatable.registerConstraint(constraint)
         // Assert
-        assertSame(constraint, validatable.constraints.single(), "The single item is identical to the registered constraint")
-    }
-
-    @Test
-    fun `calling 'registerConstraint' multiples times with unsatisfied constraints adds them to the constraints collection`() {
-        // Arrange
-        val constraint1 = Constraint(false, Validatable(null, "foo"))
-        val constraint2 = Constraint(true, Validatable(null, "bar"))
-        val constraint3 = Constraint(false, Validatable(null, "baz"))
-        val validatable = Validatable("foo")
-        // Act
-        validatable.registerConstraint(constraint1)
-        validatable.registerConstraint(constraint2)
-        validatable.registerConstraint(constraint3)
-        // Assert
-        assertContentEquals(listOf(constraint1, constraint3), validatable.constraints, "The collection contains the unsatisfied constraints in the same order")
-    }
-
-    @Test
-    fun `registered constraints are always stored in the root validatable`() {
-        // Arrange
-        val level0 = Validatable("foo")
-        val level1 = Validatable("bar", "bar", level0)
-        val level2 = Validatable("baz", "baz", level1)
-        val constraint0 = Constraint(false, level0)
-        val constraint1 = Constraint(false, level1)
-        val constraint2 = Constraint(false, level2)
-        // Act
-        level0.registerConstraint(constraint0)
-        level1.registerConstraint(constraint1)
-        level2.registerConstraint(constraint2)
-        // Assert
-        assertEquals(3, level0.constraints.size, "The root validatable contains 3 constraints")
-        assertContains(level0.constraints, constraint0, "The root validatable contains its own constraint")
-        assertContains(level0.constraints, constraint1, "The root validatable contains the constraint from its direct children")
-        assertContains(level0.constraints, constraint2, "The root validatable contains the constraint from its indirect children")
+        assertSame(constraint, registry.toSet().single())
     }
 
     @Test

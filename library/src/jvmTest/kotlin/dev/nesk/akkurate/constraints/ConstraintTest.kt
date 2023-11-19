@@ -17,6 +17,7 @@
 
 package dev.nesk.akkurate.constraints
 
+import dev.nesk.akkurate._test.Validatable
 import dev.nesk.akkurate.validatables.Validatable
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.*
@@ -110,14 +111,15 @@ class ConstraintTest {
     @Test
     fun `calling 'constrain' with a falsy lambda creates and registers an unsatisfied constraint with the validatable path`() {
         // Arrange
-        val validatable = Validatable("foo", "foo")
+        val constraintRegistry = ConstraintRegistry()
+        val parent = Validatable(null, constraintRegistry)
+        val child = Validatable(null, "foo", parent)
         // Act
-        val constraint = validatable.constrain { false }
+        val constraint = child.constrain { false }
         // Assert
         assertFalse(constraint.satisfied, "The constraint is unsatisfied")
-        assertEquals(validatable.path(), constraint.path, "The constraint path is the same as the validatable")
-        assertEquals(1, validatable.constraints.size)
-        assertSame(constraint, validatable.constraints.first())
+        assertEquals(child.path(), constraint.path, "The constraint path is the same as the validatable")
+        assertSame(constraint, constraintRegistry.toSet().single(), "The unique constraint in the registry is the same as the one returned by the 'constraint' function")
     }
 
     @Test
@@ -161,7 +163,7 @@ class ConstraintTest {
     @Test
     fun `'equals' returns false when at least one of the values differ (variant 'validatable path')`() {
         val original = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
-        val other = Constraint(false, Validatable("foo", null)) otherwise { "baz" }
+        val other = Constraint(false, Validatable("foo")) otherwise { "baz" }
         assertFalse(original.equals(other))
     }
 
@@ -189,7 +191,7 @@ class ConstraintTest {
     @Test
     fun `'hashCode' returns different hashes when at least one of the values differ (variant 'validatable path')`() {
         val original = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
-        val other = Constraint(false, Validatable("foo", null)) otherwise { "baz" }
+        val other = Constraint(false, Validatable("foo")) otherwise { "baz" }
         assertNotEquals(original.hashCode(), other.hashCode())
     }
 

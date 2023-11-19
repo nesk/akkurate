@@ -17,10 +17,7 @@
 
 package dev.nesk.akkurate
 
-import dev.nesk.akkurate.constraints.Constraint
-import dev.nesk.akkurate.constraints.ConstraintDescriptor
-import dev.nesk.akkurate.constraints.ConstraintViolation
-import dev.nesk.akkurate.constraints.ConstraintViolationSet
+import dev.nesk.akkurate.constraints.*
 import dev.nesk.akkurate.validatables.Validatable
 
 public sealed interface Validator {
@@ -117,20 +114,22 @@ private class ValidatorRunner<ContextType, ValueType>(
         private val context: ContextType,
         private val block: Validatable<ValueType>.(context: ContextType) -> Unit,
     ) : Validator.Runner<ValueType> {
-        override operator fun invoke(value: ValueType): ValidationResult<ValueType> {
-            val block = this.block
-            return Validatable(value).apply { block(context) }.toResult(configuration)
-        }
+        override operator fun invoke(value: ValueType): ValidationResult<ValueType> =
+            runWithConstraintRegistry(value, configuration) { registry ->
+                val block = this.block
+                Validatable(value, registry).run { block(context) }
+            }
     }
 
     class WithoutContext<ValueType>(
         private val configuration: Configuration,
         private val block: Validatable<ValueType>.() -> Unit,
     ) : Validator.Runner<ValueType> {
-        override operator fun invoke(value: ValueType): ValidationResult<ValueType> {
-            val block = this.block
-            return Validatable(value).apply(block).toResult(configuration)
-        }
+        override operator fun invoke(value: ValueType): ValidationResult<ValueType> =
+            runWithConstraintRegistry(value, configuration) { registry ->
+                val block = this.block
+                Validatable(value, registry).run { block() }
+            }
     }
 
 }
@@ -149,38 +148,24 @@ private class SuspendableValidatorRunner<ContextType, ValueType>(
         private val context: ContextType,
         private val block: suspend Validatable<ValueType>.(context: ContextType) -> Unit,
     ) : Validator.SuspendableRunner<ValueType> {
-        override suspend operator fun invoke(value: ValueType): ValidationResult<ValueType> {
-            val block = this.block
-            return Validatable(value).apply { block(context) }.toResult(configuration)
-        }
+        override suspend operator fun invoke(value: ValueType): ValidationResult<ValueType> =
+            runWithConstraintRegistry(value, configuration) { registry ->
+                val block = this.block
+                Validatable(value, registry).run { block(context) }
+            }
     }
 
     class WithoutContext<ValueType>(
         private val configuration: Configuration,
         private val block: suspend Validatable<ValueType>.() -> Unit,
     ) : Validator.SuspendableRunner<ValueType> {
-        override suspend operator fun invoke(value: ValueType): ValidationResult<ValueType> {
-            val block = this.block
-            return Validatable(value).apply { block() }.toResult(configuration)
-        }
+        override suspend operator fun invoke(value: ValueType): ValidationResult<ValueType> =
+            runWithConstraintRegistry(value, configuration) { registry ->
+                val block = this.block
+                Validatable(value, registry).run { block() }
+            }
     }
 
 }
-
-private fun <T> Validatable<T>.toResult(configuration: Configuration): ValidationResult<T> {
-    return if (constraints.isEmpty()) {
-        ValidationResult.Success(unwrap())
-    } else {
-        ValidationResult.Failure(constraints.toViolationSet(configuration))
-    }
-}
-
-private fun Iterable<ConstraintDescriptor>.toViolationSet(configuration: Configuration): ConstraintViolationSet = map {
-    // TODO: Benchmark `is` usage in all runtimes, compared to the visitor pattern.
-    when (it) {
-        is Constraint -> it.toConstraintViolation(configuration.defaultViolationMessage, configuration.rootPath)
-        is ConstraintViolation -> it
-    }
-}.toSet().let(::ConstraintViolationSet)
 
 //endregion

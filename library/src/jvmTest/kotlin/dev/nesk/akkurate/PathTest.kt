@@ -17,6 +17,7 @@
 
 package dev.nesk.akkurate
 
+import dev.nesk.akkurate._test.Validatable
 import dev.nesk.akkurate.validatables.Validatable
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
@@ -46,7 +47,7 @@ class PathTest {
     @Test
     fun `generating a relative path without a parent is the same as an absolute path`() {
         // Arrange
-        val orphan = Validatable(null, "foo")
+        val orphan = Validatable(null)
         // Act
         val path = PathBuilder(orphan).relative("bar")
         // Assert

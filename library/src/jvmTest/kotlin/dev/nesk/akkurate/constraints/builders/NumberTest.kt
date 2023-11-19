@@ -17,7 +17,7 @@
 
 package dev.nesk.akkurate.constraints.builders
 
-import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate._test.Validatable
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.Test
 import kotlin.test.assertFalse

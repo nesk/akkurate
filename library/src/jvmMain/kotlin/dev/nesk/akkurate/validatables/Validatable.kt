@@ -18,14 +18,37 @@
 package dev.nesk.akkurate.validatables
 
 import dev.nesk.akkurate.Path
+import dev.nesk.akkurate.Validator
 import dev.nesk.akkurate.constraints.Constraint
-import dev.nesk.akkurate.constraints.ConstraintDescriptor
+import dev.nesk.akkurate.constraints.ConstraintRegistry
 import dev.nesk.akkurate.constraints.ConstraintViolation
+import dev.nesk.akkurate.constraints.constrain
+import dev.nesk.akkurate.validateWith
 import kotlin.reflect.KFunction1
-import kotlin.reflect.KProperty
 import kotlin.reflect.KProperty1
 
-public class Validatable<out T> internal constructor(private val wrappedValue: T, pathSegment: String? = null, internal val parent: Validatable<*>? = null) {
+public class Validatable<out T> private constructor(
+    private val wrappedValue: T,
+    pathSegment: String?,
+    private val constraintRegistry: ConstraintRegistry,
+    internal val parent: Validatable<*>?,
+) {
+    /**
+     * Instantiates a root [Validatable] with its [value][wrappedValue] and a [ConstraintRegistry].
+     *
+     * Used by [Validator] instances to start the validation process.
+     */
+    internal constructor(wrappedValue: T, constraintRegistry: ConstraintRegistry) :
+            this(wrappedValue, pathSegment = null, constraintRegistry, parent = null)
+
+    /**
+     * Instantiates a child [Validatable] with [its relative path][pathSegment] and its [Validatable parent][parent].
+     *
+     * Used by [validatableOf] functions to validate nested properties.
+     */
+    internal constructor(wrappedValue: T, pathSegment: String, parent: Validatable<*>) :
+            this(wrappedValue, pathSegment, parent.constraintRegistry, parent)
+
     private val path: Path = buildList {
         addAll(parent?.path ?: emptyList())
         if (!pathSegment.isNullOrEmpty()) {
@@ -39,15 +62,20 @@ public class Validatable<out T> internal constructor(private val wrappedValue: T
 
     public operator fun component1(): T = wrappedValue
 
-    internal val constraints: LinkedHashSet<ConstraintDescriptor> by BubblingConstraints(parent)
+    /**
+     * Registers the provided constraint if it's unsatisfied.
+     *
+     * This method shouldn't be called in user code, [constrain] should be used instead.
+     */
+    public fun registerConstraint(constraint: Constraint): Unit = constraintRegistry.register(constraint)
 
-    public fun registerConstraint(constraint: Constraint) {
-        if (!constraint.satisfied) constraints += constraint
-    }
+    /**
+     * Registers the provided constraint violation.
+     *
+     * This method shouldn't be called in user code, [constrain] or [validateWith] should be used instead.
+     */
+    public fun registerConstraint(constraint: ConstraintViolation): Unit = constraintRegistry.register(constraint)
 
-    public fun registerConstraint(constraint: ConstraintViolation) {
-        constraints += constraint
-    }
 
     // TODO: Convert to extension function (breaking change) once JetBrains fixes imports: https://youtrack.jetbrains.com/issue/KTIJ-22147
     public inline operator fun invoke(block: Validatable<T>.() -> Unit): Unit = this.block()
@@ -82,15 +110,6 @@ public class Validatable<out T> internal constructor(private val wrappedValue: T
     override fun hashCode(): Int = wrappedValue?.hashCode() ?: 0
 
     override fun toString(): String = "Validatable(unwrap=$wrappedValue, path=$path)"
-
-    /**
-     * Allows a [Validatable] to use the constraints collection of its parent or,
-     * if it has no parent, instantiates a new dedicated collection to store them.
-     */
-    private class BubblingConstraints(val parent: Validatable<*>? = null) {
-        val constraints by lazy { linkedSetOf<ConstraintDescriptor>() }
-        operator fun getValue(thisRef: Validatable<*>, property: KProperty<*>) = parent?.constraints ?: constraints
-    }
 }
 
 

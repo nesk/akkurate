@@ -17,6 +17,7 @@
 
 package dev.nesk.akkurate.accessors
 
+import dev.nesk.akkurate._test.Validatable
 import dev.nesk.akkurate._test.assertContentEquals
 import dev.nesk.akkurate.validatables.Validatable
 import org.junit.jupiter.api.assertThrows
