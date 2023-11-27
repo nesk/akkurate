@@ -1,0 +1,54 @@
+<script defer
+        data-domain="akkurate.dev"
+        data-api="https://s.nesk.workers.dev/api/send"
+        src="https://s.nesk.workers.dev/init.js">
+</script>
+
+<!-- Script to insert a GitHub button in the topbar -->
+<script type="module" defer>
+    const githubButtonsLibUrl = "https://cdn.jsdelivr.net/gh/buttons/github-buttons@bc5a56d525383cb05f4b58e3c4367535ebc26a5f/dist/buttons.esm.js"
+
+    function waitForElement(selector) {
+        return new Promise(resolve => {
+            const element = document.body.querySelector(selector)
+            if (element) {
+                return resolve(element)
+            }
+
+            const observer = new MutationObserver(mutations => {
+                const observedElement = document.body.querySelector(selector)
+                if (observedElement) {
+                    observer.disconnect()
+                    resolve(observedElement)
+                }
+            })
+
+            observer.observe(document.body, {
+                subtree: true,
+                childList: true,
+            })
+        })
+    }
+
+    waitForElement(`.wh-header [data-test="header-version"]`).then(versionElement => {
+        import(githubButtonsLibUrl).then(({render}) => {
+            const buttonConfig = {
+                "href": "https://github.com/nesk/akkurate",
+                "aria-label": "Star nesk/akkurate on GitHub",
+                "data-size": "large",
+                "data-text": "Star on GitHub"
+            }
+            render(buttonConfig, buttonElement => {
+                buttonElement.classList.add("github-button")
+                versionElement.after(buttonElement)
+            })
+        })
+    })
+</script>
+
+<style>
+    .github-button {
+        display: flex;
+        margin-left: 20px;
+    }
+</style>

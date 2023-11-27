@@ -5,7 +5,7 @@
     <variables>
         <og-image>https://akkurate.dev/social.png</og-image>
         <web-root>https://akkurate.dev/docs/</web-root>
-        <analytics-body-html-file>plausible.html</analytics-body-html-file>
+        <analytics-body-html-file>script.html</analytics-body-html-file>
     </variables>
 
     <build-profile instance="akkurate">
