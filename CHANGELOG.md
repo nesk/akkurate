@@ -8,6 +8,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.5.0] - 2023-11-28
+
 ### Added
 
 - New configuration option to fail on the first constraint violation ([#19](https://github.com/nesk/akkurate/issues/19))
@@ -84,7 +86,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 First release
 
-[Unreleased]: https://github.com/nesk/akkurate/compare/0.4.0...HEAD
+[Unreleased]: https://github.com/nesk/akkurate/compare/0.5.0...HEAD
+[0.5.0]: https://github.com/nesk/akkurate/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/nesk/akkurate/compare/0.3.0...0.4.0
 [0.3.0]: https://github.com/nesk/akkurate/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/nesk/akkurate/compare/0.1.1...0.2.0
