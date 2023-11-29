@@ -5,24 +5,18 @@ val exposed_version: String by project
 val h2_version: String by project
 
 plugins {
+    id("akkurate.base-conventions")
     kotlin("jvm")
     id("io.ktor.plugin") version "2.3.5"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10"
     id("com.google.devtools.ksp") version "1.9.10-1.0.13"
 }
 
-group = "dev.nesk.akkurate"
-version = "1.0-SNAPSHOT"
-
 application {
     mainClass.set("io.ktor.server.netty.EngineMain")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
-}
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {
