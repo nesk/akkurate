@@ -30,20 +30,22 @@
         })
     }
 
-    waitForElement(`.wh-header [data-test="header-version"]`).then(versionElement => {
-        import(githubButtonsLibUrl).then(({render}) => {
-            const buttonConfig = {
-                "href": "https://github.com/nesk/akkurate",
-                "aria-label": "Star nesk/akkurate on GitHub",
-                "data-size": "large",
-                "data-text": "Star on GitHub"
-            }
-            render(buttonConfig, buttonElement => {
-                buttonElement.classList.add("github-button")
-                versionElement.after(buttonElement)
-            })
+    (async () => {
+        const versionElement = await waitForElement(".wh-header [data-test=header-version]")
+        const hamburgerElement = document.querySelector(".wh-header [data-test=header-hamburger]")
+        const { render } = await import(githubButtonsLibUrl)
+
+        const buttonConfig = {
+            "href": "https://github.com/nesk/akkurate",
+            "aria-label": "Star nesk/akkurate on GitHub",
+            "data-size": "large",
+            "data-text": hamburgerElement ? "Star" : "Star on GitHub"
+        }
+        render(buttonConfig, buttonElement => {
+            buttonElement.classList.add("github-button")
+            versionElement.after(buttonElement)
         })
-    })
+    })()
 </script>
 
 <style>
