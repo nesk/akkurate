@@ -8,6 +8,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- Arrow integration to convert Akkurate validation results to typed errors ([#20](https://github.com/nesk/akkurate/issues/20)) 
+
 ## [0.5.0] - 2023-11-28
 
 ### Added

@@ -16,6 +16,7 @@
         <toc-element topic="configuration.md"/>
     </toc-element>
     <toc-element topic="integrations.topic">
+        <toc-element topic="arrow-integration.md"/>
     </toc-element>
     <toc-element toc-title="Tutorials">
         <toc-element topic="ktor-validation-tutorial.md"/>

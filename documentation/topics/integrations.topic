@@ -12,6 +12,7 @@
         </description>
 
         <spotlight>
+            <a href="arrow-integration.md" type="integration" />
             <a href="#" type="server" summary="Once released, you will be able to automatically validate incoming requests with %product%.">Coming soon: Ktor</a>
         </spotlight>
     </section-starting-page>
