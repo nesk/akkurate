@@ -12,11 +12,11 @@ val customConfig = Configuration {
     rootPath("custom", "root", "path")
 }
 
-val validate = Validator<String>(customConfig) {
+val validateString = Validator<String>(customConfig) {
     length.constrain { false }
 }
 
-when (val result = validate("foo")) {
+when (val result = validateString("foo")) {
     is ValidationResult.Success -> {}
 
     is ValidationResult.Failure -> {

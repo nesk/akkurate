@@ -31,8 +31,8 @@ interface UserDao {
 @Validate
 data class UserUpdate(val username: String)
 
-val validate = Validator<UserDao, UserUpdate> { userDao ->
-    //     The context is passed as a parameter ^^^^^^^
+val validateUser = Validator<UserDao, UserUpdate> { userDao ->
+    //         The context is passed as a parameter ^^^^^^^
 
     val (isValidUsername) = username.hasLengthGreaterThanOrEqualTo(5)
 
@@ -54,7 +54,7 @@ Now, when calling our validator, we have to provide an instance of `UserDao` bef
 val someUserDao: UserDao = TODO()
 val someUserUpdate: UserUpdate = TODO()
 
-validate(someUserDao, someUserUpdate)
+validateUser(someUserDao, someUserUpdate)
 ```
 
 > We don't support
@@ -72,12 +72,12 @@ code hierarchy and let some more specific code provide the object to validate.
 You can solve this by [currying](https://en.wikipedia.org/wiki/Currying) your validator:
 
 ```kotlin
-val validateWithSomeUserDao = validate(someUserDao)
+val validateUserWithSomeDao = validateUser(someUserDao)
 val userUpdate1: UserUpdate = TODO()
 val userUpdate2: UserUpdate = TODO()
 
-validateWithSomeUserDao(userUpdate1)
-validateWithSomeUserDao(userUpdate2)
+validateUserWithSomeDao(userUpdate1)
+validateUserWithSomeDao(userUpdate2)
 ```
 
 ### Use multiple contextual objects
@@ -121,7 +121,7 @@ interface UserApi {
 To be able to call the suspendable method `existsByUsername`, we have to make our validator suspendable:
 
 ```kotlin
-val validate = Validator.suspendable<UserApi, UserUpdate> { api ->
+val validateUser = Validator.suspendable<UserApi, UserUpdate> { api ->
     username.constrain {
         !api.existsByUsername(it)
     } otherwise { "This username is already taken" }
@@ -132,6 +132,6 @@ Note that suspendable validators can only be called from suspendable functions:
 
 ```kotlin
 suspend fun main() {
-    validate(someUserApi, someUserUpdate)
+    validateUser(someUserApi, someUserUpdate)
 }
 ```
