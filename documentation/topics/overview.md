@@ -7,6 +7,9 @@ API.
 Designed from scratch to handle complex business logic, its role is to help you write qualitative and maintainable
 validation code.
 
+![A code example of %product% used to showcase the library on social networks.](social.png)
+{width="700" border-effect="rounded"}
+
 > %product% is under development and, despite being heavily tested, its API isn't yet stabilized; _breaking changes
 > might happen on minor releases._ However, [we will always provide migration guides.](migration-guide.md)
 >
