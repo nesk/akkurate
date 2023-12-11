@@ -2,7 +2,7 @@
 <!DOCTYPE vars SYSTEM "https://resources.jetbrains.com/writerside/1.0/vars.dtd">
 <vars>
     <var name="product" value="Akkurate"/>
-    <var name="version" value="0.5.0"/>
+    <var name="version" value="0.6.0"/>
     <var name="github_product_url" value="https://github.com/nesk/akkurate"/>
     <var name="roadmap_url" value="https://github.com/users/nesk/projects/1/views/1"/>
     <var name="api_reference_url" value="https://akkurate.dev/api"/>

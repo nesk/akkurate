@@ -28,7 +28,7 @@ env:
   ALGOLIA_INDEX_NAME: akkurate
   ALGOLIA_KEY: ${{ secrets.ALGOLIA_KEY }}
   CONFIG_JSON_PRODUCT: AKKURATE
-  CONFIG_JSON_VERSION: 0.5.0
+  CONFIG_JSON_VERSION: 0.6.0
 
 jobs:
   build-documentation:
