@@ -86,12 +86,12 @@ Check if 'title' is not empty otherwise write "Missing title".
   %product% they're as simple as a lambda with parameters.
 - [**Contextual and asynchronous.**](use-external-sources.md) Query sync/async data sources whenever you need to, like a
   database, or a REST API. Everything can happen inside validation.
-- ![Coming soon](clock.png){width="16"} **Testable out of the box.** Finding how to test your validation code shouldn't
-  be one of your tasks. You will find all the tools you need to write good tests.
-- ![Coming soon](clock.png){width="16"} **Integrated with your favorite tools.** Validate your data within any popular
-  framework, we take care of the integrations for you.
+- [**Integrated with your favorite tools.**](integrations.topic) Validate your data within any popular framework, we
+  take care of the integrations for you.
 - ![Coming soon](clock.png){width="16"} **Code once, deploy everywhere.** Take advantage of Kotlin Multiplatform; write
   your validation code once, use it both for front-end and back-end usages.
+- ![Coming soon](clock.png){width="16"} **Testable out of the box.** Finding how to test your validation code shouldn't
+  be one of your tasks. You will find all the tools you need to write good tests.
 
 > Features marked with ![Coming soon](clock.png){width="16"} are on the roadmap.
 

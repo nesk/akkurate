@@ -91,16 +91,16 @@ Check if 'title' is not empty otherwise write "Missing title".
   Query sync/async data sources whenever you need to, like a database, or a REST API. Everything can happen inside
   validation.
 
-- ⏱ **Testable out of the box** \
-  Finding how to test your validation code shouldn't be one of your tasks. You will find all the tools you need to write
-  good tests.
-
-- ⏱ **Integrated with your favorite tools** \
+- [**Integrated with your favorite tools**](https://akkurate.dev/docs/integrations.html) \
   Validate your data within any popular framework, we take care of the integrations for you.
 
 - ⏱ **Code once, deploy everywhere** \
   Take advantage of Kotlin Multiplatform; write your validation code once, use it both for front-end and back-end
   usages.
+
+- ⏱ **Testable out of the box** \
+  Finding how to test your validation code shouldn't be one of your tasks. You will find all the tools you need to write
+  good tests.
 
 > [!NOTE]
 > Features marked with ⏱ are on the roadmap.
