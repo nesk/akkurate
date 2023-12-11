@@ -3,8 +3,10 @@
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <variables>
-        <og-image>https://akkurate.dev/social.png</og-image>
+        <header-logo>logo.svg</header-logo>
+        <og-image>https://akkurate.dev/social.png?v2</og-image>
         <web-root>https://akkurate.dev/docs/</web-root>
+        <product-web-url>https://akkurate.dev</product-web-url>
         <analytics-body-html-file>script.html</analytics-body-html-file>
     </variables>
 
