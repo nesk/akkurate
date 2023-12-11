@@ -46,20 +46,31 @@ jobs:
           artifact: ${{ env.DOC_ARTIFACT }}
           docker-version: ${{ env.DOCKER_VERSION }}
 
+      - name: Fix permissions on `artifacts` directory
+        run: sudo chown runner:docker ./artifacts
+
+      - name: Unzip documentation
+        run: unzip -qq ./artifacts/${{ env.DOC_ARTIFACT }} -d ./artifacts/docs
+
+      - name: Replace Open Graph image for specific pages
+        run: sed -i 's/akkurate\.dev\/social\.png/akkurate.dev\/social-arrow.png/g' ./artifacts/docs/arrow-integration.html
+
       - name: Upload documentation
         uses: actions/upload-artifact@v3
         with:
           name: docs
           path: |
-            ./artifacts/${{ env.DOC_ARTIFACT }}
+            ./artifacts/docs
             ./artifacts/report.json
           retention-days: 7
 
-      - name: Upload social image
+      - name: Upload social images
         uses: actions/upload-artifact@v3
         with:
-          name: social-image
-          path: ./documentation/images/social.png
+          name: social-images
+          path: |
+            ./documentation/images/social.png
+            ./documentation/images/social-arrow.png
           retention-days: 7
 
       - name: Upload Algolia indexes
@@ -156,9 +167,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: docs
-
-      - name: Unzip documentation
-        run: mkdir website && unzip -qq ${{ env.DOC_ARTIFACT }} -d website/docs
+          path: ./website/
 
       - name: Download API reference
         uses: actions/download-artifact@v3
@@ -166,10 +175,10 @@ jobs:
           name: api
           path: ./website/api/
 
-      - name: Download social image
+      - name: Download social images
         uses: actions/download-artifact@v3
         with:
-          name: social-image
+          name: social-images
           path: ./website/
 
       - name: Setup Pages
