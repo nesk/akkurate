@@ -116,6 +116,7 @@ jobs:
     # Requires build job results
     needs: build-documentation
     runs-on: ubuntu-latest
+    continue-on-error: true
 
     steps:
       - name: Download documentation
