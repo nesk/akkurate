@@ -91,9 +91,12 @@ println(message)
 
 ## Bind to Raise computation
 
-When working with Arrow's functional programming paradigms, the bind function is crucial in handling validations seamlessly, especially when dealing with multiple Either types. This is particularly useful when you're already inside a Raise computation.
+When working with Arrow's functional programming paradigms, the bind function is crucial in handling validations
+seamlessly, especially when dealing with multiple `Either` types. This is particularly useful when you're already inside
+a Raise computation.
 
 Let's consider an example where we have multiple data classes to validate:
+
 ```kotlin
 @Validate
 data class Book(val title: String)
@@ -110,43 +113,41 @@ val validateAuthor = Validator<Author> {
 }
 ```
 
-In a typical scenario, you might want to validate a Book and an Author within the same context. Without bind, you would convert each validation result to an Either and handle them separately, which can be cumbersome:
+In a typical scenario, you might want to validate a `Book` and an `Author` within the same context. Without bind, you
+would convert each validation result to an `Either` and handle them separately, which can be cumbersome:
 
 ```kotlin
-// Validate the book and convert the result to an Either
-val bookResult: Either<NonEmptySet<ConstraintViolation>, Book> = validateBook(Book("The Lord of the Rings")).toEither()
-
-// Validate the author and convert the result to an Either
-val authorResult: Either<NonEmptySet<ConstraintViolation>, Author> = validateAuthor(Author("J. R. R. Tolkien")).toEither()
+// Validate the data and convert the results to Either
+val bookResult = validateBook(Book("The Lord of the Rings")).toEither()
+val authorResult = validateAuthor(Author("J.R.R. Tolkien")).toEither()
 
 // Handle the validation results separately
 val book = when (bookResult) {
-    is Either.Left -> throw ValidationException(bookResult.value) //handle error
+    is Either.Left -> throw IllegalArgumentException("Invalid book")
     is Either.Right -> bookResult.value
 }
-
 val author = when (authorResult) {
-    is Either.Left -> throw ValidationException(authorResult.value) //handle error
+    is Either.Left -> throw IllegalArgumentException("Invalid author")
     is Either.Right -> authorResult.value
 }
 
-// Further computation with book and author
-// Example:
-println("Validated Book: $book, Validated Author: $author")
+// Further computation with the validated data
+println("Validated book: $book")
+println("Validated author: $author")
 ```
 
-However, using `bind` allows you to compute over the happy path by automatically handling errors and focusing on successful outcomes. When a validation fails, `bind` short-circuits the computation, eliminating the need for explicit error checking and handling within the `either` block. 
+However, using `bind` allows you to compute over the happy path by automatically handling errors and focusing on
+successful outcomes. When a validation fails, `bind` short-circuits the computation, eliminating the need for explicit
+error checking and handling within the `either` block.
 
 ```kotlin
 either {
-    // Directly bind the validation result for Book
+    // Directly bind the validation results
     val book = bind(validateBook(Book("The Lord of the Rings")))
+    val author = bind(validateAuthor(Author("J.R.R. Tolkien")))
 
-    // Directly bind the validation result for Author
-    val author = bind(validateAuthor(Author("J. R. R. Tolkien")))
-
-    // Further computation with validated book and author
-    // Example:
-    println("Validated Book: $book, Validated Author: $author")
+    // Further computation with the validated data
+    println("Validated book: $book")
+    println("Validated author: $author")
 }
 ```
