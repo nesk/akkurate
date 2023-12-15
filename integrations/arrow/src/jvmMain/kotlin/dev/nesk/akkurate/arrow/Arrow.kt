@@ -42,7 +42,7 @@ private fun ConstraintViolationSet.toNonEmptySet(): NonEmptySet<ConstraintViolat
  *     )
  * ```
  *
- * The string `"  The Lord of the Rings  "` returns `"The Lord of the Rings"` because the validation was successful and went through the `ifRight` block:
+ * A non-blank string is trimmed because the validation was successful and went through the `ifRight` block:
  * ```
  * normalizeBookName("  The Lord of the Rings  ") // Returns: "The Lord of the Rings"
  * ```
@@ -63,21 +63,24 @@ public fun <T> ValidationResult<T>.toEither(): Either<NonEmptySet<ConstraintViol
  * You can bind the result of the validation to a `Raise` computation:
  * ```
  * val validateBookName = Validator<String> { isNotBlank() }
+ * val validateAuthorName = Validator<String> { isNotBlank() }
  *
- * fun normalizeBookName(bookName: String) = either {
- *     val validatedBookName = bind(validateBookName(bookName))
- *     validatedBookName.trim()
+ * fun combineBookAndAuthor(bookName: String, authorName: String) = either {
+ *     val book = bind(validateBookName(bookName))
+ *     val author = bind(validateAuthorName(authorName))
+ *     "${book.trim()} by ${author.trim()}"
  * }
  * ```
  *
- * The string `"  The Lord of the Rings  "` returns [Either.Right] of `"The Lord of the Rings"` because the validation was successful and the [either] block could complete:
+ * Non-blank strings returns [Either.Right] because the validation was successful and the [either] block could complete:
  * ```
- * normalizeBookName("  The Lord of the Rings  ") // Returns: Either.Right(value = "The Lord of the Rings")
+ * combineBookAndAuthor("  The Lord of the Rings  ", "  J. R. R. Tolkien  ")
+ * // Returns: Either.Right(value = "The Lord of the Rings by J. R. R. Tolkien")
  * ```
  *
- * Whereas, a blank string fails the validation and interrupts the [either] block, returning a [Either.Left] of constraint violations:
+ * Whereas, a single blank string fails the validation and interrupts the [either] block, returning a [Either.Left] of constraint violations:
  * ```
- * normalizeBookName("  ") // Returns: Either.Left<NonEmptySet<ConstraintViolation>>
+ * normalizeBookName("  ", "  J. R. R. Tolkien  ") // Returns: Either.Left<NonEmptySet<ConstraintViolation>>
  * ```
  *
  * @return The validated value on successful result.
