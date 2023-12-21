@@ -1,0 +1,25 @@
+@file:Suppress("USELESS_CAST")
+
+package dev.nesk.validation.accessors
+
+import dev.nesk.User
+import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.validatables.validatableOf
+import kotlin.String
+import kotlin.Suppress
+import kotlin.jvm.JvmName
+import kotlin.reflect.KMutableProperty1
+
+/**
+ * [Validatable] accessor of [User.name]
+ */
+public val Validatable<User>.name: Validatable<String>
+  @JvmName(name = "validatableUserName")
+  get() = validatableOf(User::name as KMutableProperty1)
+
+/**
+ * [Validatable] accessor of [User.name]
+ */
+public val Validatable<User?>.name: Validatable<String?>
+  @JvmName(name = "validatableNullableUserName")
+  get() = validatableOf(User::name as KMutableProperty1)

@@ -30,6 +30,7 @@ import com.squareup.kotlinpoet.ksp.toTypeParameterResolver
 import dev.nesk.akkurate.annotations.ExperimentalAkkurateCompilerApi
 import dev.nesk.akkurate.annotations.Validate
 import java.io.OutputStreamWriter
+import kotlin.reflect.KMutableProperty1
 import kotlin.reflect.KProperty1
 
 @ExperimentalAkkurateCompilerApi
@@ -46,6 +47,7 @@ public class ValidateAnnotationProcessor(
 
         private val suppressUselessCast = AnnotationSpec.builder(Suppress::class).addMember("%S", "USELESS_CAST").build()
         private val kProperty1Class = KProperty1::class.asClassName()
+        private val kMutableProperty1Class = KMutableProperty1::class.asClassName()
     }
 
     private var validatableClasses: Set<String> = config.normalizedValidatableClasses
@@ -214,7 +216,13 @@ public class ValidateAnnotationProcessor(
                     )
 
                     // FIXME: The cast is a workaround for https://youtrack.jetbrains.com/issue/KT-59493 and https://youtrack.jetbrains.com/issue/KT-62543
-                    addStatement("return %M(%T::%N as %T)", validatableOfFunction, receiverType, propertyName, kProperty1Class)
+                    addStatement(
+                        "return %M(%T::%N as %T)",
+                        validatableOfFunction,
+                        receiverType,
+                        propertyName,
+                        if (isMutable) kMutableProperty1Class else kProperty1Class,
+                    )
                 }.build()
             )
         }.build()

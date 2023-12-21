@@ -8,6 +8,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- Accessors for mutable properties are no longer improperly cast. ([#22](https://github.com/nesk/akkurate/issues/22))
+
 ## [0.6.0] - 2023-12-12
 
 ### Added

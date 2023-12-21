@@ -249,6 +249,27 @@ class ValidateAnnotationProcessorTest {
     }
 
     @Test
+    fun `accessors for mutable properties are casted to the right type`() {
+        // Arrange
+        val source = SourceFile.kotlin(
+            "Examples.kt", """
+                package dev.nesk
+                import dev.nesk.akkurate.annotations.Validate
+                @Validate class User(var name: String)
+            """
+        )
+
+        // Act
+        val (result, compiler) = compile(source)
+
+        // Assert
+        assertCompilationIsSuccessful(result)
+        assertCountOfFilesGeneratedByTheProcessor(1, compiler)
+        Path("${compiler.kotlinFilesDir}/dev/nesk/validation/accessors/ValidationAccessors.kt").readText()
+            .matchWithSnapshot("accessors for mutable properties are casted to the right type")
+    }
+
+    @Test
     fun `accessors are generated only for public properties`() {
         // Arrange
         val source = SourceFile.kotlin(
