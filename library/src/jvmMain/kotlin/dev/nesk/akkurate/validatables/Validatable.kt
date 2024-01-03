@@ -27,6 +27,10 @@ import dev.nesk.akkurate.validateWith
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KProperty1
 
+@DslMarker
+private annotation class ValidatableDslMarker
+
+@ValidatableDslMarker
 public class Validatable<out T> private constructor(
     private val wrappedValue: T,
     pathSegment: String?,

@@ -8,6 +8,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### ⚠️ Breaking changes
+
+- [Scope control](https://kotlinlang.org/docs/type-safe-builders.html#scope-control-dslmarker) has been implemented for Akkurate's DSL ([#25](https://github.com/nesk/akkurate/issues/25))
+
 ### Fixed
 
 - Accessors for mutable properties are no longer improperly cast. ([#22](https://github.com/nesk/akkurate/issues/22))
