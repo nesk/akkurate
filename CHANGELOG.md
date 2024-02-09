@@ -8,6 +8,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.7.0]
+
 ### ⚠️ Breaking changes
 
 - [Scope control](https://kotlinlang.org/docs/type-safe-builders.html#scope-control-dslmarker) has been implemented for Akkurate's DSL ([#25](https://github.com/nesk/akkurate/issues/25))
@@ -100,7 +102,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 First release
 
-[Unreleased]: https://github.com/nesk/akkurate/compare/0.6.0...HEAD
+[Unreleased]: https://github.com/nesk/akkurate/compare/0.7.0...HEAD
+[0.7.0]: https://github.com/nesk/akkurate/compare/0.6.0...0.7.0
 [0.6.0]: https://github.com/nesk/akkurate/compare/0.5.0...0.6.0
 [0.5.0]: https://github.com/nesk/akkurate/compare/0.4.0...0.5.0
 [0.4.0]: https://github.com/nesk/akkurate/compare/0.3.0...0.4.0
