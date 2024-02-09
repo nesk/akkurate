@@ -3,7 +3,7 @@
 Some breaking changes might happen sometimes, especially until %product% reaches its first stable version. Here you can
 find how to migrate to a new version containing breaking changes.
 
-## Version #unreleased#
+## Version 0.7.0
 
 Akkurate improved its DSL by
 implementing [scope control,](https://kotlinlang.org/docs/type-safe-builders.html#scope-control-dslmarker) which means
