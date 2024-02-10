@@ -9,7 +9,7 @@ API.
 Designed from scratch to handle complex business logic, its role is to help you write qualitative and maintainable
 validation code.
 
-<img src="documentation/images/social.png" witdh=700 height=350 alt="A code example of Akkurate used to showcase the library on social networks." />
+<img src="documentation/images/social.png" width=700 height=350 alt="A code example of Akkurate used to showcase the library on social networks." />
 
 > [!WARNING]
 > Akkurate is under development and, despite being heavily tested, its API isn't yet stabilized; _breaking changes
