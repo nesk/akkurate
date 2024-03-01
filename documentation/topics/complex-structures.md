@@ -180,3 +180,45 @@ book.height == library.shelfHeight
 ```
 
 </compare>
+
+## Transformation
+
+Before validating some data, you might need to normalize it.
+
+Imagine you add support for hashtags on the `Book` class:
+
+```kotlin
+@Validate
+data class Book(val title: String, val hashtags: Set<String>)
+
+val validateBook = Validator<Book> {
+    title.isNotEmpty()
+    hashtags.each { isNotEmpty() }
+}
+```
+
+However, your users might prefix a hashtag with a `#`, which means the book will be considered valid if a hashtag
+contains this single character:
+
+```kotlin
+// This validation will succeed despite the book containing
+// a hashtag with a single `#` character.
+validateBook(
+    Book(
+        title = "The Lord of the Rings",
+        hashtags = setOf("heroic", "#fantasy", "#")
+    )
+)
+```
+
+To solve this, the solution would be to trim this character before validation, this can be done with
+the [`map`](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.validatables/map.html) function:
+
+```kotlin
+val validateBook = Validator<Book> {
+    title.isNotEmpty()
+    hashtags.each {
+        map { it.trimStart('#') }.isNotEmpty()
+    }
+}
+```

@@ -36,7 +36,17 @@ public class Validatable<out T> private constructor(
     pathSegment: String?,
     private val constraintRegistry: ConstraintRegistry,
     internal val parent: Validatable<*>?,
+    private val path: Path = buildPathFromParentAndSegment(parent, pathSegment),
 ) {
+    private companion object {
+        fun buildPathFromParentAndSegment(parent: Validatable<*>?, segment: String?) = buildList {
+            addAll(parent?.path ?: emptyList())
+            if (!segment.isNullOrEmpty()) {
+                add(segment)
+            }
+        }
+    }
+
     /**
      * Instantiates a root [Validatable] with its [value][wrappedValue] and a [ConstraintRegistry].
      *
@@ -52,13 +62,6 @@ public class Validatable<out T> private constructor(
      */
     internal constructor(wrappedValue: T, pathSegment: String, parent: Validatable<*>) :
             this(wrappedValue, pathSegment, parent.constraintRegistry, parent)
-
-    private val path: Path = buildList {
-        addAll(parent?.path ?: emptyList())
-        if (!pathSegment.isNullOrEmpty()) {
-            add(pathSegment)
-        }
-    }
 
     public fun path(): Path = path
 
@@ -87,6 +90,11 @@ public class Validatable<out T> private constructor(
      */
     public fun registerConstraint(constraint: ConstraintViolation): Unit = constraintRegistry.register(constraint)
 
+    /**
+     * Duplicates the [Validatable] with the new provided [value]. The path remains the same.
+     */
+    public fun <NEW_TYPE> withValue(value: NEW_TYPE): Validatable<NEW_TYPE> =
+        Validatable(value, pathSegment = null, constraintRegistry, parent, path)
 
     // TODO: Convert to extension function (breaking change) once JetBrains fixes imports: https://youtrack.jetbrains.com/issue/KTIJ-22147
     public inline operator fun invoke(block: Validatable<T>.() -> Unit): Unit = this.block()
@@ -141,3 +149,10 @@ public fun <T : Any, V> Validatable<T>.validatableOf(getter: KFunction1<T, V>): 
 public fun <T : Any?, V> Validatable<T>.validatableOf(getter: KFunction1<T & Any, V>): Validatable<V?> {
     return Validatable(unwrap()?.let { getter.invoke(it) }, getter.name, this)
 }
+
+/**
+ * Returns a [Validatable] wrapping the result of the given [transform] function.
+ * The latter is applied to the wrapped value of the [Validatable] receiver.
+ */
+public inline fun <T, R> Validatable<T>.map(transform: (T) -> R): Validatable<R> =
+    withValue(unwrap().let(transform))
