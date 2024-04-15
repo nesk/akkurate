@@ -23,12 +23,12 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 /*
- * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- * !!! THE FOLLOWING CODE MUST BE SYNCED ACROSS `ArrayTest`, `CollectionTest` AND `MapTest` !!!
- * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * !!! THE FOLLOWING CODE MUST BE SYNCED ACROSS MULTIPLE FILES: Array.kt, Iterable.kt, Collection.kt, Map.kt !!!
+ * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  *
- * The validation API is the same across `Array`, `Collection` and `Map` types, and so are the tests.
- * But, due to missing union types in Kotlin, we must duplicate the code for each of those tests.
+ * The validation API is nearly the same across `Array`, `Collection`, `Iterable` and `Map` types but, due to
+ * missing union types in Kotlin, we must duplicate a lot of code between these types.
  */
 
 class MapTest {

@@ -23,12 +23,12 @@ import dev.nesk.akkurate.constraints.otherwise
 import dev.nesk.akkurate.validatables.Validatable
 
 /*
- * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- * !!! THE FOLLOWING CODE MUST BE SYNCED ACROSS `Array.kt`, `Collection.kt` AND `Map.kt` FILES !!!
- * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * !!! THE FOLLOWING CODE MUST BE SYNCED ACROSS MULTIPLE FILES: Array.kt, Iterable.kt, Collection.kt, Map.kt !!!
+ * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  *
- * The validation API is the same across `Array`, `Collection` and `Map` types but, due to missing
- * union types in Kotlin, we must duplicate the code for each of those types.
+ * The validation API is nearly the same across `Array`, `Collection`, `Iterable` and `Map` types but, due to
+ * missing union types in Kotlin, we must duplicate a lot of code between these types.
  */
 
 /**
@@ -169,33 +169,3 @@ public fun <T> Validatable<Collection<T>?>.hasSizeGreaterThanOrEqualTo(size: Int
 @JvmName("collectionHasSizeBetween")
 public fun <T> Validatable<Collection<T>?>.hasSizeBetween(range: IntRange): Constraint =
     constrainIfNotNull { it.size in range } otherwise { "The number of items must be between ${range.first} and ${range.last}" }
-
-/**
- * The validatable [Collection] must contain [element] when this constraint is applied.
- *
- * Code example:
- *
- * ```
- * val validate = Validator<Collection<Char>> { isContaining('b') }
- * validate(listOf('a', 'b', 'c')) // Success
- * validate(emptyList()) // Failure (message: Must contain "b")
- * ```
- */
-@JvmName("collectionIsContaining")
-public fun <T> Validatable<Collection<T>?>.isContaining(element: T): Constraint =
-    constrainIfNotNull { it.contains(element) } otherwise { "Must contain \"$element\"" }
-
-/**
- * The validatable [Collection] must not contain [element] when this constraint is applied.
- *
- * Code example:
- *
- * ```
- * val validate = Validator<Collection<Char>> { isNotContaining('b') }
- * validate(emptyList()) // Success
- * validate(listOf('a', 'b', 'c')) // Failure (message: Must not contain "b")
- * ```
- */
-@JvmName("collectionIsNotContaining")
-public fun <T> Validatable<Collection<T>?>.isNotContaining(element: T): Constraint =
-    constrainIfNotNull { !it.contains(element) } otherwise { "Must not contain \"$element\"" }

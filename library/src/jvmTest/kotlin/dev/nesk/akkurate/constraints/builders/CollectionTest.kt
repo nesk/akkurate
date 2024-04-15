@@ -23,12 +23,12 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 /*
- * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- * !!! THE FOLLOWING CODE MUST BE SYNCED ACROSS `ArrayTest`, `CollectionTest` AND `MapTest` !!!
- * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * !!! THE FOLLOWING CODE MUST BE SYNCED ACROSS MULTIPLE FILES: Array.kt, Iterable.kt, Collection.kt, Map.kt !!!
+ * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  *
- * The validation API is the same across `Array`, `Collection` and `Map` types, and so are the tests.
- * But, due to missing union types in Kotlin, we must duplicate the code for each of those tests.
+ * The validation API is nearly the same across `Array`, `Collection`, `Iterable` and `Map` types but, due to
+ * missing union types in Kotlin, we must duplicate a lot of code between these types.
  */
 
 class CollectionTest {
@@ -218,44 +218,6 @@ class CollectionTest {
     fun `'hasSizeBetween' fails when the size is outside the provided range`() {
         @Suppress("EmptyRange")
         assertFalse(VALIDATABLE.hasSizeBetween(1..0).satisfied)
-    }
-
-    //endregion
-
-    //region isContaining
-
-    @Test
-    fun `'isContaining' succeeds when the value is null`() {
-        assertTrue(NULL_VALIDATABLE.isContaining(' ').satisfied)
-    }
-
-    @Test
-    fun `'isContaining' succeeds when the value contains the provided element`() {
-        assertTrue(VALIDATABLE.isContaining('o').satisfied)
-    }
-
-    @Test
-    fun `'isContaining' fails when the value does not contain the provided element`() {
-        assertFalse(VALIDATABLE.isContaining('a').satisfied)
-    }
-
-    //endregion
-
-    //region isNotContaining
-
-    @Test
-    fun `'isNotContaining' succeeds when the value is null`() {
-        assertTrue(NULL_VALIDATABLE.isNotContaining(' ').satisfied)
-    }
-
-    @Test
-    fun `'isNotContaining' succeeds when the value does not contain the provided element`() {
-        assertTrue(VALIDATABLE.isNotContaining('a').satisfied)
-    }
-
-    @Test
-    fun `'isNotContaining' fails when the value contains the provided element`() {
-        assertFalse(VALIDATABLE.isNotContaining('o').satisfied)
     }
 
     //endregion
