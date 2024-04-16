@@ -199,3 +199,17 @@ public fun <T> Validatable<Array<out T>?>.isContaining(element: T): Constraint =
 @JvmName("arrayIsNotContaining")
 public fun <T> Validatable<Array<out T>?>.isNotContaining(element: T): Constraint =
     constrainIfNotNull { !it.contains(element) } otherwise { "Must not contain \"$element\"" }
+
+/**
+ * The validatable [Array] must contain unique elements when this constraint is applied.
+ *
+ * Code example:
+ *
+ * ```
+ * val validate = Validator<Array<Char>> { hasNoDuplicates() }
+ * validate(arrayOf('a', 'b', 'c')) // Success
+ * validate(arrayOf('a', 'b', 'c', 'a')) // Failure (message: Must contain unique elements)
+ * ```
+ */
+public fun <T> Validatable<Array<out T>?>.hasNoDuplicates(): Constraint =
+    constrainIfNotNull { array -> array.toSet().size == array.size } otherwise { "Must contain unique elements" }

@@ -61,3 +61,16 @@ public fun <T> Validatable<Iterable<T>?>.isContaining(element: T): Constraint =
 public fun <T> Validatable<Iterable<T>?>.isNotContaining(element: T): Constraint =
     constrainIfNotNull { !it.contains(element) } otherwise { "Must not contain \"$element\"" }
 
+/**
+ * The validatable [Iterable] must contain unique elements when this constraint is applied.
+ *
+ * Code example:
+ *
+ * ```
+ * val validate = Validator<Iterable<Char>> { hasNoDuplicates() }
+ * validate(listOf('a', 'b', 'c')) // Success
+ * validate(listOf('a', 'b', 'c', 'a')) // Failure (message: Must contain unique elements)
+ * ```
+ */
+public fun <T> Validatable<Iterable<T>?>.hasNoDuplicates(): Constraint =
+    constrainIfNotNull { array -> array.toSet().size == array.count() } otherwise { "Must contain unique elements" }

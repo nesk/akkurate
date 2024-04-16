@@ -75,4 +75,23 @@ class IterableTest {
     }
 
     //endregion
+
+    //region hasNoDuplicates
+
+    @Test
+    fun `'hasNoDuplicates' succeeds when the value is null`() {
+        assertTrue(NULL_VALIDATABLE.hasNoDuplicates().satisfied)
+    }
+
+    @Test
+    fun `'hasNoDuplicates' succeeds when the value contains unique elements`() {
+        assertTrue(Validatable(VALUE.toSet().toTypedArray()).hasNoDuplicates().satisfied)
+    }
+
+    @Test
+    fun `'hasNoDuplicates' fails when the value contains duplicated elements`() {
+        assertFalse(VALIDATABLE.hasNoDuplicates().satisfied)
+    }
+
+    //endregion
 }
