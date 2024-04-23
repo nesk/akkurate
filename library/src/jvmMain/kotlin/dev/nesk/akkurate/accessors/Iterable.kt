@@ -24,6 +24,9 @@ private val emptyIterator = object : Iterator<Nothing> {
     override fun next(): Nothing = throw NoSuchElementException("This iterator is empty")
 }
 
+/**
+ * Returns an iterator over the elements of this object. Each element is wrapped with a [Validatable].
+ */
 public operator fun <T> Validatable<Iterable<T>?>.iterator(): Iterator<Validatable<T>> = unwrap()?.let { iterable ->
     iterable
         .asSequence()
@@ -32,6 +35,16 @@ public operator fun <T> Validatable<Iterable<T>?>.iterator(): Iterator<Validatab
         .iterator()
 } ?: emptyIterator
 
+/**
+ * Iterates over each element of this object and wraps them with a [Validatable] before passing them to the [block].
+ *
+ * ```
+ * Validator<List<String>> {
+ *     // Validate that each string is not empty
+ *     each { isNotEmpty() }
+ * }
+ * ```
+ */
 public inline fun <T> Validatable<Iterable<T>?>.each(block: Validatable<T>.() -> Unit) {
     for (row in this) row.invoke(block)
 }
