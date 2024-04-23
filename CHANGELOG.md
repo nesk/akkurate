@@ -12,6 +12,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Support transforming a value before validating it ([#26](https://github.com/nesk/akkurate/issues/26))
 - New constraint to ensure a collection doesn't contain duplicated elements ([#28](https://github.com/nesk/akkurate/issues/28))
+- New constraints to check if a value is an instance of some type ([#27](https://github.com/nesk/akkurate/issues/27))
 
 ## [0.7.0]
 

@@ -23,6 +23,9 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class AnyTest {
+
+    //region isNull
+
     @Test
     fun `'isNull' succeeds when the value is null`() {
         assertTrue(Validatable(null).isNull().satisfied)
@@ -33,6 +36,10 @@ class AnyTest {
         assertFalse(Validatable("foo").isNull().satisfied)
     }
 
+    //endregion
+
+    //region isNotNull
+
     @Test
     fun `'isNotNull' succeeds when the value is not null`() {
         assertTrue(Validatable("foo").isNotNull().satisfied)
@@ -42,6 +49,10 @@ class AnyTest {
     fun `'isNotNull' fails when the value is null`() {
         assertFalse(Validatable(null).isNotNull().satisfied)
     }
+
+    //endregion
+
+    //region isEqualTo
 
     @Test
     fun `'isEqualTo' succeeds when the provided value is equal to the validated one`() {
@@ -54,14 +65,18 @@ class AnyTest {
     }
 
     @Test
-    fun `'isEqualTo' succeeds when the value of the provided validatable is equal to the validated one`() {
+    fun `'isEqualTo' succeeds when the value of the provided validatable is equal to the value of the validated one`() {
         assertTrue(Validatable("foo").isEqualTo(Validatable("foo")).satisfied)
     }
 
     @Test
-    fun `'isEqualTo' fails when the value of the provided validatable is different from the validated one`() {
+    fun `'isEqualTo' fails when the value of the provided validatable is different from the value of the validated one`() {
         assertFalse(Validatable("foo").isEqualTo(Validatable("bar")).satisfied)
     }
+
+    //endregion
+
+    //region isNotEqualTo
 
     @Test
     fun `'isNotEqualTo' succeeds when the provided value is different from the validated one`() {
@@ -82,6 +97,10 @@ class AnyTest {
     fun `'isNotEqualTo' succeeds when the value of the provided validatable is equal to the validated one`() {
         assertFalse(Validatable("foo").isNotEqualTo(Validatable("foo")).satisfied)
     }
+
+    //endregion
+
+    //region isIdenticalTo
 
     @Test
     fun `'isIdenticalTo' succeeds when the provided value is the same as the validated one`() {
@@ -104,4 +123,34 @@ class AnyTest {
         val value = object {}
         assertFalse(Validatable(value).isNotIdenticalTo(value).satisfied)
     }
+
+    //endregion
+
+    //region isInstanceOf
+
+    @Test
+    fun `'isInstanceOf' succeeds when the value is of the provided type`() {
+        assertTrue(Validatable<Any>("foo").isInstanceOf<String>().satisfied)
+    }
+
+    @Test
+    fun `'isInstanceOf' fails when the value is not of the provided type`() {
+        assertFalse(Validatable<Any>("foo").isInstanceOf<Int>().satisfied)
+    }
+
+    //endregion
+
+    //region isNotInstanceOf
+
+    @Test
+    fun `'isNotInstanceOf' succeeds when the value is of the provided type`() {
+        assertTrue(Validatable<Any>("foo").isNotInstanceOf<Int>().satisfied)
+    }
+
+    @Test
+    fun `'isNotInstanceOf' fails when the value is not of the provided type`() {
+        assertFalse(Validatable<Any>("foo").isNotInstanceOf<String>().satisfied)
+    }
+
+    //endregion
 }

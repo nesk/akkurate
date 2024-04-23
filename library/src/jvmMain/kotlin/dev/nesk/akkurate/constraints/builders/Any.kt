@@ -135,3 +135,31 @@ public fun <T> Validatable<T?>.isIdenticalTo(other: T?): Constraint = constrain 
  * ```
  */
 public fun <T> Validatable<T?>.isNotIdenticalTo(other: T?): Constraint = constrain { it !== other } otherwise { "Must not be identical to \"$other\"" }
+
+/**
+ * The validatable value must be an instance of type parameter R when this constraint is applied.
+ *
+ * Code example:
+ *
+ * ```
+ * val validate = Validator<Any> { isInstanceOf<String>() }
+ * validate("foo") // Success
+ * validate(123) // Failure (message: Must be an instance of "kotlin.String")
+ * ```
+ */
+public inline fun <reified T> Validatable<*>.isInstanceOf(): Constraint =
+    constrain { it is T } otherwise { "Must be an instance of \"${T::class.qualifiedName}\"" }
+
+/**
+ * The validatable value must not be an instance of type parameter R when this constraint is applied.
+ *
+ * Code example:
+ *
+ * ```
+ * val validate = Validator<Any> { isNotInstanceOf<String>() }
+ * validate(123) // Success
+ * validate("foo") // Failure (message: Must not be an instance of "kotlin.String")
+ * ```
+ */
+public inline fun <reified T> Validatable<*>.isNotInstanceOf(): Constraint =
+    constrain { it !is T } otherwise { "Must not be an instance of \"${T::class.qualifiedName}\"" }
