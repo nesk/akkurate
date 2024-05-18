@@ -21,9 +21,7 @@ import dev.nesk.akkurate._test.Validatable
 import dev.nesk.akkurate._test.assertContentEquals
 import dev.nesk.akkurate.validatables.Validatable
 import org.junit.jupiter.api.assertThrows
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFalse
+import kotlin.test.*
 
 class IterableTest {
     @Test
@@ -66,6 +64,49 @@ class IterableTest {
         assertFalse(iterator.hasNext(), "The iterator has no next value")
         assertThrows<NoSuchElementException>("The iterator cannot be iterated") { iterator.next() }
     }
+
+    //region first
+
+    @Test
+    fun `'first' returns a wrapped null when the parent is null`() {
+        assertNull(Validatable<Iterable<Any>?>(null).first().unwrap())
+    }
+
+    @Test
+    fun `'first' returns a wrapped null when the collection is empty`() {
+        assertNull(Validatable(emptyList<Any>()).first().unwrap())
+    }
+
+    @Test
+    fun `'first' returns the first value wrapped in Validatable`() {
+        val validatable = Validatable(listOf("foo", "bar")).first()
+        assertEquals("foo", validatable.unwrap())
+        assertContentEquals(listOf("first"), validatable.path())
+    }
+
+    //endregion
+
+    //region last
+
+    @Test
+    fun `'last' returns a wrapped null when the parent is null`() {
+        assertNull(Validatable<Iterable<Any>?>(null).last().unwrap())
+    }
+
+    @Test
+    fun `'last' returns a wrapped null when the collection is empty`() {
+        assertNull(Validatable(emptyList<Any>()).last().unwrap())
+    }
+
+    @Test
+    fun `'last' returns the last value wrapped in Validatable`() {
+        val validatable = Validatable(listOf("foo", "bar")).last()
+        assertEquals("bar", validatable.unwrap())
+        assertContentEquals(listOf("last"), validatable.path())
+    }
+
+    //endregion
+
 
     @Test
     fun `calling 'each' will execute the block for each value of the iterable, wrapped in Validatable and passed as the receiver`() {

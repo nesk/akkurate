@@ -18,6 +18,7 @@
 package dev.nesk.akkurate.accessors
 
 import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.validatables.validatableOf
 
 private val emptyIterator = object : Iterator<Nothing> {
     override fun hasNext(): Boolean = false
@@ -34,6 +35,28 @@ public operator fun <T> Validatable<Iterable<T>?>.iterator(): Iterator<Validatab
         .map { Validatable(it.value, it.index.toString(), this) }
         .iterator()
 } ?: emptyIterator
+
+/**
+ * Returns the first element, wrapped in [Validatable].
+ *
+ * The wrapped value is `null` if the collection is empty.
+ */
+public fun <T> Validatable<Iterable<T>?>.first(): Validatable<T?> = try {
+    validatableOf(Iterable<T>::first)
+} catch (e: NoSuchElementException) {
+    Validatable(null, "first", this)
+}
+
+/**
+ * Returns the last element, wrapped in [Validatable].
+ *
+ * The wrapped value is `null` if the collection is empty.
+ */
+public fun <T> Validatable<Iterable<T>?>.last(): Validatable<T?> = try {
+    validatableOf(Iterable<T>::last)
+} catch (e: NoSuchElementException) {
+    Validatable(null, "last", this)
+}
 
 /**
  * Iterates over each element of this object and wraps them with a [Validatable] before passing them to the [block].
