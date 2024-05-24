@@ -8,6 +8,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.8.0]
+
 ### Added
 
 - Support transforming a value before validating it ([#26](https://github.com/nesk/akkurate/issues/26))
@@ -109,7 +111,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 First release
 
-[Unreleased]: https://github.com/nesk/akkurate/compare/0.7.0...HEAD
+[Unreleased]: https://github.com/nesk/akkurate/compare/0.8.0...HEAD
+[0.8.0]: https://github.com/nesk/akkurate/compare/0.7.0...0.8.0
 [0.7.0]: https://github.com/nesk/akkurate/compare/0.6.0...0.7.0
 [0.6.0]: https://github.com/nesk/akkurate/compare/0.5.0...0.6.0
 [0.5.0]: https://github.com/nesk/akkurate/compare/0.4.0...0.5.0
