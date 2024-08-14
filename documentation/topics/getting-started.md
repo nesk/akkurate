@@ -16,8 +16,8 @@ version</a>, depending on the Kotlin version you're using.
 <br/>
 <code-block lang="kotlin">
 plugins {
-    kotlin("jvm") version "1.9.10"
-    id("com.google.devtools.ksp") version "1.9.10-1.0.13"
+    kotlin("jvm") version "2.0.10"
+    id("com.google.devtools.ksp") version "2.0.10-1.0.24"
 }
 </code-block>
 </step>
