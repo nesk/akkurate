@@ -20,7 +20,7 @@ unique <tooltip term="ISBN">ISBN</tooltip>, as well as a valid title.
 ## Setting up the project
 
 You can download a generated Ktor
-project [by following this link.](https://start.ktor.io#/settings?name=akkurateWithKtor&website=akkuratewithktor.example.com&artifact=com.example.akkuratewithktor.akkuratewithktor&kotlinVersion=1.9.20&ktorVersion=2.3.5&buildSystem=GRADLE_KTS&engine=NETTY&configurationIn=HOCON&plugins=routing%2Ccontent-negotiation%2Ckotlinx-serialization%2Cstatus-pages%2Cexposed&addSampleCode=false)
+project [by following this link.](https://start.ktor.io/settings?name=akkuratewithktor&website=com.example&artifact=com.example.akkuratewithktor.akkuratewithktor&kotlinVersion=2.0.10&ktorVersion=2.3.12&buildSystem=GRADLE_KTS&engine=NETTY&configurationIn=HOCON&addSampleCode=false&plugins=routing%2Ckotlinx-serialization%2Ccontent-negotiation%2Cexposed%2Cstatus-pages)
 Then click <ui-path>Add plugins | Generate project</ui-path> and, once the project is downloaded, open it in IntelliJ.
 
 > The following plugins are already preconfigured:
@@ -302,7 +302,7 @@ There are multiple things to explain here:
 response. This requires [the Request Validation plugin](https://ktor.io/docs/request-validation.html):
 
 ```kotlin
-implementation("io.ktor:ktor-server-request-validation:$ktor_version")
+implementation("io.ktor:ktor-server-request-validation")
 ```
 
 This plugin allows configuring a validation function for a specific class; it will be executed on each deserialization.
