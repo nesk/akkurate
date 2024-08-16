@@ -24,6 +24,7 @@ import dev.nesk.akkurate.constraints.ConstraintRegistry
 import dev.nesk.akkurate.constraints.ConstraintViolation
 import dev.nesk.akkurate.constraints.constrain
 import dev.nesk.akkurate.validateWith
+import kotlin.jvm.JvmName
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KProperty1
 

@@ -1007,28 +1007,6 @@ class NumberTest {
 
     //region hasFractionalCountEqualTo
     @Test
-    fun `'Float hasFractionalCountEqualTo' succeeds when the value is null`() {
-        assertTrue(Validatable<Float?>(null).hasFractionalCountEqualTo(2).satisfied)
-    }
-
-    @Test
-    fun `'Float hasFractionalCountEqualTo' throws an exception when the provided count is lower than 1`() {
-        assertFailsWith<IllegalArgumentException> {
-            Validatable(123.45f).hasFractionalCountEqualTo(0)
-        }
-    }
-
-    @Test
-    fun `'Float hasFractionalCountEqualTo' succeeds when the number of digits is equal to the provided one`() {
-        assertTrue(Validatable(123.45f).hasFractionalCountEqualTo(2).satisfied)
-    }
-
-    @Test
-    fun `'Float hasFractionalCountEqualTo' fails when the number of digits is different than the provided one`() {
-        assertFalse(Validatable(123.45f).hasFractionalCountEqualTo(5).satisfied)
-    }
-
-    @Test
     fun `'Double hasFractionalCountEqualTo' succeeds when the value is null`() {
         assertTrue(Validatable<Double?>(null).hasFractionalCountEqualTo(2).satisfied)
     }

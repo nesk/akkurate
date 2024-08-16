@@ -24,7 +24,7 @@ import dev.nesk.akkurate.ValidationResult
 import dev.nesk.akkurate.Validator
 import dev.nesk.akkurate.constraints.ConstraintViolation
 import dev.nesk.akkurate.constraints.builders.isIdenticalTo
-import org.junit.jupiter.api.Test
+import kotlin.test.Test
 import kotlin.test.assertIs
 import kotlin.test.assertSame
 

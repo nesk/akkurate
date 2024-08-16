@@ -21,6 +21,7 @@ import dev.nesk.akkurate.constraints.Constraint
 import dev.nesk.akkurate.constraints.constrainIfNotNull
 import dev.nesk.akkurate.constraints.otherwise
 import dev.nesk.akkurate.validatables.Validatable
+import kotlin.jvm.JvmName
 
 //region isNotNaN
 @JvmName("floatIsNotNaN")
@@ -283,7 +284,7 @@ private fun Validatable<Number?>.constrainIntegralPart(count: Int, runDecimalChe
     }
 }
 
-private fun Validatable<Number?>.constrainDecimalPart(count: Int): Constraint {
+internal fun Validatable<Number?>.constrainDecimalPart(count: Int): Constraint {
     requireCountGreaterThanZero(count)
     return constrainDigitCount(runDecimalChecks = true) { _, fractionalCount ->
         if (fractionalCount == null) false else fractionalCount == count
@@ -291,7 +292,7 @@ private fun Validatable<Number?>.constrainDecimalPart(count: Int): Constraint {
 }
 
 private infix fun Constraint.otherwiseIntegralCountEqualTo(count: Int) = otherwise { "Must contain $count integral digits" }
-private infix fun Constraint.otherwiseFractionalCountEqualTo(count: Int) = otherwise { "Must contain $count fractional digits" }
+internal infix fun Constraint.otherwiseFractionalCountEqualTo(count: Int) = otherwise { "Must contain $count fractional digits" }
 
 @JvmName("shortHasIntegralCountEqualTo")
 public fun Validatable<Short?>.hasIntegralCountEqualTo(count: Int): Constraint =
@@ -312,10 +313,6 @@ public fun Validatable<Float?>.hasIntegralCountEqualTo(count: Int): Constraint =
 @JvmName("doubleHasIntegralCountEqualTo")
 public fun Validatable<Double?>.hasIntegralCountEqualTo(count: Int): Constraint =
     constrainIntegralPart(count, runDecimalChecks = true) otherwiseIntegralCountEqualTo count
-
-@JvmName("floatHasFractionalCountEqualTo")
-public fun Validatable<Float?>.hasFractionalCountEqualTo(count: Int): Constraint =
-    constrainDecimalPart(count) otherwiseFractionalCountEqualTo count
 
 @JvmName("doubleHasFractionalCountEqualTo")
 public fun Validatable<Double?>.hasFractionalCountEqualTo(count: Int): Constraint =
