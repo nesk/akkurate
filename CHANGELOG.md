@@ -12,6 +12,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - [The `ConstraintViolationSet.equals` method](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints/-constraint-violation-set/equals.html) is now symmetric and matches [what's in the specification.](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/equals.html)
 
+### Changed
+
+- The default violation message of the [`isInstanceOf`](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints.builders/is-instance-of.html) and [`isNotInstanceOf`](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints.builders/is-not-instance-of.html) constraints now display the simple name of the type, instead of the qualified one. 
+
 ## [0.8.0]
 
 ### Added

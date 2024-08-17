@@ -148,7 +148,7 @@ public fun <T> Validatable<T?>.isNotIdenticalTo(other: T?): Constraint = constra
  * ```
  */
 public inline fun <reified T> Validatable<*>.isInstanceOf(): Constraint =
-    constrain { it is T } otherwise { "Must be an instance of \"${T::class.qualifiedName}\"" }
+    constrain { it is T } otherwise { "Must be an instance of \"${T::class.simpleName}\"" }
 
 /**
  * The validatable value must not be an instance of type parameter R when this constraint is applied.
@@ -162,4 +162,4 @@ public inline fun <reified T> Validatable<*>.isInstanceOf(): Constraint =
  * ```
  */
 public inline fun <reified T> Validatable<*>.isNotInstanceOf(): Constraint =
-    constrain { it !is T } otherwise { "Must not be an instance of \"${T::class.qualifiedName}\"" }
+    constrain { it !is T } otherwise { "Must not be an instance of \"${T::class.simpleName}\"" }
