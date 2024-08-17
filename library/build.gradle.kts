@@ -9,7 +9,7 @@ plugins {
 
 kotlin {
     configureTargets()
-    
+
     sourceSets {
         commonTest {
             dependencies {
@@ -18,6 +18,29 @@ kotlin {
             }
         }
     }
+}
+
+dependencies {
+    add("kspCommonMainMetadata", project(":akkurate-ksp-plugin"))
+    add("kspIosArm64", project(":akkurate-ksp-plugin"))
+    add("kspIosSimulatorArm64", project(":akkurate-ksp-plugin"))
+    add("kspIosX64", project(":akkurate-ksp-plugin"))
+    add("kspJs", project(":akkurate-ksp-plugin"))
+    add("kspJvm", project(":akkurate-ksp-plugin"))
+    add("kspLinuxArm64", project(":akkurate-ksp-plugin"))
+    add("kspLinuxX64", project(":akkurate-ksp-plugin"))
+    add("kspMacosArm64", project(":akkurate-ksp-plugin"))
+    add("kspMacosX64", project(":akkurate-ksp-plugin"))
+    add("kspMingwX64", project(":akkurate-ksp-plugin"))
+    add("kspTvosArm64", project(":akkurate-ksp-plugin"))
+    add("kspTvosSimulatorArm64", project(":akkurate-ksp-plugin"))
+    add("kspTvosX64", project(":akkurate-ksp-plugin"))
+    add("kspWasmJs", project(":akkurate-ksp-plugin"))
+    add("kspWatchosArm32", project(":akkurate-ksp-plugin"))
+    add("kspWatchosArm64", project(":akkurate-ksp-plugin"))
+    add("kspWatchosDeviceArm64", project(":akkurate-ksp-plugin"))
+    add("kspWatchosSimulatorArm64", project(":akkurate-ksp-plugin"))
+    add("kspWatchosX64", project(":akkurate-ksp-plugin"))
 }
 
 ksp {

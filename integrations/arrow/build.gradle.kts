@@ -1,3 +1,4 @@
+import dev.nesk.akkurate.gradle.IgnoredTarget
 import dev.nesk.akkurate.gradle.configureTargets
 
 plugins {
@@ -6,7 +7,12 @@ plugins {
 }
 
 kotlin {
-    configureTargets()
+    configureTargets(
+        IgnoredTarget.ANDROID_NATIVE,
+        IgnoredTarget.WASM_JS,
+        IgnoredTarget.WASM_WASI,
+        IgnoredTarget.WATCHOS_DEVICE_ARM64
+    )
 
     sourceSets {
         commonMain {
