@@ -76,7 +76,7 @@ public class Constraint(public val satisfied: Boolean, public var validatable: V
     override fun hashCode(): Int {
         var result = satisfied.hashCode()
         result = 31 * result + path.hashCode()
-        result = 31 * result + (message?.hashCode() ?: 0)
+        result = 31 * result + message.hashCode()
         return result
     }
 
