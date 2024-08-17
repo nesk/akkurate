@@ -9,7 +9,7 @@ plugins {
     kotlin("jvm")
     id("io.ktor.plugin") version "2.3.5"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10"
-    id("com.google.devtools.ksp") version "1.9.10-1.0.13"
+    id("com.google.devtools.ksp") version "2.0.20-1.0.24"
 }
 
 application {

@@ -7,9 +7,9 @@ plugins {
 
 kotlin {
     explicitApi()
+    jvmToolchain(8)
 
     jvm {
-        jvmToolchain(8)
         withJava()
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
@@ -17,6 +17,14 @@ kotlin {
     }
 
     sourceSets {
+        all {
+            languageSettings {
+                // See: https://kotlinlang.org/docs/multiplatform-dsl-reference.html#language-settings
+                languageVersion = "1.9"
+                apiVersion = "1.9"
+            }
+        }
+
         val commonMain by getting
         val commonTest by getting {
             dependencies {
