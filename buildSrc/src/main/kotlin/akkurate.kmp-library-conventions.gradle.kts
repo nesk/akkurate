@@ -9,13 +9,6 @@ kotlin {
     explicitApi()
     jvmToolchain(8)
 
-    jvm {
-        withJava()
-        testRuns["test"].executionTask.configure {
-            useJUnitPlatform()
-        }
-    }
-
     sourceSets {
         all {
             languageSettings {
@@ -32,8 +25,12 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
             }
         }
-        val jvmMain by getting
-        val jvmTest by getting
+    }
+}
+
+tasks {
+    withType<Test> {
+        useJUnitPlatform()
     }
 }
 
