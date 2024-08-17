@@ -32,6 +32,6 @@ public class ValidateAnnotationProcessorProvider : SymbolProcessorProvider {
             validatableClasses = options.getOrDefault("validatableClasses", "").split("|").toSet()
             validatablePackages = options.getOrDefault("__PRIVATE_API__validatablePackages", "").split("|").toSet()
         }
-        return ValidateAnnotationProcessor(environment.codeGenerator, environment.logger, config)
+        return ValidateAnnotationProcessor(environment.codeGenerator, environment.logger, environment.platforms, config)
     }
 }

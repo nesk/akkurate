@@ -37,6 +37,7 @@ import kotlin.reflect.KProperty1
 public class ValidateAnnotationProcessor(
     private val codeGenerator: CodeGenerator,
     private val logger: KSPLogger,
+    private val platforms: List<PlatformInfo>,
     private val config: ValidateAnnotationProcessorConfig,
 ) : SymbolProcessor {
     public companion object {
@@ -209,11 +210,13 @@ public class ValidateAnnotationProcessor(
 
             getter(
                 FunSpec.getterBuilder().apply {
-                    addAnnotation(
-                        AnnotationSpec.builder(JvmName::class)
-                            .addMember("name = %S", "validatable$nullabilityText${uniqueNameInPackage}")
-                            .build()
-                    )
+                    if (platforms.singleOrNull() is JvmPlatformInfo) {
+                        addAnnotation(
+                            AnnotationSpec.builder(JvmName::class)
+                                .addMember("name = %S", "validatable$nullabilityText${uniqueNameInPackage}")
+                                .build()
+                        )
+                    }
 
                     // FIXME: The cast is a workaround for https://youtrack.jetbrains.com/issue/KT-59493 and https://youtrack.jetbrains.com/issue/KT-62543
                     addStatement(
