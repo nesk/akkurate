@@ -24,7 +24,7 @@ import kotlin.test.assertContentEquals
 
 class PathTest {
     @Test
-    fun `generating an absolute path doesn't reuse the validatable path`() {
+    fun generating_an_absolute_path_does_not_reuse_the_validatable_path() {
         // Arrange
         val validatable = Validatable(null, "foo")
         // Act
@@ -34,7 +34,7 @@ class PathTest {
     }
 
     @Test
-    fun `generating a relative path appends the provided segments to the path of the parent validatable`() {
+    fun generating_a_relative_path_appends_the_provided_segments_to_the_path_of_the_parent_validatable() {
         // Arrange
         val parent = Validatable(null, "foo")
         val child = Validatable(null, "bar", parent)
@@ -45,7 +45,7 @@ class PathTest {
     }
 
     @Test
-    fun `generating a relative path without a parent is the same as an absolute path`() {
+    fun generating_a_relative_path_without_a_parent_is_the_same_as_an_absolute_path() {
         // Arrange
         val orphan = Validatable(null)
         // Act
@@ -55,7 +55,7 @@ class PathTest {
     }
 
     @Test
-    fun `generating an appended path returns the validatable path appended with the provided segments`() {
+    fun generating_an_appended_path_returns_the_validatable_path_appended_with_the_provided_segments() {
         // Arrange
         val validatable = Validatable(null, "foo")
         // Act
@@ -65,7 +65,7 @@ class PathTest {
     }
 
     @Test
-    fun `calling 'path' on a validatable returns a builder associated to this validatable`() {
+    fun calling__path__on_a_validatable_returns_a_builder_associated_to_this_validatable() {
         // Arrange
         val validatable = Validatable(null, "foo")
         // Act

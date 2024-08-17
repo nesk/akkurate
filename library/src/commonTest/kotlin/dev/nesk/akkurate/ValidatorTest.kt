@@ -34,7 +34,7 @@ class ValidatorTest {
     private class First(val second: Second)
 
     @Test
-    fun `a validation with satisfied constraints returns a successful result with the corresponding value`() {
+    fun a_validation_with_satisfied_constraints_returns_a_successful_result_with_the_corresponding_value() {
         // Arrange
         val value = Value()
         val validate = Validator<Value> {
@@ -48,7 +48,7 @@ class ValidatorTest {
     }
 
     @Test
-    fun `a validation with unsatisfied constraints returns a failed result with the corresponding violations`() {
+    fun a_validation_with_unsatisfied_constraints_returns_a_failed_result_with_the_corresponding_violations() {
         // Arrange
         val validate = Validator<Nothing?> {
             constrain { false } otherwise { "Bad value" } withPath { absolute("path", "to", "value") }
@@ -62,7 +62,7 @@ class ValidatorTest {
     }
 
     @Test
-    fun `a contextual validation with satisfied constraints returns a successful result`() {
+    fun a_contextual_validation_with_satisfied_constraints_returns_a_successful_result() {
         // Arrange
         val validate = Validator<Context, Nothing?> {
             constrain { true }
@@ -74,7 +74,7 @@ class ValidatorTest {
     }
 
     @Test
-    fun `a contextual validation with unsatisfied constraints returns a failed result with the corresponding violations`() {
+    fun a_contextual_validation_with_unsatisfied_constraints_returns_a_failed_result_with_the_corresponding_violations() {
         // Arrange
         val validate = Validator<Context, Nothing?> {
             constrain { false } otherwise { "Bad value" } withPath { absolute("path", "to", "value") }
@@ -88,7 +88,7 @@ class ValidatorTest {
     }
 
     @Test
-    fun `an async validation with satisfied constraints returns a successful result`() = runTest {
+    fun an_async_validation_with_satisfied_constraints_returns_a_successful_result() = runTest {
         // Arrange
         val validate = Validator.suspendable<Nothing?> {
             constrain { true }
@@ -100,7 +100,7 @@ class ValidatorTest {
     }
 
     @Test
-    fun `an async validation with unsatisfied constraints returns a failed result with the corresponding violations`() = runTest {
+    fun an_async_validation_with_unsatisfied_constraints_returns_a_failed_result_with_the_corresponding_violations() = runTest {
         // Arrange
         val validate = Validator.suspendable<Nothing?> {
             constrain { false } otherwise { "Bad value" } withPath { absolute("path", "to", "value") }
@@ -114,7 +114,7 @@ class ValidatorTest {
     }
 
     @Test
-    fun `an async contextual validation with satisfied constraints returns a successful result`() = runTest {
+    fun an_async_contextual_validation_with_satisfied_constraints_returns_a_successful_result() = runTest {
         // Arrange
         val validate = Validator.suspendable<Context, Nothing?> {
             constrain { true }
@@ -126,7 +126,7 @@ class ValidatorTest {
     }
 
     @Test
-    fun `an async contextual validation with unsatisfied constraints returns a failed result with the corresponding violations`() = runTest {
+    fun an_async_contextual_validation_with_unsatisfied_constraints_returns_a_failed_result_with_the_corresponding_violations() = runTest {
         // Arrange
         val validate = Validator<Context, Nothing?> {
             constrain { false } otherwise { "Bad value" } withPath { absolute("path", "to", "value") }
@@ -140,7 +140,7 @@ class ValidatorTest {
     }
 
     @Test
-    fun `definining the root path in the configuration will prepend all the paths in the returned constraint violations`() {
+    fun definining_the_root_path_in_the_configuration_will_prepend_all_the_paths_in_the_returned_constraint_violations() {
         val config = Configuration { rootPath("foo", "bar") }
         val validate = Validator<Value>(config) {
             validatableOf(Value::name).constrain { false }
@@ -151,7 +151,7 @@ class ValidatorTest {
     }
 
     @Test
-    fun `definining the default message in the configuration will replace empty messages in constraints`() {
+    fun definining_the_default_message_in_the_configuration_will_replace_empty_messages_in_constraints() {
         val config = Configuration { defaultViolationMessage = "default" }
         val validate = Validator<Nothing?>(config) {
             constrain { false }
@@ -162,7 +162,7 @@ class ValidatorTest {
     }
 
     @Test
-    fun `definining failOnFirstViolation=true in the configuration skips all the upcoming constraints after the first constraint violation`() {
+    fun definining_failOnFirstViolation_to_true_in_the_configuration_skips_all_the_upcoming_constraints_after_the_first_constraint_violation() {
         // Arrange
         val config = Configuration { failOnFirstViolation = true }
         val validate = Validator<Nothing?>(config) {
@@ -179,7 +179,7 @@ class ValidatorTest {
     }
 
     @Test
-    fun `definining failOnFirstViolation=false in the configuration executes all the constraints before returning a failure`() {
+    fun definining_failOnFirstViolation_to_false_in_the_configuration_executes_all_the_constraints_before_returning_a_failure() {
         // Arrange
         val config = Configuration { failOnFirstViolation = false }
         val validate = Validator<Nothing?>(config) {
@@ -197,7 +197,7 @@ class ValidatorTest {
     }
 
     @Test
-    fun `a composite validation reports all the contraint violations, including the nested ones`() {
+    fun a_composite_validation_reports_all_the_contraint_violations_and_including_the_nested_ones() {
         // Arrange
         val validate3 = Validator<Third> {
             constrain { false } otherwise { "failure3" }
@@ -226,7 +226,7 @@ class ValidatorTest {
     }
 
     @Test
-    fun `a contextual composite validation reports all the contraint violations, including the nested ones`() {
+    fun a_contextual_composite_validation_reports_all_the_contraint_violations_and_including_the_nested_ones() {
         // Arrange
         val validate3 = Validator<Context, Third> {
             constrain { false } otherwise { "failure3" }
@@ -255,7 +255,7 @@ class ValidatorTest {
     }
 
     @Test
-    fun `an async composite validation reports all the contraint violations, including the nested ones`() = runTest {
+    fun an_async_composite_validation_reports_all_the_contraint_violations_and_including_the_nested_ones() = runTest {
         // Arrange
         val validate3 = Validator.suspendable<Third> {
             constrain { false } otherwise { "failure3" }
@@ -284,7 +284,7 @@ class ValidatorTest {
     }
 
     @Test
-    fun `an async contextual composite validation reports all the contraint violations, including the nested ones`() = runTest {
+    fun an_async_contextual_composite_validation_reports_all_the_contraint_violations_and_including_the_nested_ones() = runTest {
         // Arrange
         val validate3 = Validator.suspendable<Context, Third> {
             constrain { false } otherwise { "failure3" }

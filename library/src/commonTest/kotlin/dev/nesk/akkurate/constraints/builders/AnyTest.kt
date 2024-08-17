@@ -27,12 +27,12 @@ class AnyTest {
     //region isNull
 
     @Test
-    fun `'isNull' succeeds when the value is null`() {
+    fun isNull__succeeds_when_the_value_is_null() {
         assertTrue(Validatable(null).isNull().satisfied)
     }
 
     @Test
-    fun `'isNull' fails when the value is not null`() {
+    fun __isNull__fails_when_the_value_is_not_null() {
         assertFalse(Validatable("foo").isNull().satisfied)
     }
 
@@ -41,12 +41,12 @@ class AnyTest {
     //region isNotNull
 
     @Test
-    fun `'isNotNull' succeeds when the value is not null`() {
+    fun __isNotNull__succeeds_when_the_value_is_not_null() {
         assertTrue(Validatable("foo").isNotNull().satisfied)
     }
 
     @Test
-    fun `'isNotNull' fails when the value is null`() {
+    fun __isNotNull__fails_when_the_value_is_null() {
         assertFalse(Validatable(null).isNotNull().satisfied)
     }
 
@@ -55,22 +55,22 @@ class AnyTest {
     //region isEqualTo
 
     @Test
-    fun `'isEqualTo' succeeds when the provided value is equal to the validated one`() {
+    fun __isEqualTo__succeeds_when_the_provided_value_is_equal_to_the_validated_one() {
         assertTrue(Validatable("foo").isEqualTo("foo").satisfied)
     }
 
     @Test
-    fun `'isEqualTo' fails when the provided value is different from the validated one`() {
+    fun __isEqualTo__fails_when_the_provided_value_is_different_from_the_validated_one() {
         assertFalse(Validatable("foo").isEqualTo("bar").satisfied)
     }
 
     @Test
-    fun `'isEqualTo' succeeds when the value of the provided validatable is equal to the value of the validated one`() {
+    fun __isEqualTo__succeeds_when_the_value_of_the_provided_validatable_is_equal_to_the_value_of_the_validated_one() {
         assertTrue(Validatable("foo").isEqualTo(Validatable("foo")).satisfied)
     }
 
     @Test
-    fun `'isEqualTo' fails when the value of the provided validatable is different from the value of the validated one`() {
+    fun __isEqualTo__fails_when_the_value_of_the_provided_validatable_is_different_from_the_value_of_the_validated_one() {
         assertFalse(Validatable("foo").isEqualTo(Validatable("bar")).satisfied)
     }
 
@@ -79,22 +79,22 @@ class AnyTest {
     //region isNotEqualTo
 
     @Test
-    fun `'isNotEqualTo' succeeds when the provided value is different from the validated one`() {
+    fun __isNotEqualTo__succeeds_when_the_provided_value_is_different_from_the_validated_one() {
         assertTrue(Validatable("foo").isNotEqualTo("bar").satisfied)
     }
 
     @Test
-    fun `'isNotEqualTo' succeeds when the provided value is equal to the validated one`() {
+    fun __isNotEqualTo__succeeds_when_the_provided_value_is_equal_to_the_validated_one() {
         assertFalse(Validatable("foo").isNotEqualTo("foo").satisfied)
     }
 
     @Test
-    fun `'isNotEqualTo' succeeds when the value of the provided validatable is different from the validated one`() {
+    fun __isNotEqualTo__succeeds_when_the_value_of_the_provided_validatable_is_different_from_the_validated_one() {
         assertTrue(Validatable("foo").isNotEqualTo(Validatable("bar")).satisfied)
     }
 
     @Test
-    fun `'isNotEqualTo' succeeds when the value of the provided validatable is equal to the validated one`() {
+    fun __isNotEqualTo__succeeds_when_the_value_of_the_provided_validatable_is_equal_to_the_validated_one() {
         assertFalse(Validatable("foo").isNotEqualTo(Validatable("foo")).satisfied)
     }
 
@@ -103,23 +103,23 @@ class AnyTest {
     //region isIdenticalTo
 
     @Test
-    fun `'isIdenticalTo' succeeds when the provided value is the same as the validated one`() {
+    fun __isIdenticalTo__succeeds_when_the_provided_value_is_the_same_as_the_validated_one() {
         val value = object {}
         assertTrue(Validatable(value).isIdenticalTo(value).satisfied)
     }
 
     @Test
-    fun `'isIdenticalTo' fails when the provided value is not the same as the validated one`() {
+    fun __isIdenticalTo__fails_when_the_provided_value_is_not_the_same_as_the_validated_one() {
         assertFalse(Validatable(object {}).isIdenticalTo(object {}).satisfied)
     }
 
     @Test
-    fun `'isNotIdenticalTo' succeeds when the provided value is not the same as the validated one`() {
+    fun __isNotIdenticalTo__succeeds_when_the_provided_value_is_not_the_same_as_the_validated_one() {
         assertTrue(Validatable(object {}).isNotIdenticalTo(object {}).satisfied)
     }
 
     @Test
-    fun `'isNotIdenticalTo' fails when the provided value is the same as the validated one`() {
+    fun __isNotIdenticalTo__fails_when_the_provided_value_is_the_same_as_the_validated_one() {
         val value = object {}
         assertFalse(Validatable(value).isNotIdenticalTo(value).satisfied)
     }
@@ -129,12 +129,12 @@ class AnyTest {
     //region isInstanceOf
 
     @Test
-    fun `'isInstanceOf' succeeds when the value is of the provided type`() {
+    fun __isInstanceOf__succeeds_when_the_value_is_of_the_provided_type() {
         assertTrue(Validatable<Any>("foo").isInstanceOf<String>().satisfied)
     }
 
     @Test
-    fun `'isInstanceOf' fails when the value is not of the provided type`() {
+    fun __isInstanceOf__fails_when_the_value_is_not_of_the_provided_type() {
         assertFalse(Validatable<Any>("foo").isInstanceOf<Int>().satisfied)
     }
 
@@ -143,12 +143,12 @@ class AnyTest {
     //region isNotInstanceOf
 
     @Test
-    fun `'isNotInstanceOf' succeeds when the value is of the provided type`() {
+    fun __isNotInstanceOf__succeeds_when_the_value_is_of_the_provided_type() {
         assertTrue(Validatable<Any>("foo").isNotInstanceOf<Int>().satisfied)
     }
 
     @Test
-    fun `'isNotInstanceOf' fails when the value is not of the provided type`() {
+    fun __isNotInstanceOf__fails_when_the_value_is_not_of_the_provided_type() {
         assertFalse(Validatable<Any>("foo").isNotInstanceOf<String>().satisfied)
     }
 

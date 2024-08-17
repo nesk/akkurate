@@ -24,7 +24,7 @@ import kotlin.test.*
 
 class ConstraintRegistryTest {
     @Test
-    fun `calling 'register' with a satisfied constraint leaves the collection empty`() {
+    fun calling__register__with_a_satisfied_constraint_leaves_the_collection_empty() {
         // Arrange
         val constraint = Constraint(true, Validatable(null))
         val registry = ConstraintRegistry(Configuration())
@@ -35,7 +35,7 @@ class ConstraintRegistryTest {
     }
 
     @Test
-    fun `calling 'register' with an unsatisfied constraint adds it to the collection`() {
+    fun calling__register__with_an_unsatisfied_constraint_adds_it_to_the_collection() {
         // Arrange
         val constraint = Constraint(false, Validatable(null))
         val registry = ConstraintRegistry(Configuration())
@@ -46,7 +46,7 @@ class ConstraintRegistryTest {
     }
 
     @Test
-    fun `calling 'register' with a constraint violation adds it to the collection`() {
+    fun calling__register__with_a_constraint_violation_adds_it_to_the_collection() {
         // Arrange
         val constraint = Constraint(false, Validatable(null))
         val registry = ConstraintRegistry(Configuration())
@@ -57,7 +57,7 @@ class ConstraintRegistryTest {
     }
 
     @Test
-    fun `calling 'register' multiples times with constraints adds them to the collection if they're unsatisfied`() {
+    fun calling__register__multiples_times_with_constraints_adds_them_to_the_collection_if_they_are_unsatisfied() {
         // Arrange
         val constraint1 = Constraint(false, Validatable(null, "path1"))
         val constraint2 = Constraint(true, Validatable(null, "path2"))
@@ -72,7 +72,7 @@ class ConstraintRegistryTest {
     }
 
     @Test
-    fun `'runWithConstraintRegistry' returns a validation success if all the constraint where satisfied`() {
+    fun __runWithConstraintRegistry__returns_a_validation_success_if_all_the_constraint_where_satisfied() {
         // Arrange
         val value = object {}
         val constraint1 = Constraint(true, Validatable(null, "path1"))
@@ -90,7 +90,7 @@ class ConstraintRegistryTest {
     }
 
     @Test
-    fun `'runWithConstraintRegistry' returns a validation failure if any constraint was unsatisfied`() {
+    fun __runWithConstraintRegistry__returns_a_validation_failure_if_any_constraint_was_unsatisfied() {
         // Arrange
         val value = object {}
         val constraint1 = Constraint(true, Validatable(null, "path1")) otherwise { "message 1" }
@@ -108,7 +108,7 @@ class ConstraintRegistryTest {
     }
 
     @Test
-    fun `definining the root path in the configuration will prepend all the paths in the returned constraint violations`() {
+    fun definining_the_root_path_in_the_configuration_will_prepend_all_the_paths_in_the_returned_constraint_violations() {
         // Arrange
         val config = Configuration { rootPath("foo", "bar") }
         val constraint = Constraint(false, Validatable(null, "baz"))
@@ -120,7 +120,7 @@ class ConstraintRegistryTest {
     }
 
     @Test
-    fun `definining the default message in the configuration will replace empty messages in constraints`() {
+    fun definining_the_default_message_in_the_configuration_will_replace_empty_messages_in_constraints() {
         // Arrange
         val config = Configuration { defaultViolationMessage = "default" }
         val constraint = Constraint(false, Validatable(null))
@@ -132,7 +132,7 @@ class ConstraintRegistryTest {
     }
 
     @Test
-    fun `calling 'checkFirstViolationConfiguration' with failOnFirstViolation=true skips all the upcoming constraints after the first constraint violation`() {
+    fun calling__checkFirstViolationConfiguration__with_failOnFirstViolation_set_to_true_skips_all_the_upcoming_constraints_after_the_first_constraint_violation() {
         // Arrange
         val config = Configuration { failOnFirstViolation = true }
         val constraint1 = Constraint(false, Validatable(null)) otherwise { "first message" }
@@ -149,7 +149,7 @@ class ConstraintRegistryTest {
     }
 
     @Test
-    fun `calling 'checkFirstViolationConfiguration' with failOnFirstViolation=false executes all the constraints before returning a failure`() {
+    fun calling__checkFirstViolationConfiguration__with_failOnFirstViolation_set_to_false_executes_all_the_constraints_before_returning_a_failure() {
         // Arrange
         val config = Configuration { failOnFirstViolation = false }
         val constraint1 = Constraint(false, Validatable(null)) otherwise { "first message" }

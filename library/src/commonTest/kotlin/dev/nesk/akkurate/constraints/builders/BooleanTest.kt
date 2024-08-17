@@ -24,46 +24,46 @@ import kotlin.test.assertTrue
 
 class BooleanTest {
     @Test
-    fun `'isTrue' succeeds when the value is true`() {
+    fun __isTrue__succeeds_when_the_value_is_true() {
         assertTrue(Validatable(true).isTrue().satisfied)
     }
 
     @Test
-    fun `'isTrue' fails when the value is false or null`() {
+    fun __isTrue__fails_when_the_value_is_false_or_null() {
         assertFalse(Validatable(false).isTrue().satisfied, "The constraint is not satisfied when the value is false")
         assertFalse(Validatable(null).isTrue().satisfied, "The constraint is not satisfied when the value is null")
     }
 
     @Test
-    fun `'isNotTrue' succeeds when the value is false or null`() {
+    fun __isNotTrue__succeeds_when_the_value_is_false_or_null() {
         assertTrue(Validatable(false).isNotTrue().satisfied, "The constraint is satisfied when the value is false")
         assertTrue(Validatable(null).isNotTrue().satisfied, "The constraint is satisfied when the value is null")
     }
 
     @Test
-    fun `'isNotTrue' fails when the value is true`() {
+    fun __isNotTrue__fails_when_the_value_is_true() {
         assertFalse(Validatable(true).isNotTrue().satisfied)
     }
 
     @Test
-    fun `'isFalse' succeeds when the value is false`() {
+    fun __isFalse__succeeds_when_the_value_is_false() {
         assertTrue(Validatable(false).isFalse().satisfied)
     }
 
     @Test
-    fun `'isFalse' fails when the value is true or null`() {
+    fun __isFalse__fails_when_the_value_is_true_or_null() {
         assertFalse(Validatable(true).isFalse().satisfied, "The constraint is not satisfied when the value is true")
         assertFalse(Validatable(null).isFalse().satisfied, "The constraint is not satisfied when the value is null")
     }
 
     @Test
-    fun `'isNotFalse' succeeds when the value is true or null`() {
+    fun __isNotFalse__succeeds_when_the_value_is_true_or_null() {
         assertTrue(Validatable(true).isNotFalse().satisfied, "The constraint is satisfied when the value is true")
         assertTrue(Validatable(null).isNotFalse().satisfied, "The constraint is satisfied when the value is null")
     }
 
     @Test
-    fun `'isNotFalse' fails when the value is false`() {
+    fun __isNotFalse__fails_when_the_value_is_false() {
         assertFalse(Validatable(false).isNotFalse().satisfied)
     }
 }

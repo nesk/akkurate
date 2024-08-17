@@ -26,18 +26,18 @@ class ConstraintTest {
     private fun ConstraintBuilder(satisfied: Boolean) = Constraint(satisfied, Validatable(null))
 
     @Test
-    fun `the default message is empty`() {
+    fun the_default_message_is_empty() {
         assertEquals("", ConstraintBuilder(false).message)
     }
 
     @Test
-    fun `the first destructuring component returns the value of the 'satisfied' property`() {
+    fun the_first_destructuring_component_returns_the_value_of_the__satisfied__property() {
         val satisfied = listOf(true, false).random()
         assertEquals(satisfied, ConstraintBuilder(satisfied).component1())
     }
 
     @Test
-    fun `'ConstraintViolation' conversion reuses the message and the path`() {
+    fun __ConstraintViolation__conversion_reuses_the_message_and_the_path() {
         // Arrange
         val builder = ConstraintBuilder(false) otherwise { "foo" } withPath { absolute("bar") }
         // Act
@@ -48,7 +48,7 @@ class ConstraintTest {
     }
 
     @Test
-    fun `'ConstraintViolation' conversion replaces empty messages with the default message`() {
+    fun __ConstraintViolation__conversion_replaces_empty_messages_with_the_default_message() {
         // Arrange
         val builder = ConstraintBuilder(false)
         // Act
@@ -58,7 +58,7 @@ class ConstraintTest {
     }
 
     @Test
-    fun `'ConstraintViolation' conversion prepends the path with the root path`() {
+    fun __ConstraintViolation__conversion_prepends_the_path_with_the_root_path() {
         // Arrange
         val builder = ConstraintBuilder(false) withPath { absolute("foo") }
         // Act
@@ -68,26 +68,26 @@ class ConstraintTest {
     }
 
     @Test
-    fun `'ConstraintViolation' conversion fails with a satisfied constraint`() {
+    fun __ConstraintViolation__conversion_fails_with_a_satisfied_constraint() {
         assertFailsWith<IllegalArgumentException> {
             ConstraintBuilder(true).toConstraintViolation("default", listOf())
         }
     }
 
     @Test
-    fun `calling 'otherwise' with a lambda updates the message if the constraint is not satisfied`() {
+    fun calling__otherwise__with_a_lambda_updates_the_message_if_the_constraint_is_not_satisfied() {
         val constraint = ConstraintBuilder(false) otherwise { "foo" }
         assertEquals("foo", constraint.message)
     }
 
     @Test
-    fun `calling 'otherwise' with a lambda does not update the message if the constraint is satisfied`() {
+    fun calling__otherwise__with_a_lambda_does_not_update_the_message_if_the_constraint_is_satisfied() {
         val constraint = ConstraintBuilder(true) otherwise { "foo" }
         assertEquals("", constraint.message)
     }
 
     @Test
-    fun `calling 'withPath' with a lambda updates the path if the constraint is not satisfied`() {
+    fun calling__withPath__with_a_lambda_updates_the_path_if_the_constraint_is_not_satisfied() {
         // Arrange
         val validatable = Validatable(null, "foo")
         val constraint = Constraint(false, validatable)
@@ -98,7 +98,7 @@ class ConstraintTest {
     }
 
     @Test
-    fun `calling 'withPath' with a lambda does not update the path if the constraint is satisfied`() {
+    fun calling__withPath__with_a_lambda_does_not_update_the_path_if_the_constraint_is_satisfied() {
         // Arrange
         val validatable = Validatable(null, "foo")
         val constraint = Constraint(true, validatable)
@@ -109,7 +109,7 @@ class ConstraintTest {
     }
 
     @Test
-    fun `calling 'constrain' with a truthy lambda creates a satisfied constraint and doesn't register it`() {
+    fun calling__constrain__with_a_truthy_lambda_creates_a_satisfied_constraint_and_does_not_register_it() {
         // Arrange
         val constraintRegistry = ConstraintRegistry(Configuration())
         val parent = Validatable(null, constraintRegistry)
@@ -123,7 +123,7 @@ class ConstraintTest {
     }
 
     @Test
-    fun `calling 'constrain' with a falsy lambda creates and registers an unsatisfied constraint with the validatable path`() {
+    fun calling__constrain__with_a_falsy_lambda_creates_and_registers_an_unsatisfied_constraint_with_the_validatable_path() {
         // Arrange
         val constraintRegistry = ConstraintRegistry(Configuration())
         val parent = Validatable(null, constraintRegistry)
@@ -137,7 +137,7 @@ class ConstraintTest {
     }
 
     @Test
-    fun `calling 'constrain' with failOnFirstViolation=true throws a FirstViolationException before the execution of the next constraint after an unsatisfied one`() {
+    fun calling__constrain__with_failOnFirstViolation_set_to_true_throws_a_FirstViolationException_before_the_execution_of_the_next_constraint_after_an_unsatisfied_one() {
         // Arrange
         val constraintRegistry = ConstraintRegistry(Configuration { failOnFirstViolation = true })
         val validatable = Validatable(null, constraintRegistry)
@@ -157,7 +157,7 @@ class ConstraintTest {
     }
 
     @Test
-    fun `calling 'constrainIfNotNull' acts as 'constrain' when the wrapped value is not null`() {
+    fun calling__constrainIfNotNull__acts_as__constrain__when_the_wrapped_value_is_not_null() {
         // Arrange
         val validatable = Validatable("foo" as String?)
         // Act
@@ -168,7 +168,7 @@ class ConstraintTest {
     }
 
     @Test
-    fun `calling 'constrainIfNotNull' returns a satisfied constraint when the wrapped value is null`() {
+    fun calling__constrainIfNotNull__returns_a_satisfied_constraint_when_the_wrapped_value_is_null() {
         // Arrange
         val validatable = Validatable(null as String?)
         // Act
@@ -181,56 +181,56 @@ class ConstraintTest {
     //region Tests for `equals()` and `hashCode()`
 
     @Test
-    fun `'equals' returns true when all the values are the same`() {
+    fun __equals__returns_true_when_all_the_values_are_the_same() {
         val original = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
         val other = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
         assertTrue(original.equals(other))
     }
 
     @Test
-    fun `'equals' returns false when at least one of the values differ (variant 'satisfied')`() {
+    fun __equals__returns_false_when_at_least_one_of_the_values_differ____variant_satisfied() {
         val original = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
         val other = Constraint(true, Validatable("foo", "bar")) otherwise { "baz" }
         assertFalse(original.equals(other))
     }
 
     @Test
-    fun `'equals' returns false when at least one of the values differ (variant 'validatable path')`() {
+    fun __equals__returns_false_when_at_least_one_of_the_values_differ____variant_validatable_path() {
         val original = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
         val other = Constraint(false, Validatable("foo")) otherwise { "baz" }
         assertFalse(original.equals(other))
     }
 
     @Test
-    fun `'equals' returns false when at least one of the values differ (variant 'message')`() {
+    fun __equals__returns_false_when_at_least_one_of_the_values_differ____variant_message() {
         val original = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
         val other = Constraint(false, Validatable("foo", "bar")) otherwise { "" }
         assertFalse(original.equals(other))
     }
 
     @Test
-    fun `'hashCode' returns the same hash when all the values are the same`() {
+    fun __hashCode__returns_the_same_hash_when_all_the_values_are_the_same() {
         val original = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
         val other = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
         assertEquals(original.hashCode(), other.hashCode())
     }
 
     @Test
-    fun `'hashCode' returns different hashes when at least one of the values differ (variant 'satisfied')`() {
+    fun __hashCode__returns_different_hashes_when_at_least_one_of_the_values_differ____variant_satisfied() {
         val original = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
         val other = Constraint(true, Validatable("foo", "bar")) otherwise { "baz" }
         assertNotEquals(original.hashCode(), other.hashCode())
     }
 
     @Test
-    fun `'hashCode' returns different hashes when at least one of the values differ (variant 'validatable path')`() {
+    fun __hashCode__returns_different_hashes_when_at_least_one_of_the_values_differ____variant_validatable_path() {
         val original = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
         val other = Constraint(false, Validatable("foo")) otherwise { "baz" }
         assertNotEquals(original.hashCode(), other.hashCode())
     }
 
     @Test
-    fun `'hashCode' returns different hashes when at least one of the values differ (variant 'message')`() {
+    fun __hashCode__returns_different_hashes_when_at_least_one_of_the_values_differ____variant_message() {
         val original = Constraint(false, Validatable("foo", "bar")) otherwise { "baz" }
         val other = Constraint(false, Validatable("foo", "bar")) otherwise { "" }
         assertNotEquals(original.hashCode(), other.hashCode())

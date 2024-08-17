@@ -41,17 +41,17 @@ class IterableTest {
     //region isContaining
 
     @Test
-    fun `'isContaining' succeeds when the value is null`() {
+    fun __isContaining__succeeds_when_the_value_is_null() {
         assertTrue(NULL_VALIDATABLE.isContaining(' ').satisfied)
     }
 
     @Test
-    fun `'isContaining' succeeds when the value contains the provided element`() {
+    fun __isContaining__succeeds_when_the_value_contains_the_provided_element() {
         assertTrue(VALIDATABLE.isContaining('o').satisfied)
     }
 
     @Test
-    fun `'isContaining' fails when the value does not contain the provided element`() {
+    fun __isContaining__fails_when_the_value_does_not_contain_the_provided_element() {
         assertFalse(VALIDATABLE.isContaining('a').satisfied)
     }
 
@@ -60,17 +60,17 @@ class IterableTest {
     //region isNotContaining
 
     @Test
-    fun `'isNotContaining' succeeds when the value is null`() {
+    fun __isNotContaining__succeeds_when_the_value_is_null() {
         assertTrue(NULL_VALIDATABLE.isNotContaining(' ').satisfied)
     }
 
     @Test
-    fun `'isNotContaining' succeeds when the value does not contain the provided element`() {
+    fun __isNotContaining__succeeds_when_the_value_does_not_contain_the_provided_element() {
         assertTrue(VALIDATABLE.isNotContaining('a').satisfied)
     }
 
     @Test
-    fun `'isNotContaining' fails when the value contains the provided element`() {
+    fun __isNotContaining__fails_when_the_value_contains_the_provided_element() {
         assertFalse(VALIDATABLE.isNotContaining('o').satisfied)
     }
 
@@ -79,17 +79,17 @@ class IterableTest {
     //region hasNoDuplicates
 
     @Test
-    fun `'hasNoDuplicates' succeeds when the value is null`() {
+    fun __hasNoDuplicates__succeeds_when_the_value_is_null() {
         assertTrue(NULL_VALIDATABLE.hasNoDuplicates().satisfied)
     }
 
     @Test
-    fun `'hasNoDuplicates' succeeds when the value contains unique elements`() {
+    fun __hasNoDuplicates__succeeds_when_the_value_contains_unique_elements() {
         assertTrue(Validatable(VALUE.toSet().toTypedArray()).hasNoDuplicates().satisfied)
     }
 
     @Test
-    fun `'hasNoDuplicates' fails when the value contains duplicated elements`() {
+    fun __hasNoDuplicates__fails_when_the_value_contains_duplicated_elements() {
         assertFalse(VALIDATABLE.hasNoDuplicates().satisfied)
     }
 

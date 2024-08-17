@@ -27,17 +27,17 @@ class ArrayTest {
     //region get
 
     @Test
-    fun `'get' returns a wrapped null when the parent is null`() {
+    fun __get__returns_a_wrapped_null_when_the_parent_is_null() {
         assertNull(Validatable<Array<Any>?>(null)[1].unwrap())
     }
 
     @Test
-    fun `'get' returns a wrapped null when the collection is empty`() {
+    fun __get__returns_a_wrapped_null_when_the_collection_is_empty() {
         assertNull(Validatable(emptyArray<Any>())[1].unwrap())
     }
 
     @Test
-    fun `'get' returns the get value wrapped in Validatable`() {
+    fun __get__returns_the_get_value_wrapped_in_Validatable() {
         val validatable = Validatable(arrayOf("foo", "bar"))[1]
         assertEquals("bar", validatable.unwrap())
         assertContentEquals(listOf("1"), validatable.path())
@@ -48,17 +48,17 @@ class ArrayTest {
     //region first
 
     @Test
-    fun `'first' returns a wrapped null when the parent is null`() {
+    fun __first__returns_a_wrapped_null_when_the_parent_is_null() {
         assertNull(Validatable<Array<Any>?>(null).first().unwrap())
     }
 
     @Test
-    fun `'first' returns a wrapped null when the collection is empty`() {
+    fun __first__returns_a_wrapped_null_when_the_collection_is_empty() {
         assertNull(Validatable(emptyArray<Any>()).first().unwrap())
     }
 
     @Test
-    fun `'first' returns the first value wrapped in Validatable`() {
+    fun __first__returns_the_first_value_wrapped_in_Validatable() {
         val validatable = Validatable(arrayOf("foo", "bar")).first()
         assertEquals("foo", validatable.unwrap())
         assertContentEquals(listOf("first"), validatable.path())
@@ -69,17 +69,17 @@ class ArrayTest {
     //region last
 
     @Test
-    fun `'last' returns a wrapped null when the parent is null`() {
+    fun __last__returns_a_wrapped_null_when_the_parent_is_null() {
         assertNull(Validatable<Array<Any>?>(null).last().unwrap())
     }
 
     @Test
-    fun `'last' returns a wrapped null when the collection is empty`() {
+    fun __last__returns_a_wrapped_null_when_the_collection_is_empty() {
         assertNull(Validatable(emptyArray<Any>()).last().unwrap())
     }
 
     @Test
-    fun `'last' returns the last value wrapped in Validatable`() {
+    fun __last__returns_the_last_value_wrapped_in_Validatable() {
         val validatable = Validatable(arrayOf("foo", "bar")).last()
         assertEquals("bar", validatable.unwrap())
         assertContentEquals(listOf("last"), validatable.path())

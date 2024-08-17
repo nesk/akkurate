@@ -47,17 +47,17 @@ class MapTest {
     //region isEmpty
 
     @Test
-    fun `'isEmpty' succeeds when the value is null`() {
+    fun __isEmpty__succeeds_when_the_value_is_null() {
         assertTrue(NULL_VALIDATABLE.isEmpty().satisfied)
     }
 
     @Test
-    fun `'isEmpty' succeeds when the value is empty`() {
+    fun __isEmpty__succeeds_when_the_value_is_empty() {
         assertTrue(EMPTY_VALIDATABLE.isEmpty().satisfied)
     }
 
     @Test
-    fun `'isEmpty' fails when the value is not empty`() {
+    fun __isEmpty__fails_when_the_value_is_not_empty() {
         assertFalse(VALIDATABLE.isEmpty().satisfied)
     }
 
@@ -66,17 +66,17 @@ class MapTest {
     //region isNotEmpty
 
     @Test
-    fun `'isNotEmpty' succeeds when the value is null`() {
+    fun __isNotEmpty__succeeds_when_the_value_is_null() {
         assertTrue(NULL_VALIDATABLE.isNotEmpty().satisfied)
     }
 
     @Test
-    fun `'isNotEmpty' succeeds when the value is not empty`() {
+    fun __isNotEmpty__succeeds_when_the_value_is_not_empty() {
         assertTrue(VALIDATABLE.isNotEmpty().satisfied)
     }
 
     @Test
-    fun `'isNotEmpty' fails when the value is empty`() {
+    fun __isNotEmpty__fails_when_the_value_is_empty() {
         assertFalse(EMPTY_VALIDATABLE.isNotEmpty().satisfied)
     }
 
@@ -85,17 +85,17 @@ class MapTest {
     //region hasSizeEqualTo
 
     @Test
-    fun `'hasSizeEqualTo' succeeds when the value is null`() {
+    fun __hasSizeEqualTo__succeeds_when_the_value_is_null() {
         assertTrue(NULL_VALIDATABLE.hasSizeEqualTo(NULL_SIZE).satisfied)
     }
 
     @Test
-    fun `'hasSizeEqualTo' succeeds when the size is equal to the provided one`() {
+    fun __hasSizeEqualTo__succeeds_when_the_size_is_equal_to_the_provided_one() {
         assertTrue(VALIDATABLE.hasSizeEqualTo(EXACT_SIZE).satisfied)
     }
 
     @Test
-    fun `'hasSizeEqualTo' fails when the size is different than the provided one`() {
+    fun __hasSizeEqualTo__fails_when_the_size_is_different_than_the_provided_one() {
         assertFalse(VALIDATABLE.hasSizeEqualTo(SIZE_MINUS_ONE).satisfied, "The constraint is not satisfied when the size is greater than the provided one")
         assertFalse(VALIDATABLE.hasSizeEqualTo(SIZE_PLUS_ONE).satisfied, "The constraint is not satisfied when the size is lower than the provided one")
     }
@@ -105,18 +105,18 @@ class MapTest {
     //region hasSizeNotEqualTo
 
     @Test
-    fun `'hasSizeNotEqualTo' succeeds when the value is null`() {
+    fun __hasSizeNotEqualTo__succeeds_when_the_value_is_null() {
         assertTrue(NULL_VALIDATABLE.hasSizeNotEqualTo(NULL_SIZE).satisfied)
     }
 
     @Test
-    fun `'hasSizeNotEqualTo' succeeds when the size is different than the provided one`() {
+    fun __hasSizeNotEqualTo__succeeds_when_the_size_is_different_than_the_provided_one() {
         assertTrue(VALIDATABLE.hasSizeNotEqualTo(SIZE_MINUS_ONE).satisfied, "The constraint is satisfied when the size is greater than the provided one")
         assertTrue(VALIDATABLE.hasSizeNotEqualTo(SIZE_PLUS_ONE).satisfied, "The constraint is satisfied when the size is lower than the provided one")
     }
 
     @Test
-    fun `'hasSizeNotEqualTo' fails when the size is equal to the provided one`() {
+    fun __hasSizeNotEqualTo__fails_when_the_size_is_equal_to_the_provided_one() {
         assertFalse(VALIDATABLE.hasSizeNotEqualTo(EXACT_SIZE).satisfied)
     }
 
@@ -125,17 +125,17 @@ class MapTest {
     //region hasSizeLowerThan
 
     @Test
-    fun `'hasSizeLowerThan' succeeds when the value is null`() {
+    fun __hasSizeLowerThan__succeeds_when_the_value_is_null() {
         assertTrue(NULL_VALIDATABLE.hasSizeLowerThan(NULL_SIZE).satisfied)
     }
 
     @Test
-    fun `'hasSizeLowerThan' succeeds when the size is lower than the provided one`() {
+    fun __hasSizeLowerThan__succeeds_when_the_size_is_lower_than_the_provided_one() {
         assertTrue(VALIDATABLE.hasSizeLowerThan(SIZE_PLUS_ONE).satisfied)
     }
 
     @Test
-    fun `'hasSizeLowerThan' fails when the size is greater than or equal to the provided one`() {
+    fun __hasSizeLowerThan__fails_when_the_size_is_greater_than_or_equal_to_the_provided_one() {
         assertFalse(VALIDATABLE.hasSizeLowerThan(SIZE_MINUS_ONE).satisfied, "The constraint is not satisfied when the size is greater than the provided one")
         assertFalse(VALIDATABLE.hasSizeLowerThan(EXACT_SIZE).satisfied, "The constraint is not satisfied when the size is equal to the provided one")
     }
@@ -145,18 +145,18 @@ class MapTest {
     //region hasSizeLowerThanOrEqualTo
 
     @Test
-    fun `'hasSizeLowerThanOrEqualTo' succeeds when the value is null`() {
+    fun __hasSizeLowerThanOrEqualTo__succeeds_when_the_value_is_null() {
         assertTrue(NULL_VALIDATABLE.hasSizeLowerThanOrEqualTo(NULL_SIZE).satisfied)
     }
 
     @Test
-    fun `'hasSizeLowerThanOrEqualTo' succeeds when the size is lower than or equal to the provided one`() {
+    fun __hasSizeLowerThanOrEqualTo__succeeds_when_the_size_is_lower_than_or_equal_to_the_provided_one() {
         assertTrue(VALIDATABLE.hasSizeLowerThanOrEqualTo(SIZE_PLUS_ONE).satisfied, "The constraint is satisfied when the size is lower than the provided one")
         assertTrue(VALIDATABLE.hasSizeLowerThanOrEqualTo(EXACT_SIZE).satisfied, "The constraint is satisfied when the size is equal to the provided one")
     }
 
     @Test
-    fun `'hasSizeLowerThanOrEqualTo' fails when the size is greater than the provided one`() {
+    fun __hasSizeLowerThanOrEqualTo__fails_when_the_size_is_greater_than_the_provided_one() {
         assertFalse(VALIDATABLE.hasSizeLowerThanOrEqualTo(SIZE_MINUS_ONE).satisfied)
     }
 
@@ -165,17 +165,17 @@ class MapTest {
     //region hasSizeGreaterThan
 
     @Test
-    fun `'hasSizeGreaterThan' succeeds when the value is null`() {
+    fun __hasSizeGreaterThan__succeeds_when_the_value_is_null() {
         assertTrue(NULL_VALIDATABLE.hasSizeGreaterThan(NULL_SIZE).satisfied)
     }
 
     @Test
-    fun `'hasSizeGreaterThan' succeeds when the size is greater than the provided one`() {
+    fun __hasSizeGreaterThan__succeeds_when_the_size_is_greater_than_the_provided_one() {
         assertTrue(VALIDATABLE.hasSizeGreaterThan(SIZE_MINUS_ONE).satisfied)
     }
 
     @Test
-    fun `'hasSizeGreaterThan' fails when the size is lower than or equal to the provided one`() {
+    fun __hasSizeGreaterThan__fails_when_the_size_is_lower_than_or_equal_to_the_provided_one() {
         assertFalse(VALIDATABLE.hasSizeGreaterThan(SIZE_PLUS_ONE).satisfied, "The constraint is not satisfied when the size is lower than the provided one")
         assertFalse(VALIDATABLE.hasSizeGreaterThan(EXACT_SIZE).satisfied, "The constraint is not satisfied when the size is equal to the provided one")
     }
@@ -185,18 +185,18 @@ class MapTest {
     //region hasSizeGreaterThanOrEqualTo
 
     @Test
-    fun `'hasSizeGreaterThanOrEqualTo' succeeds when the value is null`() {
+    fun __hasSizeGreaterThanOrEqualTo__succeeds_when_the_value_is_null() {
         assertTrue(NULL_VALIDATABLE.hasSizeGreaterThanOrEqualTo(NULL_SIZE).satisfied)
     }
 
     @Test
-    fun `'hasSizeGreaterThanOrEqualTo' succeeds when the size is greater than or equal to the provided one`() {
+    fun __hasSizeGreaterThanOrEqualTo__succeeds_when_the_size_is_greater_than_or_equal_to_the_provided_one() {
         assertTrue(VALIDATABLE.hasSizeGreaterThanOrEqualTo(SIZE_MINUS_ONE).satisfied, "The constraint is satisfied when the size is greater than the provided one")
         assertTrue(VALIDATABLE.hasSizeGreaterThanOrEqualTo(EXACT_SIZE).satisfied, "The constraint is satisfied when the size is equal to the provided one")
     }
 
     @Test
-    fun `'hasSizeGreaterThanOrEqualTo' fails when the size is lower than the provided one`() {
+    fun __hasSizeGreaterThanOrEqualTo__fails_when_the_size_is_lower_than_the_provided_one() {
         assertFalse(VALIDATABLE.hasSizeGreaterThanOrEqualTo(SIZE_PLUS_ONE).satisfied)
     }
 
@@ -205,17 +205,17 @@ class MapTest {
     //region hasSizeBetween
 
     @Test
-    fun `'hasSizeBetween' succeeds when the value is null`() {
+    fun __hasSizeBetween__succeeds_when_the_value_is_null() {
         assertTrue(NULL_VALIDATABLE.hasSizeBetween(NULL_SIZE..NULL_SIZE).satisfied)
     }
 
     @Test
-    fun `'hasSizeBetween' succeeds when the size is between the provided range`() {
+    fun __hasSizeBetween__succeeds_when_the_size_is_between_the_provided_range() {
         assertTrue(VALIDATABLE.hasSizeBetween(SIZE_MINUS_ONE..SIZE_PLUS_ONE).satisfied)
     }
 
     @Test
-    fun `'hasSizeBetween' fails when the size is outside the provided range`() {
+    fun __hasSizeBetween__fails_when_the_size_is_outside_the_provided_range() {
         @Suppress("EmptyRange")
         assertFalse(VALIDATABLE.hasSizeBetween(1..0).satisfied)
     }
@@ -226,17 +226,17 @@ class MapTest {
     //region isContainingKey
 
     @Test
-    fun `'isContainingKey' succeeds when the value is null`() {
+    fun __isContainingKey__succeeds_when_the_value_is_null() {
         assertTrue(NULL_VALIDATABLE.isContainingKey(Int.MAX_VALUE).satisfied)
     }
 
     @Test
-    fun `'isContainingKey' succeeds when the value contains the provided item`() {
+    fun __isContainingKey__succeeds_when_the_value_contains_the_provided_item() {
         assertTrue(VALIDATABLE.isContainingKey(1).satisfied)
     }
 
     @Test
-    fun `'isContainingKey' fails when the value does not contain the provided item`() {
+    fun __isContainingKey__fails_when_the_value_does_not_contain_the_provided_item() {
         assertFalse(VALIDATABLE.isContainingKey(-1).satisfied)
     }
 
@@ -245,17 +245,17 @@ class MapTest {
     //region isNotContainingKey
 
     @Test
-    fun `'isNotContainingKey' succeeds when the value is null`() {
+    fun __isNotContainingKey__succeeds_when_the_value_is_null() {
         assertTrue(NULL_VALIDATABLE.isNotContainingKey(Int.MAX_VALUE).satisfied)
     }
 
     @Test
-    fun `'isNotContainingKey' succeeds when the value does not contain the provided item`() {
+    fun __isNotContainingKey__succeeds_when_the_value_does_not_contain_the_provided_item() {
         assertTrue(VALIDATABLE.isNotContainingKey(-1).satisfied)
     }
 
     @Test
-    fun `'isNotContainingKey' fails when the value contains the provided item`() {
+    fun __isNotContainingKey__fails_when_the_value_contains_the_provided_item() {
         assertFalse(VALIDATABLE.isNotContainingKey(1).satisfied)
     }
 
@@ -264,17 +264,17 @@ class MapTest {
     //region isContainingValue
 
     @Test
-    fun `'isContainingValue' succeeds when the value is null`() {
+    fun __isContainingValue__succeeds_when_the_value_is_null() {
         assertTrue(NULL_VALIDATABLE.isContainingValue(' ').satisfied)
     }
 
     @Test
-    fun `'isContainingValue' succeeds when the value contains the provided item`() {
+    fun __isContainingValue__succeeds_when_the_value_contains_the_provided_item() {
         assertTrue(VALIDATABLE.isContainingValue('o').satisfied)
     }
 
     @Test
-    fun `'isContainingValue' fails when the value does not contain the provided item`() {
+    fun __isContainingValue__fails_when_the_value_does_not_contain_the_provided_item() {
         assertFalse(VALIDATABLE.isContainingValue('a').satisfied)
     }
 
@@ -283,17 +283,17 @@ class MapTest {
     //region isNotContainingValue
 
     @Test
-    fun `'isNotContainingValue' succeeds when the value is null`() {
+    fun __isNotContainingValue__succeeds_when_the_value_is_null() {
         assertTrue(NULL_VALIDATABLE.isNotContainingValue(' ').satisfied)
     }
 
     @Test
-    fun `'isNotContainingValue' succeeds when the value does not contain the provided item`() {
+    fun __isNotContainingValue__succeeds_when_the_value_does_not_contain_the_provided_item() {
         assertTrue(VALIDATABLE.isNotContainingValue('a').satisfied)
     }
 
     @Test
-    fun `'isNotContainingValue' fails when the value contains the provided item`() {
+    fun __isNotContainingValue__fails_when_the_value_contains_the_provided_item() {
         assertFalse(VALIDATABLE.isNotContainingValue('o').satisfied)
     }
 

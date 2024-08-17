@@ -24,7 +24,7 @@ import kotlin.test.*
 
 class IterableTest {
     @Test
-    fun `'iterator' returns an 'Iterable' wrapping each value of the original 'Iterable' with an indexed path`() {
+    fun __iterator__returns_an__Iterable__wrapping_each_value_of_the_original__Iterable__with_an_indexed_path() {
         // Arrange
         val value = 1..2
         // Act
@@ -37,7 +37,7 @@ class IterableTest {
     }
 
     @Test
-    fun `'iterator' returns a lazy 'Iterable' and values are processed on the fly`() {
+    fun __iterator__returns_a_lazy__Iterable__and_values_are_processed_on_the_fly() {
         // Arrange
         var current = 0
         val value = object : Iterable<Int> {
@@ -54,7 +54,7 @@ class IterableTest {
     }
 
     @Test
-    fun `'iterator' returns an empty iterator when the iterable is null`() {
+    fun __iterator__returns_an_empty_iterator_when_the_iterable_is_null() {
         // Arrange
         val value: Iterable<Any>? = null
         // Act
@@ -67,17 +67,17 @@ class IterableTest {
     //region first
 
     @Test
-    fun `'first' returns a wrapped null when the parent is null`() {
+    fun __first__returns_a_wrapped_null_when_the_parent_is_null() {
         assertNull(Validatable<Iterable<Any>?>(null).first().unwrap())
     }
 
     @Test
-    fun `'first' returns a wrapped null when the collection is empty`() {
+    fun __first__returns_a_wrapped_null_when_the_collection_is_empty() {
         assertNull(Validatable(emptyList<Any>()).first().unwrap())
     }
 
     @Test
-    fun `'first' returns the first value wrapped in Validatable`() {
+    fun __first__returns_the_first_value_wrapped_in_Validatable() {
         val validatable = Validatable(listOf("foo", "bar")).first()
         assertEquals("foo", validatable.unwrap())
         assertContentEquals(listOf("first"), validatable.path())
@@ -88,17 +88,17 @@ class IterableTest {
     //region last
 
     @Test
-    fun `'last' returns a wrapped null when the parent is null`() {
+    fun __last__returns_a_wrapped_null_when_the_parent_is_null() {
         assertNull(Validatable<Iterable<Any>?>(null).last().unwrap())
     }
 
     @Test
-    fun `'last' returns a wrapped null when the collection is empty`() {
+    fun __last__returns_a_wrapped_null_when_the_collection_is_empty() {
         assertNull(Validatable(emptyList<Any>()).last().unwrap())
     }
 
     @Test
-    fun `'last' returns the last value wrapped in Validatable`() {
+    fun __last__returns_the_last_value_wrapped_in_Validatable() {
         val validatable = Validatable(listOf("foo", "bar")).last()
         assertEquals("bar", validatable.unwrap())
         assertContentEquals(listOf("last"), validatable.path())
@@ -108,7 +108,7 @@ class IterableTest {
 
 
     @Test
-    fun `calling 'each' will execute the block for each value of the iterable, wrapped in Validatable and passed as the receiver`() {
+    fun calling__each__will_execute_the_block_for_each_value_of_the_iterable_and_wrapped_in_Validatable_and_passed_as_the_receiver() {
         // Arrange
         val validatables = Validatable(1..2)
         // Act
@@ -122,7 +122,7 @@ class IterableTest {
     }
 
     @Test
-    fun `'each' never executes the block when the iterable is null`() {
+    fun __each__never_executes_the_block_when_the_iterable_is_null() {
         // Arrange
         val validatables: Validatable<Iterable<Any>?> = Validatable(null)
         // Act

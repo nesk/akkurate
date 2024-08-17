@@ -27,12 +27,12 @@ import kotlin.test.*
 
 class ValidatableTest {
     @Test
-    fun `the path of a root validatable is empty`() {
+    fun the_path_of_a_root_validatable_is_empty() {
         assertEquals(emptyList(), Validatable("foo").path())
     }
 
     @Test
-    fun `the path segment gets appended to the parent path`() {
+    fun the_path_segment_gets_appended_to_the_parent_path() {
         val parent = Validatable(null)
         val child1 = Validatable(null, "foo", parent)
         val child2 = Validatable(null, "bar", child1)
@@ -40,19 +40,19 @@ class ValidatableTest {
     }
 
     @Test
-    fun `the validatable can be unwrapped with its original value`() {
+    fun the_validatable_can_be_unwrapped_with_its_original_value() {
         val foo = object {}
         assertSame(foo, Validatable(foo).unwrap())
     }
 
     @Test
-    fun `the first destructuring component unwraps with the original value`() {
+    fun the_first_destructuring_component_unwraps_with_the_original_value() {
         val foo = object {}
         assertSame(foo, Validatable(foo).component1())
     }
 
     @Test
-    fun `calling 'register' with a constraint stores it in the registry`() {
+    fun calling__register__with_a_constraint_stores_it_in_the_registry() {
         // Arrange
         val registry = ConstraintRegistry(Configuration())
         val validatable = Validatable(null, registry)
@@ -64,7 +64,7 @@ class ValidatableTest {
     }
 
     @Test
-    fun `calling 'register' with a constraint violation stores it in the registry`() {
+    fun calling__register__with_a_constraint_violation_stores_it_in_the_registry() {
         // Arrange
         val registry = ConstraintRegistry(Configuration())
         val validatable = Validatable(null, registry)
@@ -76,7 +76,7 @@ class ValidatableTest {
     }
 
     @Test
-    fun `invoking the validatable executes the block immediately`() {
+    fun invoking_the_validatable_executes_the_block_immediately() {
         // Arrange
         var hasExecuted = false
         val validatable = Validatable("foo")
@@ -87,7 +87,7 @@ class ValidatableTest {
     }
 
     @Test
-    fun `calling 'validatableOf' returns a property wrapped in a Validatable`() {
+    fun calling__validatableOf__returns_a_property_wrapped_in_a_Validatable() {
         // Arrange
         val parent = Validatable("foo", "string")
         // Act
@@ -98,7 +98,7 @@ class ValidatableTest {
     }
 
     @Test
-    fun `calling 'validatableOf' with a nullable receiver returns a nullable property wrapped in a Validatable (variant with non-null value)`() {
+    fun calling__validatableOf__with_a_nullable_receiver_returns_a_nullable_property_wrapped_in_a_Validatable____variant_with_non_null_value() {
         // Arrange
         val parent = Validatable("foo" as String?, "string")
         // Act
@@ -110,7 +110,7 @@ class ValidatableTest {
     }
 
     @Test
-    fun `calling 'validatableOf' with a nullable receiver returns a nullable property wrapped in a Validatable (variant with null value)`() {
+    fun calling__validatableOf__with_a_nullable_receiver_returns_a_nullable_property_wrapped_in_a_Validatable____variant_with_null_value() {
         // Arrange
         val parent = Validatable(null as String?, "string")
         // Act
@@ -122,7 +122,7 @@ class ValidatableTest {
     }
 
     @Test
-    fun `calling 'validatableOf' returns a getter function wrapped in a Validatable`() {
+    fun calling__validatableOf__returns_a_getter_function_wrapped_in_a_Validatable() {
         // Arrange
         val parent = Validatable("foo", "string")
         // Act
@@ -133,7 +133,7 @@ class ValidatableTest {
     }
 
     @Test
-    fun `calling 'validatableOf' with a nullable receiver returns a nullable getter function wrapped in a Validatable (variant with non-null value)`() {
+    fun calling__validatableOf__with_a_nullable_receiver_returns_a_nullable_getter_function_wrapped_in_a_Validatable____variant_with_non_null_value() {
         // Arrange
         val parent = Validatable("foo" as String?, "string")
         // Act
@@ -144,7 +144,7 @@ class ValidatableTest {
     }
 
     @Test
-    fun `calling 'validatableOf' with a nullable receiver returns a nullable getter function wrapped in a Validatable (variant with null value)`() {
+    fun calling__validatableOf__with_a_nullable_receiver_returns_a_nullable_getter_function_wrapped_in_a_Validatable____variant_with_null_value() {
         // Arrange
         val parent = Validatable(null as String?, "string")
         // Act
@@ -157,28 +157,28 @@ class ValidatableTest {
     //region Tests for `equals()` and `hashCode()`
 
     @Test
-    fun `'equals' returns true when the wrapped values are the same`() {
+    fun __equals__returns_true_when_the_wrapped_values_are_the_same() {
         val validatable1 = Validatable("foo", "bar")
         val validatable2 = Validatable("foo", "baz", validatable1)
         assertTrue(validatable1.equals(validatable2))
     }
 
     @Test
-    fun `'equals' returns false when the wrapped values are different`() {
+    fun __equals__returns_false_when_the_wrapped_values_are_different() {
         val validatable1 = Validatable("foo")
         val validatable2 = Validatable("bar")
         assertFalse(validatable1.equals(validatable2))
     }
 
     @Test
-    fun `'hashCode' returns the same hash when the wrapped values are the same`() {
+    fun __hashCode__returns_the_same_hash_when_the_wrapped_values_are_the_same() {
         val validatable1 = Validatable("foo", "bar")
         val validatable2 = Validatable("foo", "baz", validatable1)
         assertEquals(validatable1.hashCode(), validatable2.hashCode())
     }
 
     @Test
-    fun `'hashCode' returns different hashes when the wrapped values differ`() {
+    fun __hashCode__returns_different_hashes_when_the_wrapped_values_differ() {
         val validatable1 = Validatable("foo")
         val validatable2 = Validatable("bar")
         assertNotEquals(validatable1.hashCode(), validatable2.hashCode())

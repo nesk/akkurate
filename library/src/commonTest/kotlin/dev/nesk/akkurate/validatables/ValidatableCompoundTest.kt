@@ -24,7 +24,7 @@ import kotlin.test.assertEquals
 
 class ValidatableCompoundTest {
     @Test
-    fun `a validatable compound is created when using the 'and' function between two validatables`() {
+    fun a_validatable_compound_is_created_when_using_the__and__function_between_two_validatables() {
         // Arrange
         val foo = Validatable("foo", "foo")
         val bar = Validatable("bar", "bar")
@@ -39,7 +39,7 @@ class ValidatableCompoundTest {
     }
 
     @Test
-    fun `a new validatable compound is created when using the 'and' function between a compound and a validatable`() {
+    fun a_new_validatable_compound_is_created_when_using_the__and__function_between_a_compound_and_a_validatable() {
         // Arrange
         val foo = Validatable("foo", "foo")
         val bar = Validatable("bar", "bar")
@@ -55,7 +55,7 @@ class ValidatableCompoundTest {
     }
 
     @Test
-    fun `a new validatable compound is created when using the 'and' function between a validatable and a compound`() {
+    fun a_new_validatable_compound_is_created_when_using_the__and__function_between_a_validatable_and_a_compound() {
         // Arrange
         val foo = Validatable("foo", "foo")
         val bar = Validatable("bar", "bar")
@@ -71,7 +71,7 @@ class ValidatableCompoundTest {
     }
 
     @Test
-    fun `a new validatable compound is created when using the 'and' function between two compounds`() {
+    fun a_new_validatable_compound_is_created_when_using_the__and__function_between_two_compounds() {
         // Arrange
         val foo = Validatable("foo", "foo")
         val bar = Validatable("bar", "bar")
@@ -88,7 +88,7 @@ class ValidatableCompoundTest {
     }
 
     @Test
-    fun `invoking a validatable compound with a lambda executes that lambda for each validatable in the compound order`() {
+    fun invoking_a_validatable_compound_with_a_lambda_executes_that_lambda_for_each_validatable_in_the_compound_order() {
         // Arrange
         val validatables = listOf(
             Validatable("foo", "foo"),
@@ -104,7 +104,7 @@ class ValidatableCompoundTest {
     }
 
     @Test
-    fun `a validatable compound containing two validatables with the same value will call the lambda twice, not just once due to 'equals' implementation`() {
+    fun a_validatable_compound_containing_two_validatables_with_the_same_value_will_call_the_lambda_twice_and_not_just_once_due_to__equals__implementation() {
         // Arrange
         val validatables = listOf(
             Validatable("", "foo"),

@@ -27,17 +27,17 @@ class MapTest {
     //region get
 
     @Test
-    fun `'get' returns a wrapped null when the parent is null`() {
+    fun __get__returns_a_wrapped_null_when_the_parent_is_null() {
         assertNull(Validatable<Map<Int, Any>?>(null)[1].unwrap())
     }
 
     @Test
-    fun `'get' returns a wrapped null when the collection is empty`() {
+    fun __get__returns_a_wrapped_null_when_the_collection_is_empty() {
         assertNull(Validatable(emptyMap<Int, Any>())[1].unwrap())
     }
 
     @Test
-    fun `'get' returns the get value wrapped in Validatable`() {
+    fun __get__returns_the_get_value_wrapped_in_Validatable() {
         val validatable = Validatable(mapOf(0 to "foo", 1 to "bar"))[1]
         assertEquals("bar", validatable.unwrap())
         assertContentEquals(listOf("1"), validatable.path())

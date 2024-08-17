@@ -41,7 +41,7 @@ class ArrowKtTest {
     }
 
     @Test
-    fun `'toEither' returns the validated value in case of success`() {
+    fun __toEither__returns_the_validated_value_in_case_of_success() {
         val validationResult = validate(SomeSealedClass.Valid)
         val validationEither = validationResult.toEither()
 
@@ -55,7 +55,7 @@ class ArrowKtTest {
     }
 
     @Test
-    fun `'toEither' returns the violations constraints in case of failure`() {
+    fun __toEither__returns_the_violations_constraints_in_case_of_failure() {
         val validationResult = validate(SomeSealedClass.Invalid)
         val validationEither = validationResult.toEither()
 
@@ -69,7 +69,7 @@ class ArrowKtTest {
     }
 
     @Test
-    fun `bind returns the validated value in case of success`() {
+    fun bind_returns_the_validated_value_in_case_of_success() {
         val validationResult = validate(SomeSealedClass.Valid)
         val validationEither = either { bind(validationResult) }
 
@@ -83,7 +83,7 @@ class ArrowKtTest {
     }
 
     @Test
-    fun `bind returns the violations constraints in case of failure`() {
+    fun bind_returns_the_violations_constraints_in_case_of_failure() {
         val validationResult = validate(SomeSealedClass.Invalid)
         val validationEither = either { bind(validationResult) }
 

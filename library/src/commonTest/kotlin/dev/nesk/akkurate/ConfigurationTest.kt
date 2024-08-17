@@ -21,7 +21,7 @@ import kotlin.test.*
 
 class ConfigurationTest {
     @Test
-    fun `the default configuration is viable`() {
+    fun the_default_configuration_is_viable() {
         Configuration().let {
             assertTrue(it.defaultViolationMessage.isNotBlank(), "The default message is not blank")
             assertTrue(it.rootPath.isEmpty(), "The default root path is empty")
@@ -30,7 +30,7 @@ class ConfigurationTest {
     }
 
     @Test
-    fun `all configuration options are customizable`() {
+    fun all_configuration_options_are_customizable() {
         val config = Configuration {
             defaultViolationMessage = "foo"
             rootPath = listOf("bar", "baz")
@@ -43,7 +43,7 @@ class ConfigurationTest {
     }
 
     @Test
-    fun `a new configuration can be generated based from a previous one`() {
+    fun a_new_configuration_can_be_generated_based_from_a_previous_one() {
         // Arrange
         val sourceConfig = Configuration {
             defaultViolationMessage = "foo"
@@ -65,7 +65,7 @@ class ConfigurationTest {
     }
 
     @Test
-    fun `source configurations aren't mutated`() {
+    fun source_configurations_are_not_mutated() {
         // Arrange
         val sourceConfig = Configuration {
             defaultViolationMessage = "foo"
@@ -81,7 +81,7 @@ class ConfigurationTest {
     }
 
     @Test
-    fun `generated configurations cannot be mutated by keeping a reference to the builder`() {
+    fun generated_configurations_cannot_be_mutated_by_keeping_a_reference_to_the_builder() {
         // Arrange
         lateinit var builder: Configuration.Builder
         val config = Configuration {
@@ -97,59 +97,59 @@ class ConfigurationTest {
     }
 
     @Test
-    fun `'rootPath' function defines the property of the same name`() {
+    fun __rootPath__function_defines_the_property_of_the_same_name() {
         val config = Configuration { rootPath("foo", "bar") }
         assertEquals(listOf("foo", "bar"), config.rootPath)
     }
 
     //region equals/hashCode/toString
     @Test
-    fun `'equals' returns true when all the values are the same`() {
+    fun __equals__returns_true_when_all_the_values_are_the_same() {
         assertTrue(Configuration().equals(Configuration()))
     }
 
     @Test
-    fun `'equals' returns false when at least one of the values differ (variant 'defaultViolationMessage')`() {
+    fun __equals__returns_false_when_at_least_one_of_the_values_differ____variant_defaultViolationMessage() {
         val original = Configuration()
         val other = Configuration { defaultViolationMessage = "foo" }
         assertFalse(original.equals(other))
     }
 
     @Test
-    fun `'equals' returns false when at least one of the values differ (variant 'rootPath')`() {
+    fun __equals__returns_false_when_at_least_one_of_the_values_differ____variant_rootPath() {
         val original = Configuration()
         val other = Configuration { rootPath("foo") }
         assertFalse(original.equals(other))
     }
 
     @Test
-    fun `'equals' returns false when at least one of the values differ (variant 'failOnFirstViolation')`() {
+    fun __equals__returns_false_when_at_least_one_of_the_values_differ____variant_failOnFirstViolation() {
         val original = Configuration()
         val other = Configuration { failOnFirstViolation = true }
         assertFalse(original.equals(other))
     }
 
     @Test
-    fun `'hashCode' returns the same hash when all the values are the same`() {
+    fun __hashCode__returns_the_same_hash_when_all_the_values_are_the_same() {
         assertEquals(Configuration().hashCode(), Configuration().hashCode())
     }
 
     @Test
-    fun `'hashCode' returns different hashes when at least one of the values differ (variant 'defaultViolationMessage')`() {
+    fun __hashCode__returns_different_hashes_when_at_least_one_of_the_values_differ____variant_defaultViolationMessage() {
         val original = Configuration()
         val other = Configuration { defaultViolationMessage = "foo" }
         assertNotEquals(original.hashCode(), other.hashCode())
     }
 
     @Test
-    fun `'hashCode' returns different hashes when at least one of the values differ (variant 'rootPath')`() {
+    fun __hashCode__returns_different_hashes_when_at_least_one_of_the_values_differ____variant_rootPath() {
         val original = Configuration()
         val other = Configuration { rootPath("foo") }
         assertNotEquals(original.hashCode(), other.hashCode())
     }
 
     @Test
-    fun `'hashCode' returns different hashes when at least one of the values differ (variant 'failOnFirstViolation')`() {
+    fun __hashCode__returns_different_hashes_when_at_least_one_of_the_values_differ____variant_failOnFirstViolation() {
         val original = Configuration()
         val other = Configuration { failOnFirstViolation = true }
         assertNotEquals(original.hashCode(), other.hashCode())

@@ -23,7 +23,7 @@ import kotlin.test.*
 
 class ConstraintViolationSetTest {
     @Test
-    fun `the contents are the same than the set provided to the constructor`() {
+    fun the_contents_are_the_same_than_the_set_provided_to_the_constructor() {
         // Arrange
         val originalSet = setOf(
             ConstraintViolation("message1", listOf("root", "child1")),
@@ -36,7 +36,7 @@ class ConstraintViolationSetTest {
     }
 
     @Test
-    fun `the grouped messages contain the same data and in the same order`() {
+    fun the_grouped_messages_contain_the_same_data_and_in_the_same_order() {
         // Arrange
         val originalSet = setOf(
             ConstraintViolation("message1", listOf("root", "child1")),
@@ -60,21 +60,21 @@ class ConstraintViolationSetTest {
     //region Tests for `equals()` and `hashCode()`
 
     @Test
-    fun `'equals' returns true when the messages are the same`() {
+    fun __equals__returns_true_when_the_messages_are_the_same() {
         val original = ConstraintViolationSet(setOf(ConstraintViolation("foo", listOf("bar"))))
         val other = ConstraintViolationSet(setOf(ConstraintViolation("foo", listOf("bar"))))
         assertTrue(original.equals(other))
     }
 
     @Test
-    fun `'equals' returns false when the messages differ`() {
+    fun __equals__returns_false_when_the_messages_differ() {
         val original = ConstraintViolationSet(setOf(ConstraintViolation("foo", listOf("bar"))))
         val other = ConstraintViolationSet(emptySet())
         assertFalse(original.equals(other))
     }
 
     @Test
-    fun `'equals' returns true when compared to an identical set`() {
+    fun __equals__returns_true_when_compared_to_an_identical_set() {
         val pureSet = setOf(ConstraintViolation("foo", listOf("bar")))
         val constraintViolationSet = ConstraintViolationSet(setOf(ConstraintViolation("foo", listOf("bar"))))
         assertTrue(pureSet.equals(constraintViolationSet))
@@ -82,14 +82,14 @@ class ConstraintViolationSetTest {
     }
 
     @Test
-    fun `'hashCode' returns the same hash when the messages are the same`() {
+    fun __hashCode__returns_the_same_hash_when_the_messages_are_the_same() {
         val original = ConstraintViolationSet(setOf(ConstraintViolation("foo", listOf("bar"))))
         val other = ConstraintViolationSet(setOf(ConstraintViolation("foo", listOf("bar"))))
         assertEquals(original.hashCode(), other.hashCode())
     }
 
     @Test
-    fun `'hashCode' returns different hashes when the messages differ`() {
+    fun __hashCode__returns_different_hashes_when_the_messages_differ() {
         val original = ConstraintViolationSet(setOf(ConstraintViolation("foo", listOf("bar"))))
         val other = ConstraintViolationSet(emptySet())
         assertNotEquals(original.hashCode(), other.hashCode())

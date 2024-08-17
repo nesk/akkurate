@@ -27,17 +27,17 @@ class ListTest {
     //region get
 
     @Test
-    fun `'get' returns a wrapped null when the parent is null`() {
+    fun __get__returns_a_wrapped_null_when_the_parent_is_null() {
         assertNull(Validatable<List<Any>?>(null)[1].unwrap())
     }
 
     @Test
-    fun `'get' returns a wrapped null when the collection is empty`() {
+    fun __get__returns_a_wrapped_null_when_the_collection_is_empty() {
         assertNull(Validatable(emptyList<Any>())[1].unwrap())
     }
 
     @Test
-    fun `'get' returns the get value wrapped in Validatable`() {
+    fun __get__returns_the_get_value_wrapped_in_Validatable() {
         val validatable = Validatable(listOf("foo", "bar"))[1]
         assertEquals("bar", validatable.unwrap())
         assertContentEquals(listOf("1"), validatable.path())
