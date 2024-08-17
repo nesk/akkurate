@@ -20,7 +20,6 @@ package dev.nesk.akkurate.accessors
 import dev.nesk.akkurate._test.Validatable
 import dev.nesk.akkurate._test.assertContentEquals
 import dev.nesk.akkurate.validatables.Validatable
-import org.junit.jupiter.api.assertThrows
 import kotlin.test.*
 
 class IterableTest {
@@ -62,7 +61,7 @@ class IterableTest {
         val iterator = Validatable(value).iterator()
         // Assert
         assertFalse(iterator.hasNext(), "The iterator has no next value")
-        assertThrows<NoSuchElementException>("The iterator cannot be iterated") { iterator.next() }
+        assertFailsWith<NoSuchElementException>("The iterator cannot be iterated") { iterator.next() }
     }
 
     //region first

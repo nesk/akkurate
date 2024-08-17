@@ -20,7 +20,6 @@ package dev.nesk.akkurate.constraints
 import dev.nesk.akkurate.Configuration
 import dev.nesk.akkurate._test.Validatable
 import dev.nesk.akkurate.validatables.Validatable
-import org.junit.jupiter.api.assertThrows
 import kotlin.test.*
 
 class ConstraintTest {
@@ -70,7 +69,7 @@ class ConstraintTest {
 
     @Test
     fun `'ConstraintViolation' conversion fails with a satisfied constraint`() {
-        assertThrows<IllegalArgumentException> {
+        assertFailsWith<IllegalArgumentException> {
             ConstraintBuilder(true).toConstraintViolation("default", listOf())
         }
     }
@@ -145,7 +144,7 @@ class ConstraintTest {
         var secondConstraintHasExecuted = false
         // Act
         validatable.constrain { false } otherwise { "message 1" }
-        val exception = assertThrows<FirstViolationException> {
+        val exception = assertFailsWith<FirstViolationException> {
             validatable.constrain {
                 secondConstraintHasExecuted = true
                 false

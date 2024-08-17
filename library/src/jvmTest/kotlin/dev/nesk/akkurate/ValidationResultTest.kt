@@ -19,16 +19,12 @@ package dev.nesk.akkurate
 
 import dev.nesk.akkurate.constraints.ConstraintViolation
 import dev.nesk.akkurate.constraints.ConstraintViolationSet
-import org.junit.jupiter.api.assertDoesNotThrow
-import org.junit.jupiter.api.assertThrows
 import kotlin.test.*
 
 class ValidationResultTest {
     @Test
     fun `'Success' can never throw`() {
-        assertDoesNotThrow {
-            ValidationResult.Success(null).orThrow()
-        }
+        ValidationResult.Success(null).orThrow()
     }
 
     @Test
@@ -49,7 +45,7 @@ class ValidationResultTest {
         val violations = ConstraintViolationSet(emptySet())
         val failure = ValidationResult.Failure(violations)
         // Act & Assert
-        val exception = assertThrows<ValidationResult.Exception> { failure.orThrow() }
+        val exception = assertFailsWith<ValidationResult.Exception> { failure.orThrow() }
         assertSame(violations, exception.violations)
     }
 

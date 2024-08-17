@@ -18,8 +18,8 @@
 package dev.nesk.akkurate.constraints.builders
 
 import dev.nesk.akkurate._test.Validatable
-import org.junit.jupiter.api.assertThrows
 import kotlin.test.Test
+import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
@@ -896,7 +896,7 @@ class NumberTest {
 
     @Test
     fun `'Short hasIntegralCountEqualTo' throws an exception when the provided count is lower than 1`() {
-        assertThrows<IllegalArgumentException> {
+        assertFailsWith<IllegalArgumentException> {
             Validatable((123).toShort()).hasIntegralCountEqualTo(0)
         }
     }
@@ -919,7 +919,7 @@ class NumberTest {
 
     @Test
     fun `'Int hasIntegralCountEqualTo' throws an exception when the provided count is lower than 1`() {
-        assertThrows<IllegalArgumentException> {
+        assertFailsWith<IllegalArgumentException> {
             Validatable(123).hasIntegralCountEqualTo(0)
         }
     }
@@ -942,7 +942,7 @@ class NumberTest {
 
     @Test
     fun `'Long hasIntegralCountEqualTo' throws an exception when the provided count is lower than 1`() {
-        assertThrows<IllegalArgumentException> {
+        assertFailsWith<IllegalArgumentException> {
             Validatable(123L).hasIntegralCountEqualTo(0)
         }
     }
@@ -965,7 +965,7 @@ class NumberTest {
 
     @Test
     fun `'Float hasIntegralCountEqualTo' throws an exception when the provided count is lower than 1`() {
-        assertThrows<IllegalArgumentException> {
+        assertFailsWith<IllegalArgumentException> {
             Validatable(123.45f).hasIntegralCountEqualTo(0)
         }
     }
@@ -988,7 +988,7 @@ class NumberTest {
 
     @Test
     fun `'Double hasIntegralCountEqualTo' throws an exception when the provided count is lower than 1`() {
-        assertThrows<IllegalArgumentException> {
+        assertFailsWith<IllegalArgumentException> {
             Validatable(123.45).hasIntegralCountEqualTo(0)
         }
     }
@@ -1013,7 +1013,7 @@ class NumberTest {
 
     @Test
     fun `'Float hasFractionalCountEqualTo' throws an exception when the provided count is lower than 1`() {
-        assertThrows<IllegalArgumentException> {
+        assertFailsWith<IllegalArgumentException> {
             Validatable(123.45f).hasFractionalCountEqualTo(0)
         }
     }
@@ -1035,7 +1035,7 @@ class NumberTest {
 
     @Test
     fun `'Double hasFractionalCountEqualTo' throws an exception when the provided count is lower than 1`() {
-        assertThrows<IllegalArgumentException> {
+        assertFailsWith<IllegalArgumentException> {
             Validatable(123.45).hasFractionalCountEqualTo(0)
         }
     }
