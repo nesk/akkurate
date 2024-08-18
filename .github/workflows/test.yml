@@ -22,4 +22,4 @@ jobs:
         uses: gradle/gradle-build-action@v2.8.0
 
       - name: Build with Gradle
-        run: ./gradlew test
+        run: ./gradlew allTests test --info
