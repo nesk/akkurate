@@ -28,7 +28,6 @@ Add the dependencies and register the compiler plugin through KSP.
 <code-block lang="kotlin">
 dependencies {
     implementation("dev.nesk.akkurate:akkurate-core:%version%")
-    implementation("dev.nesk.akkurate:akkurate-ksp-plugin:%version%")
     ksp("dev.nesk.akkurate:akkurate-ksp-plugin:%version%")
 }
 </code-block>

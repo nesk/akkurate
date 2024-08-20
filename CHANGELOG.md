@@ -15,6 +15,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Changed
 
 - The default violation message of the [`isInstanceOf`](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints.builders/is-instance-of.html) and [`isNotInstanceOf`](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints.builders/is-not-instance-of.html) constraints now display the simple name of the type, instead of the qualified one. 
+- [The `Validate` annotation](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.annotations/-validate/index.html) has been moved from the `akkurate-ksp-plugin` artifact to the `akkurate-core` one. 
 
 ## [0.8.0]
 

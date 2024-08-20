@@ -28,7 +28,6 @@ import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.toTypeParameterResolver
 import dev.nesk.akkurate.annotations.ExperimentalAkkurateCompilerApi
-import dev.nesk.akkurate.annotations.Validate
 import java.io.OutputStreamWriter
 import kotlin.reflect.KMutableProperty1
 import kotlin.reflect.KProperty1
@@ -91,7 +90,9 @@ public class ValidateAnnotationProcessor(
                 .filterIsInstance<KSClassDeclaration>()
         }
 
-        val annotatedDeclarations = resolver.getSymbolsWithAnnotation(Validate::class.qualifiedName!!).filterIsInstance<KSClassDeclaration>()
+        val annotatedDeclarations = resolver
+            .getSymbolsWithAnnotation("dev.nesk.akkurate.annotations.Validate")
+            .filterIsInstance<KSClassDeclaration>()
         logger.info("Found ${annotatedDeclarations.count()} classes annotated with @Validate.")
 
         val classDeclarations = (providedClassesDeclarations + providedPackagesDeclarations + annotatedDeclarations)
