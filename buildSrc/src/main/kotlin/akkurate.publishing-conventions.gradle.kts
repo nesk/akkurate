@@ -10,6 +10,7 @@ ext["signing.secretKeyRingFile"] = System.getenv("SIGNING_SECRET_KEY_RING_FILE")
 ext["sonatypeUsername"] = System.getenv("SONATYPE_USERNAME")
 ext["sonatypePassword"] = System.getenv("SONATYPE_PASSWORD")
 
+fun hasExtra(name: String) = ext[name] != null
 fun getExtra(name: String) = ext[name]?.toString()
 
 publishing {
@@ -33,6 +34,11 @@ publishing {
 }
 
 // Signing artifacts. Signing.* extra properties values will be used
-signing {
-    sign(publishing.publications)
+if (hasExtra("signing.keyId") &&
+    hasExtra("signing.password") &&
+    hasExtra("signing.secretKeyRingFile")
+) {
+    signing {
+        sign(publishing.publications)
+    }
 }
