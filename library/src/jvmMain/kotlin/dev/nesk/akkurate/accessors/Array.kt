@@ -21,10 +21,12 @@ import dev.nesk.akkurate.validatables.Validatable
 import dev.nesk.akkurate.validatables.validatableOf
 
 public operator fun <T> Validatable<Array<T>?>.get(index: Int): Validatable<T?> {
-    val wrappedValue = try {
-        unwrap()?.get(index)
-    } catch (e: IndexOutOfBoundsException) {
-        null
+    val wrappedValue = unwrap()?.let {
+        if (index in it.indices) {
+            it[index]
+        } else {
+            null
+        }
     }
     return Validatable(wrappedValue, index.toString(), this)
 }

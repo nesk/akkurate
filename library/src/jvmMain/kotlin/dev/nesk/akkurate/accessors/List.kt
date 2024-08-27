@@ -23,10 +23,12 @@ import dev.nesk.akkurate.validatables.Validatable
  * Returns the element at the specified index in the list, wrapped in a [Validatable].
  */
 public operator fun <T> Validatable<List<T>?>.get(index: Int): Validatable<T?> {
-    val wrappedValue = try {
-        unwrap()?.get(index)
-    } catch (e: IndexOutOfBoundsException) {
-        null
+    val wrappedValue = unwrap()?.let {
+        if (index in it.indices) {
+            it[index]
+        } else {
+            null
+        }
     }
     return Validatable(wrappedValue, index.toString(), this)
 }
