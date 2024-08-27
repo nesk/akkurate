@@ -74,6 +74,14 @@ class ConstraintViolationSetTest {
     }
 
     @Test
+    fun `'equals' returns true when compared to an identical set`() {
+        val pureSet = setOf(ConstraintViolation("foo", listOf("bar")))
+        val constraintViolationSet = ConstraintViolationSet(setOf(ConstraintViolation("foo", listOf("bar"))))
+        assertTrue(pureSet.equals(constraintViolationSet))
+        assertTrue(constraintViolationSet.equals(pureSet))
+    }
+
+    @Test
     fun `'hashCode' returns the same hash when the messages are the same`() {
         val original = ConstraintViolationSet(setOf(ConstraintViolation("foo", listOf("bar"))))
         val other = ConstraintViolationSet(setOf(ConstraintViolation("foo", listOf("bar"))))

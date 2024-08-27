@@ -8,6 +8,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### ⚠️ Breaking changes
+
+- [The `ConstraintViolationSet.equals` method](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints/-constraint-violation-set/equals.html) is now symmetric and matches [what's in the specification.](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/equals.html)
+
 ## [0.8.0]
 
 ### Added

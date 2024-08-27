@@ -3,6 +3,45 @@
 Some breaking changes might happen sometimes, especially until %product% reaches its first stable version. Here you can
 find how to migrate to a new version containing breaking changes.
 
+## Version [unreleased]
+
+[The
+`ConstraintViolationSet` class](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints/-constraint-violation-set/index.html)
+implements [the `Set` interface,](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/) but its
+implementation of the `equals` method was broken because it wasn't
+symmetric, [like required by the specification.](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/equals.html)
+
+This release fixes the bug, but it brings a breaking change:
+
+<tabs>
+<tab title="Before v[unreleased]">
+
+```kotlin
+fun compare(
+    standardSet: Set<ConstraintViolation>,
+    constraintViolationSet: ConstraintViolationSet
+) {
+    standardSet.equals(constraintViolationSet) // ✅ true
+    constraintViolationSet.equals(standardSet) // ❌ false
+}
+```
+
+</tab>
+<tab title="After v[unreleased]">
+
+```kotlin
+fun compare(
+    standardSet: Set<ConstraintViolation>,
+    constraintViolationSet: ConstraintViolationSet
+) {
+    standardSet.equals(constraintViolationSet) // ✅ true
+    constraintViolationSet.equals(standardSet) // ✅ true
+}
+```
+
+</tab>
+</tabs>
+
 ## Version 0.7.0
 
 Akkurate improved its DSL by
