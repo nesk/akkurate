@@ -130,10 +130,9 @@ jobs:
     if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     container:
-      image: registry.jetbrains.team/p/writerside/builder/algolia-publisher:2.0.32-2
+      image: registry.jetbrains.team/p/writerside/builder/algolia-publisher:2.0.32-3
 
     steps:
-      - uses: actions/checkout@v3
       - uses: actions/download-artifact@v3
         with:
           name: algolia-indexes
