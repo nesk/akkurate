@@ -28,7 +28,6 @@ import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.toTypeName
 import com.squareup.kotlinpoet.ksp.toTypeParameterResolver
 import dev.nesk.akkurate.annotations.ExperimentalAkkurateCompilerApi
-import dev.nesk.akkurate.annotations.Validate
 import java.io.OutputStreamWriter
 import kotlin.reflect.KMutableProperty1
 import kotlin.reflect.KProperty1
@@ -37,6 +36,7 @@ import kotlin.reflect.KProperty1
 public class ValidateAnnotationProcessor(
     private val codeGenerator: CodeGenerator,
     private val logger: KSPLogger,
+    private val platforms: List<PlatformInfo>,
     private val config: ValidateAnnotationProcessorConfig,
 ) : SymbolProcessor {
     public companion object {
@@ -90,7 +90,9 @@ public class ValidateAnnotationProcessor(
                 .filterIsInstance<KSClassDeclaration>()
         }
 
-        val annotatedDeclarations = resolver.getSymbolsWithAnnotation(Validate::class.qualifiedName!!).filterIsInstance<KSClassDeclaration>()
+        val annotatedDeclarations = resolver
+            .getSymbolsWithAnnotation("dev.nesk.akkurate.annotations.Validate")
+            .filterIsInstance<KSClassDeclaration>()
         logger.info("Found ${annotatedDeclarations.count()} classes annotated with @Validate.")
 
         val classDeclarations = (providedClassesDeclarations + providedPackagesDeclarations + annotatedDeclarations)
@@ -209,11 +211,13 @@ public class ValidateAnnotationProcessor(
 
             getter(
                 FunSpec.getterBuilder().apply {
-                    addAnnotation(
-                        AnnotationSpec.builder(JvmName::class)
-                            .addMember("name = %S", "validatable$nullabilityText${uniqueNameInPackage}")
-                            .build()
-                    )
+                    if (platforms.singleOrNull() is JvmPlatformInfo) {
+                        addAnnotation(
+                            AnnotationSpec.builder(JvmName::class)
+                                .addMember("name = %S", "validatable$nullabilityText${uniqueNameInPackage}")
+                                .build()
+                        )
+                    }
 
                     // FIXME: The cast is a workaround for https://youtrack.jetbrains.com/issue/KT-59493 and https://youtrack.jetbrains.com/issue/KT-62543
                     addStatement(

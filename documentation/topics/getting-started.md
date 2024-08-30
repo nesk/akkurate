@@ -8,7 +8,7 @@ This article will show you how to install %product% and write your first validat
 [KSP](https://kotlinlang.org/docs/ksp-overview.html). Follow the installation instructions below, according to your
 project structure.
 
-<procedure title="Install in a single-platform project" id="single-platform-installation">
+<procedure title="Install in a single-platform project" id="single-platform-installation" collapsible="true" default-state="collapsed">
 
 <step>
 Add KSP to your plugin list; make sure to <a href="https://github.com/google/ksp/releases">use the appropriate 
@@ -28,7 +28,6 @@ Add the dependencies and register the compiler plugin through KSP.
 <code-block lang="kotlin">
 dependencies {
     implementation("dev.nesk.akkurate:akkurate-core:%version%")
-    implementation("dev.nesk.akkurate:akkurate-ksp-plugin:%version%")
     ksp("dev.nesk.akkurate:akkurate-ksp-plugin:%version%")
 }
 </code-block>
@@ -36,11 +35,45 @@ dependencies {
 
 </procedure>
 
-<procedure title="Install in a multiplatform project">
+<procedure title="Install in a multiplatform project" id="multiplatform-installation" collapsible="true" default-state="collapsed">
 
-<tip>
-<p>Coming soon! <a href="%roadmap_url%">See the roadmap for more informations.</a></p>
-</tip>
+<step>
+Add KSP to your plugin list; make sure to <a href="https://github.com/google/ksp/releases">use the appropriate 
+version</a>, depending on the Kotlin version you're using.
+<br/>
+<code-block lang="kotlin">
+plugins {
+    kotlin("multiplatform") version "2.0.10"
+    id("com.google.devtools.ksp") version "2.0.10-1.0.24"
+}
+</code-block>
+</step>
+
+<step>
+Add the dependencies to the appropriate targets (change them to your liking).
+<br/>
+<code-block lang="kotlin">
+sourceSets {
+    jvmMain.dependencies {
+        implementation("dev.nesk.akkurate:akkurate-core:%version%")
+    }
+    jsMain.dependencies {  
+        implementation("dev.nesk.akkurate:akkurate-core:%version%")
+    }
+}
+</code-block>
+</step>
+
+<step>
+Register the compiler plugin for the same targets.
+<br/>
+<code-block lang="kotlin">
+dependencies {
+    add("kspJvm", "dev.nesk.akkurate:akkurate-ksp-plugin:%version%")
+    add("kspJs", "dev.nesk.akkurate:akkurate-ksp-plugin:%version%")
+}
+</code-block>
+</step>
 
 </procedure>
 

@@ -5,6 +5,8 @@ find how to migrate to a new version containing breaking changes.
 
 ## Version [unreleased]
 
+### `ConstraintViolationSet.equals` is now symmetric
+
 [The
 `ConstraintViolationSet` class](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints/-constraint-violation-set/index.html)
 implements [the `Set` interface,](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/) but its
@@ -36,6 +38,38 @@ fun compare(
 ) {
     standardSet.equals(constraintViolationSet) // ✅ true
     constraintViolationSet.equals(standardSet) // ✅ true
+}
+```
+
+</tab>
+</tabs>
+
+### The `Validate` annotation is now part of `akkurate-core`
+
+[The `Validate` annotation](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.annotations/-validate/index.html)
+has been moved from the `akkurate-ksp-plugin` artifact to the `akkurate-core` one.
+
+This is not a breaking change, but it means you can remove the `implementation` dependency to
+`dev.nesk.akkurate:akkurate-ksp-plugin` in your Gradle configuration:
+
+<tabs>
+<tab title="Before v[unreleased]">
+
+```kotlin
+dependencies {
+    implementation("dev.nesk.akkurate:akkurate-core:0.8.0")
+    implementation("dev.nesk.akkurate:akkurate-ksp-plugin:0.8.0")
+    ksp("dev.nesk.akkurate:akkurate-ksp-plugin:0.8.0")
+}
+```
+
+</tab>
+<tab title="After v[unreleased]">
+
+```kotlin
+dependencies {
+    implementation("dev.nesk.akkurate:akkurate-core:[unreleased]")
+    ksp("dev.nesk.akkurate:akkurate-ksp-plugin:[unreleased]")
 }
 ```
 

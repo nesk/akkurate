@@ -88,7 +88,7 @@ Check if 'title' is not empty otherwise write "Missing title".
   database, or a REST API. Everything can happen inside validation.
 - [**Integrated with your favorite tools.**](integrations.topic) Validate your data within any popular framework, we
   take care of the integrations for you.
-- ![Coming soon](clock.png){width="16"} **Code once, deploy everywhere.** Take advantage of Kotlin Multiplatform; write
+- [**Code once, deploy everywhere.**](getting-started.md#installation) Take advantage of Kotlin Multiplatform; write
   your validation code once, use it both for front-end and back-end usages.
 - ![Coming soon](clock.png){width="16"} **Testable out of the box.** Finding how to test your validation code shouldn't
   be one of your tasks. You will find all the tools you need to write good tests.

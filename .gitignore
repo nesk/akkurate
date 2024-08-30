@@ -10,6 +10,13 @@
 !.idea/scopes
 !.idea/vcs.xml
 
+# Kotlin build files
+/.kotlin
+/kotlin-js-store/yarn.lock
+
+# JVM profiling
+*.hprof
+
 ### GRADLE: https://github.com/github/gitignore/blob/4488915eec0b3a45b5c63ead28f286819c0917de/Gradle.gitignore
 
 .gradle
