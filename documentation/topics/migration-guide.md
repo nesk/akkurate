@@ -3,7 +3,7 @@
 Some breaking changes might happen sometimes, especially until %product% reaches its first stable version. Here you can
 find how to migrate to a new version containing breaking changes.
 
-## Version [unreleased]
+## Version 0.9.0
 
 ### `ConstraintViolationSet.equals` is now symmetric
 
@@ -16,7 +16,7 @@ symmetric, [like required by the specification.](https://kotlinlang.org/api/late
 This release fixes the bug, but it brings a breaking change:
 
 <tabs>
-<tab title="Before v[unreleased]">
+<tab title="Before v0.9.0">
 
 ```kotlin
 fun compare(
@@ -29,7 +29,7 @@ fun compare(
 ```
 
 </tab>
-<tab title="After v[unreleased]">
+<tab title="After v0.9.0">
 
 ```kotlin
 fun compare(
@@ -53,7 +53,7 @@ This is not a breaking change, but it means you can remove the `implementation` 
 `dev.nesk.akkurate:akkurate-ksp-plugin` in your Gradle configuration:
 
 <tabs>
-<tab title="Before v[unreleased]">
+<tab title="Before v0.9.0">
 
 ```kotlin
 dependencies {
@@ -64,12 +64,12 @@ dependencies {
 ```
 
 </tab>
-<tab title="After v[unreleased]">
+<tab title="After v0.9.0">
 
 ```kotlin
 dependencies {
-    implementation("dev.nesk.akkurate:akkurate-core:[unreleased]")
-    ksp("dev.nesk.akkurate:akkurate-ksp-plugin:[unreleased]")
+    implementation("dev.nesk.akkurate:akkurate-core:0.9.0")
+    ksp("dev.nesk.akkurate:akkurate-ksp-plugin:0.9.0")
 }
 ```
 
