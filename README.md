@@ -96,7 +96,7 @@ Check if 'title' is not empty otherwise write "Missing title".
 - [**Integrated with your favorite tools**](https://akkurate.dev/docs/integrations.html) \
   Validate your data within any popular framework, we take care of the integrations for you.
 
-- ⏱ **Code once, deploy everywhere** \
+- [**Code once, deploy everywhere**](https://akkurate.dev/docs/getting-started.html#installation) \
   Take advantage of Kotlin Multiplatform; write your validation code once, use it both for front-end and back-end
   usages.
 

@@ -14,21 +14,11 @@ Arrow.
 
 Before using %product% with Arrow, you need to add the following dependency to your Gradle script:
 
-<procedure title="Install in a single-platform project" id="single-platform-installation">
+<procedure title="Install %product%'s support library for Arrow">
 
 <code-block lang="kotlin">
-dependencies {
-    implementation("dev.nesk.akkurate:akkurate-arrow:%version%")
-}
+implementation("dev.nesk.akkurate:akkurate-arrow:%version%")
 </code-block>
-
-</procedure>
-
-<procedure title="Install in a multiplatform project">
-
-<tip>
-<p>Coming soon! <a href="%roadmap_url%">See the roadmap for more informations.</a></p>
-</tip>
 
 </procedure>
 
