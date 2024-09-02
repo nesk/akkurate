@@ -3,15 +3,7 @@
 Constraints are assertions that a condition is true. Applied to a `Validatable`, they allow describing a set of rules
 that must be followed by the validated value; otherwise the validation will fail.
 
-## Built-in constraints
-
-%product% is bundled with all the essential constraints. Their role is to validate all the day-to-day Kotlin objects,
-without having to write custom constraints for anything else than business logic.
-
-> This is a bold assertion and, let's be honest, it might not be true at the moment. _But we want it to be true!_ So let
-> us know if you're missing a constraint, [and report it on our GitHub repository.](%github_product_url%/issues)
-
-[Find all the documented constraints in the API reference.](%api_reference_url%/akkurate-core/dev.nesk.akkurate.constraints.builders/index.html)
+> %product% provides [built-in validation constraints.](constraints-reference.md)
 
 ## Basic usage
 
@@ -212,7 +204,8 @@ The path will be `[author, a, b, c, fullName]`.
 ## Fail on first violation
 
 In some performance-critical environments, you might need your validator to fail as fast as possible. This can be
-enabled [with the `failOnFirstViolation` configuration option.](%api_reference_url%/akkurate-core/dev.nesk.akkurate/-configuration/fail-on-first-violation.html)
+enabled [with the
+`failOnFirstViolation` configuration option.](%api_reference_url%/akkurate-core/dev.nesk.akkurate/-configuration/fail-on-first-violation.html)
 
 Let's reuse the example of [](apply-constraints.md#read-constraint-violations) and modify its configuration:
 
@@ -237,3 +230,9 @@ The book is invalid, here are the errors:
 > not executed. This is essential when you want to fail fast for performance or security reasons.
 
 {style="note"}
+
+<seealso style="cards">
+  <category ref="related">
+    <a href="constraints-reference.md" />
+  </category>
+</seealso>

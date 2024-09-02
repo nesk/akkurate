@@ -95,10 +95,11 @@ Check if 'title' is not empty otherwise write "Missing title".
 
 > Features marked with ![Coming soon](clock.png){width="16"} are on the roadmap.
 
-<seealso style="cards">
+<seealso style="links">
   <category ref="external">
+    <a href="%api_reference_url%">API Reference</a>
     <a href="%github_product_url%">GitHub repository</a>
-    <a href="https://slack-chats.kotlinlang.org/c/akkurate">#akkurate channel on Kotlin Slack</a>
     <a href="%roadmap_url%">Roadmap</a>
+    <a href="https://slack-chats.kotlinlang.org/c/akkurate">#akkurate channel on Kotlin Slack</a>
   </category>
 </seealso>
