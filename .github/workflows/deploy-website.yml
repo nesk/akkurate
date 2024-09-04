@@ -49,7 +49,7 @@ jobs:
         run: sed -i 's/akkurate\.dev\/social\.png/akkurate.dev\/social-arrow.png/g' ./artifacts/docs/arrow-integration.html
 
       - name: Upload documentation
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: docs
           path: |
@@ -58,7 +58,7 @@ jobs:
           retention-days: 7
 
       - name: Upload social images
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: social-images
           path: |
@@ -67,7 +67,7 @@ jobs:
           retention-days: 7
 
       - name: Upload Algolia indexes
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: algolia-indexes
           path: artifacts/${{ env.ALGOLIA_ARTIFACT }}
@@ -98,7 +98,7 @@ jobs:
         run: ./gradlew dokkaHtmlMultiModule
 
       - name: Upload API reference
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: api
           path: ./build/dokka/htmlMultiModule/
@@ -114,7 +114,7 @@ jobs:
 
     steps:
       - name: Download documentation
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4
         with:
           name: docs
           path: artifacts
@@ -133,7 +133,7 @@ jobs:
       image: registry.jetbrains.team/p/writerside/builder/algolia-publisher:2.0.32-3
 
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: algolia-indexes
       - uses: montudor/action-zip@v1
@@ -159,19 +159,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download documentation
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: docs
           path: ./website/
 
       - name: Download API reference
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: api
           path: ./website/api/
 
       - name: Download social images
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: social-images
           path: ./website/
@@ -180,7 +180,7 @@ jobs:
         uses: actions/configure-pages@v2
 
       - name: Upload Pages contents
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v4
         with:
           path: website
 
