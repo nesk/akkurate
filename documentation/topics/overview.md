@@ -80,8 +80,8 @@ Check if 'title' is not empty otherwise write "Missing title".
 
 - [**Beautiful DSL and API.**](harness-the-dsl.md) Write crystal clear validation code and keep it <tooltip term="DRY">
   DRY</tooltip>. Use loops and conditions when needed; forget about annotation hell.
-- [**Bundled with all the essential constraints.**](apply-constraints.md#built-in-constraints) Write custom constraints
-  for your business logic and nothing more. The rest? It's on us!
+- [**Bundled with all the essential constraints.**](constraints-reference.md) Write custom constraints for your business
+  logic and nothing more. The rest? It's on us!
 - [**Easily and highly extendable.**](extend.md) No need to write verbose code to create custom constraints, within
   %product% they're as simple as a lambda with parameters.
 - [**Contextual and asynchronous.**](use-external-sources.md) Query sync/async data sources whenever you need to, like a
