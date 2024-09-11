@@ -8,6 +8,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix name clashes when generating validatable accessors from the common code.
+
 ## [0.9.0] - 2024-08-30
 
 ### ⚠️ Breaking changes

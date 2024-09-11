@@ -211,9 +211,16 @@ public class ValidateAnnotationProcessor(
 
             getter(
                 FunSpec.getterBuilder().apply {
-                    if (platforms.singleOrNull() is JvmPlatformInfo) {
+                    if (platforms.size > 1 || platforms.singleOrNull() is JvmPlatformInfo) {
                         addAnnotation(
                             AnnotationSpec.builder(JvmName::class)
+                                .addMember("name = %S", "validatable$nullabilityText${uniqueNameInPackage}")
+                                .build()
+                        )
+                    }
+                    if (platforms.size > 1 || platforms.singleOrNull() is JsPlatformInfo) {
+                        addAnnotation(
+                            AnnotationSpec.builder(ClassName("kotlin.js", "JsName"))
                                 .addMember("name = %S", "validatable$nullabilityText${uniqueNameInPackage}")
                                 .build()
                         )
