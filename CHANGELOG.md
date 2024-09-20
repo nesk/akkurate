@@ -8,6 +8,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- Add a `or equal to zero` suffix to the default message for `isNegativeOrZero` and `isPositiveOrZero` constraints.
+
 ## [0.9.1] - 2024-09-12
 
 ### Fixed

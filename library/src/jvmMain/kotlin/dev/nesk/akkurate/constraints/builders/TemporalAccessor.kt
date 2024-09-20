@@ -190,7 +190,7 @@ public fun Validatable<Period?>.isNegative(): Constraint =
 //endregion
 
 //region isNegativeOrZero
-private const val negativeMessageOrZero = "Must be negative"
+private const val negativeMessageOrZero = "Must be negative or equal to zero"
 
 @JvmName("durationIsNegativeOrZero")
 public fun Validatable<Duration?>.isNegativeOrZero(): Constraint =
@@ -214,7 +214,7 @@ public fun Validatable<Period?>.isPositive(): Constraint =
 //endregion
 
 //region isPositiveOrZero
-private const val positiveMessageOrZero = "Must be positive"
+private const val positiveMessageOrZero = "Must be positive or equal to zero"
 
 @JvmName("durationIsPositiveOrZero")
 public fun Validatable<Duration?>.isPositiveOrZero(): Constraint =
