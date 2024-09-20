@@ -90,6 +90,23 @@ objects, without having to write custom constraints for anything else than busin
 - [isBetween](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints.builders/is-between.html)
 - [isBetween](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints.builders/is-between.html)
 
+## kotlinx-datetime constraints
+
+> [These constraints are part of an integration.](kotlinx-datetime-integration.md)
+
+<snippet id="kotlinx-datetime">
+
+- [isInPast](https://akkurate.dev/api/integrations/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-in-past.html)
+- [isInPastOrIsPresent](https://akkurate.dev/api/integrations/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-in-past-or-is-present.html)
+- [isInFuture](https://akkurate.dev/api/integrations/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-in-future.html)
+- [isInFutureOrIsPresent](https://akkurate.dev/api/integrations/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-in-future-or-is-present.html)
+- [isBefore](https://akkurate.dev/api/integrations/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-before.html)
+- [isBeforeOrEqualTo](https://akkurate.dev/api/integrations/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-before-or-equal-to.html)
+- [isAfter](https://akkurate.dev/api/integrations/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-after.html)
+- [isAfterOrEqualTo](https://akkurate.dev/api/integrations/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-after-or-equal-to.html)
+
+</snippet>
+
 ## `java.time` constraints
 
 - [isInPast](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints.builders/is-in-past.html)
@@ -113,5 +130,6 @@ objects, without having to write custom constraints for anything else than busin
 <seealso style="cards">
   <category ref="related">
     <a href="apply-constraints.md" />
+    <a href="kotlinx-datetime-integration.md" />
   </category>
 </seealso>

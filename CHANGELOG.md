@@ -10,6 +10,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- [kotlinx-datetime](https://github.com/Kotlin/kotlinx-datetime) integration to validate multiplatform date and time. ([#42](https://github.com/nesk/akkurate/issues/42))
 - New `akkurate-test` artifact to test custom constraints.
 - New constraints to validate types of the [kotlin.time](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/) package.
 
