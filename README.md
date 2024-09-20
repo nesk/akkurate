@@ -100,10 +100,6 @@ Check if 'title' is not empty otherwise write "Missing title".
   Take advantage of Kotlin Multiplatform; write your validation code once, use it both for front-end and back-end
   usages.
 
-- ⏱ **Testable out of the box** \
+- [**Testable out of the box**](https://akkurate.dev/docs/extend.html#test-your-code) \
   Finding how to test your validation code shouldn't be one of your tasks. You will find all the tools you need to write
   good tests.
-
-> [!NOTE]
-> Features marked with ⏱ are on the roadmap.
-

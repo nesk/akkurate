@@ -17,7 +17,7 @@
 
 package dev.nesk.akkurate.accessors
 
-import dev.nesk.akkurate._test.Validatable
+import dev.nesk.akkurate.test.Validatable
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals

@@ -8,6 +8,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- New `akkurate-test` artifact to test custom constraints.
+
 ### Fixed
 
 - Add a `or equal to zero` suffix to the default message for `isNegativeOrZero` and `isPositiveOrZero` constraints.

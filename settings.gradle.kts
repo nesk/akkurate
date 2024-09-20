@@ -6,7 +6,7 @@ pluginManagement {
 
 rootProject.name = "akkurate"
 
-include("library", "plugin", "integrations:arrow", "examples:ktor-server")
+include("library", "plugin", "akkurate-test", "integrations:arrow", "examples:ktor-server")
 project(":library").name = "akkurate-core"
 project(":plugin").name = "akkurate-ksp-plugin"
 project(":integrations:arrow").name = "akkurate-arrow"

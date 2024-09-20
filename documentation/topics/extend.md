@@ -82,3 +82,31 @@ private fun Validatable<String?>.hasWordCountGreaterThan(count: Int) =
         "Must contain more than $count words"
     }
 ```
+
+## Test your code
+
+When writing your own constraints, you might want to write unit tests to verify their behaviors.
+
+This is done by installing a new artifact:
+
+<procedure title="Install akkurate-test">
+
+<code-block lang="kotlin">
+testImplementation("dev.nesk.akkurate:akkurate-test:%version%")
+</code-block>
+
+</procedure>
+
+This artifact provides
+[the Validatable function](https://akkurate.dev/api/akkurate-test/dev.nesk.akkurate.test/-validatable.html), which
+returns a value ready to be constrained:
+
+```kotlin
+val validatable = Validatable("The Lord of the Rings")
+
+val satisfiedConstraint = validatable.hasWordCountGreaterThan(4)
+assertTrue(satisfiedConstraint.satisfied)
+
+val unsatisfiedConstraint = validatable.hasWordCountGreaterThan(5)
+assertFalse(unsatisfiedConstraint.satisfied)
+```

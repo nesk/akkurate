@@ -17,7 +17,7 @@
 
 package dev.nesk.akkurate.constraints.builders
 
-import dev.nesk.akkurate._test.Validatable
+import dev.nesk.akkurate.test.Validatable
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse

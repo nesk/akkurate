@@ -22,6 +22,7 @@ import dev.nesk.akkurate._test.Validatable
 import dev.nesk.akkurate.constraints.Constraint
 import dev.nesk.akkurate.constraints.ConstraintRegistry
 import dev.nesk.akkurate.constraints.ConstraintViolation
+import dev.nesk.akkurate.test.Validatable
 import kotlin.reflect.KProperty1
 import kotlin.test.*
 

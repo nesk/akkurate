@@ -19,6 +19,7 @@ package dev.nesk.akkurate.constraints
 
 import dev.nesk.akkurate.Configuration
 import dev.nesk.akkurate._test.Validatable
+import dev.nesk.akkurate.test.Validatable
 import dev.nesk.akkurate.validatables.Validatable
 import kotlin.test.*
 

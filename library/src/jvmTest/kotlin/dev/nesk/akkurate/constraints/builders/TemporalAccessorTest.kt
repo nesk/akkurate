@@ -17,7 +17,7 @@
 
 package dev.nesk.akkurate.constraints.builders
 
-import dev.nesk.akkurate._test.Validatable
+import dev.nesk.akkurate.test.Validatable
 import java.time.*
 import kotlin.test.*
 

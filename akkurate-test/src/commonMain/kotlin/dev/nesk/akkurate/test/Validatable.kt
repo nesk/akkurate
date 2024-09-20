@@ -15,33 +15,32 @@
  * limitations under the License.
  */
 
-package dev.nesk.akkurate.accessors
+package dev.nesk.akkurate.test
 
-import dev.nesk.akkurate.test.Validatable
-import kotlin.test.Test
-import kotlin.test.assertContentEquals
-import kotlin.test.assertEquals
-import kotlin.test.assertNull
+import dev.nesk.akkurate.Validator
+import dev.nesk.akkurate.validatables.Validatable
 
-class ListTest {
-    //region get
-
-    @Test
-    fun __get__returns_a_wrapped_null_when_the_parent_is_null() {
-        assertNull(Validatable<List<Any>?>(null)[1].unwrap())
+/**
+ * Instantiates a [Validatable] with a value, allowing to test custom constraints.
+ *
+ * Usage example:
+ *
+ * ```
+ * fun Validatable<String>.hasWordCountGreaterThan(count: Int) =
+ *     constrain { it.split(" ").size > count }
+ *
+ * @Test
+ * fun testWordCount() {
+ *     assertFalse(Validatable("one two").hasWordCountGreaterThan(2).satisfied)
+ *     assertTrue(Validatable("one two three").hasWordCountGreaterThan(2).satisfied)
+ * }
+ * ```
+ */
+public fun <T> Validatable(value: T): Validatable<T> {
+    lateinit var validatable: Validatable<T>
+    val validator = Validator<T> {
+        validatable = this
     }
-
-    @Test
-    fun __get__returns_a_wrapped_null_when_the_collection_is_empty() {
-        assertNull(Validatable(emptyList<Any>())[1].unwrap())
-    }
-
-    @Test
-    fun __get__returns_the_get_value_wrapped_in_Validatable() {
-        val validatable = Validatable(listOf("foo", "bar"))[1]
-        assertEquals("bar", validatable.unwrap())
-        assertContentEquals(listOf("1"), validatable.path())
-    }
-
-    //endregion
+    validator(value)
+    return validatable
 }

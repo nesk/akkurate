@@ -90,10 +90,8 @@ Check if 'title' is not empty otherwise write "Missing title".
   take care of the integrations for you.
 - [**Code once, deploy everywhere.**](getting-started.md#installation) Take advantage of Kotlin Multiplatform; write
   your validation code once, use it both for front-end and back-end usages.
-- ![Coming soon](clock.png){width="16"} **Testable out of the box.** Finding how to test your validation code shouldn't
-  be one of your tasks. You will find all the tools you need to write good tests.
-
-> Features marked with ![Coming soon](clock.png){width="16"} are on the roadmap.
+- [**Testable out of the box.**](extend.md#test-your-code) Finding how to test your validation code shouldn't be one of
+  your tasks. You will find all the tools you need to write good tests.
 
 <seealso style="links">
   <category ref="external">

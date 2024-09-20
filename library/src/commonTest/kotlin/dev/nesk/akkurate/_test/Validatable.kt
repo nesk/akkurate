@@ -21,13 +21,6 @@ import dev.nesk.akkurate.Configuration
 import dev.nesk.akkurate.constraints.ConstraintRegistry
 import dev.nesk.akkurate.validatables.Validatable
 
-// A list of helpers to easily instantiate Validatable for testing purposes.
-
-/**
- * Instantiates a root [Validatable] with [a value][wrappedValue], a default [ConstraintRegistry] is automatically provided.
- */
-fun <T> Validatable(wrappedValue: T) = Validatable(wrappedValue, ConstraintRegistry(Configuration()))
-
 /**
  * Instantiates a child [Validatable] with [a value][wrappedValue] and [a path segment][pathSegment], a default parent is automatically provided.
  */

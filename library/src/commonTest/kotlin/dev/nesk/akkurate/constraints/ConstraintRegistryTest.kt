@@ -20,6 +20,7 @@ package dev.nesk.akkurate.constraints
 import dev.nesk.akkurate.Configuration
 import dev.nesk.akkurate.ValidationResult
 import dev.nesk.akkurate._test.Validatable
+import dev.nesk.akkurate.test.Validatable
 import kotlin.test.*
 
 class ConstraintRegistryTest {
