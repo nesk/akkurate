@@ -1,7 +1,7 @@
 # Extend %product%
 
-Although %product% focuses on providing [all the essential constraints](apply-constraints.md#built-in-constraints), you
-might need to write your own constraints for custom business validation.
+Although %product% focuses on providing [all the essential constraints](constraints-reference.md), you might need to
+write your own constraints for custom business validation.
 
 > Remember, if you're missing a constraint, [report it on our GitHub repository.](%github_product_url%/issues)
 
