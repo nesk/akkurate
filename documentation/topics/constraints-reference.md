@@ -77,6 +77,19 @@ objects, without having to write custom constraints for anything else than busin
 - [isNotContainingValue](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints.builders/is-not-containing-value.html)
 - [hasNoDuplicates](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints.builders/has-no-duplicates.html)
 
+## `kotlin.time` constraints
+
+- [isNegative](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints.builders/is-negative.html)
+- [isNegativeOrZero](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints.builders/is-negative-or-zero.html)
+- [isPositive](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints.builders/is-positive.html)
+- [isPositiveOrZero](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints.builders/is-positive-or-zero.html)
+- [isLowerThan](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints.builders/is-lower-than.html)
+- [isLowerThanOrEqualTo](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints.builders/is-lower-than-or-equal-to.html)
+- [isGreaterThan](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints.builders/is-greater-than.html)
+- [isGreaterThanOrEqualTo](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints.builders/is-greater-than-or-equal-to.html)
+- [isBetween](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints.builders/is-between.html)
+- [isBetween](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints.builders/is-between.html)
+
 ## `java.time` constraints
 
 - [isInPast](https://akkurate.dev/api/akkurate-core/dev.nesk.akkurate.constraints.builders/is-in-past.html)

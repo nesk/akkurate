@@ -11,6 +11,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - New `akkurate-test` artifact to test custom constraints.
+- New constraints to validate types of the [kotlin.time](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/) package.
 
 ### Fixed
 
