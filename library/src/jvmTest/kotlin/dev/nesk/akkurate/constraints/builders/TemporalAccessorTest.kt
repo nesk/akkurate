@@ -53,7 +53,7 @@ class TemporalAccessorTest {
     }
 
     @Test
-    fun `'Instant isInPast' succeeds when the value is in the isInPast`() {
+    fun `'Instant isInPast' succeeds when the value is in the past`() {
         assertTrue(Validatable(presentInstant - fewSeconds).isInPast().satisfied)
     }
 
@@ -69,7 +69,7 @@ class TemporalAccessorTest {
     }
 
     @Test
-    fun `'LocalDate isInPast' succeeds when the value is in the isInPast`() {
+    fun `'LocalDate isInPast' succeeds when the value is in the past`() {
         assertTrue(Validatable(presentLocalDate - fewDays).isInPast().satisfied)
     }
 
@@ -85,7 +85,7 @@ class TemporalAccessorTest {
     }
 
     @Test
-    fun `'LocalDateTime isInPast' succeeds when the value is in the isInPast`() {
+    fun `'LocalDateTime isInPast' succeeds when the value is in the past`() {
         assertTrue(Validatable(presentLocalDateTime - fewSeconds).isInPast().satisfied)
     }
 
@@ -101,7 +101,7 @@ class TemporalAccessorTest {
     }
 
     @Test
-    fun `'ZonedDateTime isInPast' succeeds when the value is in the isInPast`() {
+    fun `'ZonedDateTime isInPast' succeeds when the value is in the past`() {
         assertTrue(Validatable(presentZonedDateTime - fewSeconds).isInPast().satisfied)
     }
 
@@ -257,7 +257,7 @@ class TemporalAccessorTest {
     }
 
     @Test
-    fun `'Instant isInFutureOrIsPresent' fails when the value is in the isInPast`() {
+    fun `'Instant isInFutureOrIsPresent' fails when the value is in the past`() {
         assertFalse(Validatable(presentInstant - fewSeconds).isInFutureOrIsPresent().satisfied)
     }
 
@@ -273,7 +273,7 @@ class TemporalAccessorTest {
     }
 
     @Test
-    fun `'LocalDate isInFutureOrIsPresent' fails when the value is in the isInPast`() {
+    fun `'LocalDate isInFutureOrIsPresent' fails when the value is in the past`() {
         assertFalse(Validatable(presentLocalDate - fewDays).isInFutureOrIsPresent().satisfied)
     }
 
@@ -289,7 +289,7 @@ class TemporalAccessorTest {
     }
 
     @Test
-    fun `'LocalDateTime isInFutureOrIsPresent' fails when the value is in the isInPast`() {
+    fun `'LocalDateTime isInFutureOrIsPresent' fails when the value is in the past`() {
         assertFalse(Validatable(presentLocalDateTime - fewSeconds).isInFutureOrIsPresent().satisfied)
     }
 
@@ -305,7 +305,7 @@ class TemporalAccessorTest {
     }
 
     @Test
-    fun `'ZonedDateTime isInFutureOrIsPresent' fails when the value is in the isInPast`() {
+    fun `'ZonedDateTime isInFutureOrIsPresent' fails when the value is in the past`() {
         assertFalse(Validatable(presentZonedDateTime - fewSeconds).isInFutureOrIsPresent().satisfied)
     }
     //endregion
