@@ -8,6 +8,7 @@
         <web-root>https://akkurate.dev/docs/</web-root>
         <product-web-url>https://akkurate.dev</product-web-url>
         <analytics-body-html-file>script.html</analytics-body-html-file>
+        <ignore-problems>MRK023,MRK024</ignore-problems>
     </variables>
 
     <build-profile instance="akkurate">
