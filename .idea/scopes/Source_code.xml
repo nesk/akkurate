@@ -1,3 +1,3 @@
 <component name="DependencyValidationManager">
-  <scope name="Source code" pattern="(src[dev*]:*..*||src[akkurate*]:*..*||test:*..*)&amp;&amp;!src[akkurate-conventions*]:*..*" />
+  <scope name="Source code" pattern="file:*.kt" />
 </component>
