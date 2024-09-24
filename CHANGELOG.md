@@ -8,6 +8,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.10.0] - 2024-09-24
+
 ### Added
 
 - [kotlinx-datetime](https://github.com/Kotlin/kotlinx-datetime) integration to validate multiplatform date and time. ([#42](https://github.com/nesk/akkurate/issues/42))
@@ -142,7 +144,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 First release
 
-[Unreleased]: https://github.com/nesk/akkurate/compare/0.9.1...HEAD
+[Unreleased]: https://github.com/nesk/akkurate/compare/0.10.0...HEAD
+[0.10.0]: https://github.com/nesk/akkurate/compare/0.9.1...0.10.0
 [0.9.1]: https://github.com/nesk/akkurate/compare/0.9.0...0.9.1
 [0.9.0]: https://github.com/nesk/akkurate/compare/0.8.0...0.9.0
 [0.8.0]: https://github.com/nesk/akkurate/compare/0.7.0...0.8.0
