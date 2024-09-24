@@ -1,4 +1,4 @@
-# Harness the DSL
+# Understand the syntax
 
 %product% provides a <tooltip term="DSL">DSL</tooltip> to help you write clear and concise code. With it, you can
 validate your data in a more declarative manner, improving readability and maintainability.

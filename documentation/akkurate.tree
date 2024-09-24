@@ -6,8 +6,7 @@
                   name="Akkurate"
                   start-page="overview.md">
     <toc-element topic="overview.md"/>
-    <toc-element topic="getting-started.md"/>
-    <toc-element toc-title="Writing validation code">
+    <toc-element topic="getting-started.md">
         <toc-element topic="harness-the-dsl.md"/>
         <toc-element topic="apply-constraints.md"/>
         <toc-element topic="extend.md"/>
