@@ -17,12 +17,8 @@ kotlin {
             // Make the common source set depend on the generated validatable accessors, to make them accessible to all targets.
             kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
         }
-        commonTest {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
-                implementation(project(":akkurate-test"))
-            }
+        commonTest.dependencies {
+            implementation(project(":akkurate-test"))
         }
     }
 }
