@@ -8,6 +8,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+- Public constructors for `ConstraintViolationSet` and `ConstraintViolation`.
+
 ## [0.10.0] - 2024-09-24
 
 ### Added
