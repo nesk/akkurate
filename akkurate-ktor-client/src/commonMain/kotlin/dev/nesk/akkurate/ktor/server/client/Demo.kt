@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package dev.nesk.akkurate.ktor.client
+package dev.nesk.akkurate.ktor.server.client
 
 import dev.nesk.akkurate.Validator
 import io.ktor.client.*
@@ -53,7 +53,7 @@ public class AkkurateValidationConfiguration internal constructor() {
         context: ContextType,
         validator: Validator.Runner.WithContext<ContextType, ValueType>,
     ) {
-        //
+        registerValidator(validator) { context }
     }
 
     public inline fun <ContextType, reified ValueType : Any> registerValidator(
@@ -71,7 +71,7 @@ public class AkkurateValidationConfiguration internal constructor() {
         context: ContextType,
         validator: Validator.SuspendableRunner.WithContext<ContextType, ValueType>,
     ) {
-        //
+        registerValidator(validator) { context }
     }
 
     public inline fun <ContextType, reified ValueType : Any> registerValidator(

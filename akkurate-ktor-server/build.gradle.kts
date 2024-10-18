@@ -9,11 +9,12 @@ kotlin {
     configureTargets()
 
     sourceSets {
-        commonMain {
-            dependencies {
-                api(project(":akkurate-core"))
-                api(libs.ktor.server.validation)
-            }
+        commonMain.dependencies {
+            api(project(":akkurate-core"))
+            api(libs.ktor.server.validation)
+        }
+        commonTest.dependencies {
+            implementation(libs.mockk)
         }
     }
 }

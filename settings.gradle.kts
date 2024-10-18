@@ -24,6 +24,7 @@ dependencyResolutionManagement {
             library("kotlinx-datetime", "org.jetbrains.kotlinx:kotlinx-datetime:0.6.1")
             library("ktor-server-validation", "io.ktor:ktor-server-request-validation:2.3.12")
             library("ktor-client-core", "io.ktor:ktor-client-core:2.3.12")
+            library("mockk", "io.mockk:mockk:1.13.13")
         }
     }
 }
