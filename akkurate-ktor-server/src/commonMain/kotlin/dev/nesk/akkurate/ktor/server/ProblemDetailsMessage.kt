@@ -17,10 +17,13 @@
 
 package dev.nesk.akkurate.ktor.server
 
-import dev.nesk.akkurate.constraints.ConstraintViolationSet
+import dev.nesk.akkurate.constraints.ConstraintViolation
+import kotlinx.serialization.Serializable
 
-public class ProblemDetailsMessage(violations: ConstraintViolationSet) {
+@Serializable
+public class ProblemDetailsMessage(
+    public val fields: Set<@Serializable(with = ConstraintViolationSerializer::class) ConstraintViolation>,
+) {
     public val type: String = "https://akkurate.dev/validation-error"
     public val title: String = "The payload is invalid"
-    public val fields: ConstraintViolationSet = violations
 }

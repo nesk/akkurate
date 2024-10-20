@@ -22,7 +22,6 @@ import kotlin.test.Test
 import kotlin.test.assertSame
 
 class ProblemDetailsMessageTest {
-
     @Test
     fun __fields__contains_the_violation_set_from_the_constructor() {
         val expectedFields = ConstraintViolationSet(emptySet())

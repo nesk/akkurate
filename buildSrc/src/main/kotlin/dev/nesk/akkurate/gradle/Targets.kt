@@ -33,7 +33,6 @@ fun KotlinMultiplatformExtension.configureTargets(vararg ignoredTargets: Ignored
     iosArm64()
     iosSimulatorArm64()
     iosX64()
-    js(IR) { nodejs() }
     jvm()
     linuxArm64()
     linuxX64()
@@ -55,6 +54,10 @@ fun KotlinMultiplatformExtension.configureTargets(vararg ignoredTargets: Ignored
         androidNativeX64()
     }
 
+    if (IgnoredTarget.JS_IR !in ignoredTargets) {
+        js(IR) { nodejs() }
+    }
+
     if (IgnoredTarget.WASM_JS !in ignoredTargets) {
         @OptIn(ExperimentalWasmDsl::class)
         wasmJs { nodejs() }
@@ -71,5 +74,5 @@ fun KotlinMultiplatformExtension.configureTargets(vararg ignoredTargets: Ignored
 }
 
 enum class IgnoredTarget {
-    WASM_JS, WASM_WASI, ANDROID_NATIVE, WATCHOS_DEVICE_ARM64
+    JS_IR, WASM_JS, WASM_WASI, ANDROID_NATIVE, WATCHOS_DEVICE_ARM64
 }
