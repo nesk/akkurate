@@ -24,13 +24,13 @@ import kotlin.test.assertSame
 
 class AkkurateConfigurationTest {
     @Test
-    fun __buildMessage__updates_the_message_builder() {
+    fun __buildResponse__updates__responseBuilder__() {
         // Arrange
         val config = AkkurateConfiguration()
         val expectedBuilder: suspend (call: ApplicationCall, violations: ConstraintViolationSet) -> Unit = { _, _ -> }
         // Act
-        config.buildMessage(expectedBuilder)
+        config.buildResponse(expectedBuilder)
         // Assert
-        assertSame(expectedBuilder, config.messageBuilder)
+        assertSame(expectedBuilder, config.responseBuilder)
     }
 }

@@ -29,11 +29,11 @@ public class AkkurateConfiguration internal constructor() {
 
     public var contentType: ContentType = ContentType.Application.ProblemJson
 
-    internal var messageBuilder: suspend (call: ApplicationCall, violations: ConstraintViolationSet) -> Unit = { call, violations ->
+    internal var responseBuilder: suspend (call: ApplicationCall, violations: ConstraintViolationSet) -> Unit = { call, violations ->
         call.respond(ProblemDetailsMessage(violations))
     }
 
-    public fun buildMessage(block: suspend (call: ApplicationCall, violations: ConstraintViolationSet) -> Unit) {
-        messageBuilder = block
+    public fun buildResponse(block: suspend (call: ApplicationCall, violations: ConstraintViolationSet) -> Unit) {
+        responseBuilder = block
     }
 }

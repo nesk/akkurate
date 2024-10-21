@@ -37,7 +37,7 @@ class AkkurateConfigurationTestJvm {
 
         // Act
         val config = AkkurateConfiguration()
-        config.messageBuilder(call, ConstraintViolationSet(emptySet()))
+        config.responseBuilder(call, ConstraintViolationSet(emptySet()))
 
         // Assert
         assertIs<ProblemDetailsMessage>(messageSlot.captured)

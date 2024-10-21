@@ -21,6 +21,7 @@ kotlin {
             implementation(libs.ktor.server.test)
             implementation("io.ktor:ktor-server-content-negotiation:2.3.12")
             implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.12")
+            implementation("io.ktor:ktor-server-request-validation:2.3.12")
         }
     }
 }

@@ -34,8 +34,8 @@ public val AkkurateValidation: ApplicationPlugin<AkkurateConfiguration> = create
             if (cause !is ValidationResult.Exception) throw cause
 
             call.response.status(status)
-            call.response.headers.append(HttpHeaders.ContentType, contentType.toString())
-            call.respond(messageBuilder(call, cause.violations))
+            call.response.header(HttpHeaders.ContentType, contentType.toString())
+            call.respond(responseBuilder(call, cause.violations))
         }
     }
 }

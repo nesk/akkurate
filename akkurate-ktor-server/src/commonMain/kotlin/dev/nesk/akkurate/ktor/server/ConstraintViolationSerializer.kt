@@ -33,7 +33,13 @@ internal object ConstraintViolationSerializer : KSerializer<ConstraintViolation>
     override val descriptor: SerialDescriptor = ConstraintViolationSurrogate.serializer().descriptor
 
     override fun serialize(encoder: Encoder, value: ConstraintViolation) {
-        val surrogate = ConstraintViolationSurrogate(value.message, value.path.joinToString("."))
+        val surrogate = ConstraintViolationSurrogate(
+            value.message,
+            value.path
+                .joinToString(".")
+                .trim('.')
+                .replace("\\.+".toRegex(), ".")
+        )
         encoder.encodeSerializableValue(ConstraintViolationSurrogate.serializer(), surrogate)
     }
 
