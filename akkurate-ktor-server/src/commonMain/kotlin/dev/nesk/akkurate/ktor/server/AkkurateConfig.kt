@@ -18,19 +18,24 @@
 package dev.nesk.akkurate.ktor.server
 
 import dev.nesk.akkurate.constraints.ConstraintViolationSet
+import io.ktor.http.*
 import io.ktor.server.application.*
-import kotlin.test.Test
-import kotlin.test.assertSame
+import io.ktor.server.response.*
 
-class AkkurateConfigurationTest {
-    @Test
-    fun __buildResponse__updates__responseBuilder__() {
-        // Arrange
-        val config = AkkurateConfiguration()
-        val expectedBuilder: suspend (call: ApplicationCall, violations: ConstraintViolationSet) -> Unit = { _, _ -> }
-        // Act
-        config.buildResponse(expectedBuilder)
-        // Assert
-        assertSame(expectedBuilder, config.responseBuilder)
+public class AkkurateConfig internal constructor() {
+    public var catchException: Boolean = true
+
+    public var status: HttpStatusCode = HttpStatusCode.UnprocessableEntity
+
+    public var contentType: ContentType = ContentType.Application.ProblemJson
+
+    internal var responseBuilder: suspend (call: ApplicationCall, violations: ConstraintViolationSet) -> Unit = { call, violations ->
+        call.response.status(status)
+        call.response.header(HttpHeaders.ContentType, contentType.toString())
+        call.respond(ProblemDetailsMessage(violations))
+    }
+
+    public fun buildResponse(block: suspend (call: ApplicationCall, violations: ConstraintViolationSet) -> Unit) {
+        responseBuilder = block
     }
 }

@@ -37,10 +37,10 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFails
 import kotlin.test.assertIs
 
-class AkkurateValidationTest {
+class AkkurateTest {
     @Test
     fun can_catch_validation_errors_with_default_configuration() = testApplication {
-        install(AkkurateValidation)
+        install(Akkurate)
 
         installOtherPlugins()
         routing { receiveBoolean() }
@@ -52,13 +52,13 @@ class AkkurateValidationTest {
         assertEquals(
             """{"fields":[{"message":"Must be true","path":""}],"type":"https://akkurate.dev/validation-error","title":"The payload is invalid"}""",
             response.bodyAsText(),
-            "The body contains the validation errors, a type, and a title."
+            "The JSON body contains the validation errors, a type, and a title."
         )
     }
 
     @Test
-    fun can_change_the_status_and_the_content_type() = testApplication {
-        install(AkkurateValidation) {
+    fun can_change_the_status_and_content_type() = testApplication {
+        install(Akkurate) {
             status = HttpStatusCode.BadRequest
             contentType = ContentType.Text.Plain
         }
@@ -74,10 +74,8 @@ class AkkurateValidationTest {
 
     @Test
     fun can_build_a_custom_response() = testApplication {
-        install(AkkurateValidation) {
+        install(Akkurate) {
             buildResponse { call, violations ->
-                call.response.status(HttpStatusCode.BadRequest)
-                call.response.header(HttpHeaders.ContentType, ContentType.Text.Plain.toString())
                 call.respond(violations.toString())
             }
         }
@@ -87,18 +85,16 @@ class AkkurateValidationTest {
 
         val response = client.sendBoolean(false)
 
-        assertEquals(HttpStatusCode.BadRequest, response.status, "The status is changed to 400")
-        assertEquals(ContentType.Text.Plain.toString(), response.headers[HttpHeaders.ContentType], "The content-type is changed to text/plain")
         assertEquals(
-            """ConstraintViolationSet(messages=[ConstraintViolation(message='Must be true', path=[])])""",
+            "ConstraintViolationSet(messages=[ConstraintViolation(message='Must be true', path=[])])",
             response.bodyAsText(),
-            "The body contains the validation errors, a type, and a title."
+            "The body contains a string representation of ConstraintViolationSet."
         )
     }
 
     @Test
     fun can_disable_exception_catching() = testApplication {
-        install(AkkurateValidation) {
+        install(Akkurate) {
             catchException = false
         }
 
@@ -111,7 +107,7 @@ class AkkurateValidationTest {
 
     @Test
     fun does_not_catch_other_exceptions() = testApplication {
-        install(AkkurateValidation)
+        install(Akkurate)
 
         installOtherPlugins()
         routing {

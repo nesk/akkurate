@@ -18,24 +18,18 @@
 package dev.nesk.akkurate.ktor.server
 
 import dev.nesk.akkurate.ValidationResult
-import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.application.hooks.*
-import io.ktor.server.response.*
 
-public val AkkurateValidation: ApplicationPlugin<AkkurateConfiguration> = createApplicationPlugin(
-    name = "AkkurateValidation",
-    createConfiguration = ::AkkurateConfiguration
+public val Akkurate: ApplicationPlugin<AkkurateConfig> = createApplicationPlugin(
+    name = "Akkurate",
+    createConfiguration = ::AkkurateConfig
 ) {
     on(CallFailed) { call, cause ->
         with(pluginConfig) {
             if (!catchException) return@on
-
             if (cause !is ValidationResult.Exception) throw cause
-
-            call.response.status(status)
-            call.response.header(HttpHeaders.ContentType, contentType.toString())
-            call.respond(responseBuilder(call, cause.violations))
+            responseBuilder(call, cause.violations)
         }
     }
 }

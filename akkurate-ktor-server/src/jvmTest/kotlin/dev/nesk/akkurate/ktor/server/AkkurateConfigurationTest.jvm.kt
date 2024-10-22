@@ -27,7 +27,7 @@ import kotlinx.coroutines.runBlocking
 import kotlin.test.Test
 import kotlin.test.assertIs
 
-class AkkurateConfigurationTestJvm {
+class AkkurateConfigTestJvm {
     @Test
     fun the_default_message_builder_returns_a__ProblemDetailsMessage__(): Unit = runBlocking {
         // Arrange
@@ -36,7 +36,7 @@ class AkkurateConfigurationTestJvm {
         coEvery { call.respond(capture(messageSlot)) } returns Unit
 
         // Act
-        val config = AkkurateConfiguration()
+        val config = AkkurateConfig()
         config.responseBuilder(call, ConstraintViolationSet(emptySet()))
 
         // Assert
