@@ -15,25 +15,17 @@
  * limitations under the License.
  */
 
-package dev.nesk.akkurate.examples.ktor.server.plugins
+package dev.nesk.akkurate.ktor.server
 
-import io.ktor.http.*
-import io.ktor.server.application.*
-import io.ktor.server.request.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import dev.nesk.akkurate.constraints.ConstraintViolationSet
+import kotlin.test.Test
+import kotlin.test.assertSame
 
-fun Application.configureRouting() {
-    routing {
-        post("/books") {
-            val book = call.receive<Book>()
-            bookDao.create(book)
-            call.respond(HttpStatusCode.Created)
-        }
-
-        get("/books") {
-            val books = bookDao.list()
-            call.respond(HttpStatusCode.OK, books)
-        }
+class ProblemDetailsMessageTest {
+    @Test
+    fun __fields__contains_the_violation_set_from_the_constructor() {
+        val expectedFields = ConstraintViolationSet(emptySet())
+        val message = ProblemDetailsMessage(400, expectedFields)
+        assertSame(expectedFields, message.fields)
     }
 }

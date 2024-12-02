@@ -12,12 +12,13 @@
         </description>
 
         <spotlight>
+            <a href="ktor-server-integration.md" type="server" />
             <a href="arrow-integration.md" type="integration" />
-            <a href="#" type="server" summary="Once released, you will be able to automatically validate incoming requests with %product%.">Coming soon: Ktor</a>
         </spotlight>
 
         <primary>
             <title>Other integrations</title>
+            <a href="ktor-client-integration.md" />
             <a href="kotlinx-datetime-integration.md" />
         </primary>
     </section-starting-page>

@@ -15,25 +15,32 @@
  * limitations under the License.
  */
 
-package dev.nesk.akkurate.examples.ktor.server.plugins
+package dev.nesk.akkurate.ktor.server
 
-import io.ktor.http.*
+import dev.nesk.akkurate.constraints.ConstraintViolationSet
 import io.ktor.server.application.*
-import io.ktor.server.request.*
 import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import io.ktor.util.reflect.*
+import io.mockk.coEvery
+import io.mockk.mockk
+import io.mockk.slot
+import kotlinx.coroutines.runBlocking
+import kotlin.test.Test
+import kotlin.test.assertIs
 
-fun Application.configureRouting() {
-    routing {
-        post("/books") {
-            val book = call.receive<Book>()
-            bookDao.create(book)
-            call.respond(HttpStatusCode.Created)
-        }
+class AkkurateConfigTestJvm {
+    @Test
+    fun the_default_message_builder_returns_a__ProblemDetailsMessage__(): Unit = runBlocking {
+        // Arrange
+        val messageSlot = slot<Any>()
+        val call = mockk<ApplicationCall>(relaxed = true)
+        coEvery { call.respond(capture(messageSlot), any(TypeInfo::class)) } returns Unit
 
-        get("/books") {
-            val books = bookDao.list()
-            call.respond(HttpStatusCode.OK, books)
-        }
+        // Act
+        val config = AkkurateConfig()
+        config.responseBuilder(call, ConstraintViolationSet(emptySet()))
+
+        // Assert
+        assertIs<ProblemDetailsMessage>(messageSlot.captured)
     }
 }

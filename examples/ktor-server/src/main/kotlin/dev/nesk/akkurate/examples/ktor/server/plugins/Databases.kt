@@ -78,6 +78,8 @@ class BookDao(database: Database) {
     }
 
     suspend fun existsWithIsbn(isbn: String): Boolean = dbQuery {
-        Books.select { Books.isbn eq isbn }.singleOrNull() != null
+        Books.selectAll()
+            .where { Books.isbn eq isbn }
+            .singleOrNull() != null
     }
 }

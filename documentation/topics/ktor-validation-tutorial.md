@@ -1,5 +1,12 @@
 # Server-side validation with Ktor
 
+This tutorial provides a sampling of how %product% helps you write server-side validation with Ktor. We're going to
+create an HTTP API to manage the books contained within a library; its role is to ensure each book has a valid and
+unique <tooltip term="ISBN">ISBN</tooltip>, as well as a valid title.
+
+> [Read our “Getting Started” guide](getting-started.md) if you're looking to write your first validation code with
+> Akkurate.
+
 <tldr>
 
 **Code example:** [ktor-server](%github_product_url%/tree/main/examples/ktor-server)
@@ -8,26 +15,18 @@
 
 </tldr>
 
-This tutorial provides a sampling of how %product% helps you write server-side validation with Ktor. We're going to
-create an HTTP API to manage the books contained within a library; its role is to ensure each book has a valid and
-unique <tooltip term="ISBN">ISBN</tooltip>, as well as a valid title.
-
-> [Read our “Getting Started” guide](getting-started.md) if you're looking to write your first validation code with
-> Akkurate.
-
-{style="note"}
-
 ## Setting up the project
 
 You can download a generated Ktor
-project [by following this link.](https://start.ktor.io/settings?name=akkuratewithktor&website=com.example&artifact=com.example.akkuratewithktor.akkuratewithktor&kotlinVersion=2.0.10&ktorVersion=2.3.12&buildSystem=GRADLE_KTS&engine=NETTY&configurationIn=HOCON&addSampleCode=false&plugins=routing%2Ckotlinx-serialization%2Ccontent-negotiation%2Cexposed%2Cstatus-pages)
-Then click <ui-path>Add plugins | Generate project</ui-path> and, once the project is downloaded, open it in IntelliJ.
+project [via Ktor's Project Generator](https://start.ktor.io/settings/?name=akkuratewithktor&website=akkuratewithktor.example.com&artifact=com.example.akkuratewithktor.akkuratewithktor&kotlinVersion=2.0.21&ktorVersion=3.0.1&buildSystem=GRADLE_KTS&buildSystemArgs.version_catalog=true&engine=NETTY&configurationIn=HOCON&addSampleCode=false&plugins=routing%252Ckotlinx-serialization%252Ccontent-negotiation%252Cexposed)
+and clicking <ui-path>Download</ui-path>. Once the project is downloaded, open it in IntelliJ.
 
 > The following plugins are already preconfigured:
 > - **Content Negotiation & kotlinx.serialization** to handle JSON payloads;
 > - **Exposed** to easily read/write to the database;
-> - **Routing** to handle the requests;
-> - **Status Pages** to return a specific response when an exception is thrown.
+> - **Routing** to handle the requests.
+>
+> Make sure **Include samples** is unchecked.
 
 ## Defining and persisting the data model
 
@@ -99,8 +98,8 @@ class BookDao(database: Database) {
 ```
 
 Finally, we need to instantiate our DAO with a database connection when the application starts up. Open the <path>
-Databases.kt</path> file, create a top level variable `lateinit var bookDao: BookDao`, and define it inside
-the `configureDatabases` function:
+Databases.kt</path> file, create a top level variable `lateinit var bookDao: BookDao`, and define it inside the
+`configureDatabases` function:
 
 ```kotlin
 lateinit var bookDao: BookDao
@@ -120,8 +119,10 @@ fun Application.configureDatabases() {
 
 ## Handling the requests
 
-We will need two routes for our HTTP API; `POST /books` to register a new book to the database, and `GET /books` to list
-all the books in the database.
+We will need two routes for our HTTP API:
+
+- `POST /books` to store a new book in the database.
+- `GET /books` to list all the books in the database.
 
 Open the <path>Routing.kt</path> file and copy the following code in the `configureRouting` function:
 
@@ -140,7 +141,7 @@ routing {
 }
 ```
 
-The `POST /books` route deserializes the payload, stores it in the database, and returns a 201 HTTP status code.
+The `POST /books` route deserializes the request payload, stores it in the database and returns a 201 HTTP status code.
 The `GET /books` route fetches all the books and serializes them into the response.
 
 ## What can we improve?
@@ -153,8 +154,8 @@ Create a new book with `isbn=123` and `title` being empty:
 
 ```shell
 curl 127.0.0.1:8080/books -v \
-    --data '{"isbn": "123", "title": ""}' \
-    --header 'Content-Type: application/json'
+    --header 'Content-Type: application/json' \
+    --data '{"isbn": "123", "title": ""}'
 ```
 
 ```text
@@ -171,8 +172,9 @@ Now list the books:
 curl 127.0.0.1:8080/books -v
 ```
 
-```text
-HTTP/1.1 200 OK
+```json5
+// HTTP/1.1 200 OK
+
 [
   {
     "isbn": "123          ",
@@ -183,7 +185,7 @@ HTTP/1.1 200 OK
 
 </compare>
 
-We can see two issues in this response; the ISBN is now filled up to the 13 required characters, and we shouldn't allow
+We can see two issues in this response: the ISBN is now padded with space to reach 13 characters, and we shouldn't allow
 empty titles.
 
 Try to run the first query again:
@@ -192,8 +194,8 @@ Try to run the first query again:
 
 ```shell
 curl 127.0.0.1:8080/books -v \
-    --data '{"isbn": "123", "title": ""}' \
-    --header 'Content-Type: application/json'
+    --header 'Content-Type: application/json' \
+    --data '{"isbn": "123", "title": ""}'
 ```
 
 ```text
@@ -211,8 +213,8 @@ Finally, try to create a book with a title over 50 characters:
 
 ```shell
 curl 127.0.0.1:8080/books -v \
-    --data '{"isbn": "1234", "title": "this a really long title and it will not fit our database column"}' \
-    --header 'Content-Type: application/json'
+    --header 'Content-Type: application/json' \
+    --data '{"isbn": "456", "title": "this a really long title and it will not fit our database column"}'
 ```
 
 ```text
@@ -221,13 +223,12 @@ HTTP/1.1 500 Internal Server Error
 
 </compare>
 
-Once again, we see another internal error, because our title is composed of 64 characters meanwhile our database column
+Once again, we see another internal error, because our title is composed of 64 characters, meanwhile our database column
 can contain a maximum of 50 characters.
 
 ## Validating the requests
 
-All these issues can be fixed by validating the requests. We will use %product% coupled
-to [Ktor request validation](https://ktor.io/docs/request-validation.html).
+All these issues can be fixed by validating the requests, first we need to set up our validator.
 
 ### Enhancing the DAO
 
@@ -236,7 +237,9 @@ by its ISBN:
 
 ```kotlin
 suspend fun existsWithIsbn(isbn: String): Boolean = dbQuery {
-    Books.select { Books.isbn eq isbn }.singleOrNull() != null
+    Books.selectAll()
+        .where { Books.isbn eq isbn }
+        .singleOrNull() != null
 }
 ```
 
@@ -253,8 +256,13 @@ Then mark the `Book` class with the `@Validate` annotation:
 ```kotlin
 @Validate
 @Serializable
-data class Book(/* ... */)
+data class Book(
+    val isbn: String = "",
+    val title: String = "",
+)
 ```
+
+{collapsible="true" default-state="collapsed" collapsed-title="@Validate @Serializable data class Book"}
 
 Just like in the [Getting Started guide](getting-started.md), we create a `Validator` instance and add our constraints
 to it:
@@ -288,48 +296,30 @@ val validateBook = Validator.suspendable<BookDao, Book> { dao ->
 There are multiple things to explain here:
 
 - We use [a suspendable validator](use-external-sources.md#suspendable-validation)
-  with [a context](use-external-sources.md#contextual-validation). Those allow our validator to call
-  the `BookDao.existsWithIsbn` method, to ensure a book isn't already registered in our database.
+  with [a context](use-external-sources.md#contextual-validation). Those allow our validator to call the
+  `BookDao.existsWithIsbn` method, to ensure a book isn't already registered in our database.
 - The call to `existsWithIsbn` is done within [an inline constraint](extend.md#inline-constraints)
   and [only if the ISBN is valid,](complex-structures.md#conditional-constraints) to avoid a useless query to the
   database.
 - We ensure the title is not blank but also that it isn't longer than 50 characters, otherwise the database will reject
   it with an exception.
 
-## Wiring to Ktor validation
+## Automatic validation
 
-%product% runs the validation and returns a result, but it needs to provide the latter to Ktor in order to generate a
-response. This requires [the Request Validation plugin](https://ktor.io/docs/request-validation.html):
+%product% provides [a Ktor plugin](ktor-server-integration.md) to automatically validate received payloads:
 
-```kotlin
-implementation("io.ktor:ktor-server-request-validation")
-```
+<include from="ktor-server-integration.md" element-id="install-akkurate" />
 
-This plugin allows configuring a validation function for a specific class; it will be executed on each deserialization.
-A validation result must be returned, we can generate it from %product%'s own result:
+Now we must install both plugins and declare what types we want to validate on deserialization:
 
 ```kotlin
-import dev.nesk.akkurate.ValidationResult.Failure as AkkurateFailure
-import dev.nesk.akkurate.ValidationResult.Success as AkkurateSuccess
-
 fun Application.configureValidation() {
+    install(Akkurate)
     install(RequestValidation) {
-        validate<Book> { book ->
-            when (val result = validateBook(bookDao, book)) {
-                is AkkurateSuccess -> ValidationResult.Valid
-                is AkkurateFailure -> {
-                    val reasons = result.violations.map {
-                        "${it.path.joinToString(".")}: ${it.message}"
-                    }
-                    ValidationResult.Invalid(reasons)
-                }
-            }
-        }
+        registerValidator(validateBook) { bookDao }
     }
 }
 ```
-
-Notice how we execute our `validateBook` function with the provided book, then we map the result to Ktor's result.
 
 We also have to call our `configureValidation` function on application start, this is done in the <path>
 Application.kt</path> file:
@@ -343,41 +333,40 @@ fun Application.module() {
 }
 ```
 
-When the validation fails, the plugin throws a `RequestValidationException`. To handle this exception and return a
-proper response, we use [the Status Pages plugin](https://ktor.io/docs/status-pages.html).
-
-Open the <path>Routing.kt</path> file, navigate to the `configureRouting` function, then the `install(StatusPages) {}`
-lambda, and add the following code:
-
-```kotlin
-exception<RequestValidationException> { call, cause ->
-    call.respond(HttpStatusCode.UnprocessableEntity, cause.reasons)
-}
-```
-
-When the `RequestValidationException` is thrown, the Status Page plugin catches it and returns a response with a 422
-HTTP status code, along with a JSON array of validation messages.
+When the validation fails, the server returns a default response,
+based [on the RFC 9457 (Problem Details for HTTP APIs).](https://www.rfc-editor.org/rfc/rfc9457.html)
 
 ## Conformance checking
 
-It's time to test our API once again.
-
-Create a new book with invalid values:
+It's time to test our API once again, by creating a new book with invalid values:
 
 <compare type="top-bottom" first-title="cURL request" second-title="Response">
 
 ```shell
 curl 127.0.0.1:8080/books -v \
-    --data '{"isbn": "123", "title": ""}' \
-    --header 'Content-Type: application/json'
+    --header 'Content-Type: application/json' \
+    --data '{"isbn": "123", "title": ""}'
 ```
 
-```text
-HTTP/1.1 422 Unprocessable Entity
-[
-  "isbn: Must be a valid ISBN (13 digits)",
-  "title: Must not be blank"
-]
+```json5
+// HTTP/1.1 422 Unprocessable Entity
+
+{
+  "status": 422,
+  "fields": [
+    {
+      "message": "Must be a valid ISBN (13 digits)",
+      "path": "isbn"
+    },
+    {
+      "message": "Must not be blank",
+      "path": "title"
+    }
+  ],
+  "type": "https://akkurate.dev/validation-error",
+  "title": "The payload is invalid",
+  "detail": "The payload has been successfully parsed, but the server is unable to accept it due to validation errors."
+}
 ```
 
 </compare>
@@ -390,8 +379,8 @@ Now try to create a book with valid values:
 
 ```shell
 curl 127.0.0.1:8080/books -v \
-    --data '{"isbn": "1234567891234", "title": "The Lord of the Rings"}' \
-    --header 'Content-Type: application/json'
+    --header 'Content-Type: application/json' \
+    --data '{"isbn": "9780261103207", "title": "The Lord of the Rings"}'
 ```
 
 ```text
@@ -404,13 +393,30 @@ The request is considered valid and we received a 201 HTTP status code.
 
 What if we try to create the same book a second time?
 
-```text
-HTTP/1.1 422 Unprocessable Entity
-[
-  "isbn: This ISBN is already registered"
-]
+```json5
+// HTTP/1.1 422 Unprocessable Entity
+
+{
+  "status": 422,
+  "fields": [
+    {
+      "message": "This ISBN is already registered",
+      "path": "isbn"
+    }
+  ],
+  "type": "https://akkurate.dev/validation-error",
+  "title": "The payload is invalid",
+  "detail": "The payload has been successfully parsed, but the server is unable to accept it due to validation errors."
+}
 ```
 
 As expected, we can't register the same ISBN twice.
 
 Our API is now fully validated, which means security is improved, and the users can understand why the request failed.
+
+<seealso style="cards">
+  <category ref="related">
+    <a href="ktor-server-integration.md" />
+    <a href="ktor-client-integration.md" />
+  </category>
+</seealso>

@@ -15,25 +15,36 @@
  * limitations under the License.
  */
 
-package dev.nesk.akkurate.examples.ktor.server.plugins
+package dev.nesk.akkurate.ktor.server
 
-import io.ktor.http.*
+import dev.nesk.akkurate.ValidationResult
 import io.ktor.server.application.*
-import io.ktor.server.request.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import io.ktor.server.application.hooks.*
 
-fun Application.configureRouting() {
-    routing {
-        post("/books") {
-            val book = call.receive<Book>()
-            bookDao.create(book)
-            call.respond(HttpStatusCode.Created)
-        }
-
-        get("/books") {
-            val books = bookDao.list()
-            call.respond(HttpStatusCode.OK, books)
+/**
+ * A plugin that validates received request bodies.
+ *
+ * ```
+ * fun Application.configureSerialization() {
+ *     install(Akkurate)
+ *
+ *     install(ContentNegotiation) {
+ *         json()
+ *     }
+ *     install(RequestValidation) {
+ *         registerValidator(validateBook)
+ *     }
+ * }
+ * ```
+ */
+public val Akkurate: ApplicationPlugin<AkkurateConfig> = createApplicationPlugin(
+    name = "Akkurate",
+    createConfiguration = ::AkkurateConfig
+) {
+    on(CallFailed) { call, cause ->
+        with(pluginConfig) {
+            if (cause !is ValidationResult.Exception) throw cause
+            responseBuilder(call, cause.violations)
         }
     }
 }
