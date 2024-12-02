@@ -46,7 +46,9 @@ jobs:
         run: unzip -qq ./artifacts/${{ env.DOC_ARTIFACT }} -d ./artifacts/docs
 
       - name: Replace Open Graph image for specific pages
-        run: sed -i 's/akkurate\.dev\/social\.png/akkurate.dev\/social-arrow.png/g' ./artifacts/docs/arrow-integration.html
+        run: |
+          sed -i 's/akkurate\.dev\/social\.png/akkurate.dev\/social-arrow.png/g' ./artifacts/docs/arrow-integration.html;
+          sed -i 's/akkurate\.dev\/social\.png/akkurate.dev\/social-ktor-server.png/g' ./artifacts/docs/ktor-server-integration.html;
 
       - name: Upload documentation
         uses: actions/upload-artifact@v4
@@ -64,6 +66,8 @@ jobs:
           path: |
             ./documentation/images/social.png
             ./documentation/images/social-arrow.png
+            ./documentation/images/social-ktor-server.png
+            ./documentation/images/social-ktor-client.png
           retention-days: 7
 
       - name: Upload Algolia indexes

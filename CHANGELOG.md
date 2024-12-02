@@ -10,6 +10,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Ktor integration to automatically validate received payloads. ([#43](https://github.com/nesk/akkurate/issues/43)) 
 - Public constructors for `ConstraintViolationSet` and `ConstraintViolation`.
 
 ## [0.10.0] - 2024-09-24
