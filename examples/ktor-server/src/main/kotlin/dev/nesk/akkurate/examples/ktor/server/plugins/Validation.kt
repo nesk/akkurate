@@ -25,24 +25,15 @@ import dev.nesk.akkurate.constraints.constrain
 import dev.nesk.akkurate.constraints.otherwise
 import dev.nesk.akkurate.examples.ktor.server.plugins.validation.accessors.isbn
 import dev.nesk.akkurate.examples.ktor.server.plugins.validation.accessors.title
+import dev.nesk.akkurate.ktor.server.Akkurate
+import dev.nesk.akkurate.ktor.server.registerValidator
 import io.ktor.server.application.*
 import io.ktor.server.plugins.requestvalidation.*
-import dev.nesk.akkurate.ValidationResult.Failure as AkkurateFailure
-import dev.nesk.akkurate.ValidationResult.Success as AkkurateSuccess
 
 fun Application.configureValidation() {
+    install(Akkurate)
     install(RequestValidation) {
-        validate<Book> { book ->
-            when (val result = validateBook(bookDao, book)) {
-                is AkkurateSuccess -> ValidationResult.Valid
-                is AkkurateFailure -> {
-                    val reasons = result.violations.map {
-                        "${it.path.joinToString(".")}: ${it.message}"
-                    }
-                    ValidationResult.Invalid(reasons)
-                }
-            }
-        }
+        registerValidator(validateBook) { bookDao }
     }
 }
 
