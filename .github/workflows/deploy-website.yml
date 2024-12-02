@@ -49,6 +49,7 @@ jobs:
         run: |
           sed -i 's/akkurate\.dev\/social\.png/akkurate.dev\/social-arrow.png/g' ./artifacts/docs/arrow-integration.html;
           sed -i 's/akkurate\.dev\/social\.png/akkurate.dev\/social-ktor-server.png/g' ./artifacts/docs/ktor-server-integration.html;
+          sed -i 's/akkurate\.dev\/social\.png/akkurate.dev\/social-ktor-client.png/g' ./artifacts/docs/ktor-client-integration.html;
 
       - name: Upload documentation
         uses: actions/upload-artifact@v4
