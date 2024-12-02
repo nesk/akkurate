@@ -17,12 +17,31 @@
 
 package dev.nesk.akkurate
 
+import dev.nesk.akkurate.ValidationResult.Failure
+import dev.nesk.akkurate.ValidationResult.Success
 import dev.nesk.akkurate.constraints.ConstraintViolationSet
 
+/**
+ * The result of a validation. Can be [a successful outcome][Success] with the validated value, or [a failure][Failure] with a violation list.
+ */
 public sealed interface ValidationResult<out T> {
+    /**
+     * Throws an [Exception] if the result is a failure.
+     */
     public fun orThrow()
 
-    public class Success<T> internal constructor(public val value: T) : ValidationResult<T> {
+    /**
+     * A successful outcome to the validation, with [the validated value][value].
+     */
+    public class Success<T> internal constructor(
+        /**
+         * The subject of the validation result.
+         */
+        public val value: T,
+    ) : ValidationResult<T> {
+        /**
+         * Returns the [value].
+         */
         public operator fun component1(): T = value
 
         override fun orThrow(): Unit = Unit
@@ -42,7 +61,18 @@ public sealed interface ValidationResult<out T> {
 
     // This could be a data class in the future if Kotlin adds a feature to remove the `copy()` method when a constructor is internal or private.
     // https://youtrack.jetbrains.com/issue/KT-11914
-    public class Failure internal constructor(public val violations: ConstraintViolationSet) : ValidationResult<Nothing> {
+    /**
+     * A failed outcome to the validation, with a violation list describing what went wrong.
+     */
+    public class Failure internal constructor(
+        /**
+         * A list of failed constraint violations.
+         */
+        public val violations: ConstraintViolationSet,
+    ) : ValidationResult<Nothing> {
+        /**
+         * Returns the [violations].
+         */
         public operator fun component1(): ConstraintViolationSet = violations
 
         override fun orThrow(): Nothing = throw Exception(violations)
@@ -60,7 +90,15 @@ public sealed interface ValidationResult<out T> {
         override fun toString(): String = "ValidationResult.Failure(violations=$violations)"
     }
 
-    public class Exception internal constructor(public val violations: ConstraintViolationSet) : RuntimeException() {
+    /**
+     * A failed outcome to the validation, which can be thrown.
+     */
+    public class Exception internal constructor(
+        /**
+         * A list of failed constraint violations.
+         */
+        public val violations: ConstraintViolationSet,
+    ) : RuntimeException() {
         override fun toString(): String = "ValidationResult.Exception(violations=$violations)"
     }
 }
