@@ -13,6 +13,7 @@ include(
     "akkurate-arrow",
     "akkurate-kotlinx-datetime",
     "akkurate-ktor-server",
+    "akkurate-ktor-client",
     "examples:ktor-server",
 )
 
@@ -28,6 +29,8 @@ dependencyResolutionManagement {
             library("kotlinx-datetime", "org.jetbrains.kotlinx:kotlinx-datetime:0.6.1")
             library("kotlinx-serialization-core", "org.jetbrains.kotlinx", "kotlinx-serialization-core").versionRef("kotlinx-serialization")
             library("kotlinx-serialization-json", "org.jetbrains.kotlinx", "kotlinx-serialization-json").versionRef("kotlinx-serialization")
+            library("ktor-client-contentNegotiation", "io.ktor", "ktor-client-content-negotiation").versionRef("ktor")
+            library("ktor-client-core", "io.ktor", "ktor-client-core").versionRef("ktor")
             library("ktor-serialization-json", "io.ktor", "ktor-serialization-kotlinx-json").versionRef("ktor")
             library("ktor-server-contentNegotiation", "io.ktor", "ktor-server-content-negotiation").versionRef("ktor")
             library("ktor-server-requestValidation", "io.ktor", "ktor-server-request-validation").versionRef("ktor")
