@@ -15,8 +15,8 @@ Add KSP to your plugin list; make sure to <a href="https://github.com/google/ksp
 version</a>, depending on the Kotlin version you're using.
 <code-block lang="kotlin">
 plugins {
-    kotlin("jvm") version "2.0.20"
-    id("com.google.devtools.ksp") version "2.0.20-1.0.25"
+    kotlin("jvm") version "2.1.0"
+    id("com.google.devtools.ksp") version "2.1.0-1.0.29"
 }
 </code-block>
 </step>
@@ -40,8 +40,8 @@ Add KSP to your plugin list; make sure to <a href="https://github.com/google/ksp
 version</a>, depending on the Kotlin version you're using.
 <code-block lang="kotlin">
 plugins {
-    kotlin("multiplatform") version "2.0.20"
-    id("com.google.devtools.ksp") version "2.0.20-1.0.25"
+    kotlin("multiplatform") version "2.1.0"
+    id("com.google.devtools.ksp") version "2.1.0-1.0.29"
 }
 </code-block>
 </step>
