@@ -1,4 +1,3 @@
-import com.google.devtools.ksp.gradle.KspGradleSubplugin
 import dev.nesk.akkurate.gradle.kspKotlinOutputDir
 import org.gradle.jvm.tasks.Jar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
