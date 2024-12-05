@@ -11,7 +11,7 @@ group = "dev.nesk.akkurate"
 version = "1.0"
 
 kotlin {
-    // see https://docs.gradle.org/8.11.1/userguide/compatibility.html
+    // see https://docs.gradle.org/current/userguide/compatibility.html
     coreLibrariesVersion = "2.0.20"
 }
 
