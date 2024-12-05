@@ -1,4 +1,5 @@
 import com.google.devtools.ksp.gradle.KspGradleSubplugin
+import dev.nesk.akkurate.gradle.kspKotlinOutputDir
 import org.gradle.jvm.tasks.Jar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
@@ -13,13 +14,7 @@ kotlin {
     sourceSets {
         commonMain {
             // Make the common source set depend on the generated validatable accessors, to make them accessible to all targets.
-            kotlin.srcDir(
-                KspGradleSubplugin.getKspKotlinOutputDir(
-                    project = project,
-                    sourceSetName = name,
-                    target = "metadata",
-                )
-            )
+            kotlin.srcDir(kspKotlinOutputDir("metadata"))
         }
         commonTest {
             dependencies {

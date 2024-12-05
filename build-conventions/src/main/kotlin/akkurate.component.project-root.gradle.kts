@@ -1,14 +1,12 @@
+import dev.nesk.akkurate.gradle.catalogVersion
+
 plugins {
     id("akkurate.base.repositories")
 }
 
 tasks.named<Wrapper>("wrapper") {
-    val requiredGradleVersion = project.extensions.getByType<VersionCatalogsExtension>()
-        .named("libs")
-        .findVersion("gradle-wrapper")
-        .get()
-        .requiredVersion
-    val currentGradleVersion = project.gradle.gradleVersion
-    validateDistributionUrl = requiredGradleVersion != currentGradleVersion
-    gradleVersion = requiredGradleVersion
+    val expectedGradleVersion = project.catalogVersion(versionRef = "gradle-wrapper")
+    val actualGradleVersion = project.gradle.gradleVersion
+    validateDistributionUrl = expectedGradleVersion != actualGradleVersion
+    gradleVersion = expectedGradleVersion
 }
