@@ -1,13 +1,10 @@
-import dev.nesk.akkurate.gradle.configureTargets
-
 plugins {
-    id("akkurate.kmp-library-conventions")
+    id("akkurate.component.kmp-library")
+    id("akkurate.feature.publishing")
     id("org.jetbrains.dokka")
 }
 
 kotlin {
-    configureTargets()
-
     sourceSets {
         commonMain {
             dependencies {
