@@ -102,7 +102,7 @@ class ValidatableTest {
         // Arrange
         val parent = Validatable("foo" as String?, "string")
         // Act
-        val child: Validatable<Int?> = parent.validatableOf(String::length)
+        val child = parent.validatableOf(String::length)
         // Assert
         assertEquals(3, child.unwrap(), "The child validatable wraps the value of the property")
         assertEquals(listOf("string", "length"), child.path(), "The child validatable extends the parent path with the property name")
