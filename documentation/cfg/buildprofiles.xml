@@ -3,6 +3,7 @@
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <variables>
+        <custom-favicons>favicon.svg</custom-favicons>
         <header-logo>logo.svg</header-logo>
         <og-image>https://akkurate.dev/social.png?v2</og-image>
         <web-root>https://akkurate.dev/docs/</web-root>
