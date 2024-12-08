@@ -138,7 +138,7 @@ public fun <T : Any, V> Validatable<T>.validatableOf(getter: KProperty1<T, V>): 
 }
 
 @JvmName("nullableValidatableOfProperty")
-public fun <T : Any?, V> Validatable<T>.validatableOf(getter: KProperty1<T & Any, V>): Validatable<V?> {
+public fun <T : Any, V> Validatable<T?>.validatableOf(getter: KProperty1<T, V>): Validatable<V?> {
     return Validatable(unwrap()?.let { getter.get(it) }, getter.name, this)
 }
 

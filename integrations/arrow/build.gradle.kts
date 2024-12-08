@@ -1,19 +1,19 @@
-import dev.nesk.akkurate.gradle.IgnoredTarget
-import dev.nesk.akkurate.gradle.configureTargets
-
 plugins {
-    id("akkurate.kmp-library-conventions")
+    id("akkurate.component.kmp-library")
+    id("akkurate.feature.publishing")
     id("org.jetbrains.dokka")
 }
 
-kotlin {
-    configureTargets(
-        IgnoredTarget.ANDROID_NATIVE,
-        IgnoredTarget.WASM_JS,
-        IgnoredTarget.WASM_WASI,
-        IgnoredTarget.WATCHOS_DEVICE_ARM64
-    )
+kmpLibrary {
+    ignoreTargets {
+        wasmJs()
+        wasmWasi()
+        watchosDeviceArm64()
+        androidNative()
+    }
+}
 
+kotlin {
     sourceSets {
         commonMain {
             dependencies {
