@@ -8,6 +8,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.11.0] - 2024-12-09
+
 ### Added
 
 - Ktor integration to automatically validate received payloads. ([#43](https://github.com/nesk/akkurate/issues/43)) 
@@ -149,7 +151,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 First release
 
-[Unreleased]: https://github.com/nesk/akkurate/compare/0.10.0...HEAD
+[Unreleased]: https://github.com/nesk/akkurate/compare/0.11.0...HEAD
+[0.11.0]: https://github.com/nesk/akkurate/compare/0.10.0...0.11.0
 [0.10.0]: https://github.com/nesk/akkurate/compare/0.9.1...0.10.0
 [0.9.1]: https://github.com/nesk/akkurate/compare/0.9.0...0.9.1
 [0.9.0]: https://github.com/nesk/akkurate/compare/0.8.0...0.9.0
