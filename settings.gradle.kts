@@ -1,7 +1,5 @@
 pluginManagement {
-    includeBuild("build-conventions") {
-       name = "akkurate-build-conventions"
-    }
+    includeBuild("akkurate-build-conventions")
 }
 
 rootProject.name = "akkurate"

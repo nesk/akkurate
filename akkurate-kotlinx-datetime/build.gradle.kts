@@ -4,8 +4,8 @@ plugins {
     id("org.jetbrains.dokka")
 }
 
-kmpLibrary {
-    ignoreTargets { wasmWasi() }
+component {
+    ignoredTargets { wasmWasi() }
 }
 
 kotlin {

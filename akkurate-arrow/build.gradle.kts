@@ -4,8 +4,8 @@ plugins {
     id("org.jetbrains.dokka")
 }
 
-kmpLibrary {
-    ignoreTargets {
+component {
+    ignoredTargets {
         wasmJs()
         wasmWasi()
         watchosDeviceArm64()

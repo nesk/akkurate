@@ -5,8 +5,8 @@ plugins {
     kotlin("plugin.serialization")
 }
 
-kmpLibrary {
-    ignoreTargets { wasmWasi() }
+component {
+    ignoredTargets { wasmWasi() }
 }
 
 kotlin {

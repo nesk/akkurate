@@ -1,6 +1,5 @@
 @file:OptIn(ExperimentalWasmDsl::class)
 
-import dev.nesk.akkurate.gradle.KmpTarget
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
@@ -11,21 +10,10 @@ plugins {
     id("com.adarshr.test-logger")
 }
 
-extensions.create<KmpLibraryPluginExtension>("kmpLibrary").apply {
+extensions.create<KmpLibraryPluginExtension>("component").apply {
     ignoredTargets.configureEach {
-        val ignoredNames = when (this) {
-            KmpTarget.WasmJs -> listOf("wasmJs")
-            KmpTarget.WasmWasi -> listOf("wasmWasi")
-            KmpTarget.AndroidNative -> listOf(
-                "androidNativeArm32",
-                "androidNativeArm64",
-                "androidNativeX86",
-                "androidNativeX64",
-            )
-
-            KmpTarget.WatchosDeviceArm64 -> listOf("watchosDeviceArm64")
-        }
-        kotlin.targets.removeIf { it.targetName in ignoredNames }
+        val ignoredTargetName = this
+        kotlin.targets.removeIf { it.targetName == ignoredTargetName }
     }
 }
 
@@ -79,25 +67,40 @@ tasks.withType<Test>().configureEach {
 }
 
 interface KmpLibraryPluginExtension {
-    val ignoredTargets: DomainObjectSet<KmpTarget>
+    val ignoredTargets: DomainObjectSet<String>
 
     @Suppress("unused")
-    fun ignoreTargets(block: KmpLibraryTargetsScope.() -> Unit) {
+    fun ignoredTargets(block: KmpLibraryTargetsScope.() -> Unit) {
         object : KmpLibraryTargetsScope {
-            override fun wasmJs() = ignoredTargets.add(KmpTarget.WasmJs)
+            override fun wasmJs() {
+                ignoredTargets.add("wasmJs")
+            }
 
-            override fun wasmWasi() = ignoredTargets.add(KmpTarget.WasmWasi)
+            override fun wasmWasi() {
+                ignoredTargets.add("wasmWasi")
+            }
 
-            override fun androidNative() = ignoredTargets.add(KmpTarget.AndroidNative)
+            override fun androidNative() {
+                ignoredTargets.addAll(
+                    listOf(
+                        "androidNativeArm32",
+                        "androidNativeArm64",
+                        "androidNativeX86",
+                        "androidNativeX64",
+                    )
+                )
+            }
 
-            override fun watchosDeviceArm64() = ignoredTargets.add(KmpTarget.WatchosDeviceArm64)
+            override fun watchosDeviceArm64() {
+                ignoredTargets.add("watchosDeviceArm64")
+            }
         }.block()
     }
 }
 
 interface KmpLibraryTargetsScope {
-    fun wasmJs(): Boolean
-    fun wasmWasi(): Boolean
-    fun androidNative(): Boolean
-    fun watchosDeviceArm64(): Boolean
+    fun wasmJs()
+    fun wasmWasi()
+    fun androidNative()
+    fun watchosDeviceArm64()
 }
