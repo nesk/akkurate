@@ -10,17 +10,13 @@ component {
 
 kotlin {
     sourceSets {
-        commonMain {
-            dependencies {
-                api(project(":akkurate-core"))
-                api(libs.kotlinx.datetime)
-            }
+        commonMain.dependencies {
+            api(project(":akkurate-core"))
+            api(libs.kotlinx.datetime)
         }
 
-        commonTest {
-            dependencies {
-                implementation(project(":akkurate-test"))
-            }
+        commonTest.dependencies {
+            implementation(project(":akkurate-test"))
         }
     }
 }
