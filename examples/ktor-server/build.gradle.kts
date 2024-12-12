@@ -23,5 +23,6 @@ dependencies {
 
     implementation(project(":akkurate-core"))
     implementation(project(":akkurate-ksp-plugin"))
+    implementation(project(":akkurate-ktor-server"))
     ksp(project(":akkurate-ksp-plugin"))
 }

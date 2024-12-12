@@ -16,6 +16,8 @@
     </toc-element>
     <toc-element topic="constraints-reference.md"/>
     <toc-element topic="integrations.topic">
+        <toc-element topic="ktor-server-integration.md"/>
+        <toc-element topic="ktor-client-integration.md"/>
         <toc-element topic="arrow-integration.md"/>
         <toc-element topic="kotlinx-datetime-integration.md"/>
     </toc-element>

@@ -12,7 +12,7 @@ env:
   # Replace HI with the ID of the instance in capital letters
   DOC_ARTIFACT: webHelpAKKURATE2-all.zip
   # Writerside docker image version
-  DOCKER_VERSION: "242.21870"
+  DOCKER_VERSION: "243.21565"
   # Add the variable below to upload Algolia indexes
   # Replace HI with the ID of the instance in capital letters
   ALGOLIA_ARTIFACT: algolia-indexes-AKKURATE.zip
@@ -21,7 +21,7 @@ env:
   ALGOLIA_INDEX_NAME: akkurate
   ALGOLIA_KEY: ${{ secrets.ALGOLIA_KEY }}
   CONFIG_JSON_PRODUCT: AKKURATE
-  CONFIG_JSON_VERSION: 0.10.0
+  CONFIG_JSON_VERSION: 0.11.0
 
 jobs:
   build-documentation:
@@ -46,7 +46,10 @@ jobs:
         run: unzip -qq ./artifacts/${{ env.DOC_ARTIFACT }} -d ./artifacts/docs
 
       - name: Replace Open Graph image for specific pages
-        run: sed -i 's/akkurate\.dev\/social\.png/akkurate.dev\/social-arrow.png/g' ./artifacts/docs/arrow-integration.html
+        run: |
+          sed -i 's/akkurate\.dev\/social\.png/akkurate.dev\/social-arrow.png/g' ./artifacts/docs/arrow-integration.html;
+          sed -i 's/akkurate\.dev\/social\.png/akkurate.dev\/social-ktor-server.png/g' ./artifacts/docs/ktor-server-integration.html;
+          sed -i 's/akkurate\.dev\/social\.png/akkurate.dev\/social-ktor-client.png/g' ./artifacts/docs/ktor-client-integration.html;
 
       - name: Upload documentation
         uses: actions/upload-artifact@v4
@@ -64,6 +67,8 @@ jobs:
           path: |
             ./documentation/images/social.png
             ./documentation/images/social-arrow.png
+            ./documentation/images/social-ktor-server.png
+            ./documentation/images/social-ktor-client.png
           retention-days: 7
 
       - name: Upload Algolia indexes
@@ -110,7 +115,6 @@ jobs:
     # Requires build job results
     needs: build-documentation
     runs-on: ubuntu-latest
-    continue-on-error: true
 
     steps:
       - name: Download documentation

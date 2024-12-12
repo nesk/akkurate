@@ -8,15 +8,15 @@ This article will show you how to install %product% and write your first validat
 [KSP](https://kotlinlang.org/docs/ksp-overview.html). Follow the installation instructions below, according to your
 project structure.
 
-<procedure title="Install in a single-platform project" id="single-platform-installation" collapsible="true" default-state="collapsed">
+<procedure title="Install %product% in a single-platform project" id="single-platform-installation" collapsible="true" default-state="collapsed">
 
 <step>
 Add KSP to your plugin list; make sure to <a href="https://github.com/google/ksp/releases">use the appropriate 
 version</a>, depending on the Kotlin version you're using.
 <code-block lang="kotlin">
 plugins {
-    kotlin("jvm") version "2.0.20"
-    id("com.google.devtools.ksp") version "2.0.20-1.0.25"
+    kotlin("jvm") version "2.1.0"
+    id("com.google.devtools.ksp") version "2.1.0-1.0.29"
 }
 </code-block>
 </step>
@@ -33,15 +33,15 @@ dependencies {
 
 </procedure>
 
-<procedure title="Install in a multiplatform project" id="multiplatform-installation" collapsible="true" default-state="collapsed">
+<procedure title="Install %product% in a multiplatform project" id="multiplatform-installation" collapsible="true" default-state="collapsed">
 
 <step>
 Add KSP to your plugin list; make sure to <a href="https://github.com/google/ksp/releases">use the appropriate 
 version</a>, depending on the Kotlin version you're using.
 <code-block lang="kotlin">
 plugins {
-    kotlin("multiplatform") version "2.0.20"
-    id("com.google.devtools.ksp") version "2.0.20-1.0.25"
+    kotlin("multiplatform") version "2.1.0"
+    id("com.google.devtools.ksp") version "2.1.0-1.0.29"
 }
 </code-block>
 </step>
