@@ -18,7 +18,7 @@ dependencies {
     implementation(libs.exposed.jdbc)
     implementation(libs.h2)
     implementation(libs.logback)
-    testImplementation(libs.ktor.server.tests.jvm)
+    testImplementation(libs.ktor.server.test)
     testImplementation(libs.kotlin.test.junit)
 
     implementation(project(":akkurate-core"))

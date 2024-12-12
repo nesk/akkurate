@@ -1,15 +1,15 @@
-import dev.nesk.akkurate.gradle.IgnoredTarget
-import dev.nesk.akkurate.gradle.configureTargets
-
 plugins {
-    id("akkurate.kmp-library-conventions")
+    id("akkurate.component.kmp-library")
+    id("akkurate.feature.publishing")
     id("org.jetbrains.dokka")
-    alias(libs.plugins.kotlinx.serialization)
+    kotlin("plugin.serialization")
+}
+
+kmpLibrary {
+    ignoreTargets { wasmWasi() }
 }
 
 kotlin {
-    configureTargets(IgnoredTarget.WASM_WASI)
-
     sourceSets {
         commonMain.dependencies {
             api(project(":akkurate-core"))
