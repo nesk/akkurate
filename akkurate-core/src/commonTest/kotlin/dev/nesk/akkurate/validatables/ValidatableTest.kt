@@ -103,7 +103,8 @@ class ValidatableTest {
         // Arrange
         val parent = Validatable("foo" as String?, "string")
         // Act
-        val child = parent.validatableOf(String::length)
+        // FIXME: The cast is a workaround for https://youtrack.jetbrains.com/issue/KT-59493, it can be removed with KT v1.9.20
+        val child = parent.validatableOf(String::length as KProperty1)
         // Assert
         assertEquals(3, child.unwrap(), "The child validatable wraps the value of the property")
         assertEquals(listOf("string", "length"), child.path(), "The child validatable extends the parent path with the property name")
@@ -114,7 +115,8 @@ class ValidatableTest {
         // Arrange
         val parent = Validatable(null as String?, "string")
         // Act
-        val child = parent.validatableOf(String::length)
+        // FIXME: The cast is a workaround for https://youtrack.jetbrains.com/issue/KT-59493, it can be removed with KT v1.9.20
+        val child = parent.validatableOf(String::length as KProperty1)
         // Assert
         assertNull(child.unwrap(), "The child validatable wraps the value of the property")
         assertEquals(listOf("string", "length"), child.path(), "The child validatable extends the parent path with the property name")
