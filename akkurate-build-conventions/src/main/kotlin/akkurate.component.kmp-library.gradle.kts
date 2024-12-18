@@ -46,14 +46,6 @@ kotlin {
     watchosDeviceArm64()
 
     sourceSets {
-        all {
-            languageSettings {
-                // See: https://kotlinlang.org/docs/multiplatform-dsl-reference.html#language-settings
-                languageVersion = "1.9"
-                apiVersion = "1.9"
-            }
-        }
-
         commonTest {
             dependencies {
                 implementation(kotlin("test"))

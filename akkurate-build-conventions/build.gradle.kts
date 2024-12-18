@@ -1,7 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompilerOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     `kotlin-dsl`
@@ -10,21 +8,24 @@ plugins {
 group = "dev.nesk.akkurate"
 version = "1.0"
 
+val targetJavaVersion = libs.versions.java.target.build.map(JavaVersion::toVersion)
+val targetKotlinApiVersion = libs.versions.kotlin.target.api.build.map(KotlinVersion::fromVersion)
+val targetKotlinLibsVersion = libs.versions.kotlin.target.libs.build
+
 kotlin {
-    // see https://docs.gradle.org/current/userguide/compatibility.html
-    coreLibrariesVersion = "2.0.20"
+    coreLibrariesVersion = targetKotlinLibsVersion.get()
+
+    compilerOptions {
+        languageVersion = targetKotlinApiVersion
+        apiVersion = targetKotlinApiVersion
+        jvmTarget = targetJavaVersion.map { JvmTarget.fromTarget(it.toString()) }
+    }
 }
 
 java {
-    targetCompatibility = JavaVersion.VERSION_1_8
-    sourceCompatibility = JavaVersion.VERSION_1_8
-}
-
-tasks.withType<KotlinCompilationTask<KotlinJvmCompilerOptions>>().configureEach {
-    compilerOptions {
-        apiVersion = KotlinVersion.KOTLIN_1_8
-        jvmTarget = JvmTarget.JVM_1_8
-    }
+    val version = targetJavaVersion.get()
+    sourceCompatibility = version
+    targetCompatibility = version
 }
 
 repositories {
@@ -34,7 +35,7 @@ repositories {
 
 dependencies {
     // Workaround to use type-safe version catalog accessors in convention plugins,
-    // see https://github.com/gradle/gradle/issues/15383
+    // see https://github.com/gradle/gradle/issues/15383 for more info
     implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
 
     implementation(libs.kotlin.plugin)

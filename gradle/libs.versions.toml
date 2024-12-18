@@ -1,4 +1,16 @@
 [versions]
+kotlin-target-api = "1.9"
+kotlin-target-libs = "2.0.20"
+java-target = "8"
+
+# These versions are used by build-conventions module because it included into main project as a separate build, and
+# it uses `kotlin-dsl` plugin, which leads to some compatibility requirenments based on current gradle wrapper version.
+# Required Kotlin versions for particular gradle can be found in gradle compatibility documentation:
+# https://docs.gradle.org/current/userguide/compatibility.html.
+kotlin-target-api-build = "1.8"
+kotlin-target-libs-build = "2.0.20"
+java-target-build = "15"
+
 # https://gradle.org/releases/
 gradle-wrapper = "8.11.1"
 # https://kotlinlang.org/docs/releases.html
@@ -44,7 +56,6 @@ kotlin-symbolProcessing-plugin = { group = "com.google.devtools.ksp", name = "sy
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
-    kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
 kotlinpoet-core = { group = "com.squareup", name = "kotlinpoet", version.ref = "kotlinpoet" }
 kotlinpoet-ksp = { group = "com.squareup", name = "kotlinpoet-ksp", version.ref = "kotlinpoet" }
