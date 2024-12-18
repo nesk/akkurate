@@ -40,9 +40,9 @@ dependencies {
 
     implementation(libs.kotlin.plugin)
     implementation(libs.kotlin.symbolProcessing.plugin)
-    implementation(libs.dokka.plugin)
+    implementation(libs.kotlinx.serialization.plugin)
     implementation(libs.kotlinSnapshot.plugin)
+    implementation(libs.dokka.plugin)
     implementation(libs.ktor.plugin)
-    implementation(libs.kotlin.serialization.plugin)
     implementation(libs.testLogger.plugin)
 }

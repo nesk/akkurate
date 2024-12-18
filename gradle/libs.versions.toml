@@ -47,38 +47,36 @@ testLogger = "3.2.0"
 mockk = "1.13.13"
 
 [libraries]
-kotlin-test-junit = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit", version.ref = "kotlin-language" }
 kotlin-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin-language" }
-kotlin-serialization-plugin = { group = "org.jetbrains.kotlin.plugin.serialization", name = "org.jetbrains.kotlin.plugin.serialization.gradle.plugin", version.ref = "kotlin-language" }
+kotlin-test-junit = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit", version.ref = "kotlin-language" }
 kotlin-symbolProcessing-api = { group = "com.google.devtools.ksp", name = "symbol-processing-api", version.ref = "kotlin-symbolProcessing" }
 kotlin-symbolProcessing-plugin = { group = "com.google.devtools.ksp", name = "symbol-processing-gradle-plugin", version.ref = "kotlin-symbolProcessing" }
 
+kotlinx-serialization-plugin = { group = "org.jetbrains.kotlin.plugin.serialization", name = "org.jetbrains.kotlin.plugin.serialization.gradle.plugin", version.ref = "kotlin-language" }
+kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
-kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
 
 kotlinpoet-core = { group = "com.squareup", name = "kotlinpoet", version.ref = "kotlinpoet" }
 kotlinpoet-ksp = { group = "com.squareup", name = "kotlinpoet-ksp", version.ref = "kotlinpoet" }
 
 arrow-core = { group = "io.arrow-kt", name = "arrow-core", version.ref = "arrow" }
 
-ktor-server-core-jvm = { group = "io.ktor", name = "ktor-server-core-jvm", version.ref = "ktor" }
-ktor-server-contentNegotiation-jvm = { group = "io.ktor", name = "ktor-server-content-negotiation-jvm", version.ref = "ktor" }
-ktor-server-contentNegotiation = { group = "io.ktor", name = "ktor-server-content-negotiation", version.ref = "ktor" }
-ktor-serialization-json-jvm = { group = "io.ktor", name = "ktor-serialization-kotlinx-json-jvm", version.ref = "ktor" }
-ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
-ktor-server-host-common-jvm = { group = "io.ktor", name = "ktor-server-host-common-jvm", version.ref = "ktor" }
-ktor-server-status-pages-jvm = { group = "io.ktor", name = "ktor-server-status-pages-jvm", version.ref = "ktor" }
-ktor-server-test = { group = "io.ktor", name = "ktor-server-test-host", version.ref = "ktor" }
-ktor-server-netty-jvm = { group = "io.ktor", name = "ktor-server-netty-jvm", version.ref = "ktor" }
-ktor-server-requestValidation = { group = "io.ktor", name = "ktor-server-request-validation", version.ref = "ktor" }
 ktor-plugin = { group = "io.ktor.plugin", name = "io.ktor.plugin.gradle.plugin", version.ref = "ktor" }
+ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-server-core = { group = "io.ktor", name = "ktor-server-core", version.ref = "ktor" }
+ktor-server-netty = { group = "io.ktor", name = "ktor-server-netty", version.ref = "ktor" }
+ktor-server-contentNegotiation = { group = "io.ktor", name = "ktor-server-content-negotiation", version.ref = "ktor" }
+ktor-server-hostCommon = { group = "io.ktor", name = "ktor-server-host-common", version.ref = "ktor" }
+ktor-server-statusPages = { group = "io.ktor", name = "ktor-server-status-pages", version.ref = "ktor" }
+ktor-server-requestValidation = { group = "io.ktor", name = "ktor-server-request-validation", version.ref = "ktor" }
+ktor-server-test = { group = "io.ktor", name = "ktor-server-test-host", version.ref = "ktor" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-contentNegotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 
-dokka-plugin = { group = "org.jetbrains.dokka", name = "dokka-gradle-plugin", version.ref = "dokka" }
 kotlinCompileTesting-ksp = { group = "com.github.tschuchortdev", name = "kotlin-compile-testing-ksp", version.ref = "kotlinCompileTesting" }
 kotlinSnapshot-plugin = { group = "com.karumi.kotlinsnapshot", name = "plugin", version.ref = "kotlinSnapshot" }
+dokka-plugin = { group = "org.jetbrains.dokka", name = "dokka-gradle-plugin", version.ref = "dokka" }
 exposed-core = { group = "org.jetbrains.exposed", name = "exposed-core", version.ref = "exposed" }
 exposed-jdbc = { group = "org.jetbrains.exposed", name = "exposed-jdbc", version.ref = "exposed" }
 h2 = { group = "com.h2database", name = "h2", version.ref = "h2" }
@@ -88,11 +86,11 @@ mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 [bundles]
 ktor-server = [
-    "ktor-server-core-jvm",
-    "ktor-server-contentNegotiation-jvm",
-    "ktor-serialization-json-jvm",
-    "ktor-server-host-common-jvm",
-    "ktor-server-status-pages-jvm",
-    "ktor-server-netty-jvm",
+    "ktor-server-core",
+    "ktor-server-contentNegotiation",
+    "ktor-serialization-json",
+    "ktor-server-hostCommon",
+    "ktor-server-statusPages",
+    "ktor-server-netty",
     "ktor-server-requestValidation",
 ]
