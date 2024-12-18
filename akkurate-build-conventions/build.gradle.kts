@@ -33,6 +33,10 @@ repositories {
 }
 
 dependencies {
+    // Workaround to use type-safe version catalog accessors in convention plugins,
+    // see https://github.com/gradle/gradle/issues/15383
+    implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
+
     implementation(libs.kotlin.plugin)
     implementation(libs.kotlin.symbolProcessing.plugin)
     implementation(libs.dokka.plugin)

@@ -17,14 +17,9 @@
 
 package dev.nesk.akkurate.gradle
 
-import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.api.plugins.ExtensionAware
-import org.gradle.kotlin.dsl.getByType
+import org.gradle.accessors.dm.LibrariesForLibs
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.the
 
-fun ExtensionAware.catalogVersion(catalogName: String = "libs", versionRef: String): String {
-    return extensions.getByType<VersionCatalogsExtension>()
-        .named(catalogName)
-        .findVersion(versionRef)
-        .get()
-        .requiredVersion
-}
+// See https://github.com/gradle/gradle/issues/15383
+val Project.libs: LibrariesForLibs get() = the()
