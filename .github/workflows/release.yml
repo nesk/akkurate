@@ -1,0 +1,46 @@
+name: Release a new version of Akkurate
+on: push
+#  workflow_dispatch:
+#    inputs:
+#      version:
+#        description: 'The version number to use'
+#        required: true
+#        type: string
+
+jobs:
+  create-release-pr:
+    name: Create a pull request for the release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Install chan CLI
+        run: npm install -g @geut/chan
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Write a new release to CHANGELOG.md
+        env:
+          RELEASE_VERSION: 0.99.0
+        run: chan release $RELEASE_VERSION --release-prefix=""
+
+      - name: Update Akkurate's version in build files
+        env:
+          RELEASE_VERSION: 0.99.0
+        run: |
+          sed -ri 's|version *= *".*|version = "'$RELEASE_VERSION'"|g' ./buildSrc/src/main/kotlin/akkurate.base-conventions.gradle.kts;
+          sed -ri 's|CONFIG_JSON_VERSION *:.*|CONFIG_JSON_VERSION: '$RELEASE_VERSION'|g' ./.github/workflows/deploy-website.yml;
+          sed -ri 's|<var.* name="version".*|<var name="version" value="'$RELEASE_VERSION'"/>|g' ./documentation/v.list;
+          sed -ri 's|<instance.* src="akkurate.tree".*|<instance src="akkurate.tree" version="'$RELEASE_VERSION'"/>|g' ./documentation/writerside.cfg;
+
+      - run: git diff
+#      - name: Commit and push
+#        uses: stefanzweifel/git-auto-commit-action@v5
+#        with:
+#          commit_message: release ${{ inputs.version }}
+#          branch: release/${{ inputs.version }}
+#          create_branch: true
+#          commit_author: Johann Pardanaud <johann@pardanaud.com>
+#          tagging_message: ${{ inputs.version }}

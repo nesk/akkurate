@@ -8,7 +8,9 @@ standard library; however, we still recommend you to create an issue just to be 
 
 ## Code style
 
-Before submitting your changes, make sure you've applied code formatting and removed unused imports.
+Before submitting your changes, make sure you've applied code
+formatting [using IntelliJ](https://www.jetbrains.com/help/idea/reformat-and-rearrange-code.html), and you've optimized
+imports.
 
 ## Testing
 
