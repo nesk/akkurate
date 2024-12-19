@@ -1,0 +1,5 @@
+public final class dev/nesk/akkurate/arrow/ArrowKt {
+	public static final fun bind (Larrow/core/raise/Raise;Ldev/nesk/akkurate/ValidationResult;)Ljava/lang/Object;
+	public static final fun toEither (Ldev/nesk/akkurate/ValidationResult;)Larrow/core/Either;
+}
+

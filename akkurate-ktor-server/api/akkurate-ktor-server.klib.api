@@ -1,0 +1,56 @@
+// Klib ABI Dump
+// Targets: [androidNativeArm32, androidNativeArm64, androidNativeX64, androidNativeX86, iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <dev.nesk.akkurate:akkurate-ktor-server>
+final class dev.nesk.akkurate.ktor.server/AkkurateConfig { // dev.nesk.akkurate.ktor.server/AkkurateConfig|null[0]
+    final var contentType // dev.nesk.akkurate.ktor.server/AkkurateConfig.contentType|{}contentType[0]
+        final fun <get-contentType>(): io.ktor.http/ContentType // dev.nesk.akkurate.ktor.server/AkkurateConfig.contentType.<get-contentType>|<get-contentType>(){}[0]
+        final fun <set-contentType>(io.ktor.http/ContentType) // dev.nesk.akkurate.ktor.server/AkkurateConfig.contentType.<set-contentType>|<set-contentType>(io.ktor.http.ContentType){}[0]
+    final var status // dev.nesk.akkurate.ktor.server/AkkurateConfig.status|{}status[0]
+        final fun <get-status>(): io.ktor.http/HttpStatusCode // dev.nesk.akkurate.ktor.server/AkkurateConfig.status.<get-status>|<get-status>(){}[0]
+        final fun <set-status>(io.ktor.http/HttpStatusCode) // dev.nesk.akkurate.ktor.server/AkkurateConfig.status.<set-status>|<set-status>(io.ktor.http.HttpStatusCode){}[0]
+
+    final fun buildResponse(kotlin.coroutines/SuspendFunction2<io.ktor.server.application/ApplicationCall, dev.nesk.akkurate.constraints/ConstraintViolationSet, kotlin/Unit>) // dev.nesk.akkurate.ktor.server/AkkurateConfig.buildResponse|buildResponse(kotlin.coroutines.SuspendFunction2<io.ktor.server.application.ApplicationCall,dev.nesk.akkurate.constraints.ConstraintViolationSet,kotlin.Unit>){}[0]
+}
+
+final class dev.nesk.akkurate.ktor.server/ProblemDetailsMessage { // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage|null[0]
+    constructor <init>(kotlin/Int, kotlin.collections/Set<dev.nesk.akkurate.constraints/ConstraintViolation>) // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage.<init>|<init>(kotlin.Int;kotlin.collections.Set<dev.nesk.akkurate.constraints.ConstraintViolation>){}[0]
+
+    final val detail // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage.detail|{}detail[0]
+        final fun <get-detail>(): kotlin/String // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage.detail.<get-detail>|<get-detail>(){}[0]
+    final val fields // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage.fields|{}fields[0]
+        final fun <get-fields>(): kotlin.collections/Set<dev.nesk.akkurate.constraints/ConstraintViolation> // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage.fields.<get-fields>|<get-fields>(){}[0]
+    final val status // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage.status|{}status[0]
+        final fun <get-status>(): kotlin/Int // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage.status.<get-status>|<get-status>(){}[0]
+    final val title // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage.title|{}title[0]
+        final fun <get-title>(): kotlin/String // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage.title.<get-title>|<get-title>(){}[0]
+    final val type // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage.type|{}type[0]
+        final fun <get-type>(): kotlin/String // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage.type.<get-type>|<get-type>(){}[0]
+
+    final object $serializer : kotlinx.serialization.internal/GeneratedSerializer<dev.nesk.akkurate.ktor.server/ProblemDetailsMessage> { // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage.$serializer|null[0]
+        final val descriptor // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage.$serializer.descriptor|{}descriptor[0]
+            final fun <get-descriptor>(): kotlinx.serialization.descriptors/SerialDescriptor // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage.$serializer.descriptor.<get-descriptor>|<get-descriptor>(){}[0]
+
+        final fun childSerializers(): kotlin/Array<kotlinx.serialization/KSerializer<*>> // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage.$serializer.childSerializers|childSerializers(){}[0]
+        final fun deserialize(kotlinx.serialization.encoding/Decoder): dev.nesk.akkurate.ktor.server/ProblemDetailsMessage // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage.$serializer.deserialize|deserialize(kotlinx.serialization.encoding.Decoder){}[0]
+        final fun serialize(kotlinx.serialization.encoding/Encoder, dev.nesk.akkurate.ktor.server/ProblemDetailsMessage) // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage.$serializer.serialize|serialize(kotlinx.serialization.encoding.Encoder;dev.nesk.akkurate.ktor.server.ProblemDetailsMessage){}[0]
+    }
+
+    final object Companion { // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage.Companion|null[0]
+        final val $childSerializers // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage.Companion.$childSerializers|{}$childSerializers[0]
+
+        final fun serializer(): kotlinx.serialization/KSerializer<dev.nesk.akkurate.ktor.server/ProblemDetailsMessage> // dev.nesk.akkurate.ktor.server/ProblemDetailsMessage.Companion.serializer|serializer(){}[0]
+    }
+}
+
+final val dev.nesk.akkurate.ktor.server/Akkurate // dev.nesk.akkurate.ktor.server/Akkurate|{}Akkurate[0]
+    final fun <get-Akkurate>(): io.ktor.server.application/ApplicationPlugin<dev.nesk.akkurate.ktor.server/AkkurateConfig> // dev.nesk.akkurate.ktor.server/Akkurate.<get-Akkurate>|<get-Akkurate>(){}[0]
+
+final inline fun <#A: kotlin/Any?, #B: reified kotlin/Any> (io.ktor.server.plugins.requestvalidation/RequestValidationConfig).dev.nesk.akkurate.ktor.server/registerValidator(dev.nesk.akkurate/Validator.Runner.WithContext<#A, #B>, noinline kotlin.coroutines/SuspendFunction0<#A>) // dev.nesk.akkurate.ktor.server/registerValidator|registerValidator@io.ktor.server.plugins.requestvalidation.RequestValidationConfig(dev.nesk.akkurate.Validator.Runner.WithContext<0:0,0:1>;kotlin.coroutines.SuspendFunction0<0:0>){0§<kotlin.Any?>;1§<kotlin.Any>}[0]
+final inline fun <#A: kotlin/Any?, #B: reified kotlin/Any> (io.ktor.server.plugins.requestvalidation/RequestValidationConfig).dev.nesk.akkurate.ktor.server/registerValidator(dev.nesk.akkurate/Validator.SuspendableRunner.WithContext<#A, #B>, noinline kotlin.coroutines/SuspendFunction0<#A>) // dev.nesk.akkurate.ktor.server/registerValidator|registerValidator@io.ktor.server.plugins.requestvalidation.RequestValidationConfig(dev.nesk.akkurate.Validator.SuspendableRunner.WithContext<0:0,0:1>;kotlin.coroutines.SuspendFunction0<0:0>){0§<kotlin.Any?>;1§<kotlin.Any>}[0]
+final inline fun <#A: reified kotlin/Any> (io.ktor.server.plugins.requestvalidation/RequestValidationConfig).dev.nesk.akkurate.ktor.server/registerValidator(dev.nesk.akkurate/Validator.Runner<#A>) // dev.nesk.akkurate.ktor.server/registerValidator|registerValidator@io.ktor.server.plugins.requestvalidation.RequestValidationConfig(dev.nesk.akkurate.Validator.Runner<0:0>){0§<kotlin.Any>}[0]
+final inline fun <#A: reified kotlin/Any> (io.ktor.server.plugins.requestvalidation/RequestValidationConfig).dev.nesk.akkurate.ktor.server/registerValidator(dev.nesk.akkurate/Validator.SuspendableRunner<#A>) // dev.nesk.akkurate.ktor.server/registerValidator|registerValidator@io.ktor.server.plugins.requestvalidation.RequestValidationConfig(dev.nesk.akkurate.Validator.SuspendableRunner<0:0>){0§<kotlin.Any>}[0]

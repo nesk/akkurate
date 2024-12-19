@@ -1,0 +1,4 @@
+public final class dev/nesk/akkurate/test/ValidatableKt {
+	public static final fun Validatable (Ljava/lang/Object;)Ldev/nesk/akkurate/validatables/Validatable;
+}
+

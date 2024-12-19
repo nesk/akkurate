@@ -1,0 +1,32 @@
+public final class dev/nesk/akkurate/ktor/client/AkkurateConfig {
+	public final fun registerValidator (Ldev/nesk/akkurate/ktor/client/ClientValidator;)V
+}
+
+public final class dev/nesk/akkurate/ktor/client/AkkurateKt {
+	public static final fun getAkkurate ()Lio/ktor/client/plugins/api/ClientPlugin;
+}
+
+public abstract interface class dev/nesk/akkurate/ktor/client/ClientValidator {
+	public abstract fun validate (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class dev/nesk/akkurate/ktor/client/ClientValidator$Runner : dev/nesk/akkurate/ktor/client/ClientValidator {
+	public fun <init> (Lkotlin/reflect/KClass;Ldev/nesk/akkurate/Validator$Runner;)V
+	public fun validate (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class dev/nesk/akkurate/ktor/client/ClientValidator$Runner$WithContext : dev/nesk/akkurate/ktor/client/ClientValidator {
+	public fun <init> (Lkotlin/reflect/KClass;Ldev/nesk/akkurate/Validator$Runner$WithContext;Lkotlin/jvm/functions/Function1;)V
+	public fun validate (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class dev/nesk/akkurate/ktor/client/ClientValidator$SuspendableRunner : dev/nesk/akkurate/ktor/client/ClientValidator {
+	public fun <init> (Lkotlin/reflect/KClass;Ldev/nesk/akkurate/Validator$SuspendableRunner;)V
+	public fun validate (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class dev/nesk/akkurate/ktor/client/ClientValidator$SuspendableRunner$WithContext : dev/nesk/akkurate/ktor/client/ClientValidator {
+	public fun <init> (Lkotlin/reflect/KClass;Ldev/nesk/akkurate/Validator$SuspendableRunner$WithContext;Lkotlin/jvm/functions/Function1;)V
+	public fun validate (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+

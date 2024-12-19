@@ -3,6 +3,7 @@ import dev.nesk.akkurate.gradle.configurePom
 plugins {
     id("akkurate.publishing-conventions")
     kotlin("multiplatform")
+    id("org.jetbrains.kotlinx.binary-compatibility-validator")
 }
 
 kotlin {
@@ -30,6 +31,14 @@ kotlin {
 tasks {
     withType<Test> {
         useJUnitPlatform()
+    }
+}
+
+// Binary compatibility
+apiValidation {
+    @OptIn(kotlinx.validation.ExperimentalBCVApi::class)
+    klib {
+        enabled = true
     }
 }
 

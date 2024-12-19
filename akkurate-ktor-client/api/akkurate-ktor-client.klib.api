@@ -1,0 +1,46 @@
+// Klib ABI Dump
+// Targets: [androidNativeArm32, androidNativeArm64, androidNativeX64, androidNativeX86, iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, wasmJs, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <dev.nesk.akkurate:akkurate-ktor-client>
+abstract interface dev.nesk.akkurate.ktor.client/ClientValidator { // dev.nesk.akkurate.ktor.client/ClientValidator|null[0]
+    abstract suspend fun validate(kotlin/Any?) // dev.nesk.akkurate.ktor.client/ClientValidator.validate|validate(kotlin.Any?){}[0]
+
+    final class <#A1: kotlin/Any?> Runner : dev.nesk.akkurate.ktor.client/ClientValidator { // dev.nesk.akkurate.ktor.client/ClientValidator.Runner|null[0]
+        constructor <init>(kotlin.reflect/KClass<*>, dev.nesk.akkurate/Validator.Runner<#A1>) // dev.nesk.akkurate.ktor.client/ClientValidator.Runner.<init>|<init>(kotlin.reflect.KClass<*>;dev.nesk.akkurate.Validator.Runner<1:0>){}[0]
+
+        final suspend fun validate(kotlin/Any?) // dev.nesk.akkurate.ktor.client/ClientValidator.Runner.validate|validate(kotlin.Any?){}[0]
+
+        final class <#A2: kotlin/Any?, #B2: kotlin/Any?> WithContext : dev.nesk.akkurate.ktor.client/ClientValidator { // dev.nesk.akkurate.ktor.client/ClientValidator.Runner.WithContext|null[0]
+            constructor <init>(kotlin.reflect/KClass<*>, dev.nesk.akkurate/Validator.Runner.WithContext<#A2, #B2>, kotlin.coroutines/SuspendFunction0<#A2>) // dev.nesk.akkurate.ktor.client/ClientValidator.Runner.WithContext.<init>|<init>(kotlin.reflect.KClass<*>;dev.nesk.akkurate.Validator.Runner.WithContext<1:0,1:1>;kotlin.coroutines.SuspendFunction0<1:0>){}[0]
+
+            final suspend fun validate(kotlin/Any?) // dev.nesk.akkurate.ktor.client/ClientValidator.Runner.WithContext.validate|validate(kotlin.Any?){}[0]
+        }
+    }
+
+    final class <#A1: kotlin/Any?> SuspendableRunner : dev.nesk.akkurate.ktor.client/ClientValidator { // dev.nesk.akkurate.ktor.client/ClientValidator.SuspendableRunner|null[0]
+        constructor <init>(kotlin.reflect/KClass<*>, dev.nesk.akkurate/Validator.SuspendableRunner<#A1>) // dev.nesk.akkurate.ktor.client/ClientValidator.SuspendableRunner.<init>|<init>(kotlin.reflect.KClass<*>;dev.nesk.akkurate.Validator.SuspendableRunner<1:0>){}[0]
+
+        final suspend fun validate(kotlin/Any?) // dev.nesk.akkurate.ktor.client/ClientValidator.SuspendableRunner.validate|validate(kotlin.Any?){}[0]
+
+        final class <#A2: kotlin/Any?, #B2: kotlin/Any?> WithContext : dev.nesk.akkurate.ktor.client/ClientValidator { // dev.nesk.akkurate.ktor.client/ClientValidator.SuspendableRunner.WithContext|null[0]
+            constructor <init>(kotlin.reflect/KClass<*>, dev.nesk.akkurate/Validator.SuspendableRunner.WithContext<#A2, #B2>, kotlin.coroutines/SuspendFunction0<#A2>) // dev.nesk.akkurate.ktor.client/ClientValidator.SuspendableRunner.WithContext.<init>|<init>(kotlin.reflect.KClass<*>;dev.nesk.akkurate.Validator.SuspendableRunner.WithContext<1:0,1:1>;kotlin.coroutines.SuspendFunction0<1:0>){}[0]
+
+            final suspend fun validate(kotlin/Any?) // dev.nesk.akkurate.ktor.client/ClientValidator.SuspendableRunner.WithContext.validate|validate(kotlin.Any?){}[0]
+        }
+    }
+}
+
+final class dev.nesk.akkurate.ktor.client/AkkurateConfig { // dev.nesk.akkurate.ktor.client/AkkurateConfig|null[0]
+    final fun registerValidator(dev.nesk.akkurate.ktor.client/ClientValidator) // dev.nesk.akkurate.ktor.client/AkkurateConfig.registerValidator|registerValidator(dev.nesk.akkurate.ktor.client.ClientValidator){}[0]
+    final inline fun <#A1: kotlin/Any?, #B1: reified kotlin/Any?> registerValidator(dev.nesk.akkurate/Validator.Runner.WithContext<#A1, #B1>, noinline kotlin.coroutines/SuspendFunction0<#A1>) // dev.nesk.akkurate.ktor.client/AkkurateConfig.registerValidator|registerValidator(dev.nesk.akkurate.Validator.Runner.WithContext<0:0,0:1>;kotlin.coroutines.SuspendFunction0<0:0>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    final inline fun <#A1: kotlin/Any?, #B1: reified kotlin/Any?> registerValidator(dev.nesk.akkurate/Validator.SuspendableRunner.WithContext<#A1, #B1>, noinline kotlin.coroutines/SuspendFunction0<#A1>) // dev.nesk.akkurate.ktor.client/AkkurateConfig.registerValidator|registerValidator(dev.nesk.akkurate.Validator.SuspendableRunner.WithContext<0:0,0:1>;kotlin.coroutines.SuspendFunction0<0:0>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    final inline fun <#A1: reified kotlin/Any?> registerValidator(dev.nesk.akkurate/Validator.Runner<#A1>) // dev.nesk.akkurate.ktor.client/AkkurateConfig.registerValidator|registerValidator(dev.nesk.akkurate.Validator.Runner<0:0>){0§<kotlin.Any?>}[0]
+    final inline fun <#A1: reified kotlin/Any?> registerValidator(dev.nesk.akkurate/Validator.SuspendableRunner<#A1>) // dev.nesk.akkurate.ktor.client/AkkurateConfig.registerValidator|registerValidator(dev.nesk.akkurate.Validator.SuspendableRunner<0:0>){0§<kotlin.Any?>}[0]
+}
+
+final val dev.nesk.akkurate.ktor.client/Akkurate // dev.nesk.akkurate.ktor.client/Akkurate|{}Akkurate[0]
+    final fun <get-Akkurate>(): io.ktor.client.plugins.api/ClientPlugin<dev.nesk.akkurate.ktor.client/AkkurateConfig> // dev.nesk.akkurate.ktor.client/Akkurate.<get-Akkurate>|<get-Akkurate>(){}[0]

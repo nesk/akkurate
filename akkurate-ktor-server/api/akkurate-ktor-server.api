@@ -1,0 +1,37 @@
+public final class dev/nesk/akkurate/ktor/server/AkkurateConfig {
+	public final fun buildResponse (Lkotlin/jvm/functions/Function3;)V
+	public final fun getContentType ()Lio/ktor/http/ContentType;
+	public final fun getStatus ()Lio/ktor/http/HttpStatusCode;
+	public final fun setContentType (Lio/ktor/http/ContentType;)V
+	public final fun setStatus (Lio/ktor/http/HttpStatusCode;)V
+}
+
+public final class dev/nesk/akkurate/ktor/server/AkkurateKt {
+	public static final fun getAkkurate ()Lio/ktor/server/application/ApplicationPlugin;
+}
+
+public final class dev/nesk/akkurate/ktor/server/ProblemDetailsMessage {
+	public static final field Companion Ldev/nesk/akkurate/ktor/server/ProblemDetailsMessage$Companion;
+	public fun <init> (ILjava/util/Set;)V
+	public final fun getDetail ()Ljava/lang/String;
+	public final fun getFields ()Ljava/util/Set;
+	public final fun getStatus ()I
+	public final fun getTitle ()Ljava/lang/String;
+	public final fun getType ()Ljava/lang/String;
+}
+
+public final class dev/nesk/akkurate/ktor/server/ProblemDetailsMessage$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Ldev/nesk/akkurate/ktor/server/ProblemDetailsMessage$$serializer;
+	public fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ldev/nesk/akkurate/ktor/server/ProblemDetailsMessage;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ldev/nesk/akkurate/ktor/server/ProblemDetailsMessage;)V
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class dev/nesk/akkurate/ktor/server/ProblemDetailsMessage$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+

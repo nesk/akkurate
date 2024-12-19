@@ -1,0 +1,10 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosArm32, watchosArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <dev.nesk.akkurate:akkurate-arrow>
+final fun <#A: kotlin/Any?> (arrow.core.raise/Raise<arrow.core/NonEmptySet<dev.nesk.akkurate.constraints/ConstraintViolation>>).dev.nesk.akkurate.arrow/bind(dev.nesk.akkurate/ValidationResult<#A>): #A // dev.nesk.akkurate.arrow/bind|bind@arrow.core.raise.Raise<arrow.core.NonEmptySet<dev.nesk.akkurate.constraints.ConstraintViolation>>(dev.nesk.akkurate.ValidationResult<0:0>){0§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?> (dev.nesk.akkurate/ValidationResult<#A>).dev.nesk.akkurate.arrow/toEither(): arrow.core/Either<arrow.core/NonEmptySet<dev.nesk.akkurate.constraints/ConstraintViolation>, #A> // dev.nesk.akkurate.arrow/toEither|toEither@dev.nesk.akkurate.ValidationResult<0:0>(){0§<kotlin.Any?>}[0]
