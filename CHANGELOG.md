@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- test
+
 ## [0.11.0] - 2024-12-09
 ### Added
 - Ktor integration to automatically validate received payloads. ([#43](https://github.com/nesk/akkurate/issues/43))
