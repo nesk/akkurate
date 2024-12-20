@@ -37,11 +37,18 @@ jobs:
           sed -ri 's|<var.* name="version".*|<var name="version" value="'$RELEASE_VERSION'"/>|g' ./documentation/v.list;
           sed -ri 's|<instance.* src="akkurate.tree".*|<instance src="akkurate.tree" version="'$RELEASE_VERSION'"/>|g' ./documentation/writerside.cfg;
 
-      - name: Commit and push
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: release ${{ inputs.version }}
-          branch: release/${{ inputs.version }}
-          create_branch: true
-          commit_author: Johann Pardanaud <johann@pardanaud.com>
-          tagging_message: ${{ inputs.version }}
+#      - name: Commit and push
+#        uses: stefanzweifel/git-auto-commit-action@v5
+#        with:
+#          commit_message: release ${{ inputs.version }}
+#          branch: release/${{ inputs.version }}
+#          create_branch: true
+#          commit_author: Johann Pardanaud <johann@pardanaud.com>
+#          tagging_message: ${{ inputs.version }}
+
+      - name: Create a draft release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          RELEASE_VERSION: ${{ inputs.version }}
+          RELEASE_VERSION: 0.99.0
+        run: chan show $RELEASE_VERSION | tail -n +2 | gh release create $RELEASE_VERSION --title "Akkurate $RELEASE_VERSION" --draft --notes-file -
