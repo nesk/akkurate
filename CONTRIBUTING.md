@@ -14,7 +14,8 @@ imports.
 
 ## Testing
 
-When making some changes to existing code, make sure **all the tests** still pass, and adapt them when needed.
+When making some changes to existing code, make sure **all the tests** still pass by running `./gradlew allTests test`,
+and adapt them when needed.
 
 If you're fixing a bug, create a new test reproducing the bug to avoid future regressions.
 
