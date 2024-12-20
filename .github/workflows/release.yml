@@ -23,11 +23,13 @@ jobs:
 
       - name: Write a new release to CHANGELOG.md
         env:
+#          RELEASE_VERSION: ${{ inputs.version }}
           RELEASE_VERSION: 0.99.0
         run: chan release $RELEASE_VERSION --release-prefix=""
 
       - name: Update Akkurate's version in build files
         env:
+#          RELEASE_VERSION: ${{ inputs.version }}
           RELEASE_VERSION: 0.99.0
         run: |
           sed -ri 's|version *= *".*|version = "'$RELEASE_VERSION'"|g' ./buildSrc/src/main/kotlin/akkurate.base-conventions.gradle.kts;
