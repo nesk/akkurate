@@ -20,4 +20,4 @@ and adapt them when needed.
 If you're fixing a bug, create a new test reproducing the bug to avoid future regressions.
 
 New code should be tested with a significant code coverage score (you can check it by using **Run | Run with Coverage**
-in IntelliJ). 
+in IntelliJ).
