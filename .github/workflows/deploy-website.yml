@@ -1,5 +1,5 @@
 name: Deploy documentation and API reference
-on: [ push, pull_request ]
+#on: [ push, pull_request ]
 
 # Gives the workflow permissions to clone the repo and create a page deployment
 permissions:

@@ -3,52 +3,74 @@ on: push
 #  workflow_dispatch:
 #    inputs:
 #      version:
-#        description: 'The version number to use'
+#        description: 'The version number to use (ex: 1.22.3)'
 #        required: true
 #        type: string
+#env:
+#  RELEASE_VERSION: ${{ inputs.version }}
 
 jobs:
-  create-release-pr:
-    name: Create a pull request for the release
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
+#  create-release-pr:
+#    name: Create a pull request for the release
+#    runs-on: ubuntu-latest
+#    permissions:
+#      contents: write
+#
+#    steps:
+#      - name: Install chan CLI
+#        run: npm install -g @geut/chan
+#
+#      - name: Checkout repository
+#        uses: actions/checkout@v4
+#
+#      - name: Write a new release to CHANGELOG.md
+#        run: chan release $RELEASE_VERSION --release-prefix=""
+#
+#      - name: Update Akkurate's version in build files
+#        run: |
+#          echo 'version = "'$RELEASE_VERSION'"' > ./buildSrc/src/main/kotlin/akkurate.version.gradle.kts;
+#          sed -ri 's|CONFIG_JSON_VERSION *:.*|CONFIG_JSON_VERSION: '$RELEASE_VERSION'|g' ./.github/workflows/deploy-website.yml;
+#          sed -ri 's|<var.* name="version".*|<var name="version" value="'$RELEASE_VERSION'"/>|g' ./documentation/v.list;
+#          sed -ri 's|<instance.* src="akkurate.tree".*|<instance src="akkurate.tree" version="'$RELEASE_VERSION'"/>|g' ./documentation/writerside.cfg;
+#
+##      - name: Commit and push
+##        uses: stefanzweifel/git-auto-commit-action@v5
+##        with:
+##          commit_message: release ${{ inputs.version }}
+##          branch: release/${{ inputs.version }}
+##          create_branch: true
+##          commit_author: Johann Pardanaud <johann@pardanaud.com>
+##          tagging_message: ${{ inputs.version }}
+#
+#      - name: Create a draft release
+#        env:
+#          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        run: chan show $RELEASE_VERSION | tail -n +2 | gh release create $RELEASE_VERSION --title "Akkurate $RELEASE_VERSION" --draft --notes-file -
 
+  publish:
+    name: Publish to Maven Central Repository
+    runs-on: macos-latest
     steps:
-      - name: Install chan CLI
-        run: npm install -g @geut/chan
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Write a new release to CHANGELOG.md
-        env:
-#          RELEASE_VERSION: ${{ inputs.version }}
-          RELEASE_VERSION: 0.99.0
-        run: chan release $RELEASE_VERSION --release-prefix=""
+      - name: Set up JDK 8
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 8
 
-      - name: Update Akkurate's version in build files
-        env:
-#          RELEASE_VERSION: ${{ inputs.version }}
-          RELEASE_VERSION: 0.99.0
-        run: |
-          echo 'version = "'$RELEASE_VERSION'"' > ./buildSrc/src/main/kotlin/akkurate.version.gradle.kts;
-          sed -ri 's|CONFIG_JSON_VERSION *:.*|CONFIG_JSON_VERSION: '$RELEASE_VERSION'|g' ./.github/workflows/deploy-website.yml;
-          sed -ri 's|<var.* name="version".*|<var name="version" value="'$RELEASE_VERSION'"/>|g' ./documentation/v.list;
-          sed -ri 's|<instance.* src="akkurate.tree".*|<instance src="akkurate.tree" version="'$RELEASE_VERSION'"/>|g' ./documentation/writerside.cfg;
+      - name: Validate Gradle wrapper
+        uses: gradle/actions/wrapper-validation@v3
 
-#      - name: Commit and push
-#        uses: stefanzweifel/git-auto-commit-action@v5
-#        with:
-#          commit_message: release ${{ inputs.version }}
-#          branch: release/${{ inputs.version }}
-#          create_branch: true
-#          commit_author: Johann Pardanaud <johann@pardanaud.com>
-#          tagging_message: ${{ inputs.version }}
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
 
-      - name: Create a draft release
+      - name: Publish to Maven Central Repository
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          RELEASE_VERSION: ${{ inputs.version }}
-          RELEASE_VERSION: 0.99.0
-        run: chan show $RELEASE_VERSION | tail -n +2 | gh release create $RELEASE_VERSION --title "Akkurate $RELEASE_VERSION" --draft --notes-file -
+          ORG_GRADLE_PROJECT_signingKey: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY }}
+          ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
+          SONATYPE_URL: ${{ vars.SONATYPE_URL }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+        run: ./gradlew publish
