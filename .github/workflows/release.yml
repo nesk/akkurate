@@ -1,51 +1,58 @@
 name: Release a new version of Akkurate
-on: push
-#  workflow_dispatch:
-#    inputs:
-#      version:
-#        description: 'The version number to use (ex: 1.22.3)'
-#        required: true
-#        type: string
-#env:
-#  RELEASE_VERSION: ${{ inputs.version }}
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The version number to use (ex: 1.22.3)'
+        required: true
+        type: string
+env:
+  RELEASE_VERSION: ${{ inputs.version }}
 
 jobs:
-#  create-release-pr:
-#    name: Create a pull request for the release
-#    runs-on: ubuntu-latest
-#    permissions:
-#      contents: write
-#
-#    steps:
-#      - name: Install chan CLI
-#        run: npm install -g @geut/chan
-#
-#      - name: Checkout repository
-#        uses: actions/checkout@v4
-#
-#      - name: Write a new release to CHANGELOG.md
-#        run: chan release $RELEASE_VERSION --release-prefix=""
-#
-#      - name: Update Akkurate's version in build files
-#        run: |
-#          echo 'version = "'$RELEASE_VERSION'"' > ./buildSrc/src/main/kotlin/akkurate.version.gradle.kts;
-#          sed -ri 's|CONFIG_JSON_VERSION *:.*|CONFIG_JSON_VERSION: '$RELEASE_VERSION'|g' ./.github/workflows/deploy-website.yml;
-#          sed -ri 's|<var.* name="version".*|<var name="version" value="'$RELEASE_VERSION'"/>|g' ./documentation/v.list;
-#          sed -ri 's|<instance.* src="akkurate.tree".*|<instance src="akkurate.tree" version="'$RELEASE_VERSION'"/>|g' ./documentation/writerside.cfg;
-#
-##      - name: Commit and push
-##        uses: stefanzweifel/git-auto-commit-action@v5
-##        with:
-##          commit_message: release ${{ inputs.version }}
-##          branch: release/${{ inputs.version }}
-##          create_branch: true
-##          commit_author: Johann Pardanaud <johann@pardanaud.com>
-##          tagging_message: ${{ inputs.version }}
-#
-#      - name: Create a draft release
-#        env:
-#          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        run: chan show $RELEASE_VERSION | tail -n +2 | gh release create $RELEASE_VERSION --title "Akkurate $RELEASE_VERSION" --draft --notes-file -
+  create-release-pr:
+    name: Create a Pull Request for the release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install chan CLI
+        run: npm install -g @geut/chan
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # This token allows committing modifications on workflow files (read/write on Contents and Workflows permissions)
+          token: ${{ secrets.RELEASE_TOKEN }}
+
+      - name: Write a new release to CHANGELOG.md
+        run: chan release $RELEASE_VERSION --release-prefix=""
+
+      - name: Update Akkurate's version in build files
+        run: |
+          echo 'version = "'$RELEASE_VERSION'"' > ./buildSrc/src/main/kotlin/akkurate.version.gradle.kts;
+          sed -ri 's|CONFIG_JSON_VERSION *:.*|CONFIG_JSON_VERSION: '$RELEASE_VERSION'|g' ./.github/workflows/deploy-website.yml;
+          sed -ri 's|<var.* name="version".*|<var name="version" value="'$RELEASE_VERSION'"/>|g' ./documentation/v.list;
+          sed -ri 's|<instance.* src="akkurate.tree".*|<instance src="akkurate.tree" version="'$RELEASE_VERSION'"/>|g' ./documentation/writerside.cfg;
+
+      - name: Commit and push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: release ${{ inputs.version }}
+          branch: release/${{ inputs.version }}
+          create_branch: true
+          commit_author: Johann Pardanaud <johann@pardanaud.com>
+          tagging_message: ${{ inputs.version }}
+
+      - name: Create a draft release
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        # The tail command is used to remove an unnecessary title from the changelog.
+        run: chan show $RELEASE_VERSION | tail -n +2 | gh release create $RELEASE_VERSION --title "Akkurate $RELEASE_VERSION" --draft --notes-file -
+
+      - name: Create a Pull Request
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        run: gh pr create --assignee nesk --base main --head release/$RELEASE_VERSION --title "Release $RELEASE_VERSION" --body "New release" -d
 
   publish:
     name: Publish to Maven Central Repository
