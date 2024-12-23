@@ -1,0 +1,76 @@
+[versions]
+# https://gradle.org/releases/
+gradle-wrapper = "8.1.1"
+# https://kotlinlang.org/docs/releases.html
+kotlin-language = "2.0.20"
+# https://github.com/google/ksp/releases
+kotlin-symbolProcessing = "2.0.20-1.0.24"
+# https://github.com/Kotlin/kotlinx.coroutines/releases
+kotlinx-coroutines = "1.9.0"
+# https://github.com/Kotlin/kotlinx-datetime/releases
+kotlinx-datetime = "0.6.1"
+# https://github.com/Kotlin/kotlinx.serialization/releases
+kotlinx-serialization = "1.7.3"
+# https://github.com/Kotlin/binary-compatibility-validator
+kotlinx-binaryValidator = "0.17.0"
+# https://github.com/ktorio/ktor/releases
+ktor = "3.0.0"
+# https://logback.qos.ch/news.html
+logback = "1.4.14"
+# https://github.com/JetBrains/Exposed/releases
+exposed = "0.56.0"
+# https://github.com/h2database/h2database/releases
+h2 = "2.3.232"
+# https://github.com/arrow-kt/arrow/releases
+arrow = "1.2.0"
+# https://github.com/Kotlin/dokka/releases
+dokka = "1.9.0"
+# https://square.github.io/kotlinpoet/changelog/
+kotlinpoet = "1.14.2"
+# https://github.com/tschuchortdev/kotlin-compile-testing/releases
+kotlinCompileTesting = "1.5.0"
+# https://github.com/pedrovgs/KotlinSnapshot/releases
+kotlinSnapshot = "2.3.0"
+# https://github.com/radarsh/gradle-test-logger-plugin/releases
+testLogger = "3.2.0"
+# https://github.com/mockk/mockk/releases
+mockk = "1.13.13"
+
+[libraries]
+kotlin-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin-language" }
+kotlin-test-junit = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit", version.ref = "kotlin-language" }
+kotlin-symbolProcessing-api = { group = "com.google.devtools.ksp", name = "symbol-processing-api", version.ref = "kotlin-symbolProcessing" }
+kotlin-symbolProcessing-plugin = { group = "com.google.devtools.ksp", name = "symbol-processing-gradle-plugin", version.ref = "kotlin-symbolProcessing" }
+
+kotlinx-serialization-plugin = { group = "org.jetbrains.kotlin.plugin.serialization", name = "org.jetbrains.kotlin.plugin.serialization.gradle.plugin", version.ref = "kotlin-language" }
+kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
+kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+kotlinx-binaryValidator-plugin = { group = "org.jetbrains.kotlinx.binary-compatibility-validator", name = "org.jetbrains.kotlinx.binary-compatibility-validator.gradle.plugin", version.ref = "kotlinx-binaryValidator" }
+
+kotlinpoet-core = { group = "com.squareup", name = "kotlinpoet", version.ref = "kotlinpoet" }
+kotlinpoet-ksp = { group = "com.squareup", name = "kotlinpoet-ksp", version.ref = "kotlinpoet" }
+
+arrow-core = { group = "io.arrow-kt", name = "arrow-core", version.ref = "arrow" }
+
+ktor-plugin = { group = "io.ktor.plugin", name = "io.ktor.plugin.gradle.plugin", version.ref = "ktor" }
+ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-server-core = { group = "io.ktor", name = "ktor-server-core", version.ref = "ktor" }
+ktor-server-netty = { group = "io.ktor", name = "ktor-server-netty", version.ref = "ktor" }
+ktor-server-contentNegotiation = { group = "io.ktor", name = "ktor-server-content-negotiation", version.ref = "ktor" }
+ktor-server-hostCommon = { group = "io.ktor", name = "ktor-server-host-common", version.ref = "ktor" }
+ktor-server-statusPages = { group = "io.ktor", name = "ktor-server-status-pages", version.ref = "ktor" }
+ktor-server-requestValidation = { group = "io.ktor", name = "ktor-server-request-validation", version.ref = "ktor" }
+ktor-server-test = { group = "io.ktor", name = "ktor-server-test-host", version.ref = "ktor" }
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-client-contentNegotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+
+kotlinCompileTesting-ksp = { group = "com.github.tschuchortdev", name = "kotlin-compile-testing-ksp", version.ref = "kotlinCompileTesting" }
+kotlinSnapshot-plugin = { group = "com.karumi.kotlinsnapshot", name = "plugin", version.ref = "kotlinSnapshot" }
+dokka-plugin = { group = "org.jetbrains.dokka", name = "dokka-gradle-plugin", version.ref = "dokka" }
+exposed-core = { group = "org.jetbrains.exposed", name = "exposed-core", version.ref = "exposed" }
+exposed-jdbc = { group = "org.jetbrains.exposed", name = "exposed-jdbc", version.ref = "exposed" }
+h2 = { group = "com.h2database", name = "h2", version.ref = "h2" }
+logback = { group = "ch.qos.logback", name = "logback-classic", version.ref = "logback" }
+testLogger-plugin = { group = "com.adarshr", name = "gradle-test-logger-plugin", version.ref = "testLogger" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }

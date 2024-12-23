@@ -1,7 +1,11 @@
 plugins {
-    id("org.jetbrains.dokka") version "1.9.0"
+    id("org.jetbrains.dokka")
 }
 
 repositories {
     mavenCentral()
+}
+
+tasks.named<Wrapper>("wrapper") {
+    gradleVersion = libs.versions.gradle.wrapper.get()
 }

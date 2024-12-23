@@ -7,7 +7,12 @@ repositories {
 }
 
 dependencies {
-    implementation("com.adarshr:gradle-test-logger-plugin:3.2.0")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.20")
-    implementation("org.jetbrains.kotlinx:binary-compatibility-validator:0.17.0")
+    implementation(libs.kotlin.plugin)
+    implementation(libs.kotlin.symbolProcessing.plugin)
+    implementation(libs.kotlinx.serialization.plugin)
+    implementation(libs.kotlinSnapshot.plugin)
+    implementation(libs.dokka.plugin)
+    implementation(libs.ktor.plugin)
+    implementation(libs.testLogger.plugin)
+    implementation(libs.kotlinx.binaryValidator.plugin)
 }
