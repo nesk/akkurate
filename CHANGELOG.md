@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.99.0] - 2024-12-26
 ### Added
 - test
 
@@ -97,7 +99,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Suppress the warning about useless casts in generated accessors. ([#8](https://github.com/nesk/akkurate/issues/8))
 
 ## [0.1.0] - 2023-09-12
-[Unreleased]: https://github.com/nesk/akkurate/compare/0.11.0...HEAD
+[Unreleased]: https://github.com/nesk/akkurate/compare/0.99.0...HEAD
+[0.99.0]: https://github.com/nesk/akkurate/compare/0.11.0...0.99.0
 [0.11.0]: https://github.com/nesk/akkurate/compare/0.10.0...0.11.0
 [0.10.0]: https://github.com/nesk/akkurate/compare/0.9.1...0.10.0
 [0.9.1]: https://github.com/nesk/akkurate/compare/0.9.0...0.9.1
