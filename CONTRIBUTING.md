@@ -21,3 +21,13 @@ If you're fixing a bug, create a new test reproducing the bug to avoid future re
 
 New code should be tested with a significant code coverage score (you can check it by using **Run | Run with Coverage**
 in IntelliJ).
+
+## Releasing
+
+The release process is almost entirely automated. You only have to
+trigger [the release workflow](.github/workflows/release.yml)
+and then follow the instructions of the created pull request.
+
+```shell
+gh workflow run release.yml -f version=1.2.3
+```
