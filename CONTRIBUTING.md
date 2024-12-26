@@ -29,5 +29,5 @@ trigger [the release workflow](.github/workflows/release.yml)
 and then follow the instructions of the created pull request.
 
 ```shell
-gh workflow run release.yml -f version=1.2.3
+gh workflow run release.yml -f version=1.22.3
 ```

@@ -1,4 +1,4 @@
-name: Release new version
+name: Release a new version
 on:
   workflow_dispatch:
     inputs:
@@ -11,7 +11,7 @@ env:
 
 jobs:
   create-release-pr:
-    name: Create a pull request for the release
+    name: Create a release and a pull request
     runs-on: ubuntu-latest
 
     steps:
@@ -59,9 +59,9 @@ jobs:
           #### Maven Central Repository
           Head to the [Nexus Repository Manager](https://s01.oss.sonatype.org/#stagingRepositories) and verify if the newly created staging repository is valid, meaning:
         
-          - all the artifacts are present (root directories starting with `akkurate-` in the sources);
+          - all the artifacts are present (root directories starting with \`akkurate-\` in the sources);
           - each artifact is built for nearly [all multiplatform targets](https://kotlinlang.org/docs/multiplatform-dsl-reference.html#targets);
-          - and all the files are signed with multiple `.asc` variations.
+          - and all the files are signed with multiple \`.asc\` variations.
           
           If everything is compliant to this checklist, close the repository, then release it.
           
@@ -74,8 +74,8 @@ jobs:
           ### Aborting the release
           In case you want to cancel everything and restart from a clean slate:
           
-          - Delete the tag and the branch: `git push --delete origin $RELEASE_VERSION release/$RELEASE_VERSION`
-          - Delete the release: `gh release delete $RELEASE_VERSION`"
+          - Delete the tag and the branch: \`git push --delete origin $RELEASE_VERSION release/$RELEASE_VERSION\`
+          - Delete the release: \`gh release delete $RELEASE_VERSION\`"
 
   publish:
     name: Publish to Maven Central Repository
