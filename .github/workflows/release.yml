@@ -74,8 +74,8 @@ jobs:
           ### Aborting the release
           In case you want to cancel everything and restart from a clean slate:
           
-          - Delete the tag and the branch: \`git push --delete origin $RELEASE_VERSION release/$RELEASE_VERSION\`
-          - Delete the release: \`gh release delete $RELEASE_VERSION\`"
+          - Delete the release: \`gh release delete $RELEASE_VERSION\`
+          - Delete the tag and the branch: \`git push --delete origin $RELEASE_VERSION release/$RELEASE_VERSION\`"
 
   publish:
     name: Publish to Maven Central Repository
