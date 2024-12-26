@@ -1,4 +1,4 @@
-name: Release a new version of Akkurate
+name: Release new version
 on:
   workflow_dispatch:
     inputs:
