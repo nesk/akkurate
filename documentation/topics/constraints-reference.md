@@ -98,12 +98,12 @@ objects, without having to write custom constraints for anything else than busin
 
 - [isInPast](https://akkurate.dev/api/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-in-past.html)
 - [isInPastOrIsPresent](https://akkurate.dev/api/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-in-past-or-is-present.html)
-- [isInFuture](https://akkurate.dev/api/integrations/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-in-future.html)
-- [isInFutureOrIsPresent](https://akkurate.dev/api/integrations/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-in-future-or-is-present.html)
-- [isBefore](https://akkurate.dev/api/integrations/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-before.html)
-- [isBeforeOrEqualTo](https://akkurate.dev/api/integrations/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-before-or-equal-to.html)
-- [isAfter](https://akkurate.dev/api/integrations/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-after.html)
-- [isAfterOrEqualTo](https://akkurate.dev/api/integrations/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-after-or-equal-to.html)
+- [isInFuture](https://akkurate.dev/api/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-in-future.html)
+- [isInFutureOrIsPresent](https://akkurate.dev/api/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-in-future-or-is-present.html)
+- [isBefore](https://akkurate.dev/api/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-before.html)
+- [isBeforeOrEqualTo](https://akkurate.dev/api/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-before-or-equal-to.html)
+- [isAfter](https://akkurate.dev/api/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-after.html)
+- [isAfterOrEqualTo](https://akkurate.dev/api/akkurate-kotlinx-datetime/dev.nesk.akkurate.constraints.builders/is-after-or-equal-to.html)
 
 </snippet>
 
