@@ -19,6 +19,7 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(project(":akkurate-test"))
+            implementation(libs.kotlinx.coroutines.test)
         }
     }
 }

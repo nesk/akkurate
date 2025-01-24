@@ -20,6 +20,7 @@ kotlin {
             implementation(libs.ktor.server.test)
             implementation(libs.ktor.server.contentNegotiation)
             implementation(libs.ktor.serialization.json)
+            implementation(libs.kotlinx.coroutines.test)
         }
         jvmTest.dependencies {
             implementation(libs.mockk)

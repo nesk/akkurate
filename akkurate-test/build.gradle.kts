@@ -14,5 +14,10 @@ kotlin {
                 api(project(":akkurate-core"))
             }
         }
+        commonTest {
+            dependencies {
+                implementation(libs.kotlinx.coroutines.test)
+            }
+        }
     }
 }

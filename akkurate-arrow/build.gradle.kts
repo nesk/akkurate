@@ -21,5 +21,10 @@ kotlin {
                 api(libs.arrow.core)
             }
         }
+        commonTest {
+            dependencies {
+                implementation(libs.kotlinx.coroutines.test)
+            }
+        }
     }
 }
