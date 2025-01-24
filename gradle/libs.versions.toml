@@ -1,5 +1,7 @@
 [versions]
 # https://gradle.org/releases/
+# To actually update gradle wrapper binary after updating this value call wrapper task ("gradlew wrapper") and any
+# other task aftewards.
 gradle-wrapper = "8.1.1"
 # https://kotlinlang.org/docs/releases.html
 kotlin-language = "2.0.20"
