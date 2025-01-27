@@ -4,7 +4,7 @@ import dev.nesk.akkurate.gradle.configureTargets
 plugins {
     id("akkurate.kmp-library-conventions")
     id("org.jetbrains.dokka")
-    alias(libs.plugins.kotlinx.serialization)
+    kotlin("plugin.serialization")
 }
 
 kotlin {
@@ -20,6 +20,7 @@ kotlin {
             implementation(libs.ktor.server.test)
             implementation(libs.ktor.server.contentNegotiation)
             implementation(libs.ktor.serialization.json)
+            implementation(libs.kotlinx.coroutines.test)
         }
         jvmTest.dependencies {
             implementation(libs.mockk)
