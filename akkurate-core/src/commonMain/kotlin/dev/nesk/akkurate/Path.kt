@@ -17,11 +17,12 @@
 
 package dev.nesk.akkurate
 
+import dev.nesk.akkurate.validatables.GenericValidatable
 import dev.nesk.akkurate.validatables.Validatable
 
 public typealias Path = List<String>
 
-public class PathBuilder(private val validatable: Validatable<*>) {
+public class PathBuilder<MetadataType>(private val validatable: GenericValidatable<*, MetadataType>) {
     public fun absolute(vararg pathSegments: String): Path = pathSegments.toList()
 
     public fun relative(vararg pathSegments: String): Path {
@@ -32,4 +33,4 @@ public class PathBuilder(private val validatable: Validatable<*>) {
     public fun appended(vararg pathSegments: String): Path = validatable.path() + pathSegments.toList()
 }
 
-public fun Validatable<*>.path(block: PathBuilder.() -> Path): Path = PathBuilder(this).block()
+public fun <MetadataType> GenericValidatable<*, MetadataType>.path(block: PathBuilder<MetadataType>.() -> Path): Path = PathBuilder(this).block()

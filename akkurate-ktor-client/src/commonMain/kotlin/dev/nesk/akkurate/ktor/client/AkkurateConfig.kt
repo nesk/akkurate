@@ -36,8 +36,8 @@ public class AkkurateConfig internal constructor() {
      * Registers a new [validator], which will be executed for each deserialized response body.
      * The [contextProvider] is called on each execution, then its result is feed to the validator.
      */
-    public inline fun <ContextType, reified ValueType> registerValidator(
-        validator: Validator.Runner.WithContext<ContextType, ValueType>,
+    public inline fun <ContextType, reified ValueType, MetadataType> registerValidator(
+        validator: Validator.Runner.WithContext<ContextType, ValueType, MetadataType>,
         noinline contextProvider: suspend () -> ContextType,
     ) {
         registerValidator(ClientValidator.Runner.WithContext(ValueType::class, validator, contextProvider))
@@ -46,7 +46,7 @@ public class AkkurateConfig internal constructor() {
     /**
      * Registers a new [validator], which will be executed for each deserialized response body.
      */
-    public inline fun <reified ValueType> registerValidator(validator: Validator.Runner<ValueType>) {
+    public inline fun <reified ValueType, MetadataType> registerValidator(validator: Validator.Runner<ValueType, MetadataType>) {
         registerValidator(ClientValidator.Runner(ValueType::class, validator))
     }
 
@@ -54,8 +54,8 @@ public class AkkurateConfig internal constructor() {
      * Registers a new [validator], which will be executed for each deserialized response body.
      * The [contextProvider] is called on each execution, then its result is feed to the validator.
      */
-    public inline fun <ContextType, reified ValueType> registerValidator(
-        validator: Validator.SuspendableRunner.WithContext<ContextType, ValueType>,
+    public inline fun <ContextType, reified ValueType, MetadataType> registerValidator(
+        validator: Validator.SuspendableRunner.WithContext<ContextType, ValueType, MetadataType>,
         noinline contextProvider: suspend () -> ContextType,
     ) {
         registerValidator(ClientValidator.SuspendableRunner.WithContext(ValueType::class, validator, contextProvider))
@@ -64,7 +64,7 @@ public class AkkurateConfig internal constructor() {
     /**
      * Registers a new [validator], which will be executed for each deserialized response body.
      */
-    public inline fun <reified ValueType> registerValidator(validator: Validator.SuspendableRunner<ValueType>) {
+    public inline fun <reified ValueType, MetadataType> registerValidator(validator: Validator.SuspendableRunner<ValueType, MetadataType>) {
         registerValidator(ClientValidator.SuspendableRunner(ValueType::class, validator))
     }
 }

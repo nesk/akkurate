@@ -17,10 +17,10 @@
 
 package dev.nesk.akkurate.constraints.builders
 
-import dev.nesk.akkurate.constraints.Constraint
+import dev.nesk.akkurate.constraints.GenericConstraint
 import dev.nesk.akkurate.constraints.constrainIfNotNull
 import dev.nesk.akkurate.constraints.otherwise
-import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.validatables.GenericValidatable
 import kotlin.time.Duration
 
 /**
@@ -35,7 +35,7 @@ import kotlin.time.Duration
  * validate(1.seconds) // Failure (message: Must be negative)
  * ```
  */
-public fun Validatable<Duration?>.isNegative(): Constraint =
+public fun <MetadataType> GenericValidatable<Duration?, MetadataType>.isNegative(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.isNegative() && it != Duration.ZERO } otherwise { "Must be negative" }
 
 /**
@@ -50,7 +50,7 @@ public fun Validatable<Duration?>.isNegative(): Constraint =
  * validate(1.seconds) // Failure (message: Must be negative or equal to zero)
  * ```
  */
-public fun Validatable<Duration?>.isNegativeOrZero(): Constraint =
+public fun <MetadataType> GenericValidatable<Duration?, MetadataType>.isNegativeOrZero(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.isNegative() || it == Duration.ZERO } otherwise { "Must be negative or equal to zero" }
 
 /**
@@ -65,7 +65,7 @@ public fun Validatable<Duration?>.isNegativeOrZero(): Constraint =
  * validate((-1).seconds) // Failure (message: Must be positive)
  * ```
  */
-public fun Validatable<Duration?>.isPositive(): Constraint =
+public fun <MetadataType> GenericValidatable<Duration?, MetadataType>.isPositive(): GenericConstraint<MetadataType> =
     constrainIfNotNull { !it.isNegative() && it != Duration.ZERO } otherwise { "Must be positive" }
 
 /**
@@ -80,7 +80,7 @@ public fun Validatable<Duration?>.isPositive(): Constraint =
  * validate((-1).seconds) // Failure (message: Must be positive or equal to zero)
  * ```
  */
-public fun Validatable<Duration?>.isPositiveOrZero(): Constraint =
+public fun <MetadataType> GenericValidatable<Duration?, MetadataType>.isPositiveOrZero(): GenericConstraint<MetadataType> =
     constrainIfNotNull { !it.isNegative() || it == Duration.ZERO } otherwise { "Must be positive or equal to zero" }
 
 /**
@@ -95,7 +95,7 @@ public fun Validatable<Duration?>.isPositiveOrZero(): Constraint =
  * validate(1.seconds) // Failure (message: Must be lower than 0s)
  * ```
  */
-public fun Validatable<Duration?>.isLowerThan(value: Duration): Constraint =
+public fun <MetadataType> GenericValidatable<Duration?, MetadataType>.isLowerThan(value: Duration): GenericConstraint<MetadataType> =
     constrainIfNotNull { it < value } otherwise { "Must be lower than $value" }
 
 /**
@@ -110,7 +110,7 @@ public fun Validatable<Duration?>.isLowerThan(value: Duration): Constraint =
  * validate(1.seconds) // Failure (message: Must be lower than or equal to 0s)
  * ```
  */
-public fun Validatable<Duration?>.isLowerThanOrEqualTo(value: Duration): Constraint =
+public fun <MetadataType> GenericValidatable<Duration?, MetadataType>.isLowerThanOrEqualTo(value: Duration): GenericConstraint<MetadataType> =
     constrainIfNotNull { it <= value } otherwise { "Must be lower than or equal to $value" }
 
 /**
@@ -125,7 +125,7 @@ public fun Validatable<Duration?>.isLowerThanOrEqualTo(value: Duration): Constra
  * validate((-1).seconds) // Failure (message: Must be greater than 0s)
  * ```
  */
-public fun Validatable<Duration?>.isGreaterThan(value: Duration): Constraint =
+public fun <MetadataType> GenericValidatable<Duration?, MetadataType>.isGreaterThan(value: Duration): GenericConstraint<MetadataType> =
     constrainIfNotNull { it > value } otherwise { "Must be greater than $value" }
 
 /**
@@ -140,7 +140,7 @@ public fun Validatable<Duration?>.isGreaterThan(value: Duration): Constraint =
  * validate((-1).seconds) // Failure (message: Must be greater than or equal to 0s)
  * ```
  */
-public fun Validatable<Duration?>.isGreaterThanOrEqualTo(value: Duration): Constraint =
+public fun <MetadataType> GenericValidatable<Duration?, MetadataType>.isGreaterThanOrEqualTo(value: Duration): GenericConstraint<MetadataType> =
     constrainIfNotNull { it >= value } otherwise { "Must be greater than or equal to $value" }
 
 //region isBetween
@@ -159,7 +159,7 @@ public fun Validatable<Duration?>.isGreaterThanOrEqualTo(value: Duration): Const
  * validate(15.seconds) // Failure (message: Must be between 0s and 10s (inclusive))
  * ```
  */
-public fun Validatable<Duration?>.isBetween(range: ClosedRange<Duration>): Constraint =
+public fun <MetadataType> GenericValidatable<Duration?, MetadataType>.isBetween(range: ClosedRange<Duration>): GenericConstraint<MetadataType> =
     constrainIfNotNull { it in range } otherwise { "Must be between ${range.start} and ${range.endInclusive} (inclusive)" }
 
 /**
@@ -177,6 +177,6 @@ public fun Validatable<Duration?>.isBetween(range: ClosedRange<Duration>): Const
  * validate(15.seconds) // Failure (message: Must be between 0s and 10s (exclusive))
  * ```
  */
-public fun Validatable<Duration?>.isBetween(range: OpenEndRange<Duration>): Constraint =
+public fun <MetadataType> GenericValidatable<Duration?, MetadataType>.isBetween(range: OpenEndRange<Duration>): GenericConstraint<MetadataType> =
     constrainIfNotNull { it in range } otherwise { "Must be between ${range.start} and ${range.endExclusive} (exclusive)" }
 //endregion

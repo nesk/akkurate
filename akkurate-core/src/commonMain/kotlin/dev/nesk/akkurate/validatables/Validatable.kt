@@ -19,10 +19,8 @@ package dev.nesk.akkurate.validatables
 
 import dev.nesk.akkurate.Path
 import dev.nesk.akkurate.Validator
-import dev.nesk.akkurate.constraints.Constraint
+import dev.nesk.akkurate.constraints.*
 import dev.nesk.akkurate.constraints.ConstraintRegistry
-import dev.nesk.akkurate.constraints.ConstraintViolation
-import dev.nesk.akkurate.constraints.constrain
 import dev.nesk.akkurate.validateWith
 import kotlin.jvm.JvmName
 import kotlin.reflect.KFunction1
@@ -31,38 +29,51 @@ import kotlin.reflect.KProperty1
 @DslMarker
 private annotation class ValidatableDslMarker
 
+public typealias DefaultMetadataType = Map<String, String>
+public typealias Validatable<T> = GenericValidatable<T, DefaultMetadataType>
+
 @ValidatableDslMarker
-public class Validatable<out T> private constructor(
+public class GenericValidatable<out T, MetadataType> private constructor(
     private val wrappedValue: T,
     pathSegment: String?,
-    private val constraintRegistry: ConstraintRegistry,
-    internal val parent: Validatable<*>?,
+    private val constraintRegistry: GenericConstraintRegistry<MetadataType>,
+    internal val parent: GenericValidatable<*, MetadataType>?,
     private val path: Path = buildPathFromParentAndSegment(parent, pathSegment),
+    public val defaultMetadata: MetadataType
 ) {
-    private companion object {
-        fun buildPathFromParentAndSegment(parent: Validatable<*>?, segment: String?) = buildList {
+    internal companion object {
+        fun <MetadataType> buildPathFromParentAndSegment(parent: GenericValidatable<*, MetadataType>?, segment: String?) = buildList {
             addAll(parent?.path ?: emptyList())
             if (!segment.isNullOrEmpty()) {
                 add(segment)
             }
         }
+
+        operator fun <T> invoke(wrappedValue: T, pathSegment: String?, constraintRegistry: GenericConstraintRegistry<DefaultMetadataType>, parent: Validatable<*>?, path: Path): Validatable<T> =
+            GenericValidatable(wrappedValue, pathSegment, constraintRegistry, parent, path, emptyMap())
+
+        operator fun <T> invoke(wrappedValue: T, constraintRegistry: GenericConstraintRegistry<DefaultMetadataType>): Validatable<T> =
+            GenericValidatable(wrappedValue, constraintRegistry, emptyMap())
+
+        operator fun <T, MetadataType> invoke(wrappedValue: T, pathSegment: String?, constraintRegistry: GenericConstraintRegistry<MetadataType>, parent: GenericValidatable<*, MetadataType>?, path: Path, defaultMeta: MetadataType): GenericValidatable<T, MetadataType> =
+            GenericValidatable(wrappedValue, pathSegment, constraintRegistry, parent, path, defaultMeta)
     }
 
     /**
-     * Instantiates a root [Validatable] with its [value][wrappedValue] and a [ConstraintRegistry].
+     * Instantiates a root [GenericValidatable] with its [value][wrappedValue] and a [GenericConstraintRegistry].
      *
      * Used by [Validator] instances to start the validation process.
      */
-    internal constructor(wrappedValue: T, constraintRegistry: ConstraintRegistry) :
-            this(wrappedValue, pathSegment = null, constraintRegistry, parent = null)
+    internal constructor(wrappedValue: T, constraintRegistry: GenericConstraintRegistry<MetadataType>, defaultMetadata: MetadataType) :
+            this(wrappedValue, pathSegment = null, constraintRegistry, parent = null, defaultMetadata = defaultMetadata)
 
     /**
-     * Instantiates a child [Validatable] with [its relative path][pathSegment] and its [Validatable parent][parent].
+     * Instantiates a child [GenericValidatable] with [its relative path][pathSegment] and its [GenericValidatable parent][parent].
      *
      * Used by [validatableOf] functions to validate nested properties.
      */
-    internal constructor(wrappedValue: T, pathSegment: String, parent: Validatable<*>) :
-            this(wrappedValue, pathSegment, parent.constraintRegistry, parent)
+    internal constructor(wrappedValue: T, pathSegment: String, parent: GenericValidatable<*, MetadataType>) :
+            this(wrappedValue, pathSegment, parent.constraintRegistry, parent, defaultMetadata = parent.defaultMetadata)
 
     public fun path(): Path = path
 
@@ -82,23 +93,23 @@ public class Validatable<out T> private constructor(
      *
      * This method shouldn't be called in user code, [constrain] should be used instead.
      */
-    public fun registerConstraint(constraint: Constraint): Unit = constraintRegistry.register(constraint)
+    public fun registerConstraint(constraint: GenericConstraint<MetadataType>): Unit = constraintRegistry.register(constraint)
 
     /**
      * Registers the provided constraint violation.
      *
      * This method shouldn't be called in user code, [constrain] or [validateWith] should be used instead.
      */
-    public fun registerConstraint(constraint: ConstraintViolation): Unit = constraintRegistry.register(constraint)
+    public fun registerConstraint(constraint: GenericConstraintViolation<MetadataType>): Unit = constraintRegistry.register(constraint)
 
     /**
-     * Duplicates the [Validatable] with the new provided [value]. The path remains the same.
+     * Duplicates the [GenericValidatable] with the new provided [value]. The path remains the same.
      */
-    public fun <NEW_TYPE> withValue(value: NEW_TYPE): Validatable<NEW_TYPE> =
-        Validatable(value, pathSegment = null, constraintRegistry, parent, path)
+    public fun <NEW_TYPE> withValue(value: NEW_TYPE): GenericValidatable<NEW_TYPE, MetadataType> =
+        GenericValidatable(value, pathSegment = null, constraintRegistry, parent, path, defaultMetadata)
 
     // TODO: Convert to extension function (breaking change) once JetBrains fixes imports: https://youtrack.jetbrains.com/issue/KTIJ-22147
-    public inline operator fun invoke(block: Validatable<T>.() -> Unit): Unit = this.block()
+    public inline operator fun invoke(block: GenericValidatable<T, MetadataType>.() -> Unit): Unit = this.block()
 
     /**
      * Indicates whether some other object is "equal to" this validatable.
@@ -116,7 +127,7 @@ public class Validatable<out T> private constructor(
         if (this === other) return true
         if (other == null || this::class != other::class) return false
 
-        other as Validatable<*>
+        other as GenericValidatable<*, MetadataType>
 
         return wrappedValue == other.wrappedValue
     }
@@ -132,28 +143,27 @@ public class Validatable<out T> private constructor(
     override fun toString(): String = "Validatable(unwrap=$wrappedValue, path=$path)"
 }
 
-
-public fun <T : Any, V> Validatable<T>.validatableOf(getter: KProperty1<T, V>): Validatable<V> {
-    return Validatable(getter.get(unwrap()), getter.name, this)
+public fun <T : Any, V, MetadataType> GenericValidatable<T, MetadataType>.validatableOf(getter: KProperty1<T, V>): GenericValidatable<V, MetadataType> {
+    return GenericValidatable(getter.get(unwrap()), getter.name, this)
 }
 
 @JvmName("nullableValidatableOfProperty")
-public fun <T : Any?, V> Validatable<T>.validatableOf(getter: KProperty1<T & Any, V>): Validatable<V?> {
-    return Validatable(unwrap()?.let { getter.get(it) }, getter.name, this)
+public fun <T : Any?, V, MetadataType> GenericValidatable<T, MetadataType>.validatableOf(getter: KProperty1<T & Any, V>): GenericValidatable<V?, MetadataType> {
+    return GenericValidatable(unwrap()?.let { getter.get(it) }, getter.name, this)
 }
 
-public fun <T : Any, V> Validatable<T>.validatableOf(getter: KFunction1<T, V>): Validatable<V> {
-    return Validatable(getter.invoke(unwrap()), getter.name, this)
+public fun <T : Any, V, MetadataType> GenericValidatable<T, MetadataType>.validatableOf(getter: KFunction1<T, V>): GenericValidatable<V, MetadataType> {
+    return GenericValidatable(getter.invoke(unwrap()), getter.name, this)
 }
 
 @JvmName("nullableValidatableOfFunction")
-public fun <T : Any?, V> Validatable<T>.validatableOf(getter: KFunction1<T & Any, V>): Validatable<V?> {
-    return Validatable(unwrap()?.let { getter.invoke(it) }, getter.name, this)
+public fun <T : Any?, V, MetadataType> GenericValidatable<T, MetadataType>.validatableOf(getter: KFunction1<T & Any, V>): GenericValidatable<V?, MetadataType> {
+    return GenericValidatable(unwrap()?.let { getter.invoke(it) }, getter.name, this)
 }
 
 /**
- * Returns a [Validatable] wrapping the result of the given [transform] function.
- * The latter is applied to the wrapped value of the [Validatable] receiver.
+ * Returns a [GenericValidatable] wrapping the result of the given [transform] function.
+ * The latter is applied to the wrapped value of the [GenericValidatable] receiver.
  */
-public inline fun <T, R> Validatable<T>.map(transform: (T) -> R): Validatable<R> =
+public inline fun <T, R, MetadataType> GenericValidatable<T, MetadataType>.map(transform: (T) -> R): GenericValidatable<R, MetadataType> =
     withValue(unwrap().let(transform))

@@ -17,10 +17,10 @@
 
 package dev.nesk.akkurate.constraints.builders
 
-import dev.nesk.akkurate.constraints.Constraint
+import dev.nesk.akkurate.constraints.GenericConstraint
 import dev.nesk.akkurate.constraints.constrainIfNotNull
 import dev.nesk.akkurate.constraints.otherwise
-import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.validatables.GenericValidatable
 import java.time.*
 
 /**
@@ -37,19 +37,19 @@ private val currentZonedDateTime get() = ZonedDateTime.now(clock)
 private const val pastMessage = "Must be in the past"
 
 @JvmName("instantIsInPast")
-public fun Validatable<Instant?>.isInPast(): Constraint =
+public fun <MetadataType> GenericValidatable<Instant?, MetadataType>.isInPast(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it < currentInstant } otherwise { pastMessage }
 
 @JvmName("localDateIsInPast")
-public fun Validatable<LocalDate?>.isInPast(): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDate?, MetadataType>.isInPast(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it < currentLocalDate } otherwise { pastMessage }
 
 @JvmName("localDateTimeIsInPast")
-public fun Validatable<LocalDateTime?>.isInPast(): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDateTime?, MetadataType>.isInPast(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it < currentLocalDateTime } otherwise { pastMessage }
 
 @JvmName("zonedDateTimeIsInPast")
-public fun Validatable<ZonedDateTime?>.isInPast(): Constraint =
+public fun <MetadataType> GenericValidatable<ZonedDateTime?, MetadataType>.isInPast(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it < currentZonedDateTime } otherwise { pastMessage }
 //endregion
 
@@ -57,19 +57,19 @@ public fun Validatable<ZonedDateTime?>.isInPast(): Constraint =
 private const val pastOrPresentMessage = "Must be in the past or present"
 
 @JvmName("instantIsInPastOrIsPresent")
-public fun Validatable<Instant?>.isInPastOrIsPresent(): Constraint =
+public fun <MetadataType> GenericValidatable<Instant?, MetadataType>.isInPastOrIsPresent(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it <= currentInstant } otherwise { pastOrPresentMessage }
 
 @JvmName("localDateIsInPastOrIsPresent")
-public fun Validatable<LocalDate?>.isInPastOrIsPresent(): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDate?, MetadataType>.isInPastOrIsPresent(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it <= currentLocalDate } otherwise { pastOrPresentMessage }
 
 @JvmName("localDateTimeIsInPastOrIsPresent")
-public fun Validatable<LocalDateTime?>.isInPastOrIsPresent(): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDateTime?, MetadataType>.isInPastOrIsPresent(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it <= currentLocalDateTime } otherwise { pastOrPresentMessage }
 
 @JvmName("zonedDateTimeIsInPastOrIsPresent")
-public fun Validatable<ZonedDateTime?>.isInPastOrIsPresent(): Constraint =
+public fun <MetadataType> GenericValidatable<ZonedDateTime?, MetadataType>.isInPastOrIsPresent(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it <= currentZonedDateTime } otherwise { pastOrPresentMessage }
 //endregion
 
@@ -77,19 +77,19 @@ public fun Validatable<ZonedDateTime?>.isInPastOrIsPresent(): Constraint =
 private const val futureMessage = "Must be in the future"
 
 @JvmName("instantFuture")
-public fun Validatable<Instant?>.isInFuture(): Constraint =
+public fun <MetadataType> GenericValidatable<Instant?, MetadataType>.isInFuture(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it > currentInstant } otherwise { futureMessage }
 
 @JvmName("localDateFuture")
-public fun Validatable<LocalDate?>.isInFuture(): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDate?, MetadataType>.isInFuture(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it > currentLocalDate } otherwise { futureMessage }
 
 @JvmName("localDateTimeFuture")
-public fun Validatable<LocalDateTime?>.isInFuture(): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDateTime?, MetadataType>.isInFuture(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it > currentLocalDateTime } otherwise { futureMessage }
 
 @JvmName("zonedDateTimeFuture")
-public fun Validatable<ZonedDateTime?>.isInFuture(): Constraint =
+public fun <MetadataType> GenericValidatable<ZonedDateTime?, MetadataType>.isInFuture(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it > currentZonedDateTime } otherwise { futureMessage }
 //endregion
 
@@ -97,83 +97,83 @@ public fun Validatable<ZonedDateTime?>.isInFuture(): Constraint =
 private const val futureOrPresentMessage = "Must be in the future or present"
 
 @JvmName("instantIsInFutureOrIsPresent")
-public fun Validatable<Instant?>.isInFutureOrIsPresent(): Constraint =
+public fun <MetadataType> GenericValidatable<Instant?, MetadataType>.isInFutureOrIsPresent(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it >= currentInstant } otherwise { futureOrPresentMessage }
 
 @JvmName("localDateIsInFutureOrIsPresent")
-public fun Validatable<LocalDate?>.isInFutureOrIsPresent(): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDate?, MetadataType>.isInFutureOrIsPresent(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it >= currentLocalDate } otherwise { futureOrPresentMessage }
 
 @JvmName("localDateTimeIsInFutureOrIsPresent")
-public fun Validatable<LocalDateTime?>.isInFutureOrIsPresent(): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDateTime?, MetadataType>.isInFutureOrIsPresent(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it >= currentLocalDateTime } otherwise { futureOrPresentMessage }
 
 @JvmName("zonedDateTimeIsInFutureOrIsPresent")
-public fun Validatable<ZonedDateTime?>.isInFutureOrIsPresent(): Constraint =
+public fun <MetadataType> GenericValidatable<ZonedDateTime?, MetadataType>.isInFutureOrIsPresent(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it >= currentZonedDateTime } otherwise { futureOrPresentMessage }
 //endregion
 
 //region isBefore
-private infix fun Constraint.otherwiseBefore(other: Any) = otherwise { "Must be before \"$other\"" }
+private infix fun <MetadataType> GenericConstraint<MetadataType>.otherwiseBefore(other: Any) = otherwise { "Must be before \"$other\"" }
 
-public fun Validatable<Instant?>.isBefore(other: Instant): Constraint =
+public fun <MetadataType> GenericValidatable<Instant?, MetadataType>.isBefore(other: Instant): GenericConstraint<MetadataType> =
     constrainIfNotNull { it < other } otherwiseBefore other
 
-public fun Validatable<LocalDate?>.isBefore(other: LocalDate): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDate?, MetadataType>.isBefore(other: LocalDate): GenericConstraint<MetadataType> =
     constrainIfNotNull { it < other } otherwiseBefore other
 
-public fun Validatable<LocalDateTime?>.isBefore(other: LocalDateTime): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDateTime?, MetadataType>.isBefore(other: LocalDateTime): GenericConstraint<MetadataType> =
     constrainIfNotNull { it < other } otherwiseBefore other
 
-public fun Validatable<ZonedDateTime?>.isBefore(other: ZonedDateTime): Constraint =
+public fun <MetadataType> GenericValidatable<ZonedDateTime?, MetadataType>.isBefore(other: ZonedDateTime): GenericConstraint<MetadataType> =
     constrainIfNotNull { it < other } otherwiseBefore other
 //endregion
 
 //region isBeforeOrEqualTo
-private infix fun Constraint.otherwiseBeforeOrEqual(other: Any) = otherwise { "Must be before or equal to \"$other\"" }
+private infix fun <MetadataType> GenericConstraint<MetadataType>.otherwiseBeforeOrEqual(other: Any) = otherwise { "Must be before or equal to \"$other\"" }
 
-public fun Validatable<Instant?>.isBeforeOrEqualTo(other: Instant): Constraint =
+public fun <MetadataType> GenericValidatable<Instant?, MetadataType>.isBeforeOrEqualTo(other: Instant): GenericConstraint<MetadataType> =
     constrainIfNotNull { it <= other } otherwiseBeforeOrEqual other
 
-public fun Validatable<LocalDate?>.isBeforeOrEqualTo(other: LocalDate): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDate?, MetadataType>.isBeforeOrEqualTo(other: LocalDate): GenericConstraint<MetadataType> =
     constrainIfNotNull { it <= other } otherwiseBeforeOrEqual other
 
-public fun Validatable<LocalDateTime?>.isBeforeOrEqualTo(other: LocalDateTime): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDateTime?, MetadataType>.isBeforeOrEqualTo(other: LocalDateTime): GenericConstraint<MetadataType> =
     constrainIfNotNull { it <= other } otherwiseBeforeOrEqual other
 
-public fun Validatable<ZonedDateTime?>.isBeforeOrEqualTo(other: ZonedDateTime): Constraint =
+public fun <MetadataType> GenericValidatable<ZonedDateTime?, MetadataType>.isBeforeOrEqualTo(other: ZonedDateTime): GenericConstraint<MetadataType> =
     constrainIfNotNull { it <= other } otherwiseBeforeOrEqual other
 //endregion
 
 //region isAfter
-private infix fun Constraint.otherwiseAfter(other: Any) = otherwise { "Must be after \"$other\"" }
+private infix fun <MetadataType> GenericConstraint<MetadataType>.otherwiseAfter(other: Any) = otherwise { "Must be after \"$other\"" }
 
-public fun Validatable<Instant?>.isAfter(other: Instant): Constraint =
+public fun <MetadataType> GenericValidatable<Instant?, MetadataType>.isAfter(other: Instant): GenericConstraint<MetadataType> =
     constrainIfNotNull { it > other } otherwiseAfter other
 
-public fun Validatable<LocalDate?>.isAfter(other: LocalDate): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDate?, MetadataType>.isAfter(other: LocalDate): GenericConstraint<MetadataType> =
     constrainIfNotNull { it > other } otherwiseAfter other
 
-public fun Validatable<LocalDateTime?>.isAfter(other: LocalDateTime): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDateTime?, MetadataType>.isAfter(other: LocalDateTime): GenericConstraint<MetadataType> =
     constrainIfNotNull { it > other } otherwiseAfter other
 
-public fun Validatable<ZonedDateTime?>.isAfter(other: ZonedDateTime): Constraint =
+public fun <MetadataType> GenericValidatable<ZonedDateTime?, MetadataType>.isAfter(other: ZonedDateTime): GenericConstraint<MetadataType> =
     constrainIfNotNull { it > other } otherwiseAfter other
 //endregion
 
 //region isAfterOrEqualTo
-private infix fun Constraint.otherwiseAfterOrEqual(other: Any) = otherwise { "Must be after or equal to \"$other\"" }
+private infix fun <MetadataType> GenericConstraint<MetadataType>.otherwiseAfterOrEqual(other: Any) = otherwise { "Must be after or equal to \"$other\"" }
 
-public fun Validatable<Instant?>.isAfterOrEqualTo(other: Instant): Constraint =
+public fun <MetadataType> GenericValidatable<Instant?, MetadataType>.isAfterOrEqualTo(other: Instant): GenericConstraint<MetadataType> =
     constrainIfNotNull { it >= other } otherwiseAfterOrEqual other
 
-public fun Validatable<LocalDate?>.isAfterOrEqualTo(other: LocalDate): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDate?, MetadataType>.isAfterOrEqualTo(other: LocalDate): GenericConstraint<MetadataType> =
     constrainIfNotNull { it >= other } otherwiseAfterOrEqual other
 
-public fun Validatable<LocalDateTime?>.isAfterOrEqualTo(other: LocalDateTime): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDateTime?, MetadataType>.isAfterOrEqualTo(other: LocalDateTime): GenericConstraint<MetadataType> =
     constrainIfNotNull { it >= other } otherwiseAfterOrEqual other
 
-public fun Validatable<ZonedDateTime?>.isAfterOrEqualTo(other: ZonedDateTime): Constraint =
+public fun <MetadataType> GenericValidatable<ZonedDateTime?, MetadataType>.isAfterOrEqualTo(other: ZonedDateTime): GenericConstraint<MetadataType> =
     constrainIfNotNull { it >= other } otherwiseAfterOrEqual other
 //endregion
 
@@ -181,11 +181,11 @@ public fun Validatable<ZonedDateTime?>.isAfterOrEqualTo(other: ZonedDateTime): C
 private const val negativeMessage = "Must be negative"
 
 @JvmName("durationIsNegative")
-public fun Validatable<Duration?>.isNegative(): Constraint =
+public fun <MetadataType> GenericValidatable<Duration?, MetadataType>.isNegative(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.isNegative && it != Duration.ZERO } otherwise { negativeMessage }
 
 @JvmName("periodIsNegative")
-public fun Validatable<Period?>.isNegative(): Constraint =
+public fun <MetadataType> GenericValidatable<Period?, MetadataType>.isNegative(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.isNegative && it != Period.ZERO } otherwise { negativeMessage }
 //endregion
 
@@ -193,11 +193,11 @@ public fun Validatable<Period?>.isNegative(): Constraint =
 private const val negativeMessageOrZero = "Must be negative or equal to zero"
 
 @JvmName("durationIsNegativeOrZero")
-public fun Validatable<Duration?>.isNegativeOrZero(): Constraint =
+public fun <MetadataType> GenericValidatable<Duration?, MetadataType>.isNegativeOrZero(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.isNegative || it == Duration.ZERO } otherwise { negativeMessageOrZero }
 
 @JvmName("periodIsNegativeOrZero")
-public fun Validatable<Period?>.isNegativeOrZero(): Constraint =
+public fun <MetadataType> GenericValidatable<Period?, MetadataType>.isNegativeOrZero(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.isNegative || it == Period.ZERO } otherwise { negativeMessageOrZero }
 //endregion
 
@@ -205,11 +205,11 @@ public fun Validatable<Period?>.isNegativeOrZero(): Constraint =
 private const val positiveMessage = "Must be positive"
 
 @JvmName("durationIsPositive")
-public fun Validatable<Duration?>.isPositive(): Constraint =
+public fun <MetadataType> GenericValidatable<Duration?, MetadataType>.isPositive(): GenericConstraint<MetadataType> =
     constrainIfNotNull { !it.isNegative && it != Duration.ZERO } otherwise { positiveMessage }
 
 @JvmName("periodIsPositive")
-public fun Validatable<Period?>.isPositive(): Constraint =
+public fun <MetadataType> GenericValidatable<Period?, MetadataType>.isPositive(): GenericConstraint<MetadataType> =
     constrainIfNotNull { !it.isNegative && it != Period.ZERO } otherwise { positiveMessage }
 //endregion
 
@@ -217,39 +217,39 @@ public fun Validatable<Period?>.isPositive(): Constraint =
 private const val positiveMessageOrZero = "Must be positive or equal to zero"
 
 @JvmName("durationIsPositiveOrZero")
-public fun Validatable<Duration?>.isPositiveOrZero(): Constraint =
+public fun <MetadataType> GenericValidatable<Duration?, MetadataType>.isPositiveOrZero(): GenericConstraint<MetadataType> =
     constrainIfNotNull { !it.isNegative || it == Duration.ZERO } otherwise { positiveMessageOrZero }
 
 @JvmName("periodIsPositiveOrZero")
-public fun Validatable<Period?>.isPositiveOrZero(): Constraint =
+public fun <MetadataType> GenericValidatable<Period?, MetadataType>.isPositiveOrZero(): GenericConstraint<MetadataType> =
     constrainIfNotNull { !it.isNegative || it == Period.ZERO } otherwise { positiveMessageOrZero }
 //endregion
 
 //region isLowerThan
-public fun Validatable<Duration?>.isLowerThan(value: Duration): Constraint =
+public fun <MetadataType> GenericValidatable<Duration?, MetadataType>.isLowerThan(value: Duration): GenericConstraint<MetadataType> =
     constrainIfNotNull { it < value } otherwise { "Must be lower than $value" }
 //endregion
 
 //region isLowerThanOrEqualTo
-public fun Validatable<Duration?>.isLowerThanOrEqualTo(value: Duration): Constraint =
+public fun <MetadataType> GenericValidatable<Duration?, MetadataType>.isLowerThanOrEqualTo(value: Duration): GenericConstraint<MetadataType> =
     constrainIfNotNull { it <= value } otherwise { "Must be lower than or equal to $value" }
 //endregion
 
 //region isGreaterThan
-public fun Validatable<Duration?>.isGreaterThan(value: Duration): Constraint =
+public fun <MetadataType> GenericValidatable<Duration?, MetadataType>.isGreaterThan(value: Duration): GenericConstraint<MetadataType> =
     constrainIfNotNull { it > value } otherwise { "Must be greater than $value" }
 //endregion
 
 //region isGreaterThanOrEqualTo
-public fun Validatable<Duration?>.isGreaterThanOrEqualTo(value: Duration): Constraint =
+public fun <MetadataType> GenericValidatable<Duration?, MetadataType>.isGreaterThanOrEqualTo(value: Duration): GenericConstraint<MetadataType> =
     constrainIfNotNull { it >= value } otherwise { "Must be greater than or equal to $value" }
 //endregion
 
 //region isBetween
-public fun Validatable<Duration?>.isBetween(range: ClosedRange<Duration>): Constraint =
+public fun <MetadataType> GenericValidatable<Duration?, MetadataType>.isBetween(range: ClosedRange<Duration>): GenericConstraint<MetadataType> =
     constrainIfNotNull { it in range } otherwise { "Must be between ${range.start} and ${range.endInclusive} (inclusive)" }
 
-public fun Validatable<Duration?>.isBetween(range: OpenEndRange<Duration>): Constraint =
+public fun <MetadataType> GenericValidatable<Duration?, MetadataType>.isBetween(range: OpenEndRange<Duration>): GenericConstraint<MetadataType> =
     constrainIfNotNull { it in range } otherwise { "Must be between ${range.start} and ${range.endExclusive} (exclusive)" }
 //endregion
 

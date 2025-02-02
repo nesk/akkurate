@@ -19,11 +19,15 @@ package dev.nesk.akkurate.constraints
 
 import dev.nesk.akkurate.Path
 import dev.nesk.akkurate.PathBuilder
+import dev.nesk.akkurate.validatables.DefaultMetadataType
+import dev.nesk.akkurate.validatables.GenericValidatable
 import dev.nesk.akkurate.validatables.Validatable
+
+public typealias Constraint = GenericConstraint<DefaultMetadataType>
 
 // This could be a data class in the future if Kotlin adds a feature to remove the `copy()` method when a constructor is internal or private.
 // https://youtrack.jetbrains.com/issue/KT-11914
-public class Constraint(public val satisfied: Boolean, public var validatable: Validatable<*>) : ConstraintDescriptor {
+public class GenericConstraint<MetadataType>(public val satisfied: Boolean, public var validatable: GenericValidatable<*, MetadataType>, public override var metadata: MetadataType) : GenericConstraintDescriptor<MetadataType> {
     private var customPath: Path? = null
 
     public override var path: Path
@@ -36,9 +40,9 @@ public class Constraint(public val satisfied: Boolean, public var validatable: V
 
     public operator fun component1(): Boolean = satisfied
 
-    internal fun toConstraintViolation(defaultMessage: String, rootPath: Path): ConstraintViolation {
+    internal fun toConstraintViolation(defaultMessage: String, rootPath: Path): GenericConstraintViolation<MetadataType> {
         require(!satisfied) { "Converting to `ConstrainViolation` can only be done when the constraint is not satisfied." }
-        return ConstraintViolation(message.ifEmpty { defaultMessage }, rootPath + path)
+        return GenericConstraintViolation(message.ifEmpty { defaultMessage }, rootPath + path, metadata)
     }
 
     /**
@@ -54,7 +58,7 @@ public class Constraint(public val satisfied: Boolean, public var validatable: V
         if (this === other) return true
         if (other == null || this::class != other::class) return false
 
-        other as Constraint
+        other as GenericConstraint<MetadataType>
 
         if (satisfied != other.satisfied) return false
         if (path != other.path) return false
@@ -81,28 +85,38 @@ public class Constraint(public val satisfied: Boolean, public var validatable: V
     }
 
     override fun toString(): String {
-        return "Constraint(satisfied=$satisfied, validatable=$validatable, path=$customPath, message=$message)"
+        return "Constraint(satisfied=$satisfied, validatable=$validatable, path=$customPath, metadata=$metadata, message=$message)"
+    }
+
+    public companion object {
+        public operator fun invoke(satisfied: Boolean, validatable: Validatable<*>): GenericConstraint<DefaultMetadataType> {
+            return GenericConstraint(satisfied, validatable, emptyMap())
+        }
     }
 }
 
-public inline infix fun Constraint.otherwise(block: () -> String): Constraint = apply {
+public inline infix fun <MetadataType> GenericConstraint<MetadataType>.otherwise(block: () -> String): GenericConstraint<MetadataType> = apply {
     if (!satisfied) message = block()
 }
 
-public inline infix fun Constraint.withPath(block: PathBuilder.(originalPath: Path) -> Path): Constraint {
+public inline infix fun <MetadataType> GenericConstraint<MetadataType>.withPath(block: PathBuilder<MetadataType>.(originalPath: Path) -> Path): GenericConstraint<MetadataType> {
     if (!satisfied) {
         path = PathBuilder(validatable).block(validatable.path())
     }
     return this
 }
 
-public inline fun <T> Validatable<T>.constrain(block: (value: T) -> Boolean): Constraint {
+public inline infix fun <MetadataType> GenericConstraint<MetadataType>.withMetadata(block: () -> MetadataType): GenericConstraint<MetadataType> {
+    return GenericConstraint(satisfied, validatable, block())
+}
+
+public inline fun <T, MetadataType> GenericValidatable<T, MetadataType>.constrain(block: (value: T) -> Boolean): GenericConstraint<MetadataType> {
     runChecksBeforeConstraintRegistration()
-    return Constraint(block(unwrap()), this)
+    return GenericConstraint(block(unwrap()), this, defaultMetadata)
         .also(::registerConstraint)
 }
 
-public inline fun <T> Validatable<T?>.constrainIfNotNull(block: (value: T) -> Boolean): Constraint {
+public inline fun <T, MetadataType> GenericValidatable<T?, MetadataType>.constrainIfNotNull(block: (value: T) -> Boolean): GenericConstraint<MetadataType> {
     val constraint = unwrap()
         ?.let { value -> constrain { block(value) } }
         ?: constrain { true } // We do not want the constraint to fail when the value is null.

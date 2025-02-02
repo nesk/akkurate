@@ -17,10 +17,11 @@
 
 package dev.nesk.akkurate.accessors
 
+import dev.nesk.akkurate.validatables.GenericValidatable
 import dev.nesk.akkurate.validatables.Validatable
 import dev.nesk.akkurate.validatables.validatableOf
 
-public operator fun <T> Validatable<Array<T>?>.get(index: Int): Validatable<T?> {
+public operator fun <T, MetadataType> GenericValidatable<Array<T>?, MetadataType>.get(index: Int): GenericValidatable<T?, MetadataType> {
     val wrappedValue = unwrap()?.let {
         if (index in it.indices) {
             it[index]
@@ -28,17 +29,17 @@ public operator fun <T> Validatable<Array<T>?>.get(index: Int): Validatable<T?> 
             null
         }
     }
-    return Validatable(wrappedValue, index.toString(), this)
+    return GenericValidatable(wrappedValue, index.toString(), this)
 }
 
-public fun <T> Validatable<Array<T>?>.first(): Validatable<T?> = try {
+public fun <T, MetadataType> GenericValidatable<Array<T>?, MetadataType>.first(): GenericValidatable<T?, MetadataType> = try {
     validatableOf(Array<T>::first)
 } catch (e: NoSuchElementException) {
-    Validatable(null, "first", this)
+    GenericValidatable(null, "first", this)
 }
 
-public fun <T> Validatable<Array<T>?>.last(): Validatable<T?> = try {
+public fun <T, MetadataType> GenericValidatable<Array<T>?, MetadataType>.last(): GenericValidatable<T?, MetadataType> = try {
     validatableOf(Array<T>::last)
 } catch (e: NoSuchElementException) {
-    Validatable(null, "last", this)
+    GenericValidatable(null, "last", this)
 }

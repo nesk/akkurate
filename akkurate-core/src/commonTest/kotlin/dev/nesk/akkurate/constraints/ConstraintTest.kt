@@ -88,6 +88,12 @@ class ConstraintTest {
     }
 
     @Test
+    fun calling__withMetadata_updates_the_metadata() {
+        val constraint = ConstraintBuilder(true) withMetadata { mapOf("foo" to "bar") }
+        assertEquals(mapOf("foo" to "bar"), constraint.metadata)
+    }
+
+    @Test
     fun calling__withPath__with_a_lambda_updates_the_path_if_the_constraint_is_not_satisfied() {
         // Arrange
         val validatable = Validatable(null, "foo")

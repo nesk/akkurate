@@ -17,64 +17,64 @@
 
 package dev.nesk.akkurate.constraints.builders
 
-import dev.nesk.akkurate.constraints.Constraint
+import dev.nesk.akkurate.constraints.GenericConstraint
 import dev.nesk.akkurate.constraints.constrainIfNotNull
 import dev.nesk.akkurate.constraints.otherwise
-import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.validatables.GenericValidatable
 
-public fun Validatable<CharSequence?>.isEmpty(): Constraint =
+public fun <MetadataType> GenericValidatable<CharSequence?, MetadataType>.isEmpty(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.isEmpty() } otherwise { "Must be empty" }
 
-public fun Validatable<CharSequence?>.isNotEmpty(): Constraint =
+public fun <MetadataType> GenericValidatable<CharSequence?, MetadataType>.isNotEmpty(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.isNotEmpty() } otherwise { "Must not be empty" }
 
-public fun Validatable<CharSequence?>.isBlank(): Constraint =
+public fun <MetadataType> GenericValidatable<CharSequence?, MetadataType>.isBlank(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.isBlank() } otherwise { "Must be blank" }
 
-public fun Validatable<CharSequence?>.isNotBlank(): Constraint =
+public fun <MetadataType> GenericValidatable<CharSequence?, MetadataType>.isNotBlank(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.isNotBlank() } otherwise { "Must not be blank" }
 
-public fun Validatable<CharSequence?>.hasLengthEqualTo(length: Int): Constraint =
+public fun <MetadataType> GenericValidatable<CharSequence?, MetadataType>.hasLengthEqualTo(length: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.length == length } otherwise { "Length must be equal to $length" }
 
-public fun Validatable<CharSequence?>.hasLengthNotEqualTo(length: Int): Constraint =
+public fun <MetadataType> GenericValidatable<CharSequence?, MetadataType>.hasLengthNotEqualTo(length: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.length != length } otherwise { "Length must be different from $length" }
 
-public fun Validatable<CharSequence?>.hasLengthLowerThan(length: Int): Constraint =
+public fun <MetadataType> GenericValidatable<CharSequence?, MetadataType>.hasLengthLowerThan(length: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.length < length } otherwise { "Length must be lower than $length" }
 
-public fun Validatable<CharSequence?>.hasLengthLowerThanOrEqualTo(length: Int): Constraint =
+public fun <MetadataType> GenericValidatable<CharSequence?, MetadataType>.hasLengthLowerThanOrEqualTo(length: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.length <= length } otherwise { "Length must be lower than or equal to $length" }
 
-public fun Validatable<CharSequence?>.hasLengthGreaterThan(length: Int): Constraint =
+public fun <MetadataType> GenericValidatable<CharSequence?, MetadataType>.hasLengthGreaterThan(length: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.length > length } otherwise { "Length must be greater than $length" }
 
-public fun Validatable<CharSequence?>.hasLengthGreaterThanOrEqualTo(length: Int): Constraint =
+public fun <MetadataType> GenericValidatable<CharSequence?, MetadataType>.hasLengthGreaterThanOrEqualTo(length: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.length >= length } otherwise { "Length must be greater than or equal to $length" }
 
-public fun Validatable<CharSequence?>.hasLengthBetween(range: IntRange): Constraint =
+public fun <MetadataType> GenericValidatable<CharSequence?, MetadataType>.hasLengthBetween(range: IntRange): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.length in range } otherwise { "Length must be between ${range.first} and ${range.last}" }
 
-public fun Validatable<CharSequence?>.isMatching(regex: Regex): Constraint =
+public fun <MetadataType> GenericValidatable<CharSequence?, MetadataType>.isMatching(regex: Regex): GenericConstraint<MetadataType> =
     constrainIfNotNull { regex.matches(it) } otherwise { "Must match the following pattern: ${regex.pattern}" }
 
-public fun Validatable<CharSequence?>.isNotMatching(regex: Regex): Constraint =
+public fun <MetadataType> GenericValidatable<CharSequence?, MetadataType>.isNotMatching(regex: Regex): GenericConstraint<MetadataType> =
     constrainIfNotNull { !regex.matches(it) } otherwise { "Must not match the following pattern: ${regex.pattern}" }
 
-public fun Validatable<CharSequence?>.isStartingWith(prefix: CharSequence): Constraint =
+public fun <MetadataType> GenericValidatable<CharSequence?, MetadataType>.isStartingWith(prefix: CharSequence): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.startsWith(prefix) } otherwise { "Must start with \"$prefix\"" }
 
-public fun Validatable<CharSequence?>.isNotStartingWith(prefix: CharSequence): Constraint =
+public fun <MetadataType> GenericValidatable<CharSequence?, MetadataType>.isNotStartingWith(prefix: CharSequence): GenericConstraint<MetadataType> =
     constrainIfNotNull { !it.startsWith(prefix) } otherwise { "Must not start with \"$prefix\"" }
 
-public fun Validatable<CharSequence?>.isEndingWith(suffix: CharSequence): Constraint =
+public fun <MetadataType> GenericValidatable<CharSequence?, MetadataType>.isEndingWith(suffix: CharSequence): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.endsWith(suffix) } otherwise { "Must end with \"$suffix\"" }
 
-public fun Validatable<CharSequence?>.isNotEndingWith(suffix: CharSequence): Constraint =
+public fun <MetadataType> GenericValidatable<CharSequence?, MetadataType>.isNotEndingWith(suffix: CharSequence): GenericConstraint<MetadataType> =
     constrainIfNotNull { !it.endsWith(suffix) } otherwise { "Must not end with \"$suffix\"" }
 
-public fun Validatable<CharSequence?>.isContaining(other: CharSequence): Constraint =
+public fun <MetadataType> GenericValidatable<CharSequence?, MetadataType>.isContaining(other: CharSequence): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.contains(other) } otherwise { "Must contain \"$other\"" }
 
-public fun Validatable<CharSequence?>.isNotContaining(other: CharSequence): Constraint =
+public fun <MetadataType> GenericValidatable<CharSequence?, MetadataType>.isNotContaining(other: CharSequence): GenericConstraint<MetadataType> =
     constrainIfNotNull { !it.contains(other) } otherwise { "Must not contain \"$other\"" }

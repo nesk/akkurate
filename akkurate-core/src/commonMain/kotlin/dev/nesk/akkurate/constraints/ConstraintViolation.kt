@@ -18,20 +18,29 @@
 package dev.nesk.akkurate.constraints
 
 import dev.nesk.akkurate.Path
+import dev.nesk.akkurate.validatables.DefaultMetadataType
 
-public class ConstraintViolation(public override val message: String, public override val path: Path) : ConstraintDescriptor {
+public typealias ConstraintViolation = GenericConstraintViolation<DefaultMetadataType>
+
+public class GenericConstraintViolation<MetadataType>(
+    public override val message: String,
+    public override val path: Path,
+    override val metadata: MetadataType
+) : GenericConstraintDescriptor<MetadataType> {
     public operator fun component1(): String = message
     public operator fun component2(): Path = path
 
-    internal fun copy(path: Path = this.path) = ConstraintViolation(message, path)
+    internal fun copy(path: Path = this.path): GenericConstraintViolation<MetadataType> = GenericConstraintViolation(message, path, metadata)
+    internal fun <NEW_META> copy(metadata: NEW_META): GenericConstraintViolation<NEW_META> = GenericConstraintViolation(message, path, metadata)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || this::class != other::class) return false
 
-        other as ConstraintViolation
+        other as GenericConstraintViolation<MetadataType>
 
         if (message != other.message) return false
+        if (metadata != other.metadata) return false
         return path == other.path
     }
 
@@ -41,5 +50,10 @@ public class ConstraintViolation(public override val message: String, public ove
         return result
     }
 
-    override fun toString(): String = "ConstraintViolation(message='$message', path=$path)"
+    override fun toString(): String = "ConstraintViolation(message='$message', path=$path, metadata=$metadata)"
+
+    public companion object {
+        public operator fun invoke(message: String, path: Path): ConstraintViolation =
+            GenericConstraintViolation(message, path, emptyMap())
+    }
 }

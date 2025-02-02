@@ -18,9 +18,12 @@
 package dev.nesk.akkurate.constraints
 
 import dev.nesk.akkurate.Path
+import dev.nesk.akkurate.validatables.DefaultMetadataType
 
-public class ConstraintViolationSet(private val messages: Set<ConstraintViolation>) : Set<ConstraintViolation> by messages {
-    public val byPath: Map<Path, Set<ConstraintViolation>> by lazy { messages.groupBy { it.path }.mapValues { it.value.toSet() } }
+public typealias ConstraintViolationSet = GenericConstraintViolationSet<DefaultMetadataType>
+
+public class GenericConstraintViolationSet<MetadataType>(private val messages: Set<GenericConstraintViolation<MetadataType>>) : Set<GenericConstraintViolation<MetadataType>> by messages {
+    public val byPath: Map<Path, Set<GenericConstraintViolation<MetadataType>>> by lazy { messages.groupBy { it.path }.mapValues { it.value.toSet() } }
 
     override fun equals(other: Any?): Boolean = messages == other
 

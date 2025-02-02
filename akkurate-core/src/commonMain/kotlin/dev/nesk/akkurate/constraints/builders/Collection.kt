@@ -17,10 +17,10 @@
 
 package dev.nesk.akkurate.constraints.builders
 
-import dev.nesk.akkurate.constraints.Constraint
+import dev.nesk.akkurate.constraints.GenericConstraint
 import dev.nesk.akkurate.constraints.constrainIfNotNull
 import dev.nesk.akkurate.constraints.otherwise
-import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.validatables.GenericValidatable
 import kotlin.jvm.JvmName
 
 /*
@@ -44,7 +44,7 @@ import kotlin.jvm.JvmName
  * ```
  */
 @JvmName("collectionIsEmpty")
-public fun <T> Validatable<Collection<T>?>.isEmpty(): Constraint =
+public fun <T, MetadataType> GenericValidatable<Collection<T>?, MetadataType>.isEmpty(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.isEmpty() } otherwise { "Must be empty" }
 
 /**
@@ -59,7 +59,7 @@ public fun <T> Validatable<Collection<T>?>.isEmpty(): Constraint =
  * ```
  */
 @JvmName("collectionIsNotEmpty")
-public fun <T> Validatable<Collection<T>?>.isNotEmpty(): Constraint =
+public fun <T, MetadataType> GenericValidatable<Collection<T>?, MetadataType>.isNotEmpty(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.isNotEmpty() } otherwise { "Must not be empty" }
 
 /**
@@ -74,7 +74,7 @@ public fun <T> Validatable<Collection<T>?>.isNotEmpty(): Constraint =
  * ```
  */
 @JvmName("collectionHasSizeEqualTo")
-public fun <T> Validatable<Collection<T>?>.hasSizeEqualTo(size: Int): Constraint =
+public fun <T, MetadataType> GenericValidatable<Collection<T>?, MetadataType>.hasSizeEqualTo(size: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size == size } otherwise { "The number of items must be equal to $size" }
 
 /**
@@ -89,7 +89,7 @@ public fun <T> Validatable<Collection<T>?>.hasSizeEqualTo(size: Int): Constraint
  * ```
  */
 @JvmName("collectionHasSizeNotEqualTo")
-public fun <T> Validatable<Collection<T>?>.hasSizeNotEqualTo(size: Int): Constraint =
+public fun <T, MetadataType> GenericValidatable<Collection<T>?, MetadataType>.hasSizeNotEqualTo(size: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size != size } otherwise { "The number of items must be different from $size" }
 
 /**
@@ -104,7 +104,7 @@ public fun <T> Validatable<Collection<T>?>.hasSizeNotEqualTo(size: Int): Constra
  * ```
  */
 @JvmName("collectionHasSizeLowerThan")
-public fun <T> Validatable<Collection<T>?>.hasSizeLowerThan(size: Int): Constraint =
+public fun <T, MetadataType> GenericValidatable<Collection<T>?, MetadataType>.hasSizeLowerThan(size: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size < size } otherwise { "The number of items must be lower than $size" }
 
 /**
@@ -120,7 +120,7 @@ public fun <T> Validatable<Collection<T>?>.hasSizeLowerThan(size: Int): Constrai
  * ```
  */
 @JvmName("collectionHasSizeLowerThanOrEqualTo")
-public fun <T> Validatable<Collection<T>?>.hasSizeLowerThanOrEqualTo(size: Int): Constraint =
+public fun <T, MetadataType> GenericValidatable<Collection<T>?, MetadataType>.hasSizeLowerThanOrEqualTo(size: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size <= size } otherwise { "The number of items must be lower than or equal to $size" }
 
 /**
@@ -135,7 +135,7 @@ public fun <T> Validatable<Collection<T>?>.hasSizeLowerThanOrEqualTo(size: Int):
  * ```
  */
 @JvmName("collectionHasSizeGreaterThan")
-public fun <T> Validatable<Collection<T>?>.hasSizeGreaterThan(size: Int): Constraint =
+public fun <T, MetadataType> GenericValidatable<Collection<T>?, MetadataType>.hasSizeGreaterThan(size: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size > size } otherwise { "The number of items must be greater than $size" }
 
 /**
@@ -151,7 +151,7 @@ public fun <T> Validatable<Collection<T>?>.hasSizeGreaterThan(size: Int): Constr
  * ```
  */
 @JvmName("collectionHasSizeGreaterThanOrEqualTo")
-public fun <T> Validatable<Collection<T>?>.hasSizeGreaterThanOrEqualTo(size: Int): Constraint =
+public fun <T, MetadataType> GenericValidatable<Collection<T>?, MetadataType>.hasSizeGreaterThanOrEqualTo(size: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size >= size } otherwise { "The number of items must be greater than or equal to $size" }
 
 /**
@@ -168,5 +168,5 @@ public fun <T> Validatable<Collection<T>?>.hasSizeGreaterThanOrEqualTo(size: Int
  * ```
  */
 @JvmName("collectionHasSizeBetween")
-public fun <T> Validatable<Collection<T>?>.hasSizeBetween(range: IntRange): Constraint =
+public fun <T, MetadataType> GenericValidatable<Collection<T>?, MetadataType>.hasSizeBetween(range: IntRange): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size in range } otherwise { "The number of items must be between ${range.first} and ${range.last}" }

@@ -17,6 +17,7 @@
 
 package dev.nesk.akkurate
 
+import dev.nesk.akkurate.validatables.DefaultMetadataType
 import dev.nesk.akkurate.validatables.Validatable
 
 /**
@@ -62,13 +63,13 @@ internal class AkkurateScratch {
         public fun <ValueType> Validator(
             configuration: Configuration = Configuration(),
             block: Validatable<ValueType>.() -> Unit,
-        ): Validator.Runner<ValueType> = ValidatorWrapper(dev.nesk.akkurate.Validator(configuration, block))
+        ): Validator.Runner<ValueType, DefaultMetadataType> = ValidatorWrapper(dev.nesk.akkurate.Validator(configuration, block))
     }
 
     public class ValidatorWrapper<ValueType>(
-        private val delegate: Validator.Runner<ValueType>,
-    ) : Validator.Runner<ValueType> by delegate {
-        override fun invoke(value: ValueType): ValidationResult<ValueType> {
+        private val delegate: Validator.Runner<ValueType, DefaultMetadataType>,
+    ) : Validator.Runner<ValueType, DefaultMetadataType> by delegate {
+        override fun invoke(value: ValueType): ValidationResult<DefaultMetadataType, ValueType> {
             return delegate(value).also { result ->
                 when (result) {
                     is ValidationResult.Success -> println("Success")

@@ -29,18 +29,18 @@ package dev.nesk.akkurate.validatables
 
     To ease development, the first release will make parentheses mandatory.
  */
-public class ValidatableCompound<T> internal constructor(validatables: List<Validatable<T>>) {
-    public val validatables: List<Validatable<T>> = validatables.distinctBy { it.path() }
+public class ValidatableCompound<T, MetadataType> internal constructor(validatables: List<GenericValidatable<T, MetadataType>>) {
+    public val validatables: List<GenericValidatable<T, MetadataType>> = validatables.distinctBy { it.path() }
 
-    public infix fun and(other: Validatable<T>): ValidatableCompound<T> = ValidatableCompound(validatables + setOf(other))
-    public infix fun and(other: ValidatableCompound<T>): ValidatableCompound<T> = ValidatableCompound(validatables + other.validatables)
+    public infix fun and(other: GenericValidatable<T, MetadataType>): ValidatableCompound<T, MetadataType> = ValidatableCompound(validatables + setOf(other))
+    public infix fun and(other: ValidatableCompound<T, MetadataType>): ValidatableCompound<T, MetadataType> = ValidatableCompound(validatables + other.validatables)
 
     // TODO: Convert to extension function (breaking change) once JetBrains fixes imports: https://youtrack.jetbrains.com/issue/KTIJ-22147
-    public inline operator fun invoke(block: Validatable<T>.() -> Unit): Unit = validatables.forEach { it.block() }
+    public inline operator fun invoke(block: GenericValidatable<T, MetadataType>.() -> Unit): Unit = validatables.forEach { it.block() }
 }
 
-public infix fun <T> Validatable<T>.and(other: Validatable<T>): ValidatableCompound<T> = ValidatableCompound(listOf(this, other))
-public infix fun <T> Validatable<T>.and(other: ValidatableCompound<T>): ValidatableCompound<T> = ValidatableCompound(listOf(this) + other.validatables)
+public infix fun <T, MetadataType> GenericValidatable<T, MetadataType>.and(other: GenericValidatable<T, MetadataType>): ValidatableCompound<T, MetadataType> = ValidatableCompound(listOf(this, other))
+public infix fun <T, MetadataType> GenericValidatable<T, MetadataType>.and(other: ValidatableCompound<T, MetadataType>): ValidatableCompound<T, MetadataType> = ValidatableCompound(listOf(this) + other.validatables)
 
 // TODO: find a solution to improve type combinations
 //infix fun <T1, T2> ValidatableCompound<T1>.and(other: Validatable<T2>): ValidatableCompound<Any?> = TODO()

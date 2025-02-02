@@ -17,10 +17,10 @@
 
 package dev.nesk.akkurate.constraints.builders
 
-import dev.nesk.akkurate.constraints.Constraint
+import dev.nesk.akkurate.constraints.GenericConstraint
 import dev.nesk.akkurate.constraints.constrainIfNotNull
 import dev.nesk.akkurate.constraints.otherwise
-import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.validatables.GenericValidatable
 import kotlin.jvm.JvmName
 
 /*
@@ -44,7 +44,7 @@ import kotlin.jvm.JvmName
  * ```
  */
 @JvmName("iterableIsContaining")
-public fun <T> Validatable<Iterable<T>?>.isContaining(element: T): Constraint =
+public fun <T, MetadataType> GenericValidatable<Iterable<T>?, MetadataType>.isContaining(element: T): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.contains(element) } otherwise { "Must contain \"$element\"" }
 
 /**
@@ -59,7 +59,7 @@ public fun <T> Validatable<Iterable<T>?>.isContaining(element: T): Constraint =
  * ```
  */
 @JvmName("iterableIsNotContaining")
-public fun <T> Validatable<Iterable<T>?>.isNotContaining(element: T): Constraint =
+public fun <T, MetadataType> GenericValidatable<Iterable<T>?, MetadataType>.isNotContaining(element: T): GenericConstraint<MetadataType> =
     constrainIfNotNull { !it.contains(element) } otherwise { "Must not contain \"$element\"" }
 
 /**
@@ -73,5 +73,5 @@ public fun <T> Validatable<Iterable<T>?>.isNotContaining(element: T): Constraint
  * validate(listOf('a', 'b', 'c', 'a')) // Failure (message: Must contain unique elements)
  * ```
  */
-public fun <T> Validatable<Iterable<T>?>.hasNoDuplicates(): Constraint =
+public fun <T, MetadataType> GenericValidatable<Iterable<T>?, MetadataType>.hasNoDuplicates(): GenericConstraint<MetadataType> =
     constrainIfNotNull { array -> array.toSet().size == array.count() } otherwise { "Must contain unique elements" }

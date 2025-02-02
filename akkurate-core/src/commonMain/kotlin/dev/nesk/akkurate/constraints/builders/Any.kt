@@ -18,9 +18,13 @@
 package dev.nesk.akkurate.constraints.builders
 
 import dev.nesk.akkurate.constraints.Constraint
+import dev.nesk.akkurate.constraints.GenericConstraint
 import dev.nesk.akkurate.constraints.constrain
 import dev.nesk.akkurate.constraints.otherwise
+import dev.nesk.akkurate.validatables.DefaultMetadataType
+import dev.nesk.akkurate.validatables.GenericValidatable
 import dev.nesk.akkurate.validatables.Validatable
+import kotlin.jvm.JvmName
 
 /**
  * The validatable value must be null when this constraint is applied.
@@ -33,7 +37,7 @@ import dev.nesk.akkurate.validatables.Validatable
  * validate(1234) // Failure (message: Must be null)
  * ```
  */
-public fun <T> Validatable<T?>.isNull(): Constraint = constrain { it == null } otherwise { "Must be null" }
+public fun <T, MetadataType> GenericValidatable<T?, MetadataType>.isNull(): GenericConstraint<MetadataType> = constrain { it == null } otherwise { "Must be null" }
 
 /**
  * The validatable value must not be null when this constraint is applied.
@@ -46,7 +50,7 @@ public fun <T> Validatable<T?>.isNull(): Constraint = constrain { it == null } o
  * validate(null) // Failure (message: Must not be null)
  * ```
  */
-public fun <T> Validatable<T?>.isNotNull(): Constraint = constrain { it != null } otherwise { "Must not be null" }
+public fun <T, MetadataType> GenericValidatable<T?, MetadataType>.isNotNull(): GenericConstraint<MetadataType> = constrain { it != null } otherwise { "Must not be null" }
 
 /**
  * The validatable value must be equal to [other] when this constraint is applied.
@@ -59,7 +63,7 @@ public fun <T> Validatable<T?>.isNotNull(): Constraint = constrain { it != null 
  * validate("bar") // Failure (message: Must be equal to "foo")
  * ```
  */
-public fun <T> Validatable<T?>.isEqualTo(other: T?): Constraint = constrain { it == other } otherwise { "Must be equal to \"$other\"" }
+public fun <T, MetadataType> GenericValidatable<T?, MetadataType>.isEqualTo(other: T?): GenericConstraint<MetadataType> = constrain { it == other } otherwise { "Must be equal to \"$other\"" }
 
 /**
  * The validatable value must be equal to [other] when this constraint is applied.
@@ -72,7 +76,7 @@ public fun <T> Validatable<T?>.isEqualTo(other: T?): Constraint = constrain { it
  * validate("foo" to "bar") // Failure (message: Must be equal to "bar")
  * ```
  */
-public fun <T> Validatable<T?>.isEqualTo(other: Validatable<T>): Constraint = constrain { it == other.unwrap() } otherwise { "Must be equal to \"${other.unwrap()}\"" }
+public fun <T, MetadataType> GenericValidatable<T?, MetadataType>.isEqualTo(other: Validatable<T>): GenericConstraint<MetadataType> = constrain { it == other.unwrap() } otherwise { "Must be equal to \"${other.unwrap()}\"" }
 
 /**
  * The validatable value must be different from [other] when this constraint is applied.
@@ -85,7 +89,7 @@ public fun <T> Validatable<T?>.isEqualTo(other: Validatable<T>): Constraint = co
  * validate("foo") // Failure (message: Must be different from "foo")
  * ```
  */
-public fun <T> Validatable<T?>.isNotEqualTo(other: T?): Constraint = constrain { it != other } otherwise { "Must be different from \"$other\"" }
+public fun <T, MetadataType> GenericValidatable<T?, MetadataType>.isNotEqualTo(other: T?): GenericConstraint<MetadataType> = constrain { it != other } otherwise { "Must be different from \"$other\"" }
 
 /**
  * The validatable value must be different from [other] when this constraint is applied.
@@ -98,7 +102,7 @@ public fun <T> Validatable<T?>.isNotEqualTo(other: T?): Constraint = constrain {
  * validate("foo" to "foo") // Failure (message: Must be different from "foo")
  * ```
  */
-public fun <T> Validatable<T?>.isNotEqualTo(other: Validatable<T>): Constraint = constrain { it != other.unwrap() } otherwise { "Must be different from \"${other.unwrap()}\"" }
+public fun <T, MetadataType> GenericValidatable<T?, MetadataType>.isNotEqualTo(other: Validatable<T>): GenericConstraint<MetadataType> = constrain { it != other.unwrap() } otherwise { "Must be different from \"${other.unwrap()}\"" }
 
 /**
  * The validatable value must be identical to [other] when this constraint is applied.
@@ -116,7 +120,7 @@ public fun <T> Validatable<T?>.isNotEqualTo(other: Validatable<T>): Constraint =
  * validate(Bar) // Failure (message: Must be identical to "Foo")
  * ```
  */
-public fun <T> Validatable<T?>.isIdenticalTo(other: T?): Constraint = constrain { it === other } otherwise { "Must be identical to \"$other\"" }
+public fun <T, MetadataType> GenericValidatable<T?, MetadataType>.isIdenticalTo(other: T?): GenericConstraint<MetadataType> = constrain { it === other } otherwise { "Must be identical to \"$other\"" }
 
 /**
  * The validatable value must not be identical to [other] when this constraint is applied.
@@ -134,7 +138,7 @@ public fun <T> Validatable<T?>.isIdenticalTo(other: T?): Constraint = constrain 
  * validate(Foo) // Failure (message: Must not be identical to "Foo")
  * ```
  */
-public fun <T> Validatable<T?>.isNotIdenticalTo(other: T?): Constraint = constrain { it !== other } otherwise { "Must not be identical to \"$other\"" }
+public fun <T, MetadataType> GenericValidatable<T?, MetadataType>.isNotIdenticalTo(other: T?): GenericConstraint<MetadataType> = constrain { it !== other } otherwise { "Must not be identical to \"$other\"" }
 
 /**
  * The validatable value must be an instance of type parameter R when this constraint is applied.
@@ -148,6 +152,10 @@ public fun <T> Validatable<T?>.isNotIdenticalTo(other: T?): Constraint = constra
  * ```
  */
 public inline fun <reified T> Validatable<*>.isInstanceOf(): Constraint =
+    this.isInstanceOf<T, DefaultMetadataType>()
+
+@JvmName("genericIsInstanceOf")
+public inline fun <reified T, MetadataType> GenericValidatable<*, MetadataType>.isInstanceOf(): GenericConstraint<MetadataType> =
     constrain { it is T } otherwise { "Must be an instance of \"${T::class.simpleName}\"" }
 
 /**
@@ -162,4 +170,8 @@ public inline fun <reified T> Validatable<*>.isInstanceOf(): Constraint =
  * ```
  */
 public inline fun <reified T> Validatable<*>.isNotInstanceOf(): Constraint =
+    this.isNotInstanceOf<T, DefaultMetadataType>()
+
+@JvmName("genericIsNotInstanceOf")
+public inline fun <reified T, MetadataType> GenericValidatable<*, MetadataType>.isNotInstanceOf(): GenericConstraint<MetadataType> =
     constrain { it !is T } otherwise { "Must not be an instance of \"${T::class.simpleName}\"" }
