@@ -17,13 +17,19 @@
 
 package dev.nesk.akkurate.constraints.builders
 
-import dev.nesk.akkurate.constraints.Constraint
+import dev.nesk.akkurate.constraints.GenericConstraint
 import dev.nesk.akkurate.constraints.constrain
 import dev.nesk.akkurate.constraints.otherwise
-import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.validatables.GenericValidatable
 
-public fun Validatable<Boolean?>.isTrue(): Constraint = constrain { it == true } otherwise { "Must be true" }
-public fun Validatable<Boolean?>.isNotTrue(): Constraint = constrain { it != true } otherwise { "Must not be true" }
+public fun <MetadataType> GenericValidatable<Boolean?, MetadataType>.isTrue(): GenericConstraint<MetadataType> =
+    constrain { it == true } otherwise { "Must be true" }
 
-public fun Validatable<Boolean?>.isFalse(): Constraint = constrain { it == false } otherwise { "Must be false" }
-public fun Validatable<Boolean?>.isNotFalse(): Constraint = constrain { it != false } otherwise { "Must not be false" }
+public fun <MetadataType> GenericValidatable<Boolean?, MetadataType>.isNotTrue(): GenericConstraint<MetadataType> =
+    constrain { it != true } otherwise { "Must not be true" }
+
+public fun <MetadataType> GenericValidatable<Boolean?, MetadataType>.isFalse(): GenericConstraint<MetadataType> =
+    constrain { it == false } otherwise { "Must be false" }
+
+public fun <MetadataType> GenericValidatable<Boolean?, MetadataType>.isNotFalse(): GenericConstraint<MetadataType> =
+    constrain { it != false } otherwise { "Must not be false" }

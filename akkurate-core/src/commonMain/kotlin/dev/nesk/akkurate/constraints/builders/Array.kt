@@ -17,10 +17,10 @@
 
 package dev.nesk.akkurate.constraints.builders
 
-import dev.nesk.akkurate.constraints.Constraint
+import dev.nesk.akkurate.constraints.GenericConstraint
 import dev.nesk.akkurate.constraints.constrainIfNotNull
 import dev.nesk.akkurate.constraints.otherwise
-import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.validatables.GenericValidatable
 import kotlin.jvm.JvmName
 
 /*
@@ -44,7 +44,7 @@ import kotlin.jvm.JvmName
  * ```
  */
 @JvmName("arrayIsEmpty")
-public fun <T> Validatable<Array<out T>?>.isEmpty(): Constraint =
+public fun <T, MetadataType> GenericValidatable<Array<out T>?, MetadataType>.isEmpty(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.isEmpty() } otherwise { "Must be empty" }
 
 /**
@@ -59,7 +59,7 @@ public fun <T> Validatable<Array<out T>?>.isEmpty(): Constraint =
  * ```
  */
 @JvmName("arrayIsNotEmpty")
-public fun <T> Validatable<Array<out T>?>.isNotEmpty(): Constraint =
+public fun <T, MetadataType> GenericValidatable<Array<out T>?, MetadataType>.isNotEmpty(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.isNotEmpty() } otherwise { "Must not be empty" }
 
 /**
@@ -74,7 +74,7 @@ public fun <T> Validatable<Array<out T>?>.isNotEmpty(): Constraint =
  * ```
  */
 @JvmName("arrayHasSizeEqualTo")
-public fun <T> Validatable<Array<out T>?>.hasSizeEqualTo(size: Int): Constraint =
+public fun <T, MetadataType> GenericValidatable<Array<out T>?, MetadataType>.hasSizeEqualTo(size: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size == size } otherwise { "The number of items must be equal to $size" }
 
 /**
@@ -89,7 +89,7 @@ public fun <T> Validatable<Array<out T>?>.hasSizeEqualTo(size: Int): Constraint 
  * ```
  */
 @JvmName("arrayHasSizeNotEqualTo")
-public fun <T> Validatable<Array<out T>?>.hasSizeNotEqualTo(size: Int): Constraint =
+public fun <T, MetadataType> GenericValidatable<Array<out T>?, MetadataType>.hasSizeNotEqualTo(size: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size != size } otherwise { "The number of items must be different from $size" }
 
 /**
@@ -104,7 +104,7 @@ public fun <T> Validatable<Array<out T>?>.hasSizeNotEqualTo(size: Int): Constrai
  * ```
  */
 @JvmName("arrayHasSizeLowerThan")
-public fun <T> Validatable<Array<out T>?>.hasSizeLowerThan(size: Int): Constraint =
+public fun <T, MetadataType> GenericValidatable<Array<out T>?, MetadataType>.hasSizeLowerThan(size: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size < size } otherwise { "The number of items must be lower than $size" }
 
 /**
@@ -120,7 +120,7 @@ public fun <T> Validatable<Array<out T>?>.hasSizeLowerThan(size: Int): Constrain
  * ```
  */
 @JvmName("arrayHasSizeLowerThanOrEqualTo")
-public fun <T> Validatable<Array<out T>?>.hasSizeLowerThanOrEqualTo(size: Int): Constraint =
+public fun <T, MetadataType> GenericValidatable<Array<out T>?, MetadataType>.hasSizeLowerThanOrEqualTo(size: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size <= size } otherwise { "The number of items must be lower than or equal to $size" }
 
 /**
@@ -135,7 +135,7 @@ public fun <T> Validatable<Array<out T>?>.hasSizeLowerThanOrEqualTo(size: Int): 
  * ```
  */
 @JvmName("arrayHasSizeGreaterThan")
-public fun <T> Validatable<Array<out T>?>.hasSizeGreaterThan(size: Int): Constraint =
+public fun <T, MetadataType> GenericValidatable<Array<out T>?, MetadataType>.hasSizeGreaterThan(size: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size > size } otherwise { "The number of items must be greater than $size" }
 
 /**
@@ -151,7 +151,7 @@ public fun <T> Validatable<Array<out T>?>.hasSizeGreaterThan(size: Int): Constra
  * ```
  */
 @JvmName("arrayHasSizeGreaterThanOrEqualTo")
-public fun <T> Validatable<Array<out T>?>.hasSizeGreaterThanOrEqualTo(size: Int): Constraint =
+public fun <T, MetadataType> GenericValidatable<Array<out T>?, MetadataType>.hasSizeGreaterThanOrEqualTo(size: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size >= size } otherwise { "The number of items must be greater than or equal to $size" }
 
 /**
@@ -168,7 +168,7 @@ public fun <T> Validatable<Array<out T>?>.hasSizeGreaterThanOrEqualTo(size: Int)
  * ```
  */
 @JvmName("arrayHasSizeBetween")
-public fun <T> Validatable<Array<out T>?>.hasSizeBetween(range: IntRange): Constraint =
+public fun <T, MetadataType> GenericValidatable<Array<out T>?, MetadataType>.hasSizeBetween(range: IntRange): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size in range } otherwise { "The number of items must be between ${range.first} and ${range.last}" }
 
 /**
@@ -183,7 +183,7 @@ public fun <T> Validatable<Array<out T>?>.hasSizeBetween(range: IntRange): Const
  * ```
  */
 @JvmName("arrayIsContaining")
-public fun <T> Validatable<Array<out T>?>.isContaining(element: T): Constraint =
+public fun <T, MetadataType> GenericValidatable<Array<out T>?, MetadataType>.isContaining(element: T): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.contains(element) } otherwise { "Must contain \"$element\"" }
 
 /**
@@ -198,7 +198,7 @@ public fun <T> Validatable<Array<out T>?>.isContaining(element: T): Constraint =
  * ```
  */
 @JvmName("arrayIsNotContaining")
-public fun <T> Validatable<Array<out T>?>.isNotContaining(element: T): Constraint =
+public fun <T, MetadataType> GenericValidatable<Array<out T>?, MetadataType>.isNotContaining(element: T): GenericConstraint<MetadataType> =
     constrainIfNotNull { !it.contains(element) } otherwise { "Must not contain \"$element\"" }
 
 /**
@@ -212,5 +212,5 @@ public fun <T> Validatable<Array<out T>?>.isNotContaining(element: T): Constrain
  * validate(arrayOf('a', 'b', 'c', 'a')) // Failure (message: Must contain unique elements)
  * ```
  */
-public fun <T> Validatable<Array<out T>?>.hasNoDuplicates(): Constraint =
+public fun <T, MetadataType> GenericValidatable<Array<out T>?, MetadataType>.hasNoDuplicates(): GenericConstraint<MetadataType> =
     constrainIfNotNull { array -> array.toSet().size == array.size } otherwise { "Must contain unique elements" }

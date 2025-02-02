@@ -84,7 +84,7 @@ class AkkurateTest {
         val response = client.sendBoolean(false)
 
         assertEquals(
-            "ConstraintViolationSet(messages=[ConstraintViolation(message='Must be true', path=[])])",
+            "ConstraintViolationSet(messages=[ConstraintViolation(message='Must be true', path=[], metadata={})])",
             response.bodyAsText(),
             "The body contains a string representation of ConstraintViolationSet."
         )

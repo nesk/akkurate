@@ -17,9 +17,10 @@
 
 package dev.nesk.akkurate.constraints.builders
 
-import dev.nesk.akkurate.constraints.Constraint
+import dev.nesk.akkurate.constraints.GenericConstraint
 import dev.nesk.akkurate.constraints.constrainIfNotNull
 import dev.nesk.akkurate.constraints.otherwise
+import dev.nesk.akkurate.validatables.GenericValidatable
 import dev.nesk.akkurate.validatables.Validatable
 import kotlinx.datetime.*
 import kotlin.jvm.JvmName
@@ -53,7 +54,7 @@ private const val pastMessage = "Must be in the past"
  * ```
  */
 @JvmName("instantIsInPast")
-public fun Validatable<Instant?>.isInPast(): Constraint =
+public fun <MetadataType> GenericValidatable<Instant?, MetadataType>.isInPast(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it < currentInstant } otherwise { pastMessage }
 
 /**
@@ -72,7 +73,7 @@ public fun Validatable<Instant?>.isInPast(): Constraint =
  * ```
  */
 @JvmName("localDateIsInPast")
-public fun Validatable<LocalDate?>.isInPast(): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDate?, MetadataType>.isInPast(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it < currentLocalDate } otherwise { pastMessage }
 
 /**
@@ -91,7 +92,7 @@ public fun Validatable<LocalDate?>.isInPast(): Constraint =
  * ```
  */
 @JvmName("localTimeIsInPast")
-public fun Validatable<LocalTime?>.isInPast(): Constraint =
+public fun <MetadataType> GenericValidatable<LocalTime?, MetadataType>.isInPast(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it < currentLocalTime } otherwise { pastMessage }
 
 /**
@@ -111,7 +112,7 @@ public fun Validatable<LocalTime?>.isInPast(): Constraint =
  * ```
  */
 @JvmName("localDateTimeIsInPast")
-public fun Validatable<LocalDateTime?>.isInPast(): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDateTime?, MetadataType>.isInPast(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it < currentLocalDateTime } otherwise { pastMessage }
 //endregion
 
@@ -133,7 +134,7 @@ private const val pastOrPresentMessage = "Must be in the past or present"
  * ```
  */
 @JvmName("instantIsInPastOrIsPresent")
-public fun Validatable<Instant?>.isInPastOrIsPresent(): Constraint =
+public fun <MetadataType> GenericValidatable<Instant?, MetadataType>.isInPastOrIsPresent(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it <= currentInstant } otherwise { pastOrPresentMessage }
 
 /**
@@ -152,7 +153,7 @@ public fun Validatable<Instant?>.isInPastOrIsPresent(): Constraint =
  * ```
  */
 @JvmName("localDateIsInPastOrIsPresent")
-public fun Validatable<LocalDate?>.isInPastOrIsPresent(): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDate?, MetadataType>.isInPastOrIsPresent(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it <= currentLocalDate } otherwise { pastOrPresentMessage }
 
 /**
@@ -171,7 +172,7 @@ public fun Validatable<LocalDate?>.isInPastOrIsPresent(): Constraint =
  * ```
  */
 @JvmName("localTimeIsInPastOrIsPresent")
-public fun Validatable<LocalTime?>.isInPastOrIsPresent(): Constraint =
+public fun <MetadataType> GenericValidatable<LocalTime?, MetadataType>.isInPastOrIsPresent(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it <= currentLocalTime } otherwise { pastOrPresentMessage }
 
 /**
@@ -191,7 +192,7 @@ public fun Validatable<LocalTime?>.isInPastOrIsPresent(): Constraint =
  * ```
  */
 @JvmName("localDateTimeIsInPastOrIsPresent")
-public fun Validatable<LocalDateTime?>.isInPastOrIsPresent(): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDateTime?, MetadataType>.isInPastOrIsPresent(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it <= currentLocalDateTime } otherwise { pastOrPresentMessage }
 //endregion
 
@@ -213,7 +214,7 @@ private const val futureMessage = "Must be in the future"
  * ```
  */
 @JvmName("instantFuture")
-public fun Validatable<Instant?>.isInFuture(): Constraint =
+public fun <MetadataType> GenericValidatable<Instant?, MetadataType>.isInFuture(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it > currentInstant } otherwise { futureMessage }
 
 /**
@@ -232,7 +233,7 @@ public fun Validatable<Instant?>.isInFuture(): Constraint =
  * ```
  */
 @JvmName("localDateFuture")
-public fun Validatable<LocalDate?>.isInFuture(): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDate?, MetadataType>.isInFuture(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it > currentLocalDate } otherwise { futureMessage }
 
 /**
@@ -251,7 +252,7 @@ public fun Validatable<LocalDate?>.isInFuture(): Constraint =
  * ```
  */
 @JvmName("localTimeFuture")
-public fun Validatable<LocalTime?>.isInFuture(): Constraint =
+public fun <MetadataType> GenericValidatable<LocalTime?, MetadataType>.isInFuture(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it > currentLocalTime } otherwise { futureMessage }
 
 /**
@@ -271,7 +272,7 @@ public fun Validatable<LocalTime?>.isInFuture(): Constraint =
  * ```
  */
 @JvmName("localDateTimeFuture")
-public fun Validatable<LocalDateTime?>.isInFuture(): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDateTime?, MetadataType>.isInFuture(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it > currentLocalDateTime } otherwise { futureMessage }
 //endregion
 
@@ -293,7 +294,7 @@ private const val futureOrPresentMessage = "Must be in the future or present"
  * ```
  */
 @JvmName("instantIsInFutureOrIsPresent")
-public fun Validatable<Instant?>.isInFutureOrIsPresent(): Constraint =
+public fun <MetadataType> GenericValidatable<Instant?, MetadataType>.isInFutureOrIsPresent(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it >= currentInstant } otherwise { futureOrPresentMessage }
 
 /**
@@ -312,7 +313,7 @@ public fun Validatable<Instant?>.isInFutureOrIsPresent(): Constraint =
  * ```
  */
 @JvmName("localDateIsInFutureOrIsPresent")
-public fun Validatable<LocalDate?>.isInFutureOrIsPresent(): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDate?, MetadataType>.isInFutureOrIsPresent(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it >= currentLocalDate } otherwise { futureOrPresentMessage }
 
 /**
@@ -331,7 +332,7 @@ public fun Validatable<LocalDate?>.isInFutureOrIsPresent(): Constraint =
  * ```
  */
 @JvmName("localTimeIsInFutureOrIsPresent")
-public fun Validatable<LocalTime?>.isInFutureOrIsPresent(): Constraint =
+public fun <MetadataType> GenericValidatable<LocalTime?, MetadataType>.isInFutureOrIsPresent(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it >= currentLocalTime } otherwise { futureOrPresentMessage }
 
 /**
@@ -351,12 +352,12 @@ public fun Validatable<LocalTime?>.isInFutureOrIsPresent(): Constraint =
  * ```
  */
 @JvmName("localDateTimeIsInFutureOrIsPresent")
-public fun Validatable<LocalDateTime?>.isInFutureOrIsPresent(): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDateTime?, MetadataType>.isInFutureOrIsPresent(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it >= currentLocalDateTime } otherwise { futureOrPresentMessage }
 //endregion
 
 //region isBefore
-private infix fun Constraint.otherwiseBefore(other: Any) = otherwise { "Must be before \"$other\"" }
+private infix fun <MetadataType> GenericConstraint<MetadataType>.otherwiseBefore(other: Any) = otherwise { "Must be before \"$other\"" }
 
 /**
  * The validatable [Instant] must be before [other] when this constraint is applied.
@@ -373,7 +374,7 @@ private infix fun Constraint.otherwiseBefore(other: Any) = otherwise { "Must be 
  * validate(now + 5.seconds) // Failure (message: Must be before "2024-08-31T12:30:15Z")
  * ```
  */
-public fun Validatable<Instant?>.isBefore(other: Instant): Constraint =
+public fun <MetadataType> GenericValidatable<Instant?, MetadataType>.isBefore(other: Instant): GenericConstraint<MetadataType> =
     constrainIfNotNull { it < other } otherwiseBefore other
 
 /**
@@ -391,7 +392,7 @@ public fun Validatable<Instant?>.isBefore(other: Instant): Constraint =
  * validate(now.plus(2, DateTimeUnit.DAY)) // Failure (message: Must be before "2024-08-31")
  * ```
  */
-public fun Validatable<LocalDate?>.isBefore(other: LocalDate): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDate?, MetadataType>.isBefore(other: LocalDate): GenericConstraint<MetadataType> =
     constrainIfNotNull { it < other } otherwiseBefore other
 
 /**
@@ -409,7 +410,7 @@ public fun Validatable<LocalDate?>.isBefore(other: LocalDate): Constraint =
  * validate(LocalTime.fromSecondOfDay(now.toSecondOfDay() + 5)) // Failure (message: Must be before "12:30:15")
  * ```
  */
-public fun Validatable<LocalTime?>.isBefore(other: LocalTime): Constraint =
+public fun <MetadataType> GenericValidatable<LocalTime?, MetadataType>.isBefore(other: LocalTime): GenericConstraint<MetadataType> =
     constrainIfNotNull { it < other } otherwiseBefore other
 
 /**
@@ -428,12 +429,12 @@ public fun Validatable<LocalTime?>.isBefore(other: LocalTime): Constraint =
  * validate((now.toInstant(timezone) + 5.seconds).toLocalDateTime(timezone)) // Failure (message: Must be before "2024-08-31T12:30:15")
  * ```
  */
-public fun Validatable<LocalDateTime?>.isBefore(other: LocalDateTime): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDateTime?, MetadataType>.isBefore(other: LocalDateTime): GenericConstraint<MetadataType> =
     constrainIfNotNull { it < other } otherwiseBefore other
 //endregion
 
 //region isBeforeOrEqualTo
-private infix fun Constraint.otherwiseBeforeOrEqual(other: Any) = otherwise { "Must be before or equal to \"$other\"" }
+private infix fun <MetadataType> GenericConstraint<MetadataType>.otherwiseBeforeOrEqual(other: Any) = otherwise { "Must be before or equal to \"$other\"" }
 
 /**
  * The validatable [Instant] must be before or equal to [other] when this constraint is applied.
@@ -450,7 +451,7 @@ private infix fun Constraint.otherwiseBeforeOrEqual(other: Any) = otherwise { "M
  * validate(now + 5.seconds) // Failure (message: Must be before or equal to "2024-08-31T12:30:15Z")
  * ```
  */
-public fun Validatable<Instant?>.isBeforeOrEqualTo(other: Instant): Constraint =
+public fun <MetadataType> GenericValidatable<Instant?, MetadataType>.isBeforeOrEqualTo(other: Instant): GenericConstraint<MetadataType> =
     constrainIfNotNull { it <= other } otherwiseBeforeOrEqual other
 
 /**
@@ -468,7 +469,7 @@ public fun Validatable<Instant?>.isBeforeOrEqualTo(other: Instant): Constraint =
  * validate(now.plus(2, DateTimeUnit.DAY)) // Failure (message: Must be before or equal to "2024-08-31")
  * ```
  */
-public fun Validatable<LocalDate?>.isBeforeOrEqualTo(other: LocalDate): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDate?, MetadataType>.isBeforeOrEqualTo(other: LocalDate): GenericConstraint<MetadataType> =
     constrainIfNotNull { it <= other } otherwiseBeforeOrEqual other
 
 /**
@@ -486,7 +487,7 @@ public fun Validatable<LocalDate?>.isBeforeOrEqualTo(other: LocalDate): Constrai
  * validate(LocalTime.fromSecondOfDay(now.toSecondOfDay() + 5)) // Failure (message: Must be before or equal to "12:30:15")
  * ```
  */
-public fun Validatable<LocalTime?>.isBeforeOrEqualTo(other: LocalTime): Constraint =
+public fun <MetadataType> GenericValidatable<LocalTime?, MetadataType>.isBeforeOrEqualTo(other: LocalTime): GenericConstraint<MetadataType> =
     constrainIfNotNull { it <= other } otherwiseBeforeOrEqual other
 
 /**
@@ -505,12 +506,12 @@ public fun Validatable<LocalTime?>.isBeforeOrEqualTo(other: LocalTime): Constrai
  * validate((now.toInstant(timezone) + 5.seconds).toLocalDateTime(timezone)) // Failure (message: Must be before or equal to "2024-08-31T12:30:15")
  * ```
  */
-public fun Validatable<LocalDateTime?>.isBeforeOrEqualTo(other: LocalDateTime): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDateTime?, MetadataType>.isBeforeOrEqualTo(other: LocalDateTime): GenericConstraint<MetadataType> =
     constrainIfNotNull { it <= other } otherwiseBeforeOrEqual other
 //endregion
 
 //region isAfter
-private infix fun Constraint.otherwiseAfter(other: Any) = otherwise { "Must be after \"$other\"" }
+private infix fun <MetadataType> GenericConstraint<MetadataType>.otherwiseAfter(other: Any) = otherwise { "Must be after \"$other\"" }
 
 /**
  * The validatable [Instant] must be after [other] when this constraint is applied.
@@ -527,7 +528,7 @@ private infix fun Constraint.otherwiseAfter(other: Any) = otherwise { "Must be a
  * validate(now - 5.seconds) // Failure (message: Must be after "2024-08-31T12:30:15Z")
  * ```
  */
-public fun Validatable<Instant?>.isAfter(other: Instant): Constraint =
+public fun <MetadataType> GenericValidatable<Instant?, MetadataType>.isAfter(other: Instant): GenericConstraint<MetadataType> =
     constrainIfNotNull { it > other } otherwiseAfter other
 
 /**
@@ -545,7 +546,7 @@ public fun Validatable<Instant?>.isAfter(other: Instant): Constraint =
  * validate(now.minus(2, DateTimeUnit.DAY)) // Failure (message: Must be after "2024-08-31")
  * ```
  */
-public fun Validatable<LocalDate?>.isAfter(other: LocalDate): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDate?, MetadataType>.isAfter(other: LocalDate): GenericConstraint<MetadataType> =
     constrainIfNotNull { it > other } otherwiseAfter other
 
 /**
@@ -563,7 +564,7 @@ public fun Validatable<LocalDate?>.isAfter(other: LocalDate): Constraint =
  * validate(LocalTime.fromSecondOfDay(now.toSecondOfDay() - 5)) // Failure (message: Must be after "12:30:15")
  * ```
  */
-public fun Validatable<LocalTime?>.isAfter(other: LocalTime): Constraint =
+public fun <MetadataType> GenericValidatable<LocalTime?, MetadataType>.isAfter(other: LocalTime): GenericConstraint<MetadataType> =
     constrainIfNotNull { it > other } otherwiseAfter other
 
 /**
@@ -582,12 +583,12 @@ public fun Validatable<LocalTime?>.isAfter(other: LocalTime): Constraint =
  * validate((now.toInstant(timezone) - 5.seconds).toLocalDateTime(timezone)) // Failure (message: Must be after "2024-08-31T12:30:15")
  * ```
  */
-public fun Validatable<LocalDateTime?>.isAfter(other: LocalDateTime): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDateTime?, MetadataType>.isAfter(other: LocalDateTime): GenericConstraint<MetadataType> =
     constrainIfNotNull { it > other } otherwiseAfter other
 //endregion
 
 //region isAfterOrEqualTo
-private infix fun Constraint.otherwiseAfterOrEqual(other: Any) = otherwise { "Must be after or equal to \"$other\"" }
+private infix fun <MetadataType> GenericConstraint<MetadataType>.otherwiseAfterOrEqual(other: Any) = otherwise { "Must be after or equal to \"$other\"" }
 
 /**
  * The validatable [Instant] must be after or equal to [other] when this constraint is applied.
@@ -604,7 +605,7 @@ private infix fun Constraint.otherwiseAfterOrEqual(other: Any) = otherwise { "Mu
  * validate(now - 5.seconds) // Failure (message: Must be after or equal to "2024-08-31T12:30:15Z")
  * ```
  */
-public fun Validatable<Instant?>.isAfterOrEqualTo(other: Instant): Constraint =
+public fun <MetadataType> GenericValidatable<Instant?, MetadataType>.isAfterOrEqualTo(other: Instant): GenericConstraint<MetadataType> =
     constrainIfNotNull { it >= other } otherwiseAfterOrEqual other
 
 /**
@@ -622,7 +623,7 @@ public fun Validatable<Instant?>.isAfterOrEqualTo(other: Instant): Constraint =
  * validate(now.minus(2, DateTimeUnit.DAY)) // Failure (message: Must be after or equal to "2024-08-31")
  * ```
  */
-public fun Validatable<LocalDate?>.isAfterOrEqualTo(other: LocalDate): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDate?, MetadataType>.isAfterOrEqualTo(other: LocalDate): GenericConstraint<MetadataType> =
     constrainIfNotNull { it >= other } otherwiseAfterOrEqual other
 
 /**
@@ -640,7 +641,7 @@ public fun Validatable<LocalDate?>.isAfterOrEqualTo(other: LocalDate): Constrain
  * validate(LocalTime.fromSecondOfDay(now.toSecondOfDay() - 5)) // Failure (message: Must be after or equal to "12:30:15")
  * ```
  */
-public fun Validatable<LocalTime?>.isAfterOrEqualTo(other: LocalTime): Constraint =
+public fun <MetadataType> GenericValidatable<LocalTime?, MetadataType>.isAfterOrEqualTo(other: LocalTime): GenericConstraint<MetadataType> =
     constrainIfNotNull { it >= other } otherwiseAfterOrEqual other
 
 /**
@@ -659,6 +660,6 @@ public fun Validatable<LocalTime?>.isAfterOrEqualTo(other: LocalTime): Constrain
  * validate((now.toInstant(timezone) - 5.seconds).toLocalDateTime(timezone)) // Failure (message: Must be after or equal to "2024-08-31T12:30:15")
  * ```
  */
-public fun Validatable<LocalDateTime?>.isAfterOrEqualTo(other: LocalDateTime): Constraint =
+public fun <MetadataType> GenericValidatable<LocalDateTime?, MetadataType>.isAfterOrEqualTo(other: LocalDateTime): GenericConstraint<MetadataType> =
     constrainIfNotNull { it >= other } otherwiseAfterOrEqual other
 //endregion

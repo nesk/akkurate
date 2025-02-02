@@ -17,12 +17,12 @@
 
 package dev.nesk.akkurate.constraints.builders
 
-import dev.nesk.akkurate.constraints.Constraint
-import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.constraints.GenericConstraint
+import dev.nesk.akkurate.validatables.GenericValidatable
 
 // Keep this constraint only available to the JVM target to avoid potential issues.
 // For example, the JS target fails to properly determine the fractional count of a Float.
 // We'll see later to make this constraint available to all targets.
 @JvmName("floatHasFractionalCountEqualTo")
-public fun Validatable<Float?>.hasFractionalCountEqualTo(count: Int): Constraint =
+public fun <MetadataType> GenericValidatable<Float?, MetadataType>.hasFractionalCountEqualTo(count: Int): GenericConstraint<MetadataType> =
     constrainDecimalPart(count) otherwiseFractionalCountEqualTo count

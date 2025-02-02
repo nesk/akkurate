@@ -20,15 +20,19 @@ package dev.nesk.akkurate
 import dev.nesk.akkurate.ValidationResult.Failure
 import dev.nesk.akkurate.ValidationResult.Success
 import dev.nesk.akkurate.constraints.ConstraintViolationSet
+import dev.nesk.akkurate.constraints.GenericConstraintViolationSet
+import dev.nesk.akkurate.validatables.DefaultMetadataType
 
 /**
  * The result of a validation. Can be [a successful outcome][Success] with the validated value, or [a failure][Failure] with a violation list.
  */
-public sealed interface ValidationResult<out T> {
+public sealed interface ValidationResult<out E, out T> {
     /**
      * Throws an [Exception] if the result is a failure.
      */
     public fun orThrow()
+
+    public fun orThrow(toDefaultMetadata: (E) -> DefaultMetadataType)
 
     /**
      * A successful outcome to the validation, with [the validated value][value].
@@ -38,13 +42,14 @@ public sealed interface ValidationResult<out T> {
          * The subject of the validation result.
          */
         public val value: T,
-    ) : ValidationResult<T> {
+    ) : ValidationResult<Nothing, T> {
         /**
          * Returns the [value].
          */
         public operator fun component1(): T = value
 
         override fun orThrow(): Unit = Unit
+        override fun orThrow(toDefaultMetadata: (Nothing) -> DefaultMetadataType): Unit = Unit
 
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
@@ -64,30 +69,36 @@ public sealed interface ValidationResult<out T> {
     /**
      * A failed outcome to the validation, with a violation list describing what went wrong.
      */
-    public class Failure internal constructor(
+    public class Failure<E> internal constructor(
         /**
          * A list of failed constraint violations.
          */
-        public val violations: ConstraintViolationSet,
-    ) : ValidationResult<Nothing> {
+        public val violations: GenericConstraintViolationSet<E>,
+    ) : ValidationResult<E, Nothing> {
         /**
          * Returns the [violations].
          */
-        public operator fun component1(): ConstraintViolationSet = violations
+        public operator fun component1(): GenericConstraintViolationSet<E> = violations
 
-        override fun orThrow(): Nothing = throw Exception(violations)
+        override fun orThrow(): Nothing = orThrow { emptyMap() }
+        override fun orThrow(toDefaultMetadata: (E) -> DefaultMetadataType): Nothing =
+            throw Exception(
+                ConstraintViolationSet(violations.map { it.copy(metadata = toDefaultMetadata(it.metadata)) }.toSet())
+            )
+
 
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
             if (other == null || this::class != other::class) return false
 
-            other as Failure
+            other as Failure<E>
 
             return violations == other.violations
         }
 
         override fun hashCode(): Int = violations.hashCode()
         override fun toString(): String = "ValidationResult.Failure(violations=$violations)"
+
     }
 
     /**

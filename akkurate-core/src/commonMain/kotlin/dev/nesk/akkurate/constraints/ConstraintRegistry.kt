@@ -19,15 +19,19 @@ package dev.nesk.akkurate.constraints
 
 import dev.nesk.akkurate.Configuration
 import dev.nesk.akkurate.ValidationResult
+import dev.nesk.akkurate.validatables.DefaultMetadataType
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
+import kotlin.jvm.JvmName
+
+internal typealias ConstraintRegistry = GenericConstraintRegistry<DefaultMetadataType>
 
 /**
  * A storage for all the unsatisfied constraints encountered during a validation.
  */
-internal class ConstraintRegistry(private val configuration: Configuration) {
-    private val constraints = mutableSetOf<ConstraintDescriptor>()
+internal class GenericConstraintRegistry<MetadataType> private constructor(private val configuration: Configuration) {
+    private val constraints = mutableSetOf<GenericConstraintDescriptor<MetadataType>>()
 
     /**
      * Runs all the checks for [Configuration.failOnFirstViolation]. Should be called between each constraint registration.
@@ -44,41 +48,48 @@ internal class ConstraintRegistry(private val configuration: Configuration) {
     /**
      * Registers the provided constraint if it's unsatisfied.
      */
-    fun register(constraint: Constraint) {
+    fun register(constraint: GenericConstraint<MetadataType>) {
         if (!constraint.satisfied) constraints += constraint
     }
 
     /**
      * Registers the provided constraint violation.
      */
-    fun register(constraint: ConstraintViolation) {
+    fun register(constraint: GenericConstraintViolation<MetadataType>) {
         constraints += constraint
     }
 
     fun toSet() = constraints.toSet()
+
+    internal companion object {
+        internal operator fun invoke(configuration: Configuration): ConstraintRegistry = ConstraintRegistry(configuration)
+
+        @JvmName("genericInvoke")
+        internal operator fun <MetadataType> invoke(configuration: Configuration): GenericConstraintRegistry<MetadataType> = GenericConstraintRegistry(configuration)
+    }
 }
 
 /**
- * Runs the provided [block] with a new [ConstraintRegistry] provided as a parameter.
+ * Runs the provided [block] with a new [GenericConstraintRegistry] provided as a parameter.
  *
  * @param value The value to validate, will be used if the validation is successful.
- * @return A [ValidationResult] based on the registered constraints in the [ConstraintRegistry].
+ * @return A [ValidationResult] based on the registered constraints in the [GenericConstraintRegistry].
  */
-internal inline fun <T> runWithConstraintRegistry(
-    value: T, configuration: Configuration, block: (ConstraintRegistry) -> Unit,
-) = ConstraintRegistry(configuration)
-    .alsoCatching<ConstraintRegistry, FirstViolationException>(block)
+internal inline fun <T, MetadataType> runWithConstraintRegistry(
+    value: T, configuration: Configuration, block: (GenericConstraintRegistry<MetadataType>) -> Unit,
+) = GenericConstraintRegistry<MetadataType>(configuration)
+    .alsoCatching<GenericConstraintRegistry<MetadataType>, FirstViolationException>(block)
     .map { it.toSet() }
-    .recover { setOf((it as FirstViolationException).violation) }
+    .recover { setOf((it as FirstViolationException).violation as GenericConstraintViolation<MetadataType>) }
     .getOrThrow()
     .takeIf { it.isNotEmpty() }
     ?.let { ValidationResult.Failure(it.toViolationSet(configuration)) }
     ?: ValidationResult.Success(value)
 
-private fun Iterable<ConstraintDescriptor>.toViolationSet(configuration: Configuration) =
+private fun <MetadataType> Iterable<GenericConstraintDescriptor<MetadataType>>.toViolationSet(configuration: Configuration) =
     map { it.toConstraintViolation(configuration) }
         .toSet()
-        .let(::ConstraintViolationSet)
+        .let(::GenericConstraintViolationSet)
 
 /**
  * Calls the specified function [block] with `this` value as its argument and returns a result.
@@ -103,12 +114,12 @@ private inline fun <T, reified E : Throwable> T.alsoCatching(block: (T) -> Unit)
 }
 
 // TODO: Benchmark `is` usage in all runtimes, compared to the visitor pattern.
-private fun ConstraintDescriptor.toConstraintViolation(configuration: Configuration) = when (this) {
-    is Constraint -> toConstraintViolation(configuration.defaultViolationMessage, configuration.rootPath)
-    is ConstraintViolation -> this
+private fun <MetadataType> GenericConstraintDescriptor<MetadataType>.toConstraintViolation(configuration: Configuration): GenericConstraintViolation<MetadataType> = when (this) {
+    is GenericConstraint -> toConstraintViolation(configuration.defaultViolationMessage, configuration.rootPath)
+    is GenericConstraintViolation<MetadataType> -> this
 }
 
 /**
  * An internal exception used in conjunction with [Configuration.failOnFirstViolation].
  */
-internal class FirstViolationException(val violation: ConstraintViolation) : RuntimeException()
+internal class FirstViolationException(val violation: GenericConstraintViolation<*>) : RuntimeException()

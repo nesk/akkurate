@@ -17,10 +17,10 @@
 
 package dev.nesk.akkurate.constraints.builders
 
-import dev.nesk.akkurate.constraints.Constraint
+import dev.nesk.akkurate.constraints.GenericConstraint
 import dev.nesk.akkurate.constraints.constrainIfNotNull
 import dev.nesk.akkurate.constraints.otherwise
-import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.validatables.GenericValidatable
 import kotlin.jvm.JvmName
 
 /*
@@ -44,7 +44,7 @@ import kotlin.jvm.JvmName
  * ```
  */
 @JvmName("mapIsEmpty")
-public fun <T> Validatable<Map<*, T>?>.isEmpty(): Constraint =
+public fun <T, MetadataType> GenericValidatable<Map<*, T>?, MetadataType>.isEmpty(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.isEmpty() } otherwise { "Must be empty" }
 
 /**
@@ -59,7 +59,7 @@ public fun <T> Validatable<Map<*, T>?>.isEmpty(): Constraint =
  * ```
  */
 @JvmName("mapIsNotEmpty")
-public fun <T> Validatable<Map<*, T>?>.isNotEmpty(): Constraint =
+public fun <T, MetadataType> GenericValidatable<Map<*, T>?, MetadataType>.isNotEmpty(): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.isNotEmpty() } otherwise { "Must not be empty" }
 
 /**
@@ -74,7 +74,7 @@ public fun <T> Validatable<Map<*, T>?>.isNotEmpty(): Constraint =
  * ```
  */
 @JvmName("mapHasSizeEqualTo")
-public fun <T> Validatable<Map<*, T>?>.hasSizeEqualTo(size: Int): Constraint =
+public fun <T, MetadataType> GenericValidatable<Map<*, T>?, MetadataType>.hasSizeEqualTo(size: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size == size } otherwise { "The number of items must be equal to $size" }
 
 /**
@@ -89,7 +89,7 @@ public fun <T> Validatable<Map<*, T>?>.hasSizeEqualTo(size: Int): Constraint =
  * ```
  */
 @JvmName("mapHasSizeNotEqualTo")
-public fun <T> Validatable<Map<*, T>?>.hasSizeNotEqualTo(size: Int): Constraint =
+public fun <T, MetadataType> GenericValidatable<Map<*, T>?, MetadataType>.hasSizeNotEqualTo(size: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size != size } otherwise { "The number of items must be different from $size" }
 
 /**
@@ -104,7 +104,7 @@ public fun <T> Validatable<Map<*, T>?>.hasSizeNotEqualTo(size: Int): Constraint 
  * ```
  */
 @JvmName("mapHasSizeLowerThan")
-public fun <T> Validatable<Map<*, T>?>.hasSizeLowerThan(size: Int): Constraint =
+public fun <T, MetadataType> GenericValidatable<Map<*, T>?, MetadataType>.hasSizeLowerThan(size: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size < size } otherwise { "The number of items must be lower than $size" }
 
 /**
@@ -120,7 +120,7 @@ public fun <T> Validatable<Map<*, T>?>.hasSizeLowerThan(size: Int): Constraint =
  * ```
  */
 @JvmName("mapHasSizeLowerThanOrEqualTo")
-public fun <T> Validatable<Map<*, T>?>.hasSizeLowerThanOrEqualTo(size: Int): Constraint =
+public fun <T, MetadataType> GenericValidatable<Map<*, T>?, MetadataType>.hasSizeLowerThanOrEqualTo(size: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size <= size } otherwise { "The number of items must be lower than or equal to $size" }
 
 /**
@@ -135,7 +135,7 @@ public fun <T> Validatable<Map<*, T>?>.hasSizeLowerThanOrEqualTo(size: Int): Con
  * ```
  */
 @JvmName("mapHasSizeGreaterThan")
-public fun <T> Validatable<Map<*, T>?>.hasSizeGreaterThan(size: Int): Constraint =
+public fun <T, MetadataType> GenericValidatable<Map<*, T>?, MetadataType>.hasSizeGreaterThan(size: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size > size } otherwise { "The number of items must be greater than $size" }
 
 /**
@@ -151,7 +151,7 @@ public fun <T> Validatable<Map<*, T>?>.hasSizeGreaterThan(size: Int): Constraint
  * ```
  */
 @JvmName("mapHasSizeGreaterThanOrEqualTo")
-public fun <T> Validatable<Map<*, T>?>.hasSizeGreaterThanOrEqualTo(size: Int): Constraint =
+public fun <T, MetadataType> GenericValidatable<Map<*, T>?, MetadataType>.hasSizeGreaterThanOrEqualTo(size: Int): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size >= size } otherwise { "The number of items must be greater than or equal to $size" }
 
 /**
@@ -168,7 +168,7 @@ public fun <T> Validatable<Map<*, T>?>.hasSizeGreaterThanOrEqualTo(size: Int): C
  * ```
  */
 @JvmName("mapHasSizeBetween")
-public fun <T> Validatable<Map<*, T>?>.hasSizeBetween(range: IntRange): Constraint =
+public fun <T, MetadataType> GenericValidatable<Map<*, T>?, MetadataType>.hasSizeBetween(range: IntRange): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.size in range } otherwise { "The number of items must be between ${range.first} and ${range.last}" }
 
 /**
@@ -182,7 +182,7 @@ public fun <T> Validatable<Map<*, T>?>.hasSizeBetween(range: IntRange): Constrai
  * validate(emptyMap()) // Failure (message: Must contain key "b")
  * ```
  */
-public fun <K> Validatable<Map<out K, *>?>.isContainingKey(key: K): Constraint =
+public fun <K, MetadataType> GenericValidatable<Map<out K, *>?, MetadataType>.isContainingKey(key: K): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.containsKey(key) } otherwise { "Must contain key \"$key\"" }
 
 /**
@@ -196,7 +196,7 @@ public fun <K> Validatable<Map<out K, *>?>.isContainingKey(key: K): Constraint =
  * validate(mapOf('a' to 1, 'b' to 2, 'c' to 3)) // Failure (message: Must not contain key "b")
  * ```
  */
-public fun <K> Validatable<Map<out K, *>?>.isNotContainingKey(key: K): Constraint =
+public fun <K, MetadataType> GenericValidatable<Map<out K, *>?, MetadataType>.isNotContainingKey(key: K): GenericConstraint<MetadataType> =
     constrainIfNotNull { !it.containsKey(key) } otherwise { "Must not contain key \"$key\"" }
 
 /**
@@ -210,7 +210,7 @@ public fun <K> Validatable<Map<out K, *>?>.isNotContainingKey(key: K): Constrain
  * validate(emptyMap()) // Failure (message: Must contain value "2")
  * ```
  */
-public fun <V> Validatable<Map<*, V>?>.isContainingValue(value: V): Constraint =
+public fun <V, MetadataType> GenericValidatable<Map<*, V>?, MetadataType>.isContainingValue(value: V): GenericConstraint<MetadataType> =
     constrainIfNotNull { it.containsValue(value) } otherwise { "Must contain value \"$value\"" }
 
 /**
@@ -224,5 +224,5 @@ public fun <V> Validatable<Map<*, V>?>.isContainingValue(value: V): Constraint =
  * validate(mapOf('a' to 1, 'b' to 2, 'c' to 3)) // Failure (message: Must not contain value "2")
  * ```
  */
-public fun <V> Validatable<Map<*, V>?>.isNotContainingValue(value: V): Constraint =
+public fun <V, MetadataType> GenericValidatable<Map<*, V>?, MetadataType>.isNotContainingValue(value: V): GenericConstraint<MetadataType> =
     constrainIfNotNull { !it.containsValue(value) } otherwise { "Must not contain value \"$value\"" }

@@ -23,8 +23,10 @@ import arrow.core.raise.either
 import dev.nesk.akkurate.ValidationResult
 import dev.nesk.akkurate.constraints.ConstraintViolation
 import dev.nesk.akkurate.constraints.ConstraintViolationSet
+import dev.nesk.akkurate.constraints.GenericConstraintViolation
+import dev.nesk.akkurate.constraints.GenericConstraintViolationSet
 
-private fun ConstraintViolationSet.toNonEmptySet(): NonEmptySet<ConstraintViolation> =
+private fun <E> GenericConstraintViolationSet<E>.toNonEmptySet(): NonEmptySet<GenericConstraintViolation<E>> =
     nonEmptySetOf(this.first(), *this.drop(1).toTypedArray())
 
 /**
@@ -52,7 +54,7 @@ private fun ConstraintViolationSet.toNonEmptySet(): NonEmptySet<ConstraintViolat
  * normalizeBookName("  ") // Returns: "<error: Must not be blank>"
  * ```
  */
-public fun <T> ValidationResult<T>.toEither(): Either<NonEmptySet<ConstraintViolation>, T> = when (this) {
+public fun <E, T> ValidationResult<E, T>.toEither(): Either<NonEmptySet<GenericConstraintViolation<E>>, T> = when (this) {
     is ValidationResult.Failure -> violations.toNonEmptySet().left()
     is ValidationResult.Success -> value.right()
 }
@@ -85,7 +87,7 @@ public fun <T> ValidationResult<T>.toEither(): Either<NonEmptySet<ConstraintViol
  *
  * @return The validated value on successful result.
  */
-public fun <T> Raise<NonEmptySet<ConstraintViolation>>.bind(validationResult: ValidationResult<T>): T = when (validationResult) {
+public fun <E, T> Raise<NonEmptySet<GenericConstraintViolation<E>>>.bind(validationResult: ValidationResult<E, T>): T = when (validationResult) {
     is ValidationResult.Failure -> raise(validationResult.violations.toNonEmptySet())
     is ValidationResult.Success -> validationResult.value
 }

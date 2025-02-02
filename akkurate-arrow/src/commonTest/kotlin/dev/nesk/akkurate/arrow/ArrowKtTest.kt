@@ -24,6 +24,7 @@ import dev.nesk.akkurate.ValidationResult
 import dev.nesk.akkurate.Validator
 import dev.nesk.akkurate.constraints.ConstraintViolation
 import dev.nesk.akkurate.constraints.builders.isIdenticalTo
+import dev.nesk.akkurate.validatables.DefaultMetadataType
 import kotlin.test.Test
 import kotlin.test.assertIs
 import kotlin.test.assertSame
@@ -59,7 +60,7 @@ class ArrowKtTest {
         val validationResult = validate(SomeSealedClass.Invalid)
         val validationEither = validationResult.toEither()
 
-        assertIs<ValidationResult.Failure>(validationResult)
+        assertIs<ValidationResult.Failure<DefaultMetadataType>>(validationResult)
         assertIs<Either.Left<NonEmptySet<ConstraintViolation>>>(validationEither, "The `Either` instance is a `Left` type")
         assertSame(
             validationResult.violations.single(),
@@ -87,7 +88,7 @@ class ArrowKtTest {
         val validationResult = validate(SomeSealedClass.Invalid)
         val validationEither = either { bind(validationResult) }
 
-        assertIs<ValidationResult.Failure>(validationResult)
+        assertIs<ValidationResult.Failure<DefaultMetadataType>>(validationResult)
         assertIs<Either.Left<NonEmptySet<ConstraintViolation>>>(validationEither, "The `Either` instance is a `Left` type")
         assertSame(
             validationResult.violations.single(),

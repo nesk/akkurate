@@ -46,7 +46,7 @@ class ValidationResultTest {
         val failure = ValidationResult.Failure(violations)
         // Act & Assert
         val exception = assertFailsWith<ValidationResult.Exception> { failure.orThrow() }
-        assertSame(violations, exception.violations)
+        assertEquals(violations, exception.violations)
     }
 
     @Test

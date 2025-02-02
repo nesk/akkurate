@@ -17,12 +17,12 @@
 
 package dev.nesk.akkurate.accessors
 
-import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.validatables.GenericValidatable
 
 /**
- * Returns the element at the specified index in the list, wrapped in a [Validatable].
+ * Returns the element at the specified index in the list, wrapped in a [GenericValidatable].
  */
-public operator fun <T> Validatable<List<T>?>.get(index: Int): Validatable<T?> {
+public operator fun <T, MetadataType> GenericValidatable<List<T>?, MetadataType>.get(index: Int): GenericValidatable<T?, MetadataType> {
     val wrappedValue = unwrap()?.let {
         if (index in it.indices) {
             it[index]
@@ -30,5 +30,5 @@ public operator fun <T> Validatable<List<T>?>.get(index: Int): Validatable<T?> {
             null
         }
     }
-    return Validatable(wrappedValue, index.toString(), this)
+    return GenericValidatable(wrappedValue, index.toString(), this)
 }

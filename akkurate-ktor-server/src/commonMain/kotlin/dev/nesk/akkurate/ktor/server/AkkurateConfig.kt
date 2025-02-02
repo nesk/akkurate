@@ -18,6 +18,7 @@
 package dev.nesk.akkurate.ktor.server
 
 import dev.nesk.akkurate.constraints.ConstraintViolationSet
+import dev.nesk.akkurate.constraints.GenericConstraintViolationSet
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*

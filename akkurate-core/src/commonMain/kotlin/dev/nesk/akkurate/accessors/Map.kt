@@ -17,7 +17,7 @@
 
 package dev.nesk.akkurate.accessors
 
-import dev.nesk.akkurate.validatables.Validatable
+import dev.nesk.akkurate.validatables.GenericValidatable
 
-public operator fun <K, V> Validatable<Map<K, V>?>.get(index: K): Validatable<V?> =
-    Validatable(unwrap()?.get(index), index.toString(), this)
+public operator fun <K, V, MetadataType> GenericValidatable<Map<K, V>?, MetadataType>.get(index: K): GenericValidatable<V?, MetadataType> =
+    GenericValidatable(unwrap()?.get(index), index.toString(), this)

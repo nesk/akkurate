@@ -21,6 +21,7 @@ import dev.nesk.akkurate.constraints.ConstraintViolation
 import dev.nesk.akkurate.constraints.constrain
 import dev.nesk.akkurate.constraints.otherwise
 import dev.nesk.akkurate.constraints.withPath
+import dev.nesk.akkurate.validatables.DefaultMetadataType
 import dev.nesk.akkurate.validatables.validatableOf
 import kotlinx.coroutines.test.runTest
 import kotlin.test.*
@@ -57,7 +58,7 @@ class ValidatorTest {
         // Act
         val result = validate(null)
         // Assert
-        assertIs<ValidationResult.Failure>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure<DefaultMetadataType>>(result, "The result is a failure")
         assertEquals(expectedViolations, result.violations, "The result contains the corresponding violations")
     }
 
@@ -83,7 +84,7 @@ class ValidatorTest {
         // Act
         val result = validate(Context(), null)
         // Assert
-        assertIs<ValidationResult.Failure>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure<DefaultMetadataType>>(result, "The result is a failure")
         assertEquals(expectedViolations, result.violations, "The result contains the corresponding violations")
     }
 
@@ -109,7 +110,7 @@ class ValidatorTest {
         // Act
         val result = validate(null)
         // Assert
-        assertIs<ValidationResult.Failure>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure<DefaultMetadataType>>(result, "The result is a failure")
         assertEquals(expectedViolations, result.violations, "The result contains the corresponding violations")
     }
 
@@ -135,7 +136,7 @@ class ValidatorTest {
         // Act
         val result = validate(Context(), null)
         // Assert
-        assertIs<ValidationResult.Failure>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure<DefaultMetadataType>>(result, "The result is a failure")
         assertEquals(expectedViolations, result.violations, "The result contains the corresponding violations")
     }
 
@@ -146,7 +147,7 @@ class ValidatorTest {
             validatableOf(Value::name).constrain { false }
         }
         val result = validate(Value())
-        assertIs<ValidationResult.Failure>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure<DefaultMetadataType>>(result, "The result is a failure")
         assertEquals(listOf("foo", "bar", "name"), result.violations.single().path)
     }
 
@@ -157,7 +158,7 @@ class ValidatorTest {
             constrain { false }
         }
         val result = validate(null)
-        assertIs<ValidationResult.Failure>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure<DefaultMetadataType>>(result, "The result is a failure")
         assertEquals("default", result.violations.single().message)
     }
 
@@ -174,7 +175,7 @@ class ValidatorTest {
         val result = validate(null)
 
         // Assert
-        assertIs<ValidationResult.Failure>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure<DefaultMetadataType>>(result, "The result is a failure")
         assertEquals("first message", result.violations.single().message)
     }
 
@@ -191,7 +192,7 @@ class ValidatorTest {
         val result = validate(null)
 
         // Assert
-        assertIs<ValidationResult.Failure>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure<DefaultMetadataType>>(result, "The result is a failure")
         assertEquals(2, result.violations.size)
         assertContentEquals(listOf("first message", "second message"), result.violations.map { it.message })
     }
@@ -221,7 +222,7 @@ class ValidatorTest {
         val result = validate1(First(Second(Third())))
 
         // Assert
-        assertIs<ValidationResult.Failure>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure<DefaultMetadataType>>(result, "The result is a failure")
         assertContentEquals(expectedViolations, result.violations.toList(), "All the constraints violations are reported")
     }
 
@@ -250,7 +251,7 @@ class ValidatorTest {
         val result = validate1(Context(), First(Second(Third())))
 
         // Assert
-        assertIs<ValidationResult.Failure>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure<DefaultMetadataType>>(result, "The result is a failure")
         assertContentEquals(expectedViolations, result.violations.toList(), "All the constraints violations are reported")
     }
 
@@ -279,7 +280,7 @@ class ValidatorTest {
         val result = validate1(First(Second(Third())))
 
         // Assert
-        assertIs<ValidationResult.Failure>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure<DefaultMetadataType>>(result, "The result is a failure")
         assertContentEquals(expectedViolations, result.violations.toList(), "All the constraints violations are reported")
     }
 
@@ -308,7 +309,7 @@ class ValidatorTest {
         val result = validate1(Context(), First(Second(Third())))
 
         // Assert
-        assertIs<ValidationResult.Failure>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure<DefaultMetadataType>>(result, "The result is a failure")
         assertContentEquals(expectedViolations, result.violations.toList(), "All the constraints violations are reported")
     }
 }

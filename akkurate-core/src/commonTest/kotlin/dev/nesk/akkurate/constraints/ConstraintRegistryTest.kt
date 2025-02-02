@@ -21,6 +21,7 @@ import dev.nesk.akkurate.Configuration
 import dev.nesk.akkurate.ValidationResult
 import dev.nesk.akkurate._test.Validatable
 import dev.nesk.akkurate.test.Validatable
+import dev.nesk.akkurate.validatables.DefaultMetadataType
 import kotlin.test.*
 
 class ConstraintRegistryTest {
@@ -104,7 +105,7 @@ class ConstraintRegistryTest {
             it.register(constraint3)
         }
         // Assert
-        assertIs<ValidationResult.Failure>(result)
+        assertIs<ValidationResult.Failure<DefaultMetadataType>>(result)
         assertContentEquals(listOf("message 2", "message 3"), result.violations.map { it.message })
     }
 
@@ -116,7 +117,7 @@ class ConstraintRegistryTest {
         // Act
         val result = runWithConstraintRegistry(null, config) { it.register(constraint) }
         // Assert
-        assertIs<ValidationResult.Failure>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure<DefaultMetadataType>>(result, "The result is a failure")
         assertEquals(listOf("foo", "bar", "baz"), result.violations.single().path)
     }
 
@@ -128,7 +129,7 @@ class ConstraintRegistryTest {
         // Act
         val result = runWithConstraintRegistry(null, config) { it.register(constraint) }
         // Assert
-        assertIs<ValidationResult.Failure>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure<DefaultMetadataType>>(result, "The result is a failure")
         assertEquals("default", result.violations.single().message)
     }
 
@@ -145,7 +146,7 @@ class ConstraintRegistryTest {
             it.register(constraint2)
         }
         // Assert
-        assertIs<ValidationResult.Failure>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure<DefaultMetadataType>>(result, "The result is a failure")
         assertEquals("first message", result.violations.single().message)
     }
 
@@ -162,7 +163,7 @@ class ConstraintRegistryTest {
             it.register(constraint2)
         }
         // Assert
-        assertIs<ValidationResult.Failure>(result, "The result is a failure")
+        assertIs<ValidationResult.Failure<DefaultMetadataType>>(result, "The result is a failure")
         assertEquals(2, result.violations.size)
         assertContentEquals(listOf("first message", "second message"), result.violations.map { it.message })
     }

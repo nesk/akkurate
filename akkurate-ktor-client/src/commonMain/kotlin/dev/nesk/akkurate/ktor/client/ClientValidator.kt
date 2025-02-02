@@ -35,9 +35,9 @@ public interface ClientValidator {
     /**
      * A validator for [Validator.Runner] instances.
      */
-    public class Runner<ValueType>(
+    public class Runner<ValueType, MetadataType>(
         private val valueType: KClass<*>,
-        private val validator: Validator.Runner<ValueType>,
+        private val validator: Validator.Runner<ValueType, MetadataType>,
     ) : ClientValidator {
         override suspend fun validate(value: Any?) {
             if (!valueType.isInstance(value)) return
@@ -49,9 +49,9 @@ public interface ClientValidator {
         /**
          * A validator for [Validator.Runner.WithContext] instances.
          */
-        public class WithContext<ContextType, ValueType>(
+        public class WithContext<ContextType, ValueType, MetadataType>(
             private val valueType: KClass<*>,
-            private val validator: Validator.Runner.WithContext<ContextType, ValueType>,
+            private val validator: Validator.Runner.WithContext<ContextType, ValueType, MetadataType>,
             private val contextProvider: suspend () -> ContextType,
         ) : ClientValidator {
             override suspend fun validate(value: Any?) {
@@ -66,9 +66,9 @@ public interface ClientValidator {
     /**
      * A validator for [Validator.SuspendableRunner] instances.
      */
-    public class SuspendableRunner<ValueType>(
+    public class SuspendableRunner<ValueType, MetadataType>(
         private val valueType: KClass<*>,
-        private val validator: Validator.SuspendableRunner<ValueType>,
+        private val validator: Validator.SuspendableRunner<ValueType, MetadataType>,
     ) : ClientValidator {
         override suspend fun validate(value: Any?) {
             if (!valueType.isInstance(value)) return
@@ -80,9 +80,9 @@ public interface ClientValidator {
         /**
          * A validator for [Validator.SuspendableRunner.WithContext] instances.
          */
-        public class WithContext<ContextType, ValueType>(
+        public class WithContext<ContextType, ValueType, MetadataType>(
             private val valueType: KClass<*>,
-            private val validator: Validator.SuspendableRunner.WithContext<ContextType, ValueType>,
+            private val validator: Validator.SuspendableRunner.WithContext<ContextType, ValueType, MetadataType>,
             private val contextProvider: suspend () -> ContextType,
         ) : ClientValidator {
             override suspend fun validate(value: Any?) {

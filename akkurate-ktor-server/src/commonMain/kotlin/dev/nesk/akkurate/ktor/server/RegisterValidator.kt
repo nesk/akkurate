@@ -18,6 +18,7 @@
 package dev.nesk.akkurate.ktor.server
 
 import dev.nesk.akkurate.Validator
+import dev.nesk.akkurate.validatables.DefaultMetadataType
 import io.ktor.server.plugins.requestvalidation.*
 import io.ktor.server.request.*
 
@@ -26,7 +27,7 @@ import io.ktor.server.request.*
  * The [contextProvider] is called on each execution, then its result is feed to the validator.
  */
 public inline fun <ContextType, reified ValueType : Any> RequestValidationConfig.registerValidator(
-    validator: Validator.Runner.WithContext<ContextType, ValueType>,
+    validator: Validator.Runner.WithContext<ContextType, ValueType, DefaultMetadataType>,
     noinline contextProvider: suspend () -> ContextType,
 ) {
     validate<ValueType> {
@@ -38,7 +39,7 @@ public inline fun <ContextType, reified ValueType : Any> RequestValidationConfig
 /**
  * Registers a new [validator], which will be executed for each [received][receive] request body.
  */
-public inline fun <reified ValueType : Any> RequestValidationConfig.registerValidator(validator: Validator.Runner<ValueType>) {
+public inline fun <reified ValueType : Any> RequestValidationConfig.registerValidator(validator: Validator.Runner<ValueType, DefaultMetadataType>) {
     validate<ValueType> {
         validator(it).orThrow()
         ValidationResult.Valid
@@ -50,7 +51,7 @@ public inline fun <reified ValueType : Any> RequestValidationConfig.registerVali
  * The [contextProvider] is called on each execution, then its result is feed to the validator.
  */
 public inline fun <ContextType, reified ValueType : Any> RequestValidationConfig.registerValidator(
-    validator: Validator.SuspendableRunner.WithContext<ContextType, ValueType>,
+    validator: Validator.SuspendableRunner.WithContext<ContextType, ValueType, DefaultMetadataType>,
     noinline contextProvider: suspend () -> ContextType,
 ) {
     validate<ValueType> {
@@ -62,7 +63,7 @@ public inline fun <ContextType, reified ValueType : Any> RequestValidationConfig
 /**
  * Registers a new [validator], which will be executed for each [received][receive] request body.
  */
-public inline fun <reified ValueType : Any> RequestValidationConfig.registerValidator(validator: Validator.SuspendableRunner<ValueType>) {
+public inline fun <reified ValueType : Any> RequestValidationConfig.registerValidator(validator: Validator.SuspendableRunner<ValueType, DefaultMetadataType>) {
     validate<ValueType> {
         validator(it).orThrow()
         ValidationResult.Valid
